@@ -1,0 +1,36 @@
+section{
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  
+}
+.consent-container{
+  max-width: 700px;
+  width:90%;
+  height: 400px;
+  background-color: #F5F5F6;
+  margin-top:  50px;
+
+}
+.consent-title{
+  margin: 20px;
+}
+.consent-wrapper{
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+.consent-content{
+  overflow: auto;
+  width: 90%;
+  height: 300px;
+  background-color: #C4C4C4;
+}
+
+.button-container{
+  margin-top: 30px;
+  width: 20%;
+  display: flex;
+  justify-content: space-around;
+}
