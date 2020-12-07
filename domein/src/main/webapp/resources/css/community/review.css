@@ -1,0 +1,24 @@
+section{
+    box-sizing: border-box;
+}
+.profile{
+    display:flex;
+    margin-top: 2%;
+    margin-left: 10%;
+    /* border: 1px solid gray;
+    border-radius: 10px; */
+}
+.profile-logo{
+    margin-left: 2em;
+}
+.profile-logo img{
+    width: 18em;
+    height: 200px;
+    border-radius: 5em;
+}
+.profile-name{
+    margin-left: 2em;
+}
+.profile-name input{
+    width: 25em;
+}
