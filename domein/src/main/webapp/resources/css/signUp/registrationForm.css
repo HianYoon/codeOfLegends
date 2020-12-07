@@ -1,8 +1,9 @@
-section{
+section>form{
   display:flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  width: 100%;
 }
 .check-container table tr td *{
   cursor: pointer;
@@ -11,10 +12,45 @@ section{
   display: none;
 }
 .form-logo-cont{
-  width:30%;
-  max-width: 200px;
+  width:100%;
+  max-width: 300px;
+  text-align: center;
 }
 .form-logo-cont>img{
   width: 100%;
 }
 
+.small-check{
+  width: 25px;
+}
+
+.icons{
+  border-radius: 20%;
+  overflow: hidden;
+  background-color: #C4C4C4;
+  width: 34px;
+  height: 34px;
+  
+}
+.icons>img{
+  width: 100%;
+}
+
+.form-container{
+  margin: 20px;
+}
+
+.message-row, .message-row *{
+  height: 12px;
+  font-size: 12px;
+  line-height: 12px;
+}
+.message-cont{
+  text-align: right;
+  color: red;
+}
+
+.check-container{
+  margin-top: 10px;
+  margin-bottom: 15px;
+}
