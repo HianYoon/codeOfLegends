@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang='en'>
+  <head>
+    <meta charset='UTF-8'>
+    <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+    <script src='http://code.jquery.com/jquery-3.5.1.min.js'></script>
+    <link
+			rel="stylesheet"
+			href="../../../../../../src\main\webapp\resources\css\sharedStyle.css"
+		/>
+		<link
+			rel="stylesheet"
+			href="../../../../../../src\main\webapp\resources\css\signUp\registrationForm.css"
+		/>
+      <title>Document</title>
+  </head>
+  <body>
+    <section>
+      <form action="">
+      <div class="form-logo-cont">
+        <img src="../../../../../../src\main\webapp\resources\images\logo\signature.png" alt="">
+      </div>
+      <div class="form-container">
+        
+      </div>
+      <div class="check-container">
+        <table>
+          <tr>
+            <td><label for="email-ad-check">이메일로 정보를 받으시겠습니까?</label></td>
+            <td><label for="email-ad-check"><img src="../../../../../../src/main/webapp/resources/images/signUp/unchecked.png" alt="" id="email-ad-check-img"></label></td>
+          </tr>
+          <tr>
+            <td><label for="additional-info-check">추가 정보를 입력하시겠습니까?</label></td>
+            <td><img src="../../../../../../src/main/webapp/resources/images/signUp/unchecked.png" alt="" id="additional-info-check-img"></td>
+          </tr>
+        </table>
+        <input type="checkbox" name="email-ad-check" id="email-ad-check">
+        <input type="checkbox" name="additional-info-check" id="additional-info-check">
+      </div>
+      <div class="button-container">
+        <!-- 가입조건 체크 후 후에 가입하기의 클래스를 btn--primary로 바꾸어줌! -->
+        <button class="btn btn--primary2">가입하기</button>
+
+      </div>
+    </form>
+    </section>
+  </body>
+
+  <script>
+    const emailAdCheck = $("#email-ad-check");
+    const additionalInfoCheck = $("#additional-info-check");
+    const emailAdCheckImg = $("#email-ad-check-img");
+    const additionalInfoCheckImg = $("#additional-info-check-img");
+
+    const checked = "../../../../../../src/main/webapp/resources/images/signUp/checked.png";
+    const unchecked = "../../../../../../src/main/webapp/resources/images/signUp/unchecked.png";
+
+    emailAdCheck.change(e=>{
+      if(emailAdCheck.prop("checked")==true){
+        emailAdCheckImg.prop({"src":checked});
+      } else{
+        emailAdCheckImg.prop({"src":unchecked});
+      }
+    })
+
+    additionalInfoCheck.change(e=>{
+      if(additionalInfoCheck.prop("checked")==true){
+        additionalInfoCheckImg.prop({"src":checked});
+      } else{
+        additionalInfoCheckImg.prop({"src":unchecked});
+      }
+    })
+
+  </script>
+</html>

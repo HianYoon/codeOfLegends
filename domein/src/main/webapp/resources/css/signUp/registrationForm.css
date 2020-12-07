@@ -1,0 +1,20 @@
+section{
+  display:flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.check-container table tr td *{
+  cursor: pointer;
+}
+#email-ad-check, #additional-info-check{
+  display: none;
+}
+.form-logo-cont{
+  width:30%;
+  max-width: 200px;
+}
+.form-logo-cont>img{
+  width: 100%;
+}
+
