@@ -1,0 +1,245 @@
+@charset "UTF-8";
+#octionPage #wrapper .tabs ul:last-child{
+    display:none;
+}
+ #wrapper .tabs ul li{
+    list-style-type: none;
+}
+#admin-inquired-Page #wrapper .tabs ul li a{
+    text-decoration: none;
+}
+#tab1 .admin-searchbox{
+    width: 900px;
+    display: flex;
+    height: 50px;
+    justify-content: center;
+    align-items: center;
+    box-sizing: border-box;
+
+}
+#tab1 .oction-searchbox {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    width: 100%;
+}
+#tab1 .oction-searchbox input{
+  width: 400px;
+
+}
+
+#tab1 ul li{
+    list-style-type: none;
+}
+.admin-inquired ul {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    text-align: center;
+    font-size: larger;
+    font-weight: 600;
+}
+.admin-inquired ul li:last-child{
+    border-right: none;
+} 
+.admin-inquired ul li{
+    padding:0 10px;
+    text-align: center;
+    margin-right: 10px;
+    border-right: 1px solid black;
+}
+.admin-inquired-content h2{
+    text-align: center;
+}
+.admin-inquired-content table{
+    width: 100%;
+
+}
+
+.admin-inquired-content th,.admin-inquired-content tr{
+    width:17%;
+    height: 50px;
+    font-size: 18px;
+    font-weight: 500;
+    text-align: center;
+
+}
+@media(max-width:700px){
+    #tab1 .oction-searchbox{
+        width: 700px;
+        display: flex;
+        height: 50px;
+        justify-content: center;
+        align-items: center;
+        box-sizing: border-box;
+    
+    }
+    #tab1 .oction-searchbox input{
+        width: 200px;
+    }
+    .admin-inquired ul {
+        display: flex;
+        justify-content:end;
+        align-items: center;
+        text-align: center;
+        font-size: 15px;
+        font-weight: 600;
+    }
+    .admin-inquired-content h2 {
+        text-align: center;
+        width: 700px;
+        height: auto;
+    }
+    .admin-inquired-content table {
+        width: 700px;
+    }
+    .admin-inquired-content tbody {
+        width: 600px;
+        height: auto;
+    }
+    .admin-inquired-content th, .admin-inquired-content tr {
+      
+        width: 15%;
+        height: 50px;
+        font-size: 15px;
+        font-weight: 500;
+        text-align: center;
+    }
+}
+
+/* 완료된 목록 */
+#tab2 .admin-searchbox{
+    width: 900px;
+    display: flex;
+    height: 50px;
+    justify-content: center;
+    align-items: center;
+    box-sizing: border-box;
+
+}
+#tab2 .oction-searchbox input{
+    width: 400px;
+}
+
+#tab2 ul li{
+    list-style-type: none;
+}
+.admin-inquired ul {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    text-align: center;
+    font-size: larger;
+    font-weight: 600;
+}
+.admin-inquired ul li:last-child{
+    border-right: none;
+} 
+.admin-inquired ul li{
+    padding:0 10px;
+    text-align: center;
+    margin-right: 10px;
+    border-right: 1px solid black;
+}
+.admin-inquired-content-end h2{
+    text-align: center;
+}
+.admin-inquired-content-end table{
+    width: 100%;
+
+}
+
+.admin-inquired-content-end th,.admin-inquired-content-end tr{
+    width:17%;
+    height: 50px;
+    font-size: 18px;
+    font-weight: 500;
+    text-align: center;
+
+}
+@media(max-width:700px){
+    #tab2 .admin-searchbox {
+        width: 700px;
+        display: flex;
+        height: 50px;
+        justify-content: center;
+        align-items: center;
+        box-sizing: border-box;
+    }
+    #tab2 .oction-searchbox input{
+        width: 200px;
+    }
+    .admin-inquired ul {
+        display: flex;
+        justify-content:end;
+        align-items: center;
+        text-align: center;
+        font-size: 15px;
+        font-weight: 600;
+    }
+    .admin-inquired-content-end h2 {
+        text-align: center;
+        width: 700px;
+        height: auto;
+    }
+    .admin-inquired-content-end table {
+        width: 700px;
+    }
+    .admin-inquired-content-end tbody {
+        width: 600px;
+        height: auto;
+    }
+    .admin-inquired-content-end th, .admin-inquired-content-end tr {
+      
+        width: 12%;
+        height: 50px;
+        font-size: 15px;
+        font-weight: 500;
+        text-align: center;
+    }
+}
+
+/* admin답변 */
+.admin-inquired-recomment {
+    width: 700px;
+    height: auto;
+    display: block;
+    margin-left: 200px;
+    
+}
+.admin-inquired-recomment  h2{
+    
+    text-align: left;
+}
+
+.admin-inquired-recomment-group{
+    width: 700px;
+    height: auto;
+    display: block;
+    justify-content: center;
+    align-items: center;
+}
+.admin-inquired-recomment-group input{
+    width: 400px;
+    height: 40px;
+    margin-bottom: 15px;
+    
+
+}
+.admin-inquired-recomment-group textarea{
+    width: 400px;
+    height:100px;
+    margin-bottom: 15px;
+    border-radius: 5px;
+}
+@media(max-width: 700px){
+   
+    .admin-inquired-recomment {
+        width: 500px;
+        height: auto;
+        display: block;
+        margin-left: 100px;
+        
+    }
+}
