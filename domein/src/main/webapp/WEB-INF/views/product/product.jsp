@@ -32,7 +32,7 @@
 
 </script>
 
-<body>
+
     <div id="octionPage">
 
         <div id="wrapper">    
@@ -58,7 +58,7 @@
                             <!--Content-->
                  <div class="direct-Product-container">
 
-                        <form action="" method="post" enctype="multipart/form-data" id="oction--form" >
+                        <form action="" method="POST" enctype="multipart/form-data" id="oction--form" >
                         
                             <div class="direct--product--img">
                                 <h1>상품 등록</h1>
@@ -99,75 +99,7 @@
                  </div>           
              </div>
      
-             <div id="tab2" class="tab_content">
-                <!--Content-->
-                <h1>참여form</h1>
-                         <div class="joinform-container">
-                             <div class="User-container">
-                                 <div class="oction--img-joinform">
-                                     <div>
-                                         <img src="" alt="이미지" style="width:400px;height:400px; border: 1px solid red;">
-                                         
-                                         <p> <span class="small-img"><img src="" alt=""></span><span class="small-img"><img src="" alt=""></span><span class="small-img"><img src="" alt=""></span><span class="small-img"><img src="" alt=""></span><span class="small-img"><img src="" alt=""></span></p>
-                                         
-
-                                     </div>
-                                 </div>
-                                 <div class="buyerList">
-                                     <ul class="usercontent">
-                                         <li >title</li>
-                                         <li >name</li>
-                                         <li>입찰마감일:</li>
-                                         <li><span >startDate</span><span >endDate</span></li>
-                                         <li>납품예정일:</li>
-                                         <li><span >deleveryDate</span><span >deleveryEndDate</span></li>
-                                         <li >content</li>
-                                     </ul>
-
-                                 </div>
-
-                             </div>
-                             <h3>목록작성</h3>
-                             <form action=""  method="POST" enctype="multipart/form-data" class="joinform">
-                                <div class="join-container">
-
-                                    <div class="input-container">
-                                        <div class="input-joingroup">
-                                            <input type="text" id="productName" name="products" class="input--text" placeholder="품명" required>
-                                            <input type="text" id="productQulity" name="products" class="input--text" placeholder="등급" required>
-                                            <input type="text" id="productOrigin" name="products" class="input--text" placeholder="원산지"  required>
-                                            <input type="text" id="productQuantity" name="products"class="input--text" placeholder="숫자"  required>
-                                            
-                                         </div>
-                                         <div class="input-joingroup">
-                                             <input type="text" id="measureUnit" name="products" class="input--text" placeholder="예)5kg또는20kgbox,box/set/개/kg/벌"  required>
-                                             <input type="text" id="productPrice" name="products" class="input--text" placeholder="가격"  required>
-                                             <input type="text" id="productDate" name="products" class="input--text" placeholder="생산일/요구사항이 있으면 기입" >
-                                             <input type="text" id="productExpireDate" name="products" class="input--text" placeholder="유통기한" >
-                                             
-                                         </div>
-                                         
-                                     </div>
-                                     <div class="product-register-btn">
-                                         
-                                         <button type="button" id="addInput" class="btn btn--primary2">추가</button>
-                                         <button type="button" id="resetInput" class="btn btn--primary2">초기화</button>
-                                     </div>
-                                 </div>
-                                 <div>
-                                     <h3>품목명</h3>
-                                     <p id="log"></p>
-                                 </div>
-                                 <div class="joinformBtn">
-                                      <button type="submit" class="btn btn--primary">등록</button>
-                                      <button type="reset" class="btn btn--primary">취소</button>
-                                 </div>
-                              
-                             </form>
-                         </div>      
-              
-             </div>
-
+   
                         
              
              

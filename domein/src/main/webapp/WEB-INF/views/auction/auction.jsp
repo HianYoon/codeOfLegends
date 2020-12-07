@@ -262,45 +262,7 @@
                                          <button type="submit" class="btn btn--primary">등록</button>
                                          <button type="reset" class="btn btn--primary">취소</button>
                                     </div>
-                                    <script>
-                                        //input name product배열로담아 출력하기
-                                        $(function(){
-                                            $('#addInput').on('click',function(){
-                                                    //값들의 개수->배열의 길이를 지정
-                                                    const productLenth= $("input[name=products]").length;
-                                                    //배열생성
-                                                    const productArr= new Array(productLenth);
-                                                    //배열에 값을 주입
-                                                    for(var i=0;i<productLenth;i++){
-                                                        productArr[i]=$("input[name=products").eq(i).val();
-                                                        const rx= $("#log").innerHTML=`이다`;
-                                                      let rr=  $('#log').innerText=`품목List는${productArr[i]}이다`;
-                                                      console.log(rr);
-                                                    
-                                                    }
-                                            });
-                                        });
-                                        //초기화하기
-                                            (document).click('#resetInput',function resetInput() {
-                                                const resetInput= document.getElementById("resetInput");
-                                                if(resetInput.value()===''){
-
-                                                }
-                                            });
-                                                       
-                                                
-                                                    
-                                                     //inputgroup 복사 
-                                                   
-                                                     $("#addInput").click((e)=>{
-                                                         const addInput=$(".input-container").clone();
-                                                         addInput.appendTo(".input-container");
-                                              });
-                                              $("deleteInput").click((e)=>{
-                                               const deleteInput=$(l).remove
-                                              });
-                                      
-                                    </script>
+                      
                                 </form>
                             </div>      
                  
@@ -345,19 +307,29 @@
                             <div class="slideshow-container">
                                 
                                 <div class="mySlides fade">
-                                    <div class="numbertext">1 / 3</div>
+                                    <div class="numbertext">1 / 5</div>
                                     <img src="img_nature_wide.jpg" style="width:100%">
                                     <div class="text">Caption Text</div>
                                 </div>
                                 
                                 <div class="mySlides fade">
-                                    <div class="numbertext">2 / 3</div>
+                                    <div class="numbertext">2 / 5</div>
                                     <img src="img_snow_wide.jpg" style="width:100%">
                                     <div class="text">Caption Two</div>
                                 </div>
                                 
                                 <div class="mySlides fade">
-                                    <div class="numbertext">3 / 3</div>
+                                    <div class="numbertext">3 / 5</div>
+                                    <img src="img_mountains_wide.jpg" style="width:100%">
+                                    <div class="text">Caption Three</div>
+                                </div>
+                                <div class="mySlides fade">
+                                    <div class="numbertext">4 / 5</div>
+                                    <img src="img_mountains_wide.jpg" style="width:100%">
+                                    <div class="text">Caption Three</div>
+                                </div>
+                                <div class="mySlides fade">
+                                    <div class="numbertext">5 / 5</div>
                                     <img src="img_mountains_wide.jpg" style="width:100%">
                                     <div class="text">Caption Three</div>
                                 </div>
@@ -366,6 +338,8 @@
                             <br>
                             
                             <div style="text-align:center">
+                                <span class="dot"></span> 
+                                <span class="dot"></span> 
                                 <span class="dot"></span> 
                                 <span class="dot"></span> 
                                 <span class="dot"></span> 
