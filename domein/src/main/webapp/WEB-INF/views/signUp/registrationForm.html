@@ -12,6 +12,7 @@
 			rel="stylesheet"
 			href="../../../../../../src\main\webapp\resources\css\signUp\registrationForm.css"
 		/>
+		
 		<title>Document</title>
 	</head>
 	<body>
@@ -149,7 +150,7 @@
 						<tr>
 							<td>
 								<label for="additional-info-check"
-									>추가 정보를 입력하시겠습니까?</label
+									>사업자 정보를 입력하시겠습니까?</label
 								>
 							</td>
 							<td>
@@ -176,34 +177,7 @@
 					<button class="btn btn--primary2" disabled>가입하기</button>
 				</div>
 			</form>
+			<script src="../../../resources/js/signUp/registrationForm.js"></script>
 		</section>
 	</body>
-
-	<script>
-		const emailAdCheck = $("#email-ad-check");
-		const additionalInfoCheck = $("#additional-info-check");
-		const emailAdCheckImg = $("#email-ad-check-img");
-		const additionalInfoCheckImg = $("#additional-info-check-img");
-
-		const checked =
-			"../../../../../../src/main/webapp/resources/images/signUp/checked.png";
-		const unchecked =
-			"../../../../../../src/main/webapp/resources/images/signUp/unchecked.png";
-
-		emailAdCheck.change((e) => {
-			if (emailAdCheck.prop("checked") == true) {
-				emailAdCheckImg.prop({ src: checked });
-			} else {
-				emailAdCheckImg.prop({ src: unchecked });
-			}
-		});
-
-		additionalInfoCheck.change((e) => {
-			if (additionalInfoCheck.prop("checked") == true) {
-				additionalInfoCheckImg.prop({ src: checked });
-			} else {
-				additionalInfoCheckImg.prop({ src: unchecked });
-			}
-		});
-	</script>
 </html>
