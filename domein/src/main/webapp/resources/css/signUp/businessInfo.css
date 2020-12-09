@@ -1,0 +1,38 @@
+section{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.categories{
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.img-labels-container{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  border-radius: 50%;
+  border: 1px solid black;
+  overflow: hidden;
+  width: 8vw;
+  height: 8vw;
+  margin: 0.5vw;
+}
+.img-labels-container>img{
+  width: 50%;
+}
+#narrow-field{
+  width: 100px;
+}
+
+.input-fields{
+  display: none;
+}
+.form-wrapper{
+  background-color: #ececec;
+  padding: 20px;
+}
