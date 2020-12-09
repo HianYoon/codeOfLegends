@@ -4,6 +4,12 @@ section{
   justify-content: center;
   align-items: center;
 }
+
+.form-logo-cont img{
+  width: 300px;
+  margin: 30px;
+}
+
 .categories{
   display: flex;
   justify-content: space-evenly;
@@ -21,6 +27,7 @@ section{
   width: 8vw;
   height: 8vw;
   margin: 0.5vw;
+  background-color: ivory;
 }
 .img-labels-container>img{
   width: 50%;
@@ -35,4 +42,11 @@ section{
 .form-wrapper{
   background-color: #ececec;
   padding: 20px;
+}
+.btn-cont{
+  display:flex;
+  justify-content: center;
+}
+.btn-cont>*{
+  margin: 20px;
 }
