@@ -27,6 +27,18 @@ a{
 	font-family: 'Black Han Sans', sans-serif;
 }
 
+.opacity0{
+    opacity: 0%;
+}
+.opacity100{
+    opacity: 100%;
+}
+.displayNone{
+    display: none;
+}
+.flex{
+    display: flex;
+}
 /* 버튼 클래스 */
 .btn{
     height:35px;

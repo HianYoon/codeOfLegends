@@ -13,6 +13,10 @@
 			rel="stylesheet"
 			href="../../../../../../src\main\webapp\resources\css\signUp\businessInfo.css"
 		/>
+		<link
+			rel="stylesheet"
+			href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
+		/>
 	</head>
 
 	<body>
@@ -35,6 +39,14 @@
 									placeholder="-를 제외한 번호만"
 								/>
 							</td>
+							<td>
+								<img
+									src="../../../resources/images/signUp/checked.png"
+									class="opacity0"
+									id="businessNoCheck"
+									alt=""
+								/>
+							</td>
 						</tr>
 						<tr>
 							<td>주소</td>
@@ -51,6 +63,14 @@
 						<tr>
 							<td></td>
 							<td><input type="text" class="input--text" readonly /></td>
+							<td>
+								<img
+									src="../../../resources/images/signUp/checked.png"
+									class="opacity0"
+									id="addressCheck"
+									alt=""
+								/>
+							</td>
 						</tr>
 						<tr>
 							<td></td>
@@ -65,8 +85,8 @@
 						<tr>
 							<td>카테고리</td>
 							<td class="categories">
-								<label for="">
-									<div class="img-labels-container">
+								<label for="beef">
+									<div class="img-labels-container animate__animated">
 										<h5>정육</h5>
 										<img
 											src="../../../../webapp/resources/images/signUp/beef.png"
@@ -74,8 +94,8 @@
 										/>
 									</div>
 								</label>
-								<label for="">
-									<div class="img-labels-container">
+								<label for="seafood">
+									<div class="img-labels-container animate__animated">
 										<h5>수산</h5>
 										<img
 											src="../../../../webapp/resources/images/signUp/fish.png"
@@ -83,8 +103,8 @@
 										/>
 									</div>
 								</label>
-								<label for="">
-									<div class="img-labels-container">
+								<label for="vegetable">
+									<div class="img-labels-container animate__animated">
 										<h5>야채</h5>
 										<img
 											src="../../../../webapp/resources/images/signUp/vegetables.png"
@@ -92,8 +112,8 @@
 										/>
 									</div>
 								</label>
-								<label for="">
-									<div class="img-labels-container">
+								<label for="steel">
+									<div class="img-labels-container animate__animated">
 										<h5>철물</h5>
 										<img
 											src="../../../../webapp/resources/images/signUp/beam.png"
@@ -106,8 +126,8 @@
 						<tr>
 							<td></td>
 							<td class="categories">
-								<label for="">
-									<div class="img-labels-container">
+								<label for="pet">
+									<div class="img-labels-container animate__animated">
 										<h5>애견</h5>
 										<img
 											src="../../../../webapp/resources/images/signUp/bone.png"
@@ -115,8 +135,8 @@
 										/>
 									</div>
 								</label>
-								<label for="">
-									<div class="img-labels-container">
+								<label for="bakery">
+									<div class="img-labels-container animate__animated">
 										<h5>베이커리</h5>
 										<img
 											src="../../../../webapp/resources/images/signUp/bread.png"
@@ -124,8 +144,8 @@
 										/>
 									</div>
 								</label>
-								<label for="">
-									<div class="img-labels-container">
+								<label for="electronics">
+									<div class="img-labels-container animate__animated">
 										<h5>전자기기</h5>
 										<img
 											src="../../../../webapp/resources/images/signUp/free-icon-lightning-616494.png"
@@ -133,8 +153,8 @@
 										/>
 									</div>
 								</label>
-								<label for="">
-									<div class="img-labels-container">
+								<label for="etc">
+									<div class="img-labels-container animate__animated">
 										<h5>기타</h5>
 										<img
 											src="../../../../webapp/resources/images/signUp/free-icon-question-mark-in-dark-circle-71768.png"
@@ -155,7 +175,7 @@
 							<input type="checkbox" name="etc" id="etc" />
 						</div>
 					</table>
-					<div>
+					<div class="btn-cont">
 						<button class="btn btn--primary">가입</button>
 						<button class="btn btn--primary2">취소</button>
 					</div>
@@ -163,4 +183,6 @@
 			</form>
 		</section>
 	</body>
+
+	<script src="../../../resources/js/signUp/businessInfo.js"></script>
 </html>
