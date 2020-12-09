@@ -30,7 +30,7 @@ public class ProductController {
 	private ProductService service;
 	
 	//메인에서 product.jsp로 페이지 전환
-	@RequestMapping("/product/insert.do")
+	@RequestMapping("/product/into.do")
 	public String product() {
 		return "product/product";
 	}
@@ -44,11 +44,11 @@ public class ProductController {
 			HttpSession session) {
 		//파일이 없는 경우를 생각해서 RequestParam매개변수설정을 해준다.
 		//클라이언트가 바이너리파일로 보낸데이터를 데이터MultipartFile객체로 대입됨.
-		
+		System.out.println("널이야왜?"+upFile);
 		//upload실제 경로를 가져와야하는데 없으니깐 만들어준다.
-		String path=session.getServletContext().getRealPath("resources/upload/product");
+		String path=session.getServletContext().getRealPath("/resources/upload/product");
 		File dir=new File(path);
-		if(!dir.exists()) dir.mkdir(); //dir.exists()존재하지않으면 dir.mkdir()생성하라.
+		if(!dir.exists()) dir.mkdirs(); //dir.exists()존재하지않으면 dir.mkdirs()생성하라.
 		//제너럴 선언해라
 		List<Attachement> files=new ArrayList();
 		//다중 파일 업로드하기  MultipartFile객체의 transferTo()메소드 이용파일을 저장
@@ -79,8 +79,8 @@ public class ProductController {
 		
 		int result=service.insertProductFileList(p,pbc,files);
 		 mv.addObject("msg",result>0?"입력성공":"입력실패");
-		 mv.addObject("loc","product/productList.do");//productList로 보내기
-		 mv=new ModelAndView();
+		 mv.addObject("loc","product/product");//productList로 보내기
+		 mv.setViewName("common/msg");
 		return mv;
 	}
 }

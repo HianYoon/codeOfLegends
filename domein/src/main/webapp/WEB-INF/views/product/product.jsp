@@ -492,12 +492,13 @@ a{
                             </div>
                             <div class="product-textgroup">
 
-                                <input type="text" class="input--text" name="product_Name" placeholder="상품명" required>
+                                <input type="text" class="input--text" name="productName" placeholder="상품명" required>
                                 <input type="text" class="input--text" name="Origin" placeholder="원산지" required>
-                                <input type="text" class="input--text" name="product_Quality" placeholder="등급" required>
-                                <input type="text" class="input--text" name="product_Quantity" placeholder="수량" readonly required>
-                                <input type="text" class="input--text" name="measure_Unit" placeholder="단위:box/20kg-box/set/개/kg" readonly required>
-                                <input type="text" class="input--text" name="price" placeholder="가격" readonly required>
+                                <input type="text" class="input--text" name="productQuality" placeholder="등급" required>
+                                <input type="text" class="input--text" name="productQuantity" placeholder="수량" required>
+                                <input type="text" class="input--text" name="measureUnit" placeholder="단위:box/20kg-box/set/개/kg"required>
+                                <input type="text" class="input--text" name="price" placeholder="가격"  required>
+                                <input type="text" class="input--text" name="title" placeholder="제목"  required>
                                 <div class="double-date">
 
                                   <span>생산일:</span>  <input type="date" name="production_Date" placeholder="생산일">
@@ -510,7 +511,7 @@ a{
                                                 
                                     </div>
                                     <div class="direct-img-file">
-                                        <input type="file" class="input--text upFile" id="upFile" name="upFile"  multiple  readonly required />
+                                        <input type="file" class="input--text upFile" id="upFile" name="upFile"   required />
                                   
         
                                     </div>
@@ -520,7 +521,7 @@ a{
                             
         
                         
-                        <textarea name="" id="" cols="30" rows="10" class="input-text"placeholder="내용설명">내용설명:
+                        <textarea name="" id="" cols="30" rows="10" class="input-text"placeholder="내용설명" required>내용설명:
                         </textarea>
                         <div class="direct-btn-group">
                             <button type="submit" class="btn btn--primary">등록하기</button>

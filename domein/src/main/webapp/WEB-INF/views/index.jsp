@@ -10,7 +10,7 @@
 <section id="content">
 <div>
 	<ul>
-		<li>aadfasdfadfadfa<a href="${path }/product/insert.do">product</a></li>
+		<li>누구냐???<a href="${path }/product/into.do">product</a></li>
 	</ul>
 </div>
 </section>

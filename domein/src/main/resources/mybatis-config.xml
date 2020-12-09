@@ -1,5 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd" >
 <configuration>
-
+	<typeAliases>
+		<typeAlias type="com.col.domein.product.model.vo.Product" alias="product"/>
+		<typeAlias type="com.col.domein.product.model.vo.Attachement" alias="attachement"/>
+		<typeAlias type="com.col.domein.product.model.vo.ProductBoardContent" alias="productBoardContent"/>
+		<typeAlias type="com.col.domein.common.typeHandler.StringArrayTypeHandler" alias="strArr"/>
+		
+	
+	
+	</typeAliases>
 </configuration>

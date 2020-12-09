@@ -23,7 +23,25 @@ public class ProductServiceImpl implements ProductService {
 	@Override
 	public int insertProductFileList(Product p, ProductBoardContent pbc, List<Attachement> files) {
 		// TODO Auto-generated method stub
-		return dao.insertProduct(session,p,pbc);
+		int result=dao.insertProduct(session,p);
+		//mapper-insert값을 받아서 
+		System.out.printf("ProductNo:",p.getProductNo());
+		if(result>0) {
+			if(files !=null) {
+				for(Attachement a: files) {
+					a.setProduct_No(p.getProductNo());
+					result=dao.insertAttachment(session,a);
+				}
+			}
+		}
+		System.out.printf("ArticleNo:",p.getArticleNo());
+		if(result>0) {
+			if(pbc !=null) {
+				pbc.setArticleNo(p.getArticleNo());
+				result=dao.insertProductContent(session,pbc);
+			}
+		}
+		return result;
 	}
 
 }
