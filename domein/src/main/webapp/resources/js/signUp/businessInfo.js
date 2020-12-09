@@ -8,11 +8,13 @@ imgLabelsContainer.click(e=>{
         "background-color":"ivory",
         "transition-duration": "0.5s"
       });
+      $(e.target).parents("label").children().removeClass("animate__shakeY").addClass("animate__shakeX");
   } else {
     $(e.target).parents("label").children()
       .css({
         "background-color":"#ffca28",
         "transition-duration": "0.5s"
       });
+      $(e.target).parents("label").children().removeClass("animate__shakeX").addClass("animate__shakeY");
   }
 }); 
