@@ -12,14 +12,17 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Builder
 public class Product {
-	private String product_Name;
-	private String product_Quality;
-	private String Origin;
-	private int product_Quantity;
-	private String measure_Unit;
-	private int price;
-	private Date production_Date;
-	private Date expiry_Date;
+	private int ProductNo;
+	private String productName;//상품명
+	private String productQuality;//등급 ,레벨
+	private String Origin;//원산지
+	private int productQuantity;//개수또는 단위의 수(1 or 10:kg)
+	private String measureUnit;//단위
+	private int price;//가격
+	private Date productionDate;//생산일
+	private Date expiryDate;//유통기한
+	private int articleNo;
+	private int productStatusNo;
 	
 
 }

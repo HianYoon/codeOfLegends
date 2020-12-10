@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="product">
+
+	<insert id="insertProduct" parameterType="product">
+		INSERT INTO DIRECT_SALE_PRODUCT(SEQ_PRODUCT_NO.NEXTVAL,
+		#{productName},
+		#{productQuality},
+		#{Origin},
+		#{productQuantity},
+		#{measureUnit},
+		#price},
+		#{productionDate},
+		#{expiryDate},
+		SEQ_ARTICLE_NO.NEXTVAL,
+		SEQ_PRODUCT_STATUS_NO.NEXTVAL
+		)
+		<selectKey keyProperty="ProductNo" resultType="_int" order="AFTER">
+			SELECT SEQ_PRODUCT_NO.CURRVAL FROM DUAL
+		</selectKey>
+		
+		<selectKey keyProperty="articleNo" resultType="_int" order="AFTER">
+			SELECT SEQ_ARTICLE_NO.CURRVAL FROM DUAL
+		</selectKey>
+	
+	</insert>
+	<insert id="insertAttachement" parameterType="attachement">
+		INSERT INTO BDS_ATTACHED_IMAGE VALUES(SEQ_PRODUCT_IMAGE_NO.NEXTVAL,
+		#{ProductNo},
+		#{origin_File_name},
+		#{renamed_File_name}
+		)
+	</insert>
+	<insert id="insertProductContent" parameterType="productBoardContent">
+		INSERT INTO BOARD_DIRECT_SALE VALUES(
+		#{articleNo},
+		#{title},
+		default,
+		SYSDATE,
+		SYSDATE,
+		#{content},
+		default,
+		default
+		)
+		
+	</insert>
+ 
+</mapper>
