@@ -37,14 +37,14 @@ section{
 .login-sub-menu-container{
   display: flex;
   justify-content: space-between;
-  margin: 10px 10px 10px 10px;
-  width: 35%;
+  margin:5px;
+  width: 50%;
   max-width: 300px;
   min-width: 150px;
 }
 
 .login-sub-menu-container>*{
-  margin: 20px;
+  margin: 5px;
 }
 
 .id-pw-finder, .sign-up{
