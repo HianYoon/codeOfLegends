@@ -115,6 +115,10 @@ a{
 .input--text::-ms-input-placeholder{color:#cacaca;}
 .input--text::-moz-input-placeholder{color:#cacaca;}
 
+section{
+	margin-top:65px;
+}
+
 @media screen and (min-width: 769px){
 	
 	section{
