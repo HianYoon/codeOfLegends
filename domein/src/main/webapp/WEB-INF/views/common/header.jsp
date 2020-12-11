@@ -1,97 +1,145 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 	<style>
-  #footer{
-        width: 100%;
-        height:auto;
-        background: #808e95 ;
-    }
- #footer   a{
-        text-decoration: none;
-        color:black;
-    }
-    #footer   li{
-    list-style-type: none;
-    }
-    #footer  .footer-container{
-        display:flex;
-        color: #ffffff;
-        border: 0 1px solid black; 
-        
-    }
-   
-   .footer-text-items{
-       display:flex;
-       margin-left: 10px;
-       justify-items: baseline;
-       align-items: baseline;
-   }
-   .footer-text-items li{
-       margin-left: 30px;
-   }
-   
-   .footer-text-items li a{
-       font-size: 18px;
-       font-weight: 1000;
-        cursor: pointer;
+.container{
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+.bg-black {
+    background: #333 !important;
+}
 
-   
-   }
-    #footer-sns-img{
-        width: 50px;
-        height:50px;
-        box-sizing: border-box;
+.txt-white a {
+    color: #fff !important;
+}
+#mainNav ul a img{
+    color: #fff !important;
+}
+#mainNav {
+    display: flex;
+    justify-content: space-between;
+    padding: 0px; 
+    position: fixed; 
+    width:100%;
+    top:0px;
+    background: #fff;
+    transition: background 0.4s;
+}
+#mainNav .logo{
+    width: 20%;
+}
+#mainNav .logo img{
+    width: 100%;
+    height: 84px;
+    transition: height 0.4s;
+}
 
-    }
-    .text-copyright{
-        margin-left: 80px;
-        cursor: pointer;
-    }
-    .footer-small-text {
+.window{
+    display: inline-block;
+    width: 300px; height: 20px;
+    border: 3px solid black;
+}
+.search-box{
+    width: 20%;
+    /* margin-top: 2.1em; */
+    padding: 0.5rem;
+    position: absolute;
+    top: 50%;
+    left: 38%;
+    transform: translate(-50%, -50%);
+    height: 30px;
+    border-radius: 30px;
+    border: 2px solid rgb(213, 213, 213);
+}
+.search-txt{
+    padding: 0;
+    float:left;
+    width: 80%;
+    border: none;
+    outline: none;
+    float: left;
+    font-size: 1rem;
+    line-height: 30px;
+    border-radius: 8%;
+    /* color:white; */
+}
+.search-btn{
+    float:right;
+    width: 15%;
+    text-decoration: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 30px;
+    height: 30px;
+    border-radius: 30px;
+    color: black;
+}
+#mainNav ul{
+    /* float:right; */
+    width:100%;
+    list-style: none;
+    display: flex;
+    align-items: center;
+    width: 400px;
+    justify-content: space-around;
+    margin-right: 1%;
+}
+
+#mainNav ul li a{
+    width:50%;
+    text-decoration: none;
+    color:#333;
+    font-weight:500;
+    transition: color 0.4s;
+    margin-left: 1rem;
+    border-bottom: 3px solid transparent;
+    padding: 10px 1px;
+    transition: 500ms;
+}
+#mainNav ul li a:hover {
+    border-color: #e7eb08;
+}
+.mainNav-bottom-inner{
+    display:flex;
+    justify-content: space-between;
+    list-style:none;
+    width: 40%;
+    height: 4em;
+    margin-top : 6em;
+}
+.mainNav-bottom-inner p{
+    width: 100%;
+    font-size: 0.7rem;
+    padding-right: 60%;
+    color: black;
+}
+.mobile-in{
+    display: flex;
+    justify-content: space-around;
+    padding: 0px; 
+    position: fixed; 
+    width:100%;
+    list-style: none;
+    visibility: hidden;
+}
+.mainNav-bottom-inner a{
+    text-decoration: none;
+
+}
+@media screen and (max-width: 768px) {
+    .group{
         display:none;
     }
-    /* small-device */
-    @media (max-width:768px){
-        .footer-text-items{
-            display: none;
-        }
-        .footer-text-items .displayNone{
-            display: none;
-
-        }
-    
-        
-    .footer-text-items li a{
-        font-size:15px;
-       
-    }
-    .text-copyright{
-        padding-bottom: 10px;
-    }
-    .footer-small-text{
-        display: flex;
-        width:auto;
-        font-size: 8px;
-        font-weight: 500;
-        margin: 10px;
-    }
-    .footer-small-text li{
-        width:25%;
-        margin: 0 10px;
-    }
-    .footer-small-text li a{
-        display: grid;
-        grid-template-columns: auto auto auto auto;
-        justify-content: center;
-        align-items: center;
-        text-align: center;
-    }
-    .text-copyright a{
-        width:auto;
-        font-size: 8px;
-    }
- 
 }
+    @media screen and (max-width: 768px) {
+        .mobile-in{
+            display:flex;
+            position:fixed;
+            visibility:visible ;
+        }
+    }
 </style>
 <script>
 
