@@ -13,7 +13,7 @@
 <link rel="stylesheet" href="${path }/resources/css/sharedStyle.css" />
 <link rel="stylesheet"
 	href="${path }/resources/css/common/headerStyle.css" />
-<title>로그인</title>
+<title><%=request.getParameter("title") %></title>
 </head>
 <body>
 <body>
