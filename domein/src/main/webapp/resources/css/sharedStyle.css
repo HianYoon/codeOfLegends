@@ -2,6 +2,16 @@
 
 @import url('https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Dokdo&family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap');
 
+:root{
+    --main-yellow: #ffca28;
+    --second-yellow: #fffd61;
+    --third-yellow: #c79a00;
+    --main-grey: #b0bec5;
+    --second-grey: #e2f1f8;
+    --third-grey: #808e95;
+
+}
+
 *{
 	margin:0;
 	padding:0;
@@ -104,3 +114,10 @@ a{
 .input--text::-webkit-input-placeholder{color:#cacaca;}
 .input--text::-ms-input-placeholder{color:#cacaca;}
 .input--text::-moz-input-placeholder{color:#cacaca;}
+
+@media screen and (min-width: 769px){
+	
+	section{
+		margin-top:8em;
+	}
+}
