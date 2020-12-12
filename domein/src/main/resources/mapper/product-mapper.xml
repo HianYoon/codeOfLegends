@@ -25,16 +25,17 @@
 			#{productQuantity},
 			#{measureUnit},
 			#{price},
-			#{articleNo},	
-			product_Status_No 
+			'0',
+			'4',	
+			'1' 
 			) 
-				<selectKey order="AFTER" resultType="_int" keyProperty="ProductNo">
-					SELECT SEQ_PRODUCT_NO.CURRVAL FROM DUAL
-				</selectKey>
 				<!-- 시작전에 artcleno를 가져오기위한 outjoin문 -->
-				<selectKey order="BEFORE" resultType="_int" keyProperty="articleNo">
+		  	<selectKey order="BEFORE" resultType="int" keyProperty="articleNo">
 					select a.article_no from BOARD_DIRECT_SALE a, direct_sale_product d
 					where a.article_no= d.article_no;
+				</selectKey> 
+				<selectKey order="AFTER" resultType="int" keyProperty="ProductNo">
+					SELECT SEQ_PRODUCT_NO.CURRVAL FROM DUAL
 				</selectKey>
 		</insert> 
 		

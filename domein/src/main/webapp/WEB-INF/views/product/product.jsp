@@ -501,7 +501,7 @@ a{
                                 <h1>상품 등록</h1>
                             </div>
                              <select name="productStatusNo" id="productStatusNo">
-                                	<option value="1">판매시작</option>
+                                	<option value="1" >판매시작</option>
                                 	<option value="0">판매중단</option>
                                 	
                                 </select>

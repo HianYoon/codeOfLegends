@@ -67,9 +67,12 @@ public class ProductController {
 		p.setMeasureUnit(p.getMeasureUnit().trim());
 		System.out.println("객체도 ?"+p);
 		System.out.println("널이야왜?"+upFile);
-	
+		if(p.getRemainingQuantity()==0) {
+			p.setRemainingQuantity(p.getProductQuantity());
 		
+		}
 		
+		System.out.println(""+p.getRemainingQuantity());
 		
 		//upload실제 경로를 가져와야하는데 없으니깐 만들어준다.
 		String path=session.getServletContext().getRealPath("/resources/upload/product");

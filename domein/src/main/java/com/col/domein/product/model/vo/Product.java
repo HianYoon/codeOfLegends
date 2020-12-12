@@ -17,6 +17,7 @@ public class Product {
 	private int productQuantity;//개수또는 단위의 수(1 or 10:kg)
 	private String measureUnit;//단위
 	private int price;//가격
+	private int remainingQuantity;//남은갯수
 	private int articleNo;
 	private int productStatusNo;
 	

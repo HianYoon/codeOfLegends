@@ -30,7 +30,7 @@ public class ProductServiceImpl implements ProductService {
 		if(result>0) {
 			if(files !=null) {
 				for(Attachement a: files) {
-					a.setProduct_No(p.getProductNo());
+					a.setProductNo(p.getProductNo());
 					result=dao.insertAttachment(session,a);
 				}
 			}
