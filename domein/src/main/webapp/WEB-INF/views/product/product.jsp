@@ -473,11 +473,8 @@ a{
                         <!--Content-->
                             <!--Content-->
                  <div class="direct-Product-container">
-
-                        <form action="${path }/product/insert.do" method="post" enctype="multipart/form-data" id="oction--form" >
-                        
-                            <div class="direct--product--img">
-                                <h1>상품 등록</h1>
+                 
+                		<form action="${path}/boardSaleContent/insert.do" method="post">
                                 <label for="category-select">카테고리품목</label>
                                 <select name="category" id="category-select">
                                     <option value="1">정육</option>
@@ -489,7 +486,25 @@ a{
                                     <option value="7">제과</option>
                                     <option value="8">기타</option>
                                 </select>
+                               
+                                <input type="text" class="input--text" name="title" placeholder="제목"  required>
+								 <textarea name="saleContent" id="" cols="30" rows="10" class="input-text"placeholder="내용설명">내용설명:
+                       			 </textarea>
+                       	 <div class="direct-btn-group">
+		                            <button type="submit" class="btn btn--primary">등록하기</button>
+		                            <button type="reset" class="btn btn--primary">취소하기</button>
+                        </div>
+                		</form>
+                        <form action="${path }/product/insert.do" method="post" enctype="multipart/form-data" id="oction--form" >
+                        
+                            <div class="direct--product--img">
+                                <h1>상품 등록</h1>
                             </div>
+                             <select name="productStatusNo" id="productStatusNo">
+                                	<option value="1">판매시작</option>
+                                	<option value="0">판매중단</option>
+                                	
+                                </select>
                             <div class="product-textgroup">
 
                                 <input type="text" class="input--text" name="productName" placeholder="상품명" required>
@@ -499,11 +514,6 @@ a{
                                 <input type="text" class="input--text" name="measureUnit" placeholder="단위:box/20kg-box/set/개/kg"required>
                                 <input type="text" class="input--text" name="price" placeholder="가격"  required>
                                
-                                <div class="double-date">
-								
-                                  <span>생산일:</span><input type="date" class="productionDate" name="productionDate" placeholder="생산일"/>
-                                    <span>유통기한:</span><input type="date"class="expiryDate" name="expiryDate" placeholder="유통기한"/><span>까지</span>
-                                </div>
                             </div>
                                 
                                 <div class="direct-img-container">
@@ -517,6 +527,7 @@ a{
                                     </div>
         
                                 </div>
+                          
                         <div class="direct-btn-group">
                             <button type="submit" class="btn btn--primary">등록하기</button>
                             <button type="reset" class="btn btn--primary">취소하기</button>
@@ -575,6 +586,8 @@ a{
                                          </div>
                                          
                                      </div>
+                                   		  <textarea name="" id="" cols="30" rows="10" class="input-text"placeholder="내용설명">
+                       					 </textarea>
                                      <div class="product-register-btn">
                                          
                                          <button type="button" id="addInput" class="btn btn--primary2">추가</button>

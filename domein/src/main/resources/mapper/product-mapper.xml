@@ -1,6 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="product">
+
+		<insert parameterType="boardProductSaleContent" id="insertBoardSContent">
+			insert into BOARD_DIRECT_SALE values(SEQ_article_No.nextval,
+			#{title},
+			#{businessKey},
+			SYSDATE,
+			SYSDATE,
+			#{saleContent},
+			default,
+			'1'	
+			)
+			<selectKey order="BEFORE" resultType="_int" keyProperty="businessKey">
+				select b.business_key from business b, member m where  m.member_key=b.business_key
+			</selectKey>
+		</insert>
 		
 		<insert parameterType="product" id="insertProduct">
 			INSERT INTO DIRECT_SALE_PRODUCT VALUES(SEQ_PRODUCT_NO.NEXTVAL,
@@ -9,23 +24,19 @@
 			#{Origin},
 			#{productQuantity},
 			#{measureUnit},
-			#{productQuantity},
 			#{price},
-			#{productionDate},
-			#{expiryDate},
-			<if test="articleNo == 0">
-				And articleNo = '0'
-			</if>
-			<if test="productStatusNo == 0">
-				And productStatusNo = '1'
-			
-			</if>
+			#{articleNo},	
+			product_Status_No 
 			) 
-			<selectKey order="AFTER" resultType="_int" keyProperty="ProductNo">
-				SELECT SEQ_PRODUCT_NO.CURRVAL FROM DUAL
-			</selectKey>
-		
-		</insert>
+				<selectKey order="AFTER" resultType="_int" keyProperty="ProductNo">
+					SELECT SEQ_PRODUCT_NO.CURRVAL FROM DUAL
+				</selectKey>
+				<!-- 시작전에 artcleno를 가져오기위한 outjoin문 -->
+				<selectKey order="BEFORE" resultType="_int" keyProperty="articleNo">
+					select a.article_no from BOARD_DIRECT_SALE a, direct_sale_product d
+					where a.article_no= d.article_no;
+				</selectKey>
+		</insert> 
 		
 		<insert parameterType="attachement" id="insertAttachement">
 			INSERT INTO BDS_ATTACHED_IMAGE VALUES(SEQ_PRODUCTIMAGENO.NEXTVAL,
@@ -33,6 +44,6 @@
 			#{origin_File_name},
 			#{renamed_File_name}
 			)
-		 </insert>
+		 </insert> 
 		
-		</mapper>
+</mapper>

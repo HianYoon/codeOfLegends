@@ -2,26 +2,22 @@ package com.col.domein.product.controller;
 
 import java.io.File;
 import java.io.IOException;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.col.domein.product.model.service.ProductService;
 import com.col.domein.product.model.vo.Attachement;
+import com.col.domein.product.model.vo.BoardProductSaleContent;
 import com.col.domein.product.model.vo.Product;
 
 
@@ -38,41 +34,37 @@ public class ProductController {
 	public String product() {
 		return "product/product";
 	}
+	
+	//BoardSaleContent등록
+	@RequestMapping("/boardSaleContent/insert.do")
+	public ModelAndView insertBoardSaleContent(BoardProductSaleContent bp,ModelAndView mv) {
+		
+		System.out.println(""+bp);
+		
+		bp.setTitle(bp.getTitle().trim());
+		bp.setSaleContent(bp.getSaleContent());
+		
+		int result=service.insertBoardSContent(bp);
+		mv.addObject("msg",result>0?"입력성공":"입력실패");
+		mv.addObject("loc","/product/into.do");
+		mv.setViewName("common/msg");
+		return mv;
+		
+	}
 
 	//Product 등록
 	
 	@RequestMapping("/product/insert.do")
-	public @ResponseBody ModelAndView insertProduct(Product p, ModelAndView mv,
+	public ModelAndView insertProduct(Product p, ModelAndView mv,
 			@RequestParam(value="upFile",
 			required=false) MultipartFile[] upFile,
-			HttpSession session) throws ParseException
-			//@RequestParam(value="productionDate") Date productionDate,
-			//@RequestParam(value="expiryDate")
-			// Date expiryDate)
-			 {
-		
-//		if((productionDate!=null&&expiryDate!=null )) {
-//			p.setProductionDate(productionDate);
-//			p.setExpiryDate(expiryDate);
-//			 System.out.println(p.getExpiryDate());
-//		}
-//		
-//		//파일이 없는 경우를 생각해서 RequestParam매개변수설정을 해준다.
-//		//클라이언트가 바이너리파일로 보낸데이터를 데이터MultipartFile객체로 대입됨.
-//		System.out.printf("productionDate","expiryDate")
-//		System.out.println(expiryDate);
-		
+			HttpSession session) {
+		System.out.println(""+p);
 	
 		p.setProductName(p.getProductName().trim());
 		p.setOrigin(p.getOrigin().trim());
 		p.setProductQuality(p.getProductQuality().trim());
 		p.setMeasureUnit(p.getMeasureUnit().trim());
-		
-	
-
-
-		
-	
 		System.out.println("객체도 ?"+p);
 		System.out.println("널이야왜?"+upFile);
 	
@@ -113,7 +105,7 @@ public class ProductController {
 		
 		int result=service.insertProductFileList(p,files);
 		 mv.addObject("msg",result>0?"입력성공":"입력실패");
-		 mv.addObject("loc","product/product");//productList로 보내기
+		 mv.addObject("loc","/product/into.do");//productList로 보내기
 		 mv.setViewName("common/msg");
 		return mv;
 	}
