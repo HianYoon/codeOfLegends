@@ -13,7 +13,7 @@
 <link rel="stylesheet" href="${path }/resources/css/sharedStyle.css" />
 <link rel="stylesheet"
 	href="${path }/resources/css/common/headerStyle.css" />
-<title>로그인</title>
+<title><%=request.getParameter("title") %></title>
 </head>
 <body>
 <body>
@@ -40,8 +40,8 @@
 					<li><a href="#"> <img class="top-buttons"
 							src="${path }/resources/images/profile/add-to-basket.png" alt="" />
 					</a></li>
-					<li><a href="#">로그인</a></li>
-					<li><a href="#">회원가입</a></li>
+					<li><a href="${path }/member/memberLogin.do">로그인</a></li>
+					<li><a href="${path }/member/signUp.do">회원가입</a></li>
 				</ul>
 			</div>
 			<div class="mainNav-bottom">
@@ -121,7 +121,7 @@
 					</a>
 				</div>
 				<div>
-					<a href="#">
+					<a href="${path }/member/memberLogin.do">
 						<div>
 							<img src="${path }/resources/images/profile/user.png" alt="" />
 						</div>

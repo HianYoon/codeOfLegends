@@ -1,3 +1,19 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<c:set var="path" value="${pageContext.request.contextPath }" />
+
+
+<jsp:include page="/WEB-INF/views/common/header.jsp">
+	<jsp:param name="title" value=" "/>
+</jsp:include>
+<section id="context">
+
+</section>
+<jsp:include page="/WEB-INF/views/common/footer.jsp"/>
+
 <!DOCTYPE html>
 <html lang="en">
 	<head>
@@ -31,12 +47,12 @@
 				<div class="form-wrapper">
 					<table>
 						<tr>
-							<td>사업자 등록번호</td>
+							<td>ì¬ìì ë±ë¡ë²í¸</td>
 							<td>
 								<input
 									type="number"
 									class="input--text"
-									placeholder="-를 제외한 번호만"
+									placeholder="-ë¥¼ ì ì¸í ë²í¸ë§"
 								/>
 							</td>
 							<td>
@@ -49,7 +65,7 @@
 							</td>
 						</tr>
 						<tr>
-							<td>주소</td>
+							<td>ì£¼ì</td>
 							<td>
 								<input
 									type="text"
@@ -57,7 +73,7 @@
 									id="narrow-field"
 									readonly
 								/>
-								<button class="input--text">우편번호 찾기</button>
+								<button class="input--text">ì°í¸ë²í¸ ì°¾ê¸°</button>
 							</td>
 						</tr>
 						<tr>
@@ -78,16 +94,16 @@
 								<input
 									type="text"
 									class="input--text"
-									placeholder="나머지 주소"
+									placeholder="ëë¨¸ì§ ì£¼ì"
 								/>
 							</td>
 						</tr>
 						<tr>
-							<td>카테고리</td>
+							<td>ì¹´íê³ ë¦¬</td>
 							<td class="categories">
 								<label for="beef">
 									<div class="img-labels-container animate__animated">
-										<h5>정육</h5>
+										<h5>ì ì¡</h5>
 										<img
 											src="../../../../webapp/resources/images/signUp/beef.png"
 											alt=""
@@ -96,7 +112,7 @@
 								</label>
 								<label for="seafood">
 									<div class="img-labels-container animate__animated">
-										<h5>수산</h5>
+										<h5>ìì°</h5>
 										<img
 											src="../../../../webapp/resources/images/signUp/fish.png"
 											alt=""
@@ -105,7 +121,7 @@
 								</label>
 								<label for="vegetable">
 									<div class="img-labels-container animate__animated">
-										<h5>야채</h5>
+										<h5>ì¼ì±</h5>
 										<img
 											src="../../../../webapp/resources/images/signUp/vegetables.png"
 											alt=""
@@ -114,7 +130,7 @@
 								</label>
 								<label for="steel">
 									<div class="img-labels-container animate__animated">
-										<h5>철물</h5>
+										<h5>ì² ë¬¼</h5>
 										<img
 											src="../../../../webapp/resources/images/signUp/beam.png"
 											alt=""
@@ -128,7 +144,7 @@
 							<td class="categories">
 								<label for="pet">
 									<div class="img-labels-container animate__animated">
-										<h5>애견</h5>
+										<h5>ì ê²¬</h5>
 										<img
 											src="../../../../webapp/resources/images/signUp/bone.png"
 											alt=""
@@ -137,7 +153,7 @@
 								</label>
 								<label for="bakery">
 									<div class="img-labels-container animate__animated">
-										<h5>베이커리</h5>
+										<h5>ë² ì´ì»¤ë¦¬</h5>
 										<img
 											src="../../../../webapp/resources/images/signUp/bread.png"
 											alt=""
@@ -146,7 +162,7 @@
 								</label>
 								<label for="electronics">
 									<div class="img-labels-container animate__animated">
-										<h5>전자기기</h5>
+										<h5>ì ìê¸°ê¸°</h5>
 										<img
 											src="../../../../webapp/resources/images/signUp/free-icon-lightning-616494.png"
 											alt=""
@@ -155,7 +171,7 @@
 								</label>
 								<label for="etc">
 									<div class="img-labels-container animate__animated">
-										<h5>기타</h5>
+										<h5>ê¸°í</h5>
 										<img
 											src="../../../../webapp/resources/images/signUp/free-icon-question-mark-in-dark-circle-71768.png"
 											alt=""
@@ -176,8 +192,8 @@
 						</div>
 					</table>
 					<div class="btn-cont">
-						<button class="btn btn--primary">가입</button>
-						<button class="btn btn--primary2">취소</button>
+						<button class="btn btn--primary">ê°ì</button>
+						<button class="btn btn--primary2">ì·¨ì</button>
 					</div>
 				</div>
 			</form>
