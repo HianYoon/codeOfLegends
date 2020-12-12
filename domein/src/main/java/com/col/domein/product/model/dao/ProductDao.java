@@ -4,7 +4,6 @@ import org.apache.ibatis.session.SqlSession;
 
 import com.col.domein.product.model.vo.Attachement;
 import com.col.domein.product.model.vo.Product;
-import com.col.domein.product.model.vo.ProductBoardContent;
 
 public interface ProductDao {
 
@@ -13,6 +12,5 @@ public interface ProductDao {
 
 	int insertAttachment(SqlSession session, Attachement a);
 
-	int insertProductContent(SqlSession session, ProductBoardContent pbc);
 
 }

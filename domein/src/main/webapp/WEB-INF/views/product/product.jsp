@@ -498,11 +498,11 @@ a{
                                 <input type="text" class="input--text" name="productQuantity" placeholder="수량" required>
                                 <input type="text" class="input--text" name="measureUnit" placeholder="단위:box/20kg-box/set/개/kg"required>
                                 <input type="text" class="input--text" name="price" placeholder="가격"  required>
-                                <input type="text" class="input--text" name="title" placeholder="제목"  required>
+                               
                                 <div class="double-date">
-
-                                  <span>생산일:</span>  <input type="date" name="production_Date" placeholder="생산일">
-                                    <span>유통기한:</span><input type="date" name="expiry_Date" placeholder="유통기한"><span>까지</span>
+								
+                                  <span>생산일:</span><input type="date" class="productionDate" name="productionDate" placeholder="생산일"/>
+                                    <span>유통기한:</span><input type="date"class="expiryDate" name="expiryDate" placeholder="유통기한"/><span>까지</span>
                                 </div>
                             </div>
                                 
@@ -511,18 +511,12 @@ a{
                                                 
                                     </div>
                                     <div class="direct-img-file">
-                                        <input type="file" class="input--text upFile" id="upFile" name="upFile"   required />
+                                        <input type="file" class="input--text upFile" id="upFile" name="upFile" multiple="multiple" required />
                                   
         
                                     </div>
         
                                 </div>
-        
-                            
-        
-                        
-                        <textarea name="" id="" cols="30" rows="10" class="input-text"placeholder="내용설명" required>내용설명:
-                        </textarea>
                         <div class="direct-btn-group">
                             <button type="submit" class="btn btn--primary">등록하기</button>
                             <button type="reset" class="btn btn--primary">취소하기</button>
@@ -577,7 +571,7 @@ a{
                                              <input type="text" id="productPrice" name="products" class="input--text" placeholder="가격"  required>
                                              <input type="text" id="productDate" name="products" class="input--text" placeholder="생산일/요구사항이 있으면 기입" >
                                              <input type="text" id="productExpireDate" name="products" class="input--text" placeholder="유통기한" >
-                                             
+                                             		
                                          </div>
                                          
                                      </div>
@@ -617,9 +611,9 @@ a{
                             
                             <input type="text" class="input--text" name="" placeholder="상품명" required>
                             <input type="text" class="input--text" name="" placeholder="원산지" required>
-                            <input type="text" class="input--text" name="" placeholder="수량" readonly required>
-                            <input type="text" class="input--text" name="" placeholder="단위:box/20kg-box/set/개/kg" readonly required>
-                            <input type="text" class="input--text" name="" placeholder="가격" readonly required>
+                            <input type="text" class="input--text" name="" placeholder="수량"  required>
+                            <input type="text" class="input--text" name="" placeholder="단위:box/20kg-box/set/개/kg"  required>
+                            <input type="text" class="input--text" name="" placeholder="가격"  required>
                             
                         </div>
                         
@@ -634,11 +628,7 @@ a{
                         
                     </div>
                     
-                    
-                    
-                    
-                    <textarea name="" id="" cols="30" rows="10" class="input-text"placeholder="내용설명">내용설명:
-                    </textarea>
+
                     <div class="direct-btn-group">
                         <button type="submit" class="btn btn--primary">등록하기</button>
                         <button type="reset" class="btn btn--primary">취소하기</button>

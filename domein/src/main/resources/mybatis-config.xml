@@ -4,7 +4,6 @@
 	<typeAliases>
 		<typeAlias type="com.col.domein.product.model.vo.Product" alias="product"/>
 		<typeAlias type="com.col.domein.product.model.vo.Attachement" alias="attachement"/>
-		<typeAlias type="com.col.domein.product.model.vo.ProductBoardContent" alias="productBoardContent"/>
 		<typeAlias type="com.col.domein.common.typeHandler.StringArrayTypeHandler" alias="strArr"/>
 		
 	

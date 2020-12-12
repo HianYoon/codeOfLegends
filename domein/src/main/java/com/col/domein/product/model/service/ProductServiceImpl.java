@@ -9,7 +9,6 @@ import org.springframework.stereotype.Service;
 import com.col.domein.product.model.dao.ProductDao;
 import com.col.domein.product.model.vo.Attachement;
 import com.col.domein.product.model.vo.Product;
-import com.col.domein.product.model.vo.ProductBoardContent;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -21,7 +20,7 @@ public class ProductServiceImpl implements ProductService {
 	@Autowired
 	SqlSession session;
 	@Override
-	public int insertProductFileList(Product p, ProductBoardContent pbc, List<Attachement> files) {
+	public int insertProductFileList(Product p, List<Attachement> files) {
 		// TODO Auto-generated method stub
 		int result=dao.insertProduct(session,p);
 		//mapper-insert값을 받아서 
@@ -34,13 +33,7 @@ public class ProductServiceImpl implements ProductService {
 				}
 			}
 		}
-		System.out.printf("ArticleNo:",p.getArticleNo());
-		if(result>0) {
-			if(pbc !=null) {
-				pbc.setArticleNo(p.getArticleNo());
-				result=dao.insertProductContent(session,pbc);
-			}
-		}
+	
 		return result;
 	}
 
