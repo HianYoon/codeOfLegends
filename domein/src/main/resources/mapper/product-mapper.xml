@@ -39,7 +39,8 @@
 		</insert> 
 		
 		<insert parameterType="attachement" id="insertAttachement">
-			INSERT INTO BDS_ATTACHED_IMAGE VALUES(#{productNo},SEQ_PRODUCT_IMAGE_NO.NEXTVAL,
+			INSERT INTO BDS_ATTACHED_IMAGE VALUES(#{productNo},
+			SEQ_PRODUCT_IMAGE_NO.NEXTVAL,
 			#{origin_File_name},
 			#{renamed_File_name}
 			)
