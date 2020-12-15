@@ -12,36 +12,34 @@
 			default,
 			'1'	
 			)
-			<selectKey order="BEFORE" resultType="_int" keyProperty="businessKey">
+	<!-- 	<selectKey order="AFTER" resultType="_int" keyProperty="aticleNo">
+				SELECT SEQ_article_No.CURRVAL FROM DUAL
+			</selectKey> -->
+	<!-- 		<selectKey order="BEFORE" resultType="_int" keyProperty="businessKey">
 				select b.business_key from business b, member m where  m.member_key=b.business_key
-			</selectKey>
+			</selectKey> -->
 		</insert>
 		
 		<insert parameterType="product" id="insertProduct">
 			INSERT INTO DIRECT_SALE_PRODUCT VALUES(SEQ_PRODUCT_NO.NEXTVAL,
 			#{productName},
 			#{productQuality},
-			#{Origin},
+			#{origin},
 			#{productQuantity},
 			#{measureUnit},
 			#{price},
-			'0',
-			'4',	
-			'1' 
+			#{remaningQuantity},
+			#{articleNo},
+			${productStatusNo} 
 			) 
 				<!-- 시작전에 artcleno를 가져오기위한 outjoin문 -->
-		  	<selectKey order="BEFORE" resultType="int" keyProperty="articleNo">
-					select a.article_no from BOARD_DIRECT_SALE a, direct_sale_product d
-					where a.article_no= d.article_no;
-				</selectKey> 
-				<selectKey order="AFTER" resultType="int" keyProperty="ProductNo">
+				<selectKey order="AFTER" resultType="_int" keyProperty="productNo">
 					SELECT SEQ_PRODUCT_NO.CURRVAL FROM DUAL
 				</selectKey>
 		</insert> 
 		
 		<insert parameterType="attachement" id="insertAttachement">
-			INSERT INTO BDS_ATTACHED_IMAGE VALUES(SEQ_PRODUCTIMAGENO.NEXTVAL,
-			#{ProductNo},
+			INSERT INTO BDS_ATTACHED_IMAGE VALUES(#{productNo},SEQ_PRODUCT_IMAGE_NO.NEXTVAL,
 			#{origin_File_name},
 			#{renamed_File_name}
 			)

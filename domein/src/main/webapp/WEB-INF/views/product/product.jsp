@@ -445,6 +445,15 @@ a{
             $(activeTab).fadeIn();//Fade in the active ID content
             return false;
         });
+        //상품등록
+        $('#productQuantity').change(function(){
+            test(this);
+        });
+        function test(){
+            var val=$('#productQuantity').val();
+            $('#remaningQuantity').val(val);
+            alert($('#remaningQuantity').val());
+        }
     });
 
 </script>
@@ -474,7 +483,7 @@ a{
                             <!--Content-->
                  <div class="direct-Product-container">
                  
-                		<form action="${path}/boardSaleContent/insert.do" method="post">
+                		<form action="${path}/boardSaleContent/insert.do?=businessKey=1" method="post">
                                 <label for="category-select">카테고리품목</label>
                                 <select name="category" id="category-select">
                                     <option value="1">정육</option>
@@ -487,6 +496,7 @@ a{
                                     <option value="8">기타</option>
                                 </select>
                                
+                                <input type="text" class="input--text" name="businessKey" placeholder="사업자번호"  required>
                                 <input type="text" class="input--text" name="title" placeholder="제목"  required>
 								 <textarea name="saleContent" id="" cols="30" rows="10" class="input-text"placeholder="내용설명">내용설명:
                        			 </textarea>
@@ -495,7 +505,7 @@ a{
 		                            <button type="reset" class="btn btn--primary">취소하기</button>
                         </div>
                 		</form>
-                        <form action="${path }/product/insert.do" method="post" enctype="multipart/form-data" id="oction--form" >
+                        <form action="${path }/product/insert.do?=${a.articleNo}" method="post" enctype="multipart/form-data" id="oction--form" >
                         
                             <div class="direct--product--img">
                                 <h1>상품 등록</h1>
@@ -507,12 +517,15 @@ a{
                                 </select>
                             <div class="product-textgroup">
 
+                                <input type="text" class="input--text" name="articleNo" placeholder="글번호" required>
+                                <input type="text" class="input--text" name="productStatusNo" placeholder="카테고리" required>
                                 <input type="text" class="input--text" name="productName" placeholder="상품명" required>
-                                <input type="text" class="input--text" name="Origin" placeholder="원산지" required>
+                                <input type="text" class="input--text" name="origin" placeholder="원산지" required>
                                 <input type="text" class="input--text" name="productQuality" placeholder="등급" required>
                                 <input type="text" class="input--text" name="productQuantity" placeholder="수량" required>
                                 <input type="text" class="input--text" name="measureUnit" placeholder="단위:box/20kg-box/set/개/kg"required>
                                 <input type="text" class="input--text" name="price" placeholder="가격"  required>
+                                <input type="text" class="input--text" name="remaningQuantity" placeholder="갯수"  required>
                                
                             </div>
                                 

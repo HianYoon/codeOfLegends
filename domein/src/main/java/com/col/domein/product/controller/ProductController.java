@@ -37,15 +37,18 @@ public class ProductController {
 	
 	//BoardSaleContent등록
 	@RequestMapping("/boardSaleContent/insert.do")
-	public ModelAndView insertBoardSaleContent(BoardProductSaleContent bp,ModelAndView mv) {
+	public ModelAndView insertBoardSaleContent(BoardProductSaleContent bp,ModelAndView mv,int businessKey) {
 		
 		System.out.println(""+bp);
+		businessKey=1;
+		bp.setBusinessKey(businessKey);
 		
 		bp.setTitle(bp.getTitle().trim());
 		bp.setSaleContent(bp.getSaleContent());
 		
 		int result=service.insertBoardSContent(bp);
 		mv.addObject("msg",result>0?"입력성공":"입력실패");
+		mv.addObject("boardContent",bp);
 		mv.addObject("loc","/product/into.do");
 		mv.setViewName("common/msg");
 		return mv;
@@ -55,7 +58,7 @@ public class ProductController {
 	//Product 등록
 	
 	@RequestMapping("/product/insert.do")
-	public ModelAndView insertProduct(Product p, ModelAndView mv,
+	public ModelAndView insertProduct(Product p, ModelAndView mv,int articleNo,
 			@RequestParam(value="upFile",
 			required=false) MultipartFile[] upFile,
 			HttpSession session) {
@@ -65,14 +68,16 @@ public class ProductController {
 		p.setOrigin(p.getOrigin().trim());
 		p.setProductQuality(p.getProductQuality().trim());
 		p.setMeasureUnit(p.getMeasureUnit().trim());
+		p.setArticleNo(articleNo);
 		System.out.println("객체도 ?"+p);
 		System.out.println("널이야왜?"+upFile);
-		if(p.getRemainingQuantity()==0) {
-			p.setRemainingQuantity(p.getProductQuantity());
+		System.out.println("0이니?"+p.getProductNo());
+		if(p.getRemaningQuantity()==0) {
+			p.setRemaningQuantity(p.getProductQuantity());
 		
 		}
 		
-		System.out.println(""+p.getRemainingQuantity());
+		System.out.println(""+p.getRemaningQuantity());
 		
 		//upload실제 경로를 가져와야하는데 없으니깐 만들어준다.
 		String path=session.getServletContext().getRealPath("/resources/upload/product");

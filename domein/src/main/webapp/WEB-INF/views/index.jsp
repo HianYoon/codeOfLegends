@@ -65,9 +65,6 @@
 	d
 	dfdfsf
 	</pre>
-	<ul>
-		<li>누구냐???<a href="${path }/product/into.do">product</a></li>
-	</ul>
 </div>
 </section>
 <jsp:include page="/WEB-INF/views/common/footer.jsp"/>

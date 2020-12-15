@@ -54,6 +54,14 @@
 								<p>블라인드 입찰</p>
 							</div>
 					</a></li>
+					<li><a href="${path }/product/into.do">
+							<div>
+								<div>
+									<img src="${path }/resources/images/profile/blind.png" alt="" />
+								</div>
+								<p>카테고리</p>
+							</div>
+					</a></li>
 					<li><a href="#">
 							<div>
 								<div>
