@@ -49,7 +49,7 @@
 </section>
 
 <script>
-	$(".sign-up").click(e=>{
+	$(".sign-up").click(e => {
 		location.href = "${path}/member/signUp.do";
 	})
 

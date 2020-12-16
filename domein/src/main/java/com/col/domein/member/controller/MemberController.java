@@ -16,7 +16,7 @@ public class MemberController {
 		return "member/signUp/signUpConsent";
 	}
 	
-	@RequestMapping("member/register-form.do")
+	@RequestMapping("/member/register-form.do")
 	public String registerForm() {
 		return "member/signUp/registrationForm";
 	}

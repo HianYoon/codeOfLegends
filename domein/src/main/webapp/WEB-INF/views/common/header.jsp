@@ -15,7 +15,7 @@
 	href="${path }/resources/css/common/headerStyle.css" />
 <title><%=request.getParameter("title") %></title>
 <script>
-	const path = ${path};
+	const path = "${path}";
 </script>
 </head>
 <body>

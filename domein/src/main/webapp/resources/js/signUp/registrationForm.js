@@ -14,8 +14,6 @@ emailAdCheck.change((e) => {
 	} else {
 		emailAdCheckImg.prop({ src: unchecked });
 	}
-	console.log("패스다!");
-	console.log(path);
 });
 
 additionalInfoCheck.change((e) => {
