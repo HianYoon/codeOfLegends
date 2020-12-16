@@ -4,15 +4,15 @@
         height:auto;
         background: #808e95 ;
     }
- #footer   a{
+ #footer a{
         text-decoration: none;
         color:black;
     }
-    #footer   li{
+    #footer li{
     list-style-type: none;
     }
-    #footer  .footer-container{
-        display:flex;
+    #footer .footer-container{
+        display: block;
         color: #ffffff;
         border: 0 1px solid black; 
         

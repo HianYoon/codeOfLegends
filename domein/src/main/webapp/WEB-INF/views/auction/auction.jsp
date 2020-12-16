@@ -308,29 +308,29 @@
                                 
                                 <div class="mySlides fade">
                                     <div class="numbertext">1 / 5</div>
-                                    <img src="img_nature_wide.jpg" style="width:100%">
+                                    <img src="img_nature_wide.jpg" class="slideImg"  style="width:100%">
                                     <div class="text">Caption Text</div>
                                 </div>
                                 
                                 <div class="mySlides fade">
                                     <div class="numbertext">2 / 5</div>
-                                    <img src="img_snow_wide.jpg" style="width:100%">
+                                    <img src="img_snow_wide.jpg" class="slideImg" style="width:100%">
                                     <div class="text">Caption Two</div>
                                 </div>
                                 
                                 <div class="mySlides fade">
                                     <div class="numbertext">3 / 5</div>
-                                    <img src="img_mountains_wide.jpg" style="width:100%">
+                                    <img src="img_mountains_wide.jpg" class="slideImg"  style="width:100%">
                                     <div class="text">Caption Three</div>
                                 </div>
                                 <div class="mySlides fade">
                                     <div class="numbertext">4 / 5</div>
-                                    <img src="img_mountains_wide.jpg" style="width:100%">
+                                    <img src="img_mountains_wide.jpg" class="slideImg"  style="width:100%">
                                     <div class="text">Caption Three</div>
                                 </div>
                                 <div class="mySlides fade">
                                     <div class="numbertext">5 / 5</div>
-                                    <img src="img_mountains_wide.jpg" style="width:100%">
+                                    <img src="img_mountains_wide.jpg" class="slideImg"  style="width:100%">
                                     <div class="text">Caption Three</div>
                                 </div>
                                 

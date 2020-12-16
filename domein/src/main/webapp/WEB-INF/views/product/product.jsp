@@ -3,12 +3,13 @@
     <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
     <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
     <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+     <c:set var="path" value="${pageContext.request.contextPath }"/>
     <link rel="stylesheet" href="${path }/resources/css/sharedStyle.css" />
     
  <link rel="stylesheet" href="${path }/resources/css/product/product.css"/>
   <link rel="stylesheet" href="${path }/resources/css/jihunTab/TabMedia.css"/>
-     <c:set var="path" value="${pageContext.request.contextPath }"/>
- 
+  <link rel="stylesheet" href="${path }/resources/css/sharedStyle.css"/>
+
 <jsp:include page="/WEB-INF/views/common/header.jsp">
 	<jsp:param name="title" value=""/>
 </jsp:include>
@@ -126,9 +127,14 @@ div#octionPage .direct-Product-container textarea {
     height: auto;
     box-sizing: border-box;
 }
-
-
-
+div#pageBar {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: auto;
+    height: 50px;
+    margin: 10px;
+}
 
 
 
@@ -276,6 +282,9 @@ div#wrapper .tabs li{
 div#wrapper .tabs li a{
     font-size: 26px;
     color:black;
+}
+ul li{
+ list-style-type: none;
 }
 </style>
 <section id="content">
@@ -521,7 +530,7 @@ div#wrapper .tabs li a{
                                 <input type="text" class="input--text" name="productQuantity" placeholder="수량" required>
                                 <input type="text" class="input--text" name="measureUnit" placeholder="단위:box/20kg-box/set/개/kg"required>
                                 <input type="text" class="input--text" name="price" placeholder="가격"  required>
-                                <input type="text" class="input--text" name="remaningQuantity" placeholder="갯수"  required>
+                                <input type="text" class="input--text" name="remaningQuantity" placeholder="갯수"  readonly>
                                
                             </div>
                                 
@@ -583,15 +592,15 @@ div#wrapper .tabs li a{
                     <div class="oction--grid--container">
                        		
                             <div class="oction-img-group">
-                                <img id="big-target" href="<c:out value="${b.PORIGINALFILENAME }"/>" src="${path }/product/productView.do?=${b.productimageNo}" alt="이미지" data-zoom="3"/>
+                                <img id="big-target" href="${path }/product/productView.do?=${b.d.product_no}" src="${path }/images/${a.p_renamed_file_name}" alt="이미지" data-zoom="3"/>
                                 
                             </div>
                             <div>
 
                                 <ul class="grid-text-group" style="padding:0">
-                                    <li>${b.productimageNo }</li>
-                                    <li>${b.price }</li>
-                                    <li>리뷰수${b.ATTCOUNT }
+                                    <li><c:out value="${b.title }"/></li>
+                                    <li><fmt:formatNumber value="${b.price }" pattern="###,###,###"/></li>
+                                    <li>리뷰수<c:out value="${b.ATTCOUNT }"/>
                                     </li>
                                       <li>
                                              <span><a href="${path}"><img src="${path }/resources/images/profile/jjim.png" alt="찜" style="width: 15px;height:15px;"></a></span>
@@ -607,8 +616,9 @@ div#wrapper .tabs li a{
                      </div>
                   
                      </c:forEach>           
-                                <!-- 절제선 -->
+                              <!-- 절제선 -->
                       </div>
+                              <div id="pageBar">${pageBar }</div>
                   </div>
                </div>
         </div>

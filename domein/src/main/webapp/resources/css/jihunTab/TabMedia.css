@@ -14,7 +14,7 @@
             width: 100%;
             height: auto;
         }
-        ul.tabs {
+      div#wrapper ul.tabs {
             display: flex;
             width: 700px;
             height:auto;
@@ -22,17 +22,17 @@
             margin: 0!important;
             
         }
-        ul.tabs li{
+      div#wrapper  ul.tabs li{
             width: 100%;
             height:40px;
             margin-bottom: 10px;
            
         }
-        .tabs li a{
+       div#wrapper .tabs li a{
             font-size: 18px !important;
             font-weight: 500;
         }
-        .clearfix{
+      div#wrapper .clearfix{
             content:"";
             clear: both;
             display: block;
@@ -46,11 +46,11 @@
     display: none;
 }
 
-body {
+div#octionPage {
   box-sizing: border-box;
   font-family: Verdana, sans-serif;}
 .mySlides {display: none;}
-img {
+img.slideImg {
   width:500px;
   height: 200px;
   vertical-align: middle;
@@ -65,7 +65,7 @@ img {
 }
 
 /* Caption text */
-.text {
+.slideshow-container .text {
   color: #f2f2f2;
   font-size: 15px;
   padding: 8px 12px;
@@ -119,5 +119,5 @@ img {
 
 /* On smaller screens, decrease text size */
 @media only screen and (max-width: 300px) {
-  .text {font-size: 11px}
+ .slideshow-container .text {font-size: 11px}
 }

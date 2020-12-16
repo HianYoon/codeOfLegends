@@ -41,11 +41,14 @@
 	justify-content: center;
 	align-content: center;
 	margin-left: 20px;
+	box-sizing: border-box;
 }
 
 #mainNav .logo img {
-	width: 100%;
-	transition: height 0.4s;
+	    width: 100%;
+    transition: height 0.4s;
+    height: 70px;
+    box-sizing: border-box;
 }
 
 .window {

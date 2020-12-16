@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="product">
-
+		
 		<insert parameterType="boardProductSaleContent" id="insertBoardSContent">
 			insert into BOARD_DIRECT_SALE values(SEQ_article_No.nextval,
 			#{title},
@@ -45,16 +45,19 @@
 			#{renamed_File_name}
 			)
 		 </insert> 
+		<!--  상품 aticle_no,title,product_no,price,p_renamed_file_name 3개테이블조인후 조회 -->
 		 <select id="selectProductList" resultType="map">
-				SELECT b.*,(select COUNT(*) from BOARDDIRECTSALE b
-					inner join DIRECTSALEPRODUCT d on b.articleno=d.articleno
-					inner join BDSATTACHEDIMAGE a 
-					on d.productno=a.productno) as ATTCOUNT
-				from BOARDDIRECTSALE b order by articleNo DESC;
+				select b.article_no,b.title,d.product_no,d.price,a.p_renamed_file_name,
+				(select count(*) from DIRECT_SALE_PRODUCT WHERE d.product_no=a.product_no)
+				as ATTCOUNT from BOARD_DIRECT_SALE b
+				inner join DIRECT_SALE_PRODUCT d on b.article_no=d.article_no
+				inner join BDS_ATTACHED_IMAGE a 
+				on d.product_no=a.product_no
 		 
 		 </select>
-		 <select id="selectCount" parameterType="boardProductSaleContent">
-		 	select count(*) from BOARDDIRECTSALE
+		<!--   상품목록카운트-->
+		 <select id="selectCount" resultType="_int">
+		 	select count(*) from BOARD_DIRECT_SALE
 		 </select>
 		
 </mapper>

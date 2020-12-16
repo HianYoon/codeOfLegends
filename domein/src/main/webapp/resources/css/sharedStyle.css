@@ -49,6 +49,9 @@ a{
 .flex{
     display: flex;
 }
+ul li{
+	 list-style-type: none;
+}
 /* 버튼 클래스 */
 .btn{
     height:35px;
@@ -67,6 +70,7 @@ a{
     /* 패딩이나 margin이 들어갓을때 커지는것을막아주는 css명령어 */
     box-sizing: border-box;
     position:relative;
+    z-index:-1!important;
 }
 .btn:hover::before{
     content:'';
@@ -115,10 +119,7 @@ a{
 .input--text::-ms-input-placeholder{color:#cacaca;}
 .input--text::-moz-input-placeholder{color:#cacaca;}
 
-section{
-	margin-top:65px;
-	margin-bottom: 13vh;
-}
+
 
 @media screen and (min-width: 769px){
 	

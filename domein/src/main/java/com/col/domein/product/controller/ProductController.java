@@ -122,7 +122,7 @@ public class ProductController {
 		
 		return mv;
 	}
-	//productList
+	//productList 목록
 	@RequestMapping("/product/productList.do")
 	public ModelAndView selectProduct(ModelAndView mv,
 			@RequestParam(value="cPage",defaultValue="1")int cPage,
