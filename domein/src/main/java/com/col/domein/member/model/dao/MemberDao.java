@@ -7,6 +7,6 @@ import org.springframework.stereotype.Repository;
 public class MemberDao {
 	
 	public boolean isEmptyIdName(SqlSession session, String idName) {
-		return (int)(session.selectOne("memberSignUp.isEmptyIdName", idName))==0;
+		return (int)(session.selectOne("signup.isEmptyIdName", idName))==0;
 	}
 }
