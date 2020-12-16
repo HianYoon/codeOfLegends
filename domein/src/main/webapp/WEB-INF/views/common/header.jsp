@@ -14,6 +14,9 @@
 <link rel="stylesheet"
 	href="${path }/resources/css/common/headerStyle.css" />
 <title><%=request.getParameter("title") %></title>
+<script>
+	const path = ${path};
+</script>
 </head>
 <body>
 <body>
