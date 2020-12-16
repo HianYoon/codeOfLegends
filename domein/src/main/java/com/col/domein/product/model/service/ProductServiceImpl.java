@@ -26,11 +26,18 @@ public class ProductServiceImpl implements ProductService {
 		// TODO Auto-generated method stub
 		int result=dao.insertProduct(session,p);
 		//mapper-insert값을 받아서 
+	
 		System.out.printf("ProductNo:",p.getProductNo());
 		if(result>0) {
 			if(files !=null) {
 				for(Attachement a: files) {
 					a.setProductNo(p.getProductNo());
+					for(int i=0; i<files.size();i++) {
+						int no=++i;
+						System.out.println("번호"+no);
+						a.setProduct_image_No(no);
+						System.out.println("파일번호:"+a.getProduct_image_No());
+					}
 					result=dao.insertAttachment(session,a);
 				}
 			}
@@ -45,10 +52,5 @@ public class ProductServiceImpl implements ProductService {
 		int result=dao.insertBoardSContent(session,bp);
 		return result ;
 	}
-
-
-
-
-	
 
 }

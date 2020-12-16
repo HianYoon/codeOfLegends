@@ -18,4 +18,5 @@ public interface ProductService {
 	//product && files
 	int insertProductFileList(Product p, List<Attachement> files);
 
+
 }
