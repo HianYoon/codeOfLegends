@@ -4,9 +4,9 @@ const emailAdCheckImg = $("#email-ad-check-img");
 const additionalInfoCheckImg = $("#additional-info-check-img");
 
 const checked =
-	"../../../../../../src/main/webapp/resources/images/signUp/checked.png";
+	path+"/resources/images/signUp/checked.png";
 const unchecked =
-	"../../../../../../src/main/webapp/resources/images/signUp/unchecked.png";
+	path+"/resources/images/signUp/unchecked.png";
 
 emailAdCheck.change((e) => {
 	if (emailAdCheck.prop("checked") == true) {
@@ -14,6 +14,8 @@ emailAdCheck.change((e) => {
 	} else {
 		emailAdCheckImg.prop({ src: unchecked });
 	}
+	console.log("패스다!");
+	console.log(path);
 });
 
 additionalInfoCheck.change((e) => {

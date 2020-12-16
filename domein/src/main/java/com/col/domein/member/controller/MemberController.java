@@ -17,7 +17,7 @@ public class MemberController {
 	}
 	
 	@RequestMapping("member/register-form.do")
-	public String registerFomr() {
+	public String registerForm() {
 		return "member/signUp/registrationForm";
 	}
 	
