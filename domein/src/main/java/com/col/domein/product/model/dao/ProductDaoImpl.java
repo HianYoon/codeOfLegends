@@ -1,5 +1,9 @@
 package com.col.domein.product.model.dao;
 
+import java.util.List;
+import java.util.Map;
+
+import org.apache.ibatis.session.RowBounds;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
@@ -14,18 +18,31 @@ public class ProductDaoImpl implements ProductDao {
 	@Override
 	public int insertProduct(SqlSession session,Product p ) {
 		// TODO Auto-generated method stub
-		return session.insert("insertProduct",p);
+		return session.insert("product.insertProduct",p);
 	}
 
 	@Override
 	public int insertBoardSContent(SqlSession session, BoardProductSaleContent bp) {
 		// TODO Auto-generated method stub
-		return session.insert("insertBoardSContent",bp);
+		return session.insert("product.insertBoardSContent",bp);
 	}
 	//파일등록 맵핑값에 주의하자 
 	@Override
 	public int insertAttachment(SqlSession session, Attachement a) {
 		// TODO Auto-generated method stub
-		return session.insert("insertAttachement",a);
+		return session.insert("product.insertAttachement",a);
+	}
+	//상품list
+	@Override
+	public List<Map> selectProductList(SqlSession session, int cPage, int numPerpage) {
+		// TODO Auto-generated method stub
+		return session.selectList("product.selectProductList",null,
+				new RowBounds((cPage-1)*numPerpage,numPerpage));
+	}
+
+	@Override
+	public int selectCount(SqlSession session) {
+		// TODO Auto-generated method stub
+		return session.selectOne("product.selectCount");
 	}
 }

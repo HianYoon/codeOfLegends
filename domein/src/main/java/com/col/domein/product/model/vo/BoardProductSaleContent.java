@@ -2,6 +2,8 @@ package com.col.domein.product.model.vo;
 
 import java.sql.Date;
 
+import org.springframework.stereotype.Component;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -11,6 +13,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
+@Component
 public class BoardProductSaleContent {
 	
 	private int articleNo;

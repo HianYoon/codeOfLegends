@@ -11,14 +11,23 @@ public class MemberController {
 		return "member/memberLogin";
 	}
 	
-	@RequestMapping("/member/signUp.do")
+	@RequestMapping("/member/signUp/signUp.do")
 	public String signUp() {
 		return "member/signUp/signUpConsent";
 	}
 	
-	@RequestMapping("member/register-form.do")
+	@RequestMapping("/member/signUp/register-form.do")
 	public String registerForm() {
 		return "member/signUp/registrationForm";
 	}
 	
+	@RequestMapping("/member/signUp/additionalInfo.do")
+	public String additionalInfo() {
+		return "member/signUp/additionalInfo";
+	}
+	
+	@RequestMapping("/member/signUp/confirmEmail.do")
+	public String confirmEmail() {
+		return "member/signUp/confirmEmail";
+	}
 }

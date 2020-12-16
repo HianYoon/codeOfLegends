@@ -45,5 +45,16 @@
 			#{renamed_File_name}
 			)
 		 </insert> 
+		 <select id="selectProductList" resultType="map">
+				SELECT b.*,(select COUNT(*) from BOARDDIRECTSALE b
+					inner join DIRECTSALEPRODUCT d on b.articleno=d.articleno
+					inner join BDSATTACHEDIMAGE a 
+					on d.productno=a.productno) as ATTCOUNT
+				from BOARDDIRECTSALE b order by articleNo DESC;
+		 
+		 </select>
+		 <select id="selectCount" parameterType="boardProductSaleContent">
+		 	select count(*) from BOARDDIRECTSALE
+		 </select>
 		
 </mapper>

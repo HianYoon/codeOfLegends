@@ -1,6 +1,7 @@
 package com.col.domein.product.model.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -53,4 +54,19 @@ public class ProductServiceImpl implements ProductService {
 		return result ;
 	}
 
+	
+	//상품list
+	@Override
+	public List<Map> selectProductList(int cPage, int numPerpage) {
+		// TODO Auto-generated method stub
+		
+		return dao.selectProductList(session,cPage,numPerpage);
+	}
+
+	@Override
+	public int selectCount() {
+		// TODO Auto-generated method stub
+		return dao.selectCount(session);
+	}
+	
 }

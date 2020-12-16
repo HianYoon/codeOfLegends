@@ -15,7 +15,7 @@
 	href="${path }/resources/css/common/headerStyle.css" />
 <title><%=request.getParameter("title") %></title>
 <script>
-	const path = ${path};
+	const path = "${path}";
 </script>
 </head>
 <body>
@@ -41,10 +41,10 @@
 							src="${path }/resources/images/profile/comment.png" alt="" />
 					</a></li>
 					<li><a href="#"> <img class="top-buttons"
-							src="${path }/resources/images/profile/add-to-basket.png" alt="" />
+							src="${path }/resources/images/profile/add-to-basket.png" alt="장바구니" />
 					</a></li>
 					<li><a href="${path }/member/memberLogin.do">로그인</a></li>
-					<li><a href="${path }/member/signUp.do">회원가입</a></li>
+					<li><a href="${path }/member/signUp/signUp.do">회원가입</a></li>
 				</ul>
 			</div>
 			<div class="mainNav-bottom">
@@ -57,7 +57,7 @@
 								<p>블라인드 입찰</p>
 							</div>
 					</a></li>
-					<li><a href="${path }/product/into.do">
+					<li><a href="${path }/product/productList.do">
 							<div>
 								<div>
 									<img src="${path }/resources/images/profile/blind.png" alt="" />
@@ -132,7 +132,7 @@
 					</a>
 				</div>
 				<div>
-					<a href="${path }/member/memberLogin.do">
+					<a href="${path }/member/signUp/memberLogin.do">
 						<div>
 							<img src="${path }/resources/images/profile/user.png" alt="" />
 						</div>

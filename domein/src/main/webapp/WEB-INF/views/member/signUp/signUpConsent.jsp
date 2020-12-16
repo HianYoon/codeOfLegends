@@ -44,7 +44,7 @@
 
 <script>
 	$("#agree-btn").click(e=>{
-		location.href="${path}/member/register-form.do";
+		location.href="${path}/member/signUp/register-form.do";
 	})
 	
 	$("#cancel-btn").click(e=>{
