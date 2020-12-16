@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.col.domein.common.pageBar.PageBarFactory;
 import com.col.domein.product.model.service.ProductService;
 import com.col.domein.product.model.vo.Attachement;
 import com.col.domein.product.model.vo.BoardProductSaleContent;
@@ -120,5 +121,20 @@ public class ProductController {
 			
 		
 		return mv;
+	}
+	//productList
+	@RequestMapping("/product/productList.do")
+	public ModelAndView selectProduct(ModelAndView mv,
+			@RequestParam(value="cPage",defaultValue="1")int cPage,
+			@RequestParam(value="numPerpage",defaultValue="10")int numPerpage) {
+		
+		mv.addObject("board",service.selectProductList(cPage,numPerpage));//순서가 바뀔시에 cPage,numPerpage 페이지넘버당 1개씩나오는 현상이 발생
+		//페이징 처리
+		int totalData=service.selectCount();
+		mv.addObject("pageBar",PageBarFactory.getPageBar(totalData, cPage, numPerpage, "productList.do"));
+		mv.addObject("totalData",totalData);
+		mv.setViewName("product/product");
+		return mv;
+		
 	}
 }

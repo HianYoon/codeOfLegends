@@ -3,6 +3,7 @@
     <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
     <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
     <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+    <link rel="stylesheet" href="${path }/resources/css/sharedStyle.css" />
     
  <link rel="stylesheet" href="${path }/resources/css/product/product.css"/>
   <link rel="stylesheet" href="${path }/resources/css/jihunTab/TabMedia.css"/>
@@ -13,7 +14,7 @@
 </jsp:include>
 <style>
 /* tab Media */
-    @media (max-width: 700px){
+    @media (max-width: 768px){
         div#octionPage {
             display: contents;
             justify-content: center;
@@ -21,12 +22,12 @@
             width: 700px;
             height: auto;
         }
-        div#wrapper {
+      div#octionPage div#wrapper {
             display: block;
             width: 100%;
             height: auto;
         }
-        ul.tabs {
+    div#octionPage ul.tabs {
             display: flex;
             width: 700px;
             height:auto;
@@ -34,134 +35,50 @@
             margin: 0!important;
             
         }
-        ul.tabs li{
+   div#octionPage ul.tabs li{
             width: 100%;
             height:40px;
             margin-bottom: 10px;
            
         }
-        .tabs li a{
+       div#octionPage .tabs li a{
             font-size: 18px !important;
             font-weight: 500;
         }
-        .clearfix{
-            content:"";
-            clear: both;
-            display: block;
-        }
+    
     }
 
 
 
-/* 슬라이드 이미지 */
-.slideshow-container{
-    display: none;
-}
-
-body {
-  box-sizing: border-box;
-  font-family: Verdana, sans-serif;}
-.mySlides {display: none;}
-img {
-  width:500px;
-  height: 200px;
-  vertical-align: middle;
- 
-}
-
-/* Slideshow container */
-.slideshow-container {
-  max-width: 1000px;
-  position: relative;
-  margin: auto;
-}
-
-/* Caption text */
-.text {
-  color: #f2f2f2;
-  font-size: 15px;
-  padding: 8px 12px;
-  position: absolute;
-  bottom: 8px;
-  width: 100%;
-  text-align: center;
-}
-
-/* Number text (1/3 etc) */
-.numbertext {
-  color: #f2f2f2;
-  font-size: 12px;
-  padding: 8px 12px;
-  position: absolute;
-  top: 0;
-}
-
-/* The dots/bullets/indicators */
-.dot {
-  height: 15px;
-  width: 15px;
-  margin: 0 2px;
-  background-color: #bbb;
-  border-radius: 50%;
-  display: inline-block;
-  transition: background-color 0.6s ease;
-}
-
-.dot.active {
-  background-color: #717171;
-}
-
-/* Fading animation */
-.fade {
-  -webkit-animation-name: fade;
-  -webkit-animation-duration: 1.5s;
-  animation-name: fade;
-  animation-duration: 1.5s;
-}
-
-@-webkit-keyframes fade {
-  from {opacity: .4} 
-  to {opacity: 1}
-}
-
-@keyframes fade {
-  from {opacity: .4} 
-  to {opacity: 1}
-}
-
-/* On smaller screens, decrease text size */
-@media only screen and (max-width: 300px) {
-  .text {font-size: 11px}
-}
-.tab_content{
+div#octionPage .tab_content{
     display:block;
     width: 900px;
     height: auto;
     
 
 }
-.direct-Product-container{
+div#octionPage .direct-Product-container{
     display: block;
     width: 800px;
     height: auto;
     justify-content: center;
     align-content: center;
 }
-.product-textgroup {
+div#octionPage .product-textgroup {
     width: 600px;
     display: grid;
     grid-template-columns: auto;
     align-items: center;
     height: auto;
 }
-.product-textgroup input{
+div#octionPage .product-textgroup input{
     margin-bottom: 10px;
 }
-.direct-img-file {
+div#octionPage .direct-img-file {
     width: 600px;
     height: 50px;
 }
-.direct-Product-container textarea {
+div#octionPage .direct-Product-container textarea {
     width: 600px;
     margin: 10px 0;
     border-radius: 5px;
@@ -217,7 +134,7 @@ img {
 
 
 
-@media (max-width: 700px){
+@media (max-width: 768px){
     #oction-page{
         width: 700px;
         height: auto;
@@ -325,10 +242,6 @@ img {
           
         }
 }
-        /* common */
-ul li{
-    list-style-type: none;
-}
 
  /* 전체 html display  flex*/
  #octionPage{
@@ -347,93 +260,31 @@ div#wrapper {
     width: 200px;
     background: #ffca28;
 }
-.tab-container-group{
+div#wrapper .tab-container-group{
     width:900px;
     height:auto;
     margin:10px 30px;
 }
 
-.tabs{
+div#wrapper .tabs{
     margin-top: 80px;
 }
-.tabs li{
+div#wrapper .tabs li{
     list-style-type: none;
     margin-top: 20px;
 }
-.tabs li a{
-    font-size: 30px;
+div#wrapper .tabs li a{
+    font-size: 26px;
     color:black;
 }
-a{
-    text-decoration: none;
-    color: black;
-}
-
-        /* 버튼 설정 */
-.btn{
-    height:35px;
-    background:#eee linear-gradient(to bottom, #fcfcfc,#eee);
-    border: 1px solid #d5d5d5;
-    border-radius: 4px;
-    /* display:inline-flex로 하게되면 안에 글자에 맞게 좌우로 크기가 변경됨ㄴ */
-    display:flex;
-    align-items: center;
-    padding: 0 12px;
-    font-size :14px;
-    font-weight:1000;
-    line-height: 1.5;
-    /* 마우스가 올라갓을때 손가락모양으로 바뀌게 */
-    cursor: pointer;
-    /* 패딩이나 margin이 들어갓을때 커지는것을막아주는 css명령어 */
-    box-sizing: border-box;
-    position:relative;
-}
-.btn:hover::before{
-    content:'';
-    position:absolute;
-    top:0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0,0,0,0.07);
-}
-.btn.btn--primary{
-    border: 1px solid ;
-    color: #fff;
-    background: #1976d2 linear-gradient(#004ba0,#1976d2);
-
-}
-/* input설정 */
-.input--text{
-    height: 34px;
-    padding:0 10px;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-    box-sizing: border-box;
-    /* a태그 포커스 없애는css outline */
-    outline:none;
-    /* input안에 쉐도우가 생기게하는 inset추가 */
-    box-shadow: inset 0 1px 2px rgba(0,0,0,0.075);
-    font-size: 16px;
-    
-}
-.input--text:focus{
-    border-color: #51a7e8;
-    box-shadow:inset 0 1px 2px rgba(0,0,0,0.075),
-                    0 0 5px rgba(81,167,232,0.5);
-}
-/* Vendor Prefix(브라우저 업체별 접두사) */
-.input--text::-webkit-input-placeholder{color:#cacaca;}
-.input--text::-ms-input-placeholder{color:#cacaca;}
-.input--text::-moz-input-placeholder{color:#cacaca;}
 </style>
 <section id="content">
 	<script>
     $(document).ready(function(){
         //로드될때
         $(".tab_content").hide();//모든탭을 숨겨~~
-        $('ul.tabs li:first').addClass("active").show();//액티브된 처음탭보여줘
-        $('.tab_content:first').show();//show first tab content
+        $('ul.tabs li:last').addClass("active").show();//액티브된 처음탭보여줘
+        $('.tab_content:last').show();//show first tab content
 
         //On Click Event
         $("ul.tabs li").click(function(){
@@ -522,10 +373,10 @@ a{
                                 <input type="text" class="input--text" name="productName" placeholder="상품명" required>
                                 <input type="text" class="input--text" name="origin" placeholder="원산지" required>
                                 <input type="text" class="input--text" name="productQuality" placeholder="등급" required>
-                                <input type="text" class="input--text" name="productQuantity" placeholder="수량" required>
+                                <input type="text" class="input--text" id="productQuantity" name="productQuantity" placeholder="수량" required>
                                 <input type="text" class="input--text" name="measureUnit" placeholder="단위:box/20kg-box/set/개/kg"required>
                                 <input type="text" class="input--text" name="price" placeholder="가격"  required>
-                                <input type="text" class="input--text" name="remaningQuantity" placeholder="갯수"  required>
+                                <input type="text" class="input--text" id="remaningQuantity" name="remaningQuantity" placeholder="갯수"  required>
                                
                             </div>
                                 
@@ -627,41 +478,74 @@ a{
              <div id="tab3" class="tab_content">
                  <!--Content-->
                  <div class="direct-Product-container">
-                     
-                     <form action="" method="post" enctype="multipart/form-data" id="oction--form" >
-                        
-                        <div class="direct--product--img">
-                            <h1>상품 수정</h1>
+                 
+                		<form action="${path}/boardSaleContent/insert.do?=businessKey=1" method="post">
+                                <label for="category-select">카테고리품목</label>
+                                <select name="category" id="category-select">
+                                    <option value="1">정육</option>
+                                    <option value="2">수산</option>
+                                    <option value="3">야채</option>
+                                    <option value="4">과일</option>
+                                    <option value="5">커피</option>
+                                    <option value="6">애견</option>
+                                    <option value="7">제과</option>
+                                    <option value="8">기타</option>
+                                </select>
+                               
+                                <input type="text" class="input--text" name="businessKey" placeholder="사업자번호"  required>
+                                <input type="text" class="input--text" name="title" placeholder="제목"  required>
+								 <textarea name="saleContent" id="" cols="30" rows="10" class="input-text"placeholder="내용설명">내용설명:
+                       			 </textarea>
+                       	 <div class="direct-btn-group">
+		                            <button type="submit" class="btn btn--primary">등록하기</button>
+		                            <button type="reset" class="btn btn--primary">취소하기</button>
                         </div>
-                        <div class="product-textgroup">
-                            
-                            <input type="text" class="input--text" name="" placeholder="상품명" required>
-                            <input type="text" class="input--text" name="" placeholder="원산지" required>
-                            <input type="text" class="input--text" name="" placeholder="수량"  required>
-                            <input type="text" class="input--text" name="" placeholder="단위:box/20kg-box/set/개/kg"  required>
-                            <input type="text" class="input--text" name="" placeholder="가격"  required>
-                            
-                        </div>
+                		</form>
+                        <form action="${path }/product/insert.do?=${a.articleNo}" method="post" enctype="multipart/form-data" id="oction--form" >
                         
-                        <div class="direct-img-container">
-                            <div class="direct-img-file1">
-                                
+                            <div class="direct--product--img">
+                                <h1>상품 등록</h1>
                             </div>
-                            <div class="direct-img-file">
-                                <input type="file" class="input--text upFile" id="upFile" name="imgFile"  multiple  readonly required />
-                        
-                        </div>
-                        
-                    </div>
-                    
+                             <select name="productStatusNo" id="productStatusNo">
+                                	<option value="1" >판매시작</option>
+                                	<option value="0">판매중단</option>
+                                	
+                                </select>
+                            <div class="product-textgroup">
 
-                    <div class="direct-btn-group">
-                        <button type="submit" class="btn btn--primary">등록하기</button>
-                        <button type="reset" class="btn btn--primary">취소하기</button>
-                    </div>
-                </form>
-            </div>           
-        </div>
+                                <input type="text" class="input--text" name="articleNo" placeholder="글번호" required>
+                                <input type="text" class="input--text" name="productStatusNo" placeholder="카테고리" required>
+                                <input type="text" class="input--text" name="productName" placeholder="상품명" required>
+                                <input type="text" class="input--text" name="origin" placeholder="원산지" required>
+                                <input type="text" class="input--text" name="productQuality" placeholder="등급" required>
+                                <input type="text" class="input--text" name="productQuantity" placeholder="수량" required>
+                                <input type="text" class="input--text" name="measureUnit" placeholder="단위:box/20kg-box/set/개/kg"required>
+                                <input type="text" class="input--text" name="price" placeholder="가격"  required>
+                                <input type="text" class="input--text" name="remaningQuantity" placeholder="갯수"  required>
+                               
+                            </div>
+                                
+                                <div class="direct-img-container">
+                                    <div class="direct-img-file1">
+                                                
+                                    </div>
+                                    <div class="direct-img-file">
+                                        <input type="file" class="input--text upFile" id="upFile" name="upFile" multiple="multiple" required />
+                                  
+        
+                                    </div>
+        
+                                </div>
+                          
+                        <div class="direct-btn-group">
+                            <button type="submit" class="btn btn--primary">등록하기</button>
+                            <button type="reset" class="btn btn--primary">취소하기</button>
+                        </div>
+                    </form>
+                    
+                 </div>           
+             </div>
+     
         
         <div id="tab4" class="tab_content">
             
@@ -695,23 +579,23 @@ a{
                 <div class="grid2-container">
                     
                     <!-- 절제선 -->
+                    <c:forEach items="${board}" var="b">
                     <div class="oction--grid--container">
-                       
+                       		
                             <div class="oction-img-group">
-                                <img id="big-target" src="" alt="이미지" data-zoom="3"/>
+                                <img id="big-target" href="<c:out value="${b. }"/>" src="${path }/product/productView.do?=${b.productimageNo}" alt="이미지" data-zoom="3"/>
                                 
                             </div>
                             <div>
 
                                 <ul class="grid-text-group" style="padding:0">
-                                    <li>제목</li>
-                                    <li>상호명</li>
-                                    <li><span>등록일</span><span>마감일</span></li>
-                                    <li>조회수
+                                    <li>${b.productimageNo }</li>
+                                    <li>${b.price }</li>
+                                    <li>리뷰수${b.ATTCOUNT }
                                     </li>
                                       <li>
-                                             <span><a href=""><img src="" alt="찜" style="width: 15px;height:15px;"></a></span>
-                                             <span><a href=""><img src="" alt="like"></a></span>
+                                             <span><a href="${path}"><img src="${path }/resources/images/profile/jjim.png" alt="찜" style="width: 15px;height:15px;"></a></span>
+                                             <span><a href="${path}"><img src="${path }/resources/images/profile/add-to-basket.png" alt="like" style="width: 15px;height:15px;"></a></span>
                 
                                    </li>
                                     
@@ -722,7 +606,7 @@ a{
                         
                      </div>
                   
-                                
+                     </c:forEach>           
                                 <!-- 절제선 -->
                       </div>
                   </div>
