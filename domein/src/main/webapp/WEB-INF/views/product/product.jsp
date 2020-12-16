@@ -361,7 +361,7 @@ div#wrapper {
     margin-top: 20px;
 }
 .tabs li a{
-    font-size: 30px;
+    font-size: 26px;
     color:black;
 }
 a{
