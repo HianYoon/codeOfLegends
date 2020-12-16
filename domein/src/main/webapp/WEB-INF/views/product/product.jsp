@@ -583,7 +583,7 @@ div#wrapper .tabs li a{
                     <div class="oction--grid--container">
                        		
                             <div class="oction-img-group">
-                                <img id="big-target" href="<c:out value="${b. }"/>" src="${path }/product/productView.do?=${b.productimageNo}" alt="이미지" data-zoom="3"/>
+                                <img id="big-target" href="<c:out value="${b.PORIGINALFILENAME }"/>" src="${path }/product/productView.do?=${b.productimageNo}" alt="이미지" data-zoom="3"/>
                                 
                             </div>
                             <div>
