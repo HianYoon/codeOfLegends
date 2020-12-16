@@ -50,7 +50,7 @@
 
 <script>
 	$(".sign-up").click(e => {
-		location.href = "${path}/member/signUp.do";
+		location.href = "${path}/member/signUp/signUp.do";
 	})
 
 </script>

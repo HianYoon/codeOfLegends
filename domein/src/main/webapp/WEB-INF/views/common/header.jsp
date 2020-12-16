@@ -44,7 +44,7 @@
 							src="${path }/resources/images/profile/add-to-basket.png" alt="장바구니" />
 					</a></li>
 					<li><a href="${path }/member/memberLogin.do">로그인</a></li>
-					<li><a href="${path }/member/signUp.do">회원가입</a></li>
+					<li><a href="${path }/member/signUp/signUp.do">회원가입</a></li>
 				</ul>
 			</div>
 			<div class="mainNav-bottom">
@@ -132,7 +132,7 @@
 					</a>
 				</div>
 				<div>
-					<a href="${path }/member/memberLogin.do">
+					<a href="${path }/member/signUp/memberLogin.do">
 						<div>
 							<img src="${path }/resources/images/profile/user.png" alt="" />
 						</div>
