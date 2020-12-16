@@ -14,7 +14,7 @@ uri="http://java.sun.com/jsp/jstl/functions"%>
 />
 
 <section id="context">
-	<form action="">
+	<form action="${path}/member/signUp/confirmEmail.do" method="post" id="the-form">
 		<div class="form-logo-cont">
 			<img src="${path }/resources\images\logo\signature.png" alt="" />
 		</div>
@@ -86,7 +86,7 @@ uri="http://java.sun.com/jsp/jstl/functions"%>
 
 				<tr class="message-row">
 					<td></td>
-					<td class="message-cont">일치</td>
+					<td class="message-cont">일치하지 않습니다</td>
 				</tr>
 				<tr class="form-row">
 					<td>
@@ -104,7 +104,7 @@ uri="http://java.sun.com/jsp/jstl/functions"%>
 				</tr>
 				<tr class="message-row">
 					<td></td>
-					<td class="message-cont">안녕</td>
+					<td class="message-cont">실명을 적어주세요</td>
 				</tr>
 				<tr class="form-row">
 					<td>
@@ -116,13 +116,13 @@ uri="http://java.sun.com/jsp/jstl/functions"%>
 						<input
 							type="text"
 							class="input--text reg-form"
-							placeholder="닉네임"
+							placeholder="닉네임:한영숫자 2~10 자리"
 						/>
 					</td>
 				</tr>
 				<tr class="message-row">
 					<td></td>
-					<td class="message-cont">안녕</td>
+					<td class="message-cont">잘못되었거나 중복된 닉네임</td>
 				</tr>
 				<tr class="form-row">
 					<td>
@@ -137,14 +137,14 @@ uri="http://java.sun.com/jsp/jstl/functions"%>
 						<input
 							type="tel"
 							class="input--text reg-form"
-							placeholder="전화번호"
+							placeholder="휴대전화 010-1234-5678"
 						/>
 					</td>
 					
 				</tr>
 				<tr class="message-row">
 					<td></td>
-					<td class="message-cont">안녕</td>
+					<td class="message-cont">잘못된 번호입니다</td>
 				</tr>
 				<tr class="form-row">
 					<td>
@@ -162,7 +162,7 @@ uri="http://java.sun.com/jsp/jstl/functions"%>
 				</tr>
 				<tr class="message-row">
 					<td></td>
-					<td class="message-cont">사용할 수 없는 이메일</td>
+					<td class="message-cont">사용할 수 없는 이메일입니다</td>
 				</tr>
 			</table>
 		</div>
@@ -212,79 +212,8 @@ uri="http://java.sun.com/jsp/jstl/functions"%>
 			<button type="submit" id="submit-btn" class="btn btn--primary2" disabled>가입하기</button>
 		</div>
 	</form>
+	
 	<script src="${path }/resources/js/signUp/registrationForm.js"></script>
-	<script>
-		let checker = [false, false, false, false, false, false, false];
-		let flags = [false, false, false, false, false, false, false];
-		const regexes = [
-			/^[0-9a-z]{5,15}$/,
-			/(?=.*\d{1,50})(?=.*[~`!@#$%\^&*()-+=]{1,50})(?=.*[a-zA-Z]{2,50}).{8,50}$/,
-			,
-			/^[가-힣a-zA-Z]{2,15}$/,
-			/^[0-9ㄱ-ㅎa-zA-Z]{2,10}$/,
-			/^\d{3}\d{3,4}\d{4}$/,
-			/^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i,
-		];
 
-
-		function ajaxForm(index,url,value){
-			$.ajax({
-						url: path + "/member/signup/"+ url,
-						method: "POST",
-						data: { "data": value },
-						success: (result) => {
-							
-							flags[index] = result;
-						}
-					});
-		}
-
-		function statusChanger(index, value) {
-			if ((index == 2 || regexes[index].test(value)) && flags[index]) {
-				$($(".icons")[index]).css({ "background-color": "var(--main-yellow)" });
-				$($(".message-row")[index]).addClass("opacity0");
-				checker[index] = true;
-			} else {
-				$($(".icons")[index]).css({ "background-color": "#C4C4C4" });
-				$($(".message-row")[index]).removeClass("opacity0");
-				checker[index] =false;
-			}
-			
-		}
-
-		function submitBtnChanger(){
-			if(checker.indexOf(false)==-1){
-					$("#submit-btn").removeAttr("disabled").removeClass("btn--primary2").addClass("btn--primary");
-				} else{
-					$("#submit-btn").attr({"disabled":"disabled"}).removeClass("btn--primary").addClass("btn--primary2");
-					
-				}
-		}
-
-		const regForm = $(".reg-form").each((i, v) => {
-			$(v).keyup((e) => {
-				let index = i;
-				var flag = false;
-				if (index == 0) {
-					ajaxForm(index,"id",e.target.value);
-				} else if (index == 1) {
-					flags[1] = true;
-					$($(".reg-form")[2]).trigger("keyup");
-				} else if (index == 2) {
-					if ($(".reg-form")[2].value == $(".reg-form")[1].value) flags[2] = true;
-				} else if (index == 4) {
-					ajaxForm(index,"nickname",e.target.value);
-				} else if (index ==5){
-					ajaxForm(index,"phone",e.target.value);
-				} else if (index ==6){
-					ajaxForm(index,"email",e.target.value);
-				}
-
-				statusChanger(index, e.target.value);
-				submitBtnChanger();
-			});
-		});
-
-	</script>
 </section>
 <jsp:include page="/WEB-INF/views/common/footer.jsp" />

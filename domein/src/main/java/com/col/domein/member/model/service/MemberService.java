@@ -1,5 +1,7 @@
 package com.col.domein.member.model.service;
 
+import java.util.Map;
+
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,8 +16,8 @@ public class MemberService {
 	@Autowired
 	SqlSession session;
 	
-	public boolean isEmptyIdName(String idName) {
+	public boolean isEmptyData(Map<String, String> map) {
 		
-		return md.isEmptyIdName(session,idName);
+		return md.isEmptyData(session,map);
 	}
 }

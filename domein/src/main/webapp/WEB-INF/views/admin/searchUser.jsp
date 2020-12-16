@@ -9,11 +9,6 @@
 	<jsp:param name="title" value=""/>
 </jsp:include>
 <section id="content">
-	<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <c:set var="path" value="${pageContext.request.contextPath }"/>
 
 <%-- <jsp:include page="/WEB-INF/views/common/header.jsp">
@@ -21,73 +16,113 @@
 </jsp:include> --%>
 <section id="content">
 
-	<div class="sideMenu">
-		<ul>
-			<li><a href="#">사용자 관리</a></li>
-			<li><a href="#">게시글 제재</a></li>
-		</ul>
-	</div>
+	
 	<div class="container">
-		<div class="wrap-search">
-			<form action="">
-				<label for="userInfo">
-					사용자 검색
-					<input type="text" id="userInfo" name="keyword">
-				</label>
-				<input type="submit" value="검색">
-			</form>
+		<div class="topMenu">
+			<ul>
+				<li><a href="#">사용자 관리</a></li>
+				<li><a href="#">게시글 제재</a></li>
+			</ul>
 		</div>
-		<div class="wrap-result">
-			<div class="wrap-title">
-				<h2>검색결과: 2명</h2>
+		<div class="sideMenu">
+			<ul>
+				<li><a href="#">사용자 관리</a></li>
+				<li><a href="#">게시글 제재</a></li>
+			</ul>
+		</div>
+		<div class="search-result">
+			<div class="wrap-search">
+				<form action="">
+					<label for="userInfo">
+						사용자 검색
+						<input type="text" id="userInfo" name="keyword">
+					</label>
+					<input type="submit" value="검색">
+				</form>
 			</div>
-			<div class="wrap-contents">
-				<ul class="list-result">
-					<li>
-						<div class="box-img">
-							<img src="프사.png" alt="">
-							<span class="text-red">비인증</span>
-						</div>
-						<div class="box-text">
-							<dl>
-								<div>
-									<dt>회원번호</dt>
-									<dd>신태일</dd>
-								</div>
-								<div>
-									<dt>이름</dt>
-									<dd>신태일</dd>
-								</div>
-							</dl>
-						</div>
-					</li>
-					<li>
-						<div class="box-img">
-							<img src="프사.png" alt="">
-							<span class="text-red">비인증</span>
-						</div>
-						<div class="box-text">
-							<dl>
-								<div>
-									<dt>회원번호</dt>
-									<dd>신태일</dd>
-								</div>
-								<div>
-									<dt>이름</dt>
-									<dd>신태일</dd>
-								</div>
-							</dl>
-						</div>
-					</li>
-				</ul>
+			<div class="wrap-result">
+				<div class="wrap-title">
+					<h2>검색결과: 2명</h2>
+				</div>
+				<div class="wrap-contents">
+					<ul class="list-result">
+						<li>
+							<div class="box-img">
+								<img src="프사.png" alt="">
+								<span class="text-red">비인증</span>
+							</div>
+							<div class="box-text">
+								<dl>
+									<div>
+										<dt>회원번호</dt>
+										<dd>신태일</dd>
+									</div>
+									<div>
+										<dt>이름</dt>
+										<dd>신태일</dd>
+									</div>
+								</dl>
+							</div>
+						</li>
+						<li>
+							<div class="box-img">
+								<img src="프사.png" alt="">
+								<span class="text-red">비인증</span>
+							<div class="box-text">
+								<dl>
+									<div>
+										<dt>회원번호</dt>
+										<dd>신태일</dd>
+									</div>
+									<div>
+										<dt>이름</dt>
+										<dd>신태일</dd>
+									</div>
+								</dl>
+							</div>
+						</li>
+						<li>
+							<div class="box-img">
+								<img src="프사.png" alt="">
+								<span class="text-red">비인증</span>
+							<div class="box-text">
+								<dl>
+									<div>
+										<dt>회원번호</dt>
+										<dd>신태일</dd>
+									</div>
+									<div>
+										<dt>이름</dt>
+										<dd>신태일</dd>
+									</div>
+								</dl>
+							</div>
+						</li>
+						<li>
+							<div class="box-img">
+								<img src="프사.png" alt="">
+								<span class="text-red">비인증</span>
+							<div class="box-text">
+								<dl>
+									<div>
+										<dt>회원번호</dt>
+										<dd>신태일</dd>
+									</div>
+									<div>
+										<dt>이름</dt>
+										<dd>신태일</dd>
+									</div>
+								</dl>
+							</div>
+						</li>
+					</ul>
+				</div>
 			</div>
 		</div>
 	</div>
 
 </section>
 <style>
-	#content {
-	}
 
 	.container ul,
 	li,
@@ -98,16 +133,16 @@
 		color: black;
 		margin: 0px;
 	}
-
+	.topMenu{
+		display:none;
+	}
 	.sideMenu {
-		display: flex;
 		justify-content: center;
 		flex-direction: column;
-		position: fixed;
+		/* position: fixed; */
 		width: 250px;
 		text-align: center;
 		background-color: #FFCA28;
-		height: 100%;
 		top: 0;
 		left: 0
 	}
@@ -120,11 +155,14 @@
 	.sideMenu > ul > li a{
 		display: block;
 	}
-
 	.container {
-		margin-left: 250px;
+		/* margin-left: 250px; */
+		display:flex;
+		margin-top:-5px;
 	}
-
+	.container .search-result{
+		flex:1;
+	}
 	.container .wrap-search {
 		height: 40px;
 		padding: 40px 0;
@@ -224,7 +262,34 @@
 		display: inline;
 	}
 
-
+	@media screen and (max-width: 769px){
+		.topMenu{
+			display:block;
+			background-color:#FFCA28;
+			position:fixed;
+			width:100%;
+			height:30px;
+		}
+		.topMenu ul{
+			display:flex;
+			justify-content:center;
+		}
+		.topMenu ul li{
+			padding-right:30px;
+		}
+		.toMenu ul:first-child{
+			border: 1px solid gray;
+		}
+		.sideMenu{
+			display:none;
+		}
+		.container {
+		/* margin-left: 250px; */
+		display:block;
+		margin-top:-5px;
+		}
+		
+	}
 
 	@import url('https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Dokdo&family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap');
 

@@ -279,6 +279,7 @@ div#wrapper .tabs li{
     list-style-type: none;
     margin-top: 20px;
 }
+
 div#wrapper .tabs li a{
     font-size: 26px;
     color:black;
