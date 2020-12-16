@@ -47,4 +47,12 @@
 			</div>
 		</div>
 </section>
+
+<script>
+	$(".sign-up").click(e=>{
+		location.href = "${path}/member/signUp.do";
+	})
+
+</script>
+
 <jsp:include page="/WEB-INF/views/common/footer.jsp" />
