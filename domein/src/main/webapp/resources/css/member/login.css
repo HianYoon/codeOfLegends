@@ -3,6 +3,8 @@ section{
   align-items: center;
   flex-direction: column;
   width: 100%;
+  margin-top:70px;
+  margin-bottom: 70px;j
 }
 
 .login-logo-container{
@@ -23,12 +25,16 @@ section{
   flex-direction: column;
   align-items: center;
   margin-top: 10px;
+  justify-content: center;
 }
 
 .login-fields-container>input{
   margin: 10px 10px 10px 10px;
 }
-
+.login-fields-container>h3{
+	display: flex;
+	justify-content: center;
+}
 .login-error-msg{
   color: red;
   display: none;
