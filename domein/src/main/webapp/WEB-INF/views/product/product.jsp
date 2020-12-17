@@ -3,12 +3,13 @@
     <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
     <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
     <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+     <c:set var="path" value="${pageContext.request.contextPath }"/>
     <link rel="stylesheet" href="${path }/resources/css/sharedStyle.css" />
     
  <link rel="stylesheet" href="${path }/resources/css/product/product.css"/>
   <link rel="stylesheet" href="${path }/resources/css/jihunTab/TabMedia.css"/>
-     <c:set var="path" value="${pageContext.request.contextPath }"/>
- 
+  <link rel="stylesheet" href="${path }/resources/css/sharedStyle.css"/>
+
 <jsp:include page="/WEB-INF/views/common/header.jsp">
 	<jsp:param name="title" value=""/>
 </jsp:include>
@@ -126,9 +127,14 @@ div#octionPage .direct-Product-container textarea {
     height: auto;
     box-sizing: border-box;
 }
-
-
-
+div#pageBar {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: auto;
+    height: 50px;
+    margin: 10px;
+}
 
 
 
@@ -278,6 +284,12 @@ div#wrapper .tabs li a{
     font-size: 26px;
     color:black;
 }
+ul li{
+ list-style-type: none;
+}
+button.btn .btn--primary{
+	z-index:0;
+}
 </style>
 <section id="content">
 	<script>
@@ -292,6 +304,7 @@ div#wrapper .tabs li a{
             $('ul.tabs li').removeClass('active');//Remove any 'active' class
             $(this).addClass('active').attr('color','blue');//셀렉트된탭을 active해라
             $('.tab_content').hide();//Hide all tab content
+            //e.preventDefault();//a태그로 전환시 이벤트는 남게해주는..
 
             var activeTab=$(this).find('a').attr('href');
             $(activeTab).fadeIn();//Fade in the active ID content
@@ -357,7 +370,7 @@ div#wrapper .tabs li a{
 		                            <button type="reset" class="btn btn--primary">취소하기</button>
                         </div>
                 		</form>
-                        <form action="${path }/product/insert.do?=${a.articleNo}" method="post" enctype="multipart/form-data" id="oction--form" >
+                        <form action="${path }/product/insert.do?=${articleNo}" method="post" enctype="multipart/form-data" id="oction--form" >
                         
                             <div class="direct--product--img">
                                 <h1>상품 등록</h1>
@@ -522,7 +535,7 @@ div#wrapper .tabs li a{
                                 <input type="text" class="input--text" name="productQuantity" placeholder="수량" required>
                                 <input type="text" class="input--text" name="measureUnit" placeholder="단위:box/20kg-box/set/개/kg"required>
                                 <input type="text" class="input--text" name="price" placeholder="가격"  required>
-                                <input type="text" class="input--text" name="remaningQuantity" placeholder="갯수"  required>
+                                <input type="text" class="input--text" name="remaningQuantity" placeholder="갯수"  readonly>
                                
                             </div>
                                 
@@ -531,7 +544,7 @@ div#wrapper .tabs li a{
                                                 
                                     </div>
                                     <div class="direct-img-file">
-                                        <input type="file" class="input--text upFile" id="upFile" name="upFile" multiple="multiple" required />
+                                        <input type="file" class="input--text upFile" id="upFile" name="upFile" required />
                                   
         
                                     </div>
@@ -584,15 +597,15 @@ div#wrapper .tabs li a{
                     <div class="oction--grid--container">
                        		
                             <div class="oction-img-group">
-                                <img id="big-target" href="<c:out value="${b.PORIGINALFILENAME }"/>" src="${path }/product/productView.do?=${b.productimageNo}" alt="이미지" data-zoom="3"/>
+                                <img id="big-target" href="${path }/product/productView.do?=${b.PRODUCTNO}" src="${path }/resources/upload/product/${b.P_RENAMED_FILE_NAME}" alt="이미지" data-zoom="3"/>
                                 
                             </div>
                             <div>
 
                                 <ul class="grid-text-group" style="padding:0">
-                                    <li>${b.productimageNo }</li>
-                                    <li>${b.price }</li>
-                                    <li>리뷰수${b.ATTCOUNT }
+                                    <li><c:out value="${b.TITLE }"/></li>
+                                    <li><fmt:formatNumber value="${b.PRICE}" pattern="###,###,###"/>원</li>
+                                    <li>리뷰수<c:out value="${b.ATTAC }"/>
                                     </li>
                                       <li>
                                              <span><a href="${path}"><img src="${path }/resources/images/profile/jjim.png" alt="찜" style="width: 15px;height:15px;"></a></span>
@@ -603,13 +616,18 @@ div#wrapper .tabs li a{
                                 </ul>
                             </div>
                                
-                                
+                                <script type="text/javascript">
+                                $("#big-target").onclick=function(){
+                                	location.href=("${path}/product/productView.do?=${b.PRODUCTNO}");
+                                }
+                                </script>
                         
                      </div>
                   
                      </c:forEach>           
-                                <!-- 절제선 -->
+                              <!-- 절제선 -->
                       </div>
+                              <div id="pageBar">${pageBar }</div>
                   </div>
                </div>
         </div>

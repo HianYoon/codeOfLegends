@@ -23,6 +23,7 @@ import com.col.domein.product.model.vo.Product;
 
 
 
+
 @Controller
 public class ProductController {
 	
@@ -83,33 +84,31 @@ public class ProductController {
 		//upload실제 경로를 가져와야하는데 없으니깐 만들어준다.
 		String path=session.getServletContext().getRealPath("/resources/upload/product");
 		File dir=new File(path);
-		if(!dir.exists()) dir.mkdirs(); //dir.exists()존재하지않으면 dir.mkdirs()생성하라.
-		//제너럴 선언해라
-		List<Attachement> files=new ArrayList<Attachement>();
-		//다중 파일 업로드하기  MultipartFile객체의 transferTo()메소드 이용파일을 저장
-		//renamed해줘야함 -> 파일명을 재정의하는것
-		
-			
-			for(MultipartFile f: upFile) {
-				if(!f.isEmpty()) {
-					//파일명 생성하기
-					String origianlName=f.getOriginalFilename();
-					String ext=origianlName.substring(origianlName.lastIndexOf(".")+1);
-					
-					//리네임 규칙
-					SimpleDateFormat sdf=new SimpleDateFormat("yyyyMMdd_HHmmssSSS");
-					
-					int rndValue=(int)(Math.random()*10000);
-					String reName=sdf.format(System.currentTimeMillis())+"_"+rndValue+"."+ext;
-					try {
-						f.transferTo(new File(path+"/"+reName));
-					}catch(IOException e) {
-						e.printStackTrace();
-					}
-					//1.attachment 빌더 오노테이션을 설정해주고 has a 관계
-					Attachement a=Attachement.builder().origin_File_name(origianlName)
-							.renamed_File_name(reName).build();
-					files.add(a);
+		if(!dir.exists()) 
+			dir.mkdirs();//mkdirs()<-폴더를 생성을해라
+		//2.제너를 선언을해준다.
+		List<Attachement> files=new ArrayList();
+		//다중파일 업로드하기 MultipartFile객체의 transferTo()메소드 이용 파일을 저장
+		//rename처리해줘야함 ->file명을 재정의 하는것
+		for(MultipartFile f :upFile) {
+			if(!f.isEmpty()) {
+				//파일명 생성하기
+				String originalName=f.getOriginalFilename();
+				String ext=originalName.substring(originalName.lastIndexOf(".")+1);
+				
+				//리네임 규칙
+				SimpleDateFormat sdf=new SimpleDateFormat("yyyyMMdd_HHmmssSSS");
+				int rndValue=(int)(Math.random()*10000);
+				String reName=sdf.format(System.currentTimeMillis())+"_"+rndValue+"."+ext;
+				try {
+					f.transferTo(new File(path+"/"+reName));
+				}catch(IOException e) {
+					e.printStackTrace();
+				}
+				//1.파일 attachment 빌더어노테이션을 설정해주고   --has a관계.
+			 Attachement a=Attachement.builder().originFileName(originalName)
+					 .renamedFileName(reName).build();
+			 files.add(a);
 				}
 			}
 			
@@ -122,7 +121,7 @@ public class ProductController {
 		
 		return mv;
 	}
-	//productList
+	//productList 목록
 	@RequestMapping("/product/productList.do")
 	public ModelAndView selectProduct(ModelAndView mv,
 			@RequestParam(value="cPage",defaultValue="1")int cPage,

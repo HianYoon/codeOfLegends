@@ -6,6 +6,7 @@ import java.util.Map;
 import com.col.domein.product.model.vo.Attachement;
 import com.col.domein.product.model.vo.BoardProductSaleContent;
 import com.col.domein.product.model.vo.Product;
+import com.col.domein.product.model.vo.ProductAll;
 
 public interface ProductService {
 

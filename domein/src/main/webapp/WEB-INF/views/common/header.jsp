@@ -13,7 +13,11 @@
 <link rel="stylesheet" href="${path }/resources/css/sharedStyle.css" />
 <link rel="stylesheet"
 	href="${path }/resources/css/common/headerStyle.css" />
-<title><%=request.getParameter("title") %></title>
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+<link rel="stylesheet"
+	href="${path }/resources/css/cart/cart.css" />
+<title><%=request.getParameter("title")%></title>
 <script>
 	const path = "${path}";
 </script>
@@ -41,7 +45,8 @@
 							src="${path }/resources/images/profile/comment.png" alt="" />
 					</a></li>
 					<li><a href="#"> <img class="top-buttons"
-							src="${path }/resources/images/profile/add-to-basket.png" alt="장바구니" />
+							src="${path }/resources/images/profile/add-to-basket.png"
+							alt="장바구니" />
 					</a></li>
 					<li><a href="${path }/member/memberLogin.do">로그인</a></li>
 					<li><a href="${path }/member/signUp/signUp.do">회원가입</a></li>
@@ -141,7 +146,7 @@
 			</div>
 		</div>
 	</header>
-	
+
 
 
 	<script src="${path }/resources/js/common/headerScript.js"></script>

@@ -38,11 +38,11 @@
 		<h4>간편 로그인 / 회원가입</h4>
 		<div class="buttons">
 			<img
-				src="${path }/resources/images/sns/google-icon.svg"
+				src="${path }/resources/images/sns/google.svg"
 				alt="" id="btn-google" /> <img
 				src="${path }/resources/images/sns/kakao.png"
 				alt="" id="btn-kakao" /> <img
-				src="${path }/resources/images/sns/naver.PNG"
+				src="${path }/resources/images/sns/naver.png"
 				alt="" id="btn-naver" />
 			</div>
 		</div>

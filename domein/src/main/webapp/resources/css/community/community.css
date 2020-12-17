@@ -1,0 +1,121 @@
+@charset "UTF-8";
+
+.container{
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+}
+
+.community-logo{
+    width: 20%;
+}
+
+.community-logo img{
+    width: 100%;
+}
+
+.community-title{
+    width: 100%;
+    padding: 5px;
+    /* height: 2em; */
+    border-top: 2px solid black;
+    border-bottom: 2px solid black;
+}
+
+.community-title p{
+    font-size: 2em;
+    padding-left: 5%;
+}
+.community-bottom{
+    display:flex;
+    width:100%;
+}
+.community-bottom-left{
+    display:block;
+    width:17%;
+    height:8em;
+    font-size: 1.5em;
+    padding-top: 10%;
+    margin-top: 5%;
+    margin-left: 50px;
+    border-right: 2px solid black;
+    text-decoration: none;
+}
+.community-bottom-left a{
+    text-decoration: none;
+}
+.board_list{
+    border-collapse: collapse;
+}
+.board_list a{
+    text-decoration:none;
+    color: inherit;
+}
+.community-bottom-right{
+    width:100%;
+    padding: 50px;
+    /* margin-top: 5%;
+    margin-left: 5%; */
+}
+
+.board_list{
+    width: 100%;
+    border-top: 2px solid navy;
+}
+.board_list tr{
+    border-bottom: 1px solid #ccc;
+}
+.board_list th,
+.board_list td{
+    padding: 10px;
+    font-size: 14px;
+}
+.board_list td{
+    text-align: center;
+}
+.board_list tbody tr td:nth-child(2) {
+    text-align: left;
+}
+
+.board_list .tit {
+    text-align:left;
+}
+.board_list .tit:hover {
+    text-decoration: underline;
+}
+
+.paging{
+    width: 100%;
+    text-align: center;
+    padding-top: 5%;
+}
+
+.paging a{
+    text-decoration: none;
+    color: inherit;
+    font-size: 2em;
+    text-align: center;
+    padding: 10px;
+}
+@media screen and (max-width: 768px) {
+    .community-bottom-left{
+        border:0;
+    }
+@media screen and (max-width: 768px) {
+    .community-bottom-left p{
+        display:flex;
+        justify-content: space-between;
+        text-align: center;
+    }
+}
+@media screen and (max-width: 768px) {
+    .container div{
+        flex-wrap: wrap;
+        padding:0;
+        margin:0;
+    }
+    .padding{
+        padding-bottom:10%;
+    }
+}
+}
