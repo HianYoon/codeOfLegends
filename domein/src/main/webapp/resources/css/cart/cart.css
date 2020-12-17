@@ -324,7 +324,6 @@ div.product-cart input{
     margin-bottom: 5px;
     font-size: 15px;
     font-weight: 400;
-    border: 1px solid red;
     box-sizing: border-box;
     
 }
@@ -360,7 +359,6 @@ div.product-cart input{
             margin-bottom: 5px;
             font-size: 15px;
             font-weight: 400;
-            border: 1px solid red;
             box-sizing: border-box;
         }
         .grid2-container {
