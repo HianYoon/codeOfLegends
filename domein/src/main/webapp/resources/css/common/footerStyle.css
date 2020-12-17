@@ -19,12 +19,16 @@
         
     }
    
-   .footer-text-items{
-       display:flex;
-       margin-left: 10px;
-       justify-items: baseline;
-       align-items: baseline;
-   }
+.footer-text-items {
+    display: flex;
+    justify-content: center;
+    margin: 10px;
+    padding: 10px;
+    justify-items: baseline;
+    align-items: baseline;
+}
+
+
    .footer-text-items li{
        margin-left: 30px;
    }
@@ -42,10 +46,11 @@
         box-sizing: border-box;
 
     }
-    .text-copyright{
-        margin-left: 80px;
-        cursor: pointer;
-    }
+   .text-copyright {
+    text-align: center;
+    margin-left: 80px;
+    cursor: pointer;
+}
     .footer-small-text {
         display:none;
     }
