@@ -613,7 +613,11 @@ ul li{
                                 </ul>
                             </div>
                                
-                                
+                                <script type="text/javascript">
+                                $("#big-target").onclick=function(){
+                                	location.href=("${path}/product/productView.do?=${b.PRODUCTNO}");
+                                }
+                                </script>
                         
                      </div>
                   
