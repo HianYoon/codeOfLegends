@@ -19,47 +19,56 @@
 	<form action="">
 		<div class="form-wrapper">
 			<table>
-				<th>사업자 등록번호</th>
+				<th class="form-titles">사업자 등록번호</th>
 				<tr>
 
-					<td class="first-column"><input type="text" class="input--text"
-						placeholder="123-456-12345 형식" id="businessNo" name="businessNo"/></td>
+					<td class="first-column"><input type="text"
+						class="input--text" placeholder="123-456-12345 형식" id="businessNo"
+						name="businessNo" required /></td>
 					<td><img src="${path}/resources/images/signUp/checked.png"
-						class="opacity0" id="businessNoCheck" alt="" /></td>
+						class="opacity0 checker" id="businessNoCheck" alt="" /></td>
 				</tr>
-				<th>사업자명</th>
+				<th class="form-titles">사업자명</th>
 				<tr>
-					<td class="first-column"> <input type="text" class="input--text" id="businessName" name="businessName" placeholder="사업자 등록번호 입력 시 자동 입력" readonly> </td>
+					<td class="first-column"><input type="text"
+						class="input--text" id="businessName" name="businessName"
+						placeholder="사업자 등록번호 입력 시 자동 입력" readonly></td>
 				</tr>
-				<th>사업자 별칭</th>
+				<th class="form-titles">사업자 별칭</th>
 				<tr>
-					<td class="first-column"> <input type="text" class="input--text" id="businessPhone" name="businessPhone"> </td>
+					<td class="first-column"><input type="text"
+						class="input--text" id="businessNickname" name="businessNickname"
+						placeholder="미입력 시 상호명 자동 입력"></td>
 				</tr>
-				<th>사업자 전화번호</th>
+				<th class="form-titles">사업자 전화번호</th>
 				<tr>
-					<td class="first-column"> <input type="tel" class="input--text" id="businessPhone" name="businessPhone"> </td>
-				</tr>
-				
-				<th>주소</th>
-				<tr>
-
-					<td class="first-column"><input type="text" class="input--text" id="narrow-field"
-						readonly name="postcode"/>
-						<button class="input--text">우편번호 찾기</button></td>
-				</tr>
-				<tr>
-
-					<td class="first-column"><input type="text" class="input--text" readonly
-						name="address1" id="address1" /></td>
+					<td class="first-column"><input type="tel" class="input--text"
+						id="businessTel" name="businessTel"></td>
 					<td><img src="${path}/resources/images/signUp/checked.png"
-						class="opacity0" id="addressCheck" alt="" /></td>
+						class="opacity0 checker" id="businessNoCheck" alt="" /></td>
+				</tr>
+
+				<th class="form-titles">주소</th>
+				<tr>
+
+					<td class="first-column"><input type="text"
+						class="input--text" id="narrow-field" readonly name="postcode" />
+						<button class="btn btn--primary">우편번호 찾기</button></td>
 				</tr>
 				<tr>
 
-					<td class="first-column"><input type="text" class="input--text" name="address2"
-						id="address2" placeholder="나머지 주소" /></td>
+					<td class="first-column"><input type="text"
+						class="input--text" readonly name="address1" id="address1" /></td>
+					<td><img src="${path}/resources/images/signUp/checked.png"
+						class="opacity0 checker" id="addressCheck" alt="" /></td>
 				</tr>
-				<th>카테고리</th>
+				<tr>
+
+					<td class="first-column"><input type="text"
+						class="input--text" name="address2" id="address2"
+						placeholder="나머지 주소" /></td>
+				</tr>
+				<th class="form-titles">카테고리</th>
 				<tr>
 
 					<td colspan="1" class="categories"><label for="beef">
@@ -124,7 +133,7 @@
 				</div>
 			</table>
 			<div class="btn-cont">
-				<button class="btn btn--primary2">가입</button>
+				<button class="btn btn--primary2" disabled>가입</button>
 				<button class="btn btn--primary2">취소</button>
 			</div>
 		</div>
