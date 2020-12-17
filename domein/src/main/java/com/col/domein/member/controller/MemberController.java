@@ -5,9 +5,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import com.col.domein.member.model.service.MemberService;
 import com.col.domein.member.model.vo.Member;
@@ -46,6 +44,9 @@ public class MemberController {
 		if(additionalInfo!=null) {
 			url="additionalInfo.do";
 		}
+//		비밀번호 암호화
+		m.setPassword(pwEncoder.encode(m.getPassword()));
+		
 		session.setAttribute("newMember", m);
 		return "redirect: /member/signUp/"+url;
 	}

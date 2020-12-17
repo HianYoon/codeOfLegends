@@ -28,7 +28,10 @@ section{
   height: 8vw;
   margin: 0.5vw;
   background-color: ivory;
-  max-width: 50px;
+  max-width: 120px;
+  max-height: 120px;
+  min-width:60px;
+  min-height:60px;
 }
 .img-labels-container>img{
   width: 50%;

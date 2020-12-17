@@ -18,6 +18,20 @@
 	font-family: 'Noto Sans KR', sans-serif;
 }
 
+section{
+	position:relative;
+	margin-top:70px;
+	margin-bottom: 70px;
+	
+}
+
+section{}
+
+header, footer, header *, footer *{
+	
+	z-index:1500;	
+}
+
 a{
     text-decoration: none;
     color: black;
@@ -70,7 +84,7 @@ ul li{
     /* 패딩이나 margin이 들어갓을때 커지는것을막아주는 css명령어 */
     box-sizing: border-box;
     position:relative;
-
+	z-index:500;
 }
 .btn:hover::before{
     content:'';
