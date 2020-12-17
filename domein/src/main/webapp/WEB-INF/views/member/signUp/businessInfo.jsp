@@ -7,198 +7,132 @@
 
 
 <jsp:include page="/WEB-INF/views/common/header.jsp">
-	<jsp:param name="title" value=" "/>
+	<jsp:param name="title" value=" " />
 </jsp:include>
+<link rel="stylesheet"
+	href="${path}/resources/css/signUp/businessInfo.css" />
 <section id="context">
 
-</section>
-<jsp:include page="/WEB-INF/views/common/footer.jsp"/>
+	<div class="form-logo-cont">
+		<img src="${path}/resources\images\logo\signature.png" alt="" />
+	</div>
+	<form action="">
+		<div class="form-wrapper">
+			<table>
+				<th>사업자 등록번호</th>
+				<tr>
 
-<!DOCTYPE html>
-<html lang="en">
-	<head>
-		<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<script src="http://code.jquery.com/jquery-3.5.1.min.js"></script>
-		<title>Document</title>
-		<link
-			rel="stylesheet"
-			href="../../../../../../src\main\webapp\resources\css\sharedStyle.css"
-		/>
-		<link
-			rel="stylesheet"
-			href="../../../../../../src\main\webapp\resources\css\signUp\businessInfo.css"
-		/>
-		<link
-			rel="stylesheet"
-			href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
-		/>
-	</head>
+					<td class="first-column"><input type="text" class="input--text"
+						placeholder="123-456-12345 형식" id="businessNo" name="businessNo"/></td>
+					<td><img src="${path}/resources/images/signUp/checked.png"
+						class="opacity0" id="businessNoCheck" alt="" /></td>
+				</tr>
+				<th>사업자명</th>
+				<tr>
+					<td class="first-column"> <input type="text" class="input--text" id="businessName" name="businessName" placeholder="사업자 등록번호 입력 시 자동 입력" readonly> </td>
+				</tr>
+				<th>사업자 별칭</th>
+				<tr>
+					<td class="first-column"> <input type="text" class="input--text" id="businessPhone" name="businessPhone"> </td>
+				</tr>
+				<th>사업자 전화번호</th>
+				<tr>
+					<td class="first-column"> <input type="tel" class="input--text" id="businessPhone" name="businessPhone"> </td>
+				</tr>
+				
+				<th>주소</th>
+				<tr>
 
-	<body>
-		<section>
-			<div class="form-logo-cont">
-				<img
-					src="../../../../../../src\main\webapp\resources\images\logo\signature.png"
-					alt=""
-				/>
-			</div>
-			<form action="">
-				<div class="form-wrapper">
-					<table>
-						<tr>
-							<td>ì¬ìì ë±ë¡ë²í¸</td>
-							<td>
-								<input
-									type="number"
-									class="input--text"
-									placeholder="-ë¥¼ ì ì¸í ë²í¸ë§"
-								/>
-							</td>
-							<td>
+					<td class="first-column"><input type="text" class="input--text" id="narrow-field"
+						readonly name="postcode"/>
+						<button class="input--text">우편번호 찾기</button></td>
+				</tr>
+				<tr>
+
+					<td class="first-column"><input type="text" class="input--text" readonly
+						name="address1" id="address1" /></td>
+					<td><img src="${path}/resources/images/signUp/checked.png"
+						class="opacity0" id="addressCheck" alt="" /></td>
+				</tr>
+				<tr>
+
+					<td class="first-column"><input type="text" class="input--text" name="address2"
+						id="address2" placeholder="나머지 주소" /></td>
+				</tr>
+				<th>카테고리</th>
+				<tr>
+
+					<td colspan="1" class="categories"><label for="beef">
+							<div class="img-labels-container animate__animated">
+								<h5>정육</h5>
+								<img src="${path}/resources/images/signUp/beef.png" alt="" />
+							</div>
+					</label> <label for="seafood">
+							<div class="img-labels-container animate__animated">
+								<h5>수산</h5>
+								<img src="${path}/resources/images/signUp/fish.png" alt="" />
+							</div>
+					</label> <label for="vegetable">
+							<div class="img-labels-container animate__animated">
+								<h5>야채</h5>
+								<img src="${path}/resources/images/signUp/vegetables.png" alt="" />
+							</div>
+					</label> <label for="steel">
+							<div class="img-labels-container animate__animated">
+								<h5>철강</h5>
+								<img src="${path}/resources/images/signUp/beam.png" alt="" />
+							</div>
+					</label></td>
+				</tr>
+				<tr>
+
+					<td colspan="1" class="categories"><label for="pet">
+							<div class="img-labels-container animate__animated">
+								<h5>애견</h5>
+								<img src="${path}/resources/images/signUp/bone.png" alt="" />
+							</div>
+					</label> <label for="bakery">
+							<div class="img-labels-container animate__animated">
+								<h5>베이커리</h5>
+								<img src="${path}/resources/images/signUp/bread.png" alt="" />
+							</div>
+					</label> <label for="electronics">
+							<div class="img-labels-container animate__animated">
+								<h5>전자기기</h5>
 								<img
-									src="../../../resources/images/signUp/checked.png"
-									class="opacity0"
-									id="businessNoCheck"
-									alt=""
-								/>
-							</td>
-						</tr>
-						<tr>
-							<td>ì£¼ì</td>
-							<td>
-								<input
-									type="text"
-									class="input--text"
-									id="narrow-field"
-									readonly
-								/>
-								<button class="input--text">ì°í¸ë²í¸ ì°¾ê¸°</button>
-							</td>
-						</tr>
-						<tr>
-							<td></td>
-							<td><input type="text" class="input--text" readonly /></td>
-							<td>
+									src="${path}/resources/images/signUp/free-icon-lightning-616494.png"
+									alt="" />
+							</div>
+					</label> <label for="etc">
+							<div class="img-labels-container animate__animated">
+								<h5>기타</h5>
 								<img
-									src="../../../resources/images/signUp/checked.png"
-									class="opacity0"
-									id="addressCheck"
-									alt=""
-								/>
-							</td>
-						</tr>
-						<tr>
-							<td></td>
-							<td>
-								<input
-									type="text"
-									class="input--text"
-									placeholder="ëë¨¸ì§ ì£¼ì"
-								/>
-							</td>
-						</tr>
-						<tr>
-							<td>ì¹´íê³ ë¦¬</td>
-							<td class="categories">
-								<label for="beef">
-									<div class="img-labels-container animate__animated">
-										<h5>ì ì¡</h5>
-										<img
-											src="../../../../webapp/resources/images/signUp/beef.png"
-											alt=""
-										/>
-									</div>
-								</label>
-								<label for="seafood">
-									<div class="img-labels-container animate__animated">
-										<h5>ìì°</h5>
-										<img
-											src="../../../../webapp/resources/images/signUp/fish.png"
-											alt=""
-										/>
-									</div>
-								</label>
-								<label for="vegetable">
-									<div class="img-labels-container animate__animated">
-										<h5>ì¼ì±</h5>
-										<img
-											src="../../../../webapp/resources/images/signUp/vegetables.png"
-											alt=""
-										/>
-									</div>
-								</label>
-								<label for="steel">
-									<div class="img-labels-container animate__animated">
-										<h5>ì² ë¬¼</h5>
-										<img
-											src="../../../../webapp/resources/images/signUp/beam.png"
-											alt=""
-										/>
-									</div>
-								</label>
-							</td>
-						</tr>
-						<tr>
-							<td></td>
-							<td class="categories">
-								<label for="pet">
-									<div class="img-labels-container animate__animated">
-										<h5>ì ê²¬</h5>
-										<img
-											src="../../../../webapp/resources/images/signUp/bone.png"
-											alt=""
-										/>
-									</div>
-								</label>
-								<label for="bakery">
-									<div class="img-labels-container animate__animated">
-										<h5>ë² ì´ì»¤ë¦¬</h5>
-										<img
-											src="../../../../webapp/resources/images/signUp/bread.png"
-											alt=""
-										/>
-									</div>
-								</label>
-								<label for="electronics">
-									<div class="img-labels-container animate__animated">
-										<h5>ì ìê¸°ê¸°</h5>
-										<img
-											src="../../../../webapp/resources/images/signUp/free-icon-lightning-616494.png"
-											alt=""
-										/>
-									</div>
-								</label>
-								<label for="etc">
-									<div class="img-labels-container animate__animated">
-										<h5>ê¸°í</h5>
-										<img
-											src="../../../../webapp/resources/images/signUp/free-icon-question-mark-in-dark-circle-71768.png"
-											alt=""
-										/>
-									</div>
-								</label>
-							</td>
-						</tr>
-						<div class="input-fields">
-							<input type="checkbox" name="beef" id="beef" />
-							<input type="checkbox" name="seafood" id="seafood" />
-							<input type="checkbox" name="vegetable" id="vegetable" />
-							<input type="checkbox" name="steel" id="steel" />
-							<input type="checkbox" name="pet" id="pet" />
-							<input type="checkbox" name="bakery" id="bakery" />
-							<input type="checkbox" name="electronics" id="electronics" />
-							<input type="checkbox" name="etc" id="etc" />
-						</div>
-					</table>
-					<div class="btn-cont">
-						<button class="btn btn--primary">ê°ì</button>
-						<button class="btn btn--primary2">ì·¨ì</button>
-					</div>
+									src="${path}/resources/images/signUp/free-icon-question-mark-in-dark-circle-71768.png"
+									alt="" />
+							</div>
+					</label></td>
+				</tr>
+				<div class="input-fields">
+					<input type="checkbox" value="1" id="beef" name="categories" /> <input
+						type="checkbox" value="2" id="seafood" name="categories" /> <input
+						type="checkbox" value="3" id="vegetable" name="categories" /> <input
+						type="checkbox" value="4" id="steel" name="categories" /> <input
+						type="checkbox" value="5" id="pet" name="categories" /> <input
+						type="checkbox" value="6" id="bakery" name="categories" /> <input
+						type="checkbox" value="7" id="electronics" name="categories" /> <input
+						type="checkbox" value="99" id="etc" name="categories" />
 				</div>
-			</form>
-		</section>
-	</body>
+			</table>
+			<div class="btn-cont">
+				<button class="btn btn--primary2">가입</button>
+				<button class="btn btn--primary2">취소</button>
+			</div>
+		</div>
+	</form>
 
-	<script src="../../../resources/js/signUp/businessInfo.js"></script>
-</html>
+	<script src="${path }/resources/js/signUp/businessInfo.js"></script>
+	<script>
+		
+	</script>
+</section>
+<jsp:include page="/WEB-INF/views/common/footer.jsp" />

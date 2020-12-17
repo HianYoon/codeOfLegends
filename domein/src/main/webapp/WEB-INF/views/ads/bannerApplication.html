@@ -31,6 +31,15 @@
 .div_attached>span{
     color: rgb(119, 119, 119);
 }
+.div_attached>div{
+    width:580px;
+    height:200px;
+    border:1px rgb(119, 119, 119) solid;
+}
+.div_attached>div>img{
+    justify-content: center;
+    align-items: center;
+}
 
 </style>
 <body>
@@ -69,10 +78,12 @@
                     </div>
 
                     <div class="div_attached">
-                        <p><u>첨부파일(메인배너에 삽입될 이미지를 980x320 사이즈로 업로드)</u></p>
+                        <p><u>첨부파일(메인배너에 삽입될 이미지를 580x200 사이즈로 업로드)</u></p>
                         <span><u>Preview(미리보기)</u></span><br>
-                        <img src="" alt="첨부이미지 없음" id="preImage" width="980" height="320"><br>
-                        <input type="file" id="upload" name="upload" multiple accept="image/*" required>
+                        <div>
+                            <img src="" alt="미리보기가 표시됩니다." id="preImage" width="580" height="200"><br>
+                        </div><br>
+                        <input type="file" id="upload" name="upload" accept="image/*" onchange="fn_readImage(event);" required>
                         <input type="button" class=".btn.btn--primary" name="deleteFile" value="삭제" onclick="fn_deleteFile();">                
                     </div>
 
@@ -104,21 +115,22 @@
         </div>
     </section>
     <script>
-        $(function(){
-            $("#upload").on("change",fn_readImage(event));
-        });
-
         function fn_readImage(e){
             var reader=new FileReader();
-            if(!e.target.files.typeof==("image.*")){
-                alert("이미지 파일만 업로드 가능합니다.");
-                return;
-            }
+            // if(!e.target.files.typeof==("image.*")){
+            //     alert("이미지 파일만 업로드 가능합니다.");
+            //     return;
+            // }
             reader.onload=function(e){
                 $("#preImage").attr("src",e.target.result);
             }
-            reader.readAsDataURL(e.target.files);
+            reader.readAsDataURL(e.target.files[0]);
         }
+        function fn_deleteFile(){            
+            $("#upload").val("");
+            $("#preImage").attr("src","");
+        }
+        
     </script>
 </body>
 </html>

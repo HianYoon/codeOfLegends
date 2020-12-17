@@ -15,6 +15,7 @@ section{
   justify-content: space-evenly;
 }
 
+
 .img-labels-container{
   display: flex;
   flex-direction: column;
@@ -28,7 +29,10 @@ section{
   height: 8vw;
   margin: 0.5vw;
   background-color: ivory;
-  max-width: 50px;
+  max-width: 120px;
+  max-height: 120px;
+  min-width:60px;
+  min-height:60px;
 }
 .img-labels-container>img{
   width: 50%;
@@ -44,6 +48,13 @@ section{
   background-color: #ececec;
   padding: 20px;
 }
+.form-wrapper>table>tr{
+  width: 100%;
+}
+.form-wrapper>table>tr>.first-column{
+  width:80%
+}
+
 .btn-cont{
   display:flex;
   justify-content: center;

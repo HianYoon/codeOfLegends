@@ -15,10 +15,10 @@
 	<div class="footer-container">
 		<div class="footer-group">
 			<ul class="footer-text-items displayNone">
-				<li><a href="#"><img src="" alt="페이스북" id="footer-sns-img"></a></li>
-				<li><a href="#"><img src="" alt="인스타" id="footer-sns-img"></a></li>
-				<li><a href="#"><img src="" alt="카카오" id="footer-sns-img"></a></li>
-				<li><a href="#"><img src="" alt="네이버" id="footer-sns-img"></a></li>
+				<li><a href="#"><img src="${path }/resources/images/sns/facebook.png" alt="페이스북" id="footer-sns-img"></a></li>
+				<li><a href="#"><img src="${path }/resources/images/sns/google.svg" alt="구글" id="footer-sns-img"></a></li>
+				<li><a href="#"><img src="${path }/resources/images/sns/kakao.png" alt="카카오" id="footer-sns-img"></a></li>
+				<li><a href="#"><img src="${path }/resources/images/sns/naver.png" alt="네이버" id="footer-sns-img"></a></li>
 			</ul>
 		</div>
 		<div class="footer-text-group">

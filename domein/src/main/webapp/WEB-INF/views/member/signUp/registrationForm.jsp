@@ -14,7 +14,7 @@ uri="http://java.sun.com/jsp/jstl/functions"%>
 />
 
 <section id="context">
-	<form action="${path}/member/signUp/confirmEmail.do" method="post" id="the-form">
+	<form action="${path}/member/signUp/signUpEnd.do" method="post" id="the-form">
 		<div class="form-logo-cont">
 			<img src="${path }/resources\images\logo\signature.png" alt="" />
 		</div>
@@ -58,6 +58,7 @@ uri="http://java.sun.com/jsp/jstl/functions"%>
 							type="password"
 							class="input--text reg-form"
 							placeholder="비밀번호"
+							name="password"
 						/>
 					</td>
 				</tr>
@@ -99,6 +100,7 @@ uri="http://java.sun.com/jsp/jstl/functions"%>
 							type="text"
 							class="input--text reg-form"
 							placeholder="이름"
+							name="userName"
 						/>
 					</td>
 				</tr>
@@ -117,6 +119,7 @@ uri="http://java.sun.com/jsp/jstl/functions"%>
 							type="text"
 							class="input--text reg-form"
 							placeholder="닉네임:한영숫자 2~10 자리"
+							name="nickname"
 						/>
 					</td>
 				</tr>
@@ -138,6 +141,7 @@ uri="http://java.sun.com/jsp/jstl/functions"%>
 							type="tel"
 							class="input--text reg-form"
 							placeholder="휴대전화 010-1234-5678"
+							name="phone"
 						/>
 					</td>
 					
@@ -157,6 +161,7 @@ uri="http://java.sun.com/jsp/jstl/functions"%>
 							type="email"
 							class="input--text reg-form"
 							placeholder="이메일"
+							name="email"
 						/>
 					</td>
 				</tr>
@@ -200,11 +205,12 @@ uri="http://java.sun.com/jsp/jstl/functions"%>
 					</td>
 				</tr>
 			</table>
-			<input type="checkbox" name="email-ad-check" id="email-ad-check" />
+			<input type="checkbox" name="isSubscribed" id="email-ad-check" value="1"/>
 			<input
 				type="checkbox"
-				name="additional-info-check"
+				name="additionalInfo"
 				id="additional-info-check"
+				value="1"
 			/>
 		</div>
 		<div class="button-container">
