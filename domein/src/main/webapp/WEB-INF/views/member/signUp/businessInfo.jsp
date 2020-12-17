@@ -22,7 +22,7 @@
 				<tr>
 					<td>사업자 등록번호</td>
 					<td><input type="text" class="input--text"
-						placeholder="123-456-12345 형식" /></td>
+						placeholder="123-456-12345 형식" id="businessNo"/></td>
 					<td><img src="${path}/resources/images/signUp/checked.png"
 						class="opacity0" id="businessNoCheck" alt="" /></td>
 				</tr>
@@ -113,6 +113,8 @@
 	</form>
 
 	<script src="${path }/resources/js/signUp/businessInfo.js"></script>
-
+	<script>
+		
+	</script>
 </section>
 <jsp:include page="/WEB-INF/views/common/footer.jsp" />
