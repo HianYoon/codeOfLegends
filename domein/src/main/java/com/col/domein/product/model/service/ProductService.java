@@ -24,6 +24,7 @@ public interface ProductService {
 	List<Map> selectProductList(int cPage, int numPerpage);
 	//조회
 	int selectCount();
+	List<Map>selectProductDetail(int productNo);
 
 
 }

@@ -40,9 +40,16 @@ public class ProductDaoImpl implements ProductDao {
 				new RowBounds((cPage-1)*numPerpage,numPerpage));
 	}
 
+	//총상품
 	@Override
 	public int selectCount(SqlSession session) {
 		// TODO Auto-generated method stub
 		return session.selectOne("product.selectCount");
+	}
+	//상품detail페이지
+	@Override
+	public List<Map> selectProductDetail(SqlSession session, int productNo) {
+		// TODO Auto-generated method stub
+		return session.selectOne("product.selectProductDetail",productNo);
 	}
 }

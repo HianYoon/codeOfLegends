@@ -61,5 +61,9 @@
 		 <select id="selectCount" resultType="_int">
 		 	select count(*) from BOARD_DIRECT_SALE
 		 </select>
+		 
+		 <select id="selectProductDetail" resultType="map">
+		 	select * from product_all
+		 </select>
 		
 </mapper>

@@ -132,9 +132,10 @@ On smaller screens, decrease text size
   }
   .oction-searchbox {
       display: flex;
-      justify-content: center;
+      justify-content: end;
       align-items: center;
       margin-top: 10px;
+      margin-left:120px;
   }
   .product--search-list ul{
       display: flex;
@@ -146,7 +147,7 @@ On smaller screens, decrease text size
       
   }
   img#big-target {
-    width: 180px;
+    width: 150px;
     height: 150px;
 }
 .grid2-container {
@@ -259,7 +260,6 @@ On smaller screens, decrease text size
             margin-bottom: 5px;
             font-size: 15px;
             font-weight: 400;
-            border: 1px solid red;
             box-sizing: border-box;
         }
        #oction-page img#big-target {
@@ -305,11 +305,6 @@ On smaller screens, decrease text size
             font-size: 18px !important;
             font-weight: 500;
         }
-        .clearfix{
-            content:"";
-            clear: both;
-            display: block;
-        }
 }
 
 
@@ -346,4 +341,21 @@ On smaller screens, decrease text size
  #octionPage .tabs li a{
     font-size: 30px;
     color:black;
+}
+ul li{
+ list-style-type: none;
+}
+button.btn .btn--primary{
+	z-index:0;
+}
+#pageBar{
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center;
+    cursor: pointer;
+}
+ul.pagination.ustify-content-center.pagenation-sm {
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
