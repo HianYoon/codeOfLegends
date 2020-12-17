@@ -14,8 +14,10 @@
 <link rel="stylesheet"
 	href="${path }/resources/css/common/headerStyle.css" />
 <link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+<link rel="stylesheet"
 	href="${path }/resources/css/cart/cart.css" />
-<title><%=request.getParameter("title") %></title>
+<title><%=request.getParameter("title")%></title>
 <script>
 	const path = "${path}";
 </script>
@@ -42,8 +44,9 @@
 					<li><a href="#"> <img class="top-buttons"
 							src="${path }/resources/images/profile/comment.png" alt="" />
 					</a></li>
-					<li><a href="${path }/cart/cart.do"> <img class="top-buttons"
-							src="${path }/resources/images/profile/add-to-basket.png" alt="장바구니" />
+					<li><a href="#"> <img class="top-buttons"
+							src="${path }/resources/images/profile/add-to-basket.png"
+							alt="장바구니" />
 					</a></li>
 					<li><a href="${path }/member/memberLogin.do">로그인</a></li>
 					<li><a href="${path }/member/signUp/signUp.do">회원가입</a></li>
@@ -51,7 +54,7 @@
 			</div>
 			<div class="mainNav-bottom">
 				<ul class="mainNav-bottom-inner">
-					<li><a href="${path }/auction/auction.do">
+					<li><a href="#">
 							<div>
 								<div>
 									<img src="${path }/resources/images/profile/blind.png" alt="" />
@@ -143,7 +146,7 @@
 			</div>
 		</div>
 	</header>
-	
+
 
 
 	<script src="${path }/resources/js/common/headerScript.js"></script>

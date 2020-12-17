@@ -18,10 +18,8 @@ emailAdCheck.change((e) => {
 additionalInfoCheck.change((e) => {
 	if (additionalInfoCheck.prop("checked") == true) {
 		additionalInfoCheckImg.prop({ src: checked });
-		form.attr({ action: path + "/member/signUp/additionalInfo.do" });
 	} else {
 		additionalInfoCheckImg.prop({ src: unchecked });
-		form.attr({ action: path + "/member/signUp/confirmEmail.do" });
 	}
 });
 

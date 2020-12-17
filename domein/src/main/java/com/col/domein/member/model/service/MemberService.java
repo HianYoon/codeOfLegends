@@ -20,4 +20,6 @@ public class MemberService {
 		
 		return md.isEmptyData(session,map);
 	}
+	
+	
 }
