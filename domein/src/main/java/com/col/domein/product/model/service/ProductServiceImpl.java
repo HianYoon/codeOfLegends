@@ -70,6 +70,12 @@ public class ProductServiceImpl implements ProductService {
 		return dao.selectCount(session);
 	}
 
+	@Override
+	public List<Map> selectProductDetail(int productNo) {
+		// TODO Auto-generated method stub
+		return dao.selectProductDetail(session,productNo);
+	}
+
 
 	
 }

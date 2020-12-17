@@ -1,140 +1,150 @@
 @charset "UTF-8";
 
-@import url('https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Dokdo&family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap');
+@import
+	url('https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Dokdo&family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap')
+	;
 
-:root{
-    --main-yellow: #ffca28;
-    --second-yellow: #fffd61;
-    --third-yellow: #c79a00;
-    --main-grey: #b0bec5;
-    --second-grey: #e2f1f8;
-    --third-grey: #808e95;
-
+:root { 
+	--main-yellow: #ffca28; 
+	--second-yellow: #fffd61; 
+	--third-yellow: #c79a00; 
+	--main-grey: #b0bec5; 
+	--second-grey: #e2f1f8; 
+	--third-grey: #808e95;
 }
 
-*{
-	margin:0;
-	padding:0;
+* {
+	margin: 0;
+	padding: 0;
 	font-family: 'Noto Sans KR', sans-serif;
 }
 
-section{
-	position:relative;
-
+section {
+	position: relative;
+	margin-top: 60px;
+	margin-bottom: 12vw;
 }
 
-
-header, footer, header *, footer *{
-	
-	z-index:1500;	
+header, footer, header *, footer * {
+	z-index: 1500;
 }
 
-a{
-    text-decoration: none;
-    color: black;
+a {
+	text-decoration: none;
+	color: black;
 }
 
 /* 폰트 클래스 */
-
-.sans{
+.sans {
 	font-family: 'Noto Sans KR', sans-serif;
 }
 
-.dokdo{
+.dokdo {
 	font-family: 'Dokdo', cursive;
 }
 
-.han{
+.han {
 	font-family: 'Black Han Sans', sans-serif;
 }
 
-.opacity0{
-    opacity: 0%;
+.opacity0 {
+	opacity: 0%;
 }
-.opacity100{
-    opacity: 100%;
+
+.opacity100 {
+	opacity: 100%;
 }
-.displayNone{
-    display: none;
+
+.displayNone {
+	display: none;
 }
-.flex{
-    display: flex;
+
+.flex {
+	display: flex;
 }
-ul li{
-	 list-style-type: none;
+
+ul li {
+	list-style-type: none;
 }
 /* 버튼 클래스 */
-.btn{
-    height:35px;
-    background:#eee linear-gradient(to bottom, #fcfcfc,#eee);
-    border: 1px solid #d5d5d5;
-    border-radius: 4px;
-    /* display:inline-flex로 하게되면 안에 글자에 맞게 좌우로 크기가 변경됨ㄴ */
-    display:inline-flex;
-    align-items: center;
-    padding: 0 12px;
-    font-size :14px;
-    font-weight:1000;
-    line-height: 1.5;
-    /* 마우스가 올라갓을때 손가락모양으로 바뀌게 */
-    cursor: pointer;
-    /* 패딩이나 margin이 들어갓을때 커지는것을막아주는 css명령어 */
-    box-sizing: border-box;
-    position:relative;
-	z-index:500;
-}
-.btn:hover::before{
-    content:'';
-    position:absolute;
-    top:0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0,0,0,0.07);
-}
-.btn.btn--primary{
-    border: 1px solid #ddd;
-    color: black;
-    background: #ffca28 linear-gradient(#ffca28,#fffd61);
-
+.btn {
+	height: 35px;
+	background: #eee linear-gradient(to bottom, #fcfcfc, #eee);
+	border: 1px solid #d5d5d5;
+	border-radius: 4px;
+	/* display:inline-flex로 하게되면 안에 글자에 맞게 좌우로 크기가 변경됨ㄴ */
+	display: inline-flex;
+	align-items: center;
+	padding: 0 12px;
+	font-size: 14px;
+	font-weight: 1000;
+	line-height: 1.5;
+	/* 마우스가 올라갓을때 손가락모양으로 바뀌게 */
+	cursor: pointer;
+	/* 패딩이나 margin이 들어갓을때 커지는것을막아주는 css명령어 */
+	box-sizing: border-box;
+	position: relative;
+	z-index: 500;
 }
 
-.btn.btn--primary2{
-    border: 1px solid #ddd;
-    color: black;
-    background: #b0bec5 linear-gradient(#b0bec5,#e2f1f8);
+.btn:hover::before {
+	content: '';
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background: rgba(0, 0, 0, 0.07);
 }
 
+.btn.btn--primary {
+	border: 1px solid #ddd;
+	color: black;
+	background: #ffca28 linear-gradient(#ffca28, #fffd61);
+}
+
+.btn.btn--primary2 {
+	border: 1px solid #ddd;
+	color: black;
+	background: #b0bec5 linear-gradient(#b0bec5, #e2f1f8);
+}
 
 /* input설정 */
-.input--text{
-    height: 34px;
-    padding:0 10px;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-    box-sizing: border-box;
-    /* a태그 포커스 없애는css outline */
-    outline:none;
-    /* input안에 쉐도우가 생기게하는 inset추가 */
-    box-shadow: inset 0 1px 2px rgba(0,0,0,0.075);
-    font-size: 16px;
-    
+.input--text {
+	height: 34px;
+	padding: 0 10px;
+	border: 1px solid #ddd;
+	border-radius: 4px;
+	box-sizing: border-box;
+	/* a태그 포커스 없애는css outline */
+	outline: none;
+	/* input안에 쉐도우가 생기게하는 inset추가 */
+	box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.075);
+	font-size: 16px;
 }
-.input--text:focus{
-    border-color: #51a7e8;
-    box-shadow:inset 0 1px 2px rgba(0,0,0,0.075),
-                    0 0 5px rgba(81,167,232,0.5);
+
+.input--text:focus {
+	border-color: #51a7e8;
+	box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.075), 0 0 5px
+		rgba(81, 167, 232, 0.5);
 }
 /* Vendor Prefix(브라우저 업체별 접두사) */
-.input--text::-webkit-input-placeholder{color:#cacaca;}
-.input--text::-ms-input-placeholder{color:#cacaca;}
-.input--text::-moz-input-placeholder{color:#cacaca;}
+.input--text::-webkit-input-placeholder {
+	color: #cacaca;
+}
 
+.input--text::-ms-input-placeholder {
+	color: #cacaca;
+}
 
+.input--text::-moz-input-placeholder {
+	color: #cacaca;
+}
 
-@media screen and (min-width: 769px){
-	
-	section{
-		margin-top:8em;
+@media screen and (min-width: 769px) {
+	section {
+		position: relative;
+		margin-top: 119.39px;
+		margin-bottom:0;
 	}
 }

@@ -15,6 +15,7 @@ section{
   justify-content: space-evenly;
 }
 
+
 .img-labels-container{
   display: flex;
   flex-direction: column;
@@ -47,10 +48,29 @@ section{
   background-color: #ececec;
   padding: 20px;
 }
+.form-titles{
+  padding:5px;
+}
+.form-wrapper>table>tr{
+  width: 100%;
+  
+}
+.form-wrapper>table>tr>.first-column{
+  width:93%
+}
+.form-wrapper>table .input--text{
+  width: 100%;
+}
+
 .btn-cont{
   display:flex;
   justify-content: center;
 }
 .btn-cont>*{
   margin: 20px;
+}
+
+.checker{
+  width: 33px;
+  height: 33px;
 }

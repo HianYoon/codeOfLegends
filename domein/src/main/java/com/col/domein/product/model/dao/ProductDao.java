@@ -26,6 +26,8 @@ public interface ProductDao {
 	//조회수
 	int selectCount(SqlSession session);
 
+	List<Map> selectProductDetail(SqlSession session, int productNo);
+
 
 
 

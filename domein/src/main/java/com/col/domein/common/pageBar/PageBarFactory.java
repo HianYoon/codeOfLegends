@@ -11,7 +11,7 @@ public class PageBarFactory {
 		int pageNo=((cPage-1)/pageBarSize)*pageBarSize+1;
 		int pageEnd=pageNo+pageBarSize-1;
 		
-		pageBar+="<ul class='pagination ustify-content-center pagenation-sm' style='display:flex;'>";
+		pageBar+="<ul class='pagination ustify-content-center pagenation-sm' style='display:flex;justify-content: center;'>";
 		if(pageNo==1) {
 			pageBar+="<li class='page-item disabled'style='margin:10px 10px;'>";
 			pageBar+="<a class='page-link' href='#'>이전</a>";
@@ -45,7 +45,7 @@ public class PageBarFactory {
 		}
 		pageBar+="</ul>";
 		pageBar+="<script>";
-		pageBar+="function fn-paging(cPage){";
+		pageBar+="function fn_paging(cPage){";
 		pageBar+="location.href='"+uri+"?cPage='+cPage;";
 		pageBar+="}";
 		pageBar+="</script>";

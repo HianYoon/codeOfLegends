@@ -1,0 +1,16 @@
+.row{
+    padding-top: 20px;
+}
+.row table th{
+    padding-left: 10px;
+    padding-right: 20px;
+}
+.sbm{
+    width:100%;
+    margin-right:90%;
+}
+.sbm input{
+    /* margin-left: 20px; */
+    /* width: 6rem;
+    height: 3rem; */
+}
