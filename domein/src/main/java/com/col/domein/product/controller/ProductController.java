@@ -20,6 +20,7 @@ import com.col.domein.product.model.service.ProductService;
 import com.col.domein.product.model.vo.Attachement;
 import com.col.domein.product.model.vo.BoardProductSaleContent;
 import com.col.domein.product.model.vo.Product;
+import com.col.domein.product.model.vo.ProductAll;
 
 
 
@@ -107,8 +108,8 @@ public class ProductController {
 						e.printStackTrace();
 					}
 					//1.attachment 빌더 오노테이션을 설정해주고 has a 관계
-					Attachement a=Attachement.builder().origin_File_name(origianlName)
-							.renamed_File_name(reName).build();
+					Attachement a=Attachement.builder().originFileName(origianlName)
+							.renamedFileName(reName).build();
 					files.add(a);
 				}
 			}

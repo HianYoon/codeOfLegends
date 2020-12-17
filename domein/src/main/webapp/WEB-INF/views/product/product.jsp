@@ -301,6 +301,7 @@ ul li{
             $('ul.tabs li').removeClass('active');//Remove any 'active' class
             $(this).addClass('active').attr('color','blue');//셀렉트된탭을 active해라
             $('.tab_content').hide();//Hide all tab content
+            //e.preventDefault();//a태그로 전환시 이벤트는 남게해주는..
 
             var activeTab=$(this).find('a').attr('href');
             $(activeTab).fadeIn();//Fade in the active ID content
@@ -366,7 +367,7 @@ ul li{
 		                            <button type="reset" class="btn btn--primary">취소하기</button>
                         </div>
                 		</form>
-                        <form action="${path }/product/insert.do?=${a.articleNo}" method="post" enctype="multipart/form-data" id="oction--form" >
+                        <form action="${path }/product/insert.do?=${articleNo}" method="post" enctype="multipart/form-data" id="oction--form" >
                         
                             <div class="direct--product--img">
                                 <h1>상품 등록</h1>
@@ -593,15 +594,15 @@ ul li{
                     <div class="oction--grid--container">
                        		
                             <div class="oction-img-group">
-                                <img id="big-target" href="${path }/product/productView.do?=${b.d.product_no}" src="${path }/images/${a.p_renamed_file_name}" alt="이미지" data-zoom="3"/>
+                                <img id="big-target" href="${path }/product/productView.do?=${b.PRODUCTNO}" src="${path }/resources/upload/product/${b.P_RENAMED_FILE_NAME}" alt="이미지" data-zoom="3"/>
                                 
                             </div>
                             <div>
 
                                 <ul class="grid-text-group" style="padding:0">
-                                    <li><c:out value="${b.title }"/></li>
-                                    <li><fmt:formatNumber value="${b.price }" pattern="###,###,###"/></li>
-                                    <li>리뷰수<c:out value="${b.ATTCOUNT }"/>
+                                    <li><c:out value="${b.TITLE }"/></li>
+                                    <li><fmt:formatNumber value="${b.PRICE}" pattern="###,###,###"/>원</li>
+                                    <li>리뷰수<c:out value="${b.ATTAC }"/>
                                     </li>
                                       <li>
                                              <span><a href="${path}"><img src="${path }/resources/images/profile/jjim.png" alt="찜" style="width: 15px;height:15px;"></a></span>

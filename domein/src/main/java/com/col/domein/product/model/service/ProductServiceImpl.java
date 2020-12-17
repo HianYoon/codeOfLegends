@@ -11,6 +11,7 @@ import com.col.domein.product.model.dao.ProductDao;
 import com.col.domein.product.model.vo.Attachement;
 import com.col.domein.product.model.vo.BoardProductSaleContent;
 import com.col.domein.product.model.vo.Product;
+import com.col.domein.product.model.vo.ProductAll;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -36,8 +37,8 @@ public class ProductServiceImpl implements ProductService {
 					for(int i=0; i<files.size();i++) {
 						int no=++i;
 						System.out.println("번호"+no);
-						a.setProduct_image_No(no);
-						System.out.println("파일번호:"+a.getProduct_image_No());
+						a.setProductImageNo(no);
+						System.out.println("파일번호:"+a.getProductImageNo());
 					}
 					result=dao.insertAttachment(session,a);
 				}
@@ -68,5 +69,7 @@ public class ProductServiceImpl implements ProductService {
 		// TODO Auto-generated method stub
 		return dao.selectCount(session);
 	}
+
+
 	
 }

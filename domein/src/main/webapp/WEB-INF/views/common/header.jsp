@@ -13,6 +13,8 @@
 <link rel="stylesheet" href="${path }/resources/css/sharedStyle.css" />
 <link rel="stylesheet"
 	href="${path }/resources/css/common/headerStyle.css" />
+<link rel="stylesheet"
+	href="${path }/resources/css/cart/cart.css" />
 <title><%=request.getParameter("title") %></title>
 <script>
 	const path = "${path}";
@@ -40,7 +42,7 @@
 					<li><a href="#"> <img class="top-buttons"
 							src="${path }/resources/images/profile/comment.png" alt="" />
 					</a></li>
-					<li><a href="#"> <img class="top-buttons"
+					<li><a href="${path }/cart/cart.do"> <img class="top-buttons"
 							src="${path }/resources/images/profile/add-to-basket.png" alt="장바구니" />
 					</a></li>
 					<li><a href="${path }/member/memberLogin.do">로그인</a></li>
@@ -49,7 +51,7 @@
 			</div>
 			<div class="mainNav-bottom">
 				<ul class="mainNav-bottom-inner">
-					<li><a href="#">
+					<li><a href="${path }/auction/auction.do">
 							<div>
 								<div>
 									<img src="${path }/resources/images/profile/blind.png" alt="" />
