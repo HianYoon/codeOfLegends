@@ -40,9 +40,9 @@
 		
 		<insert parameterType="attachement" id="insertAttachement">
 			INSERT INTO BDS_ATTACHED_IMAGE VALUES(#{productNo},
-			${product_image_No},
-			#{origin_File_name},
-			#{renamed_File_name}
+			${productImageNo},
+			#{originFileName},
+			#{renamedFileName}
 			)
 		 </insert> 
 		<!--  상품 aticle_no,title,product_no,price,p_renamed_file_name 3개테이블조인후 조회 -->
