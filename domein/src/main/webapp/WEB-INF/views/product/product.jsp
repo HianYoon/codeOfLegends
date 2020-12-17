@@ -541,7 +541,7 @@ ul li{
                                                 
                                     </div>
                                     <div class="direct-img-file">
-                                        <input type="file" class="input--text upFile" id="upFile" name="upFile" multiple="multiple" required />
+                                        <input type="file" class="input--text upFile" id="upFile" name="upFile" required />
                                   
         
                                     </div>
@@ -613,7 +613,11 @@ ul li{
                                 </ul>
                             </div>
                                
-                                
+                                <script type="text/javascript">
+                                $("#big-target").onclick=function(){
+                                	location.href=("${path}/product/productView.do?=${b.PRODUCTNO}");
+                                }
+                                </script>
                         
                      </div>
                   
