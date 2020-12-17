@@ -3,8 +3,6 @@ section{
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  margin-top:120px;
-  margin-bottom: 70px;
 }
 
 .form-logo-cont img{
@@ -51,7 +49,7 @@ section{
   padding: 20px;
 }
 .form-titles{
-  padding:10px;
+  padding:5px;
 }
 .form-wrapper>table>tr{
   width: 100%;
