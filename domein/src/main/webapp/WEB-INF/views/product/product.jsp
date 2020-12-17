@@ -287,6 +287,9 @@ div#wrapper .tabs li a{
 ul li{
  list-style-type: none;
 }
+button.btn .btn--primary{
+	z-index:0;
+}
 </style>
 <section id="content">
 	<script>
