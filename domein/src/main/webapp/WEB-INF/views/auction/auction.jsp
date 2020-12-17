@@ -4,7 +4,8 @@
     <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
     <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
     
-   <link rel="stylesheet" href="${path }/resources/css/auction/auction.css"/>
+<link rel="stylesheet"
+	href="${path }/resources/css/auction/auction.css" />
   <link rel="stylesheet" href="${path }/resources/css/jihunTab/TabMedia.css"/>
   
      <c:set var="path" value="${pageContext.request.contextPath }"/>

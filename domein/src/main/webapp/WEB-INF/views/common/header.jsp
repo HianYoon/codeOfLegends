@@ -15,6 +15,8 @@
 	href="${path }/resources/css/common/headerStyle.css" />
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+<link rel="stylesheet"
+	href="${path }/resources/css/cart/cart.css" />
 <title><%=request.getParameter("title")%></title>
 <script>
 	const path = "${path}";

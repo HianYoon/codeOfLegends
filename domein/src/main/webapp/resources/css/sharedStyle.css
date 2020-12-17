@@ -70,7 +70,7 @@ ul li{
     /* 패딩이나 margin이 들어갓을때 커지는것을막아주는 css명령어 */
     box-sizing: border-box;
     position:relative;
-    
+
 }
 .btn:hover::before{
     content:'';
