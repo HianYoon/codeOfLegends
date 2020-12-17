@@ -61,7 +61,7 @@
 							</div>
 					</a></li>
 					<li><a href="${path }/product/productList.do">
-							<div>
+							<div id="categoryTap">
 								<div>
 									<img src="${path }/resources/images/profile/blind.png" alt="" />
 								</div>
@@ -143,6 +143,30 @@
 				</div>
 			</div>
 		</div>
+		
+		   <div class="categorytap">
+		        <ul class="one2"style="" >
+		            <li><a href="${path}/product/productDetail.do"><img src="${path }/resources/images/singUp/beef.png" alt=""/>test중 product</a></li>
+		            <li><a href="#"><img src="${path }/resources/images/singUP/fish.png" alt="" />수산</a></li>
+		            <li><a href="#"><img src="${path }/resources/images/singUP/vegetables.png" alt="" />야채</a></li>
+		            <li><a href="#"><img src="${path }/resources/images/singUP/beam.png" alt="" />철강</a></li>
+		            <li><a href="#"><img src="${path }/resources/images/singUP/bone.png" alt="" />애견</a></li>
+		            <li><a href="#"><img src="${path }/resources/images/singUP/bread.png" alt="" />베이커리</a></li>
+		            <li><a href="#"><img src="${path }/resources/images/singUP/free-icon-lightning-616494.png" alt=""/>전자기기</a></li>
+		            <li><a href="#"><img src="${path }/resources/images/singUP/free-icon-question-mark-in-dark-circle-71768.png" alt=""/>기타</a></li>
+		        </ul>
+
+    		</div>
+    	<script>
+    		$(function(){
+    			$('#categoryTap').mouseenter(function(){
+    				$(".one2").show();
+    			});
+    			$(".one2").mouseleave(function(){
+    				$(".one2").hide();
+    			});
+    		});
+    	</script>
 	</header>
 
 
