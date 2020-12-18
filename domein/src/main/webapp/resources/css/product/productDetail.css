@@ -121,6 +121,13 @@ div#product-Explanation {
     font-weight: 300;
     
 }
+.select-container {
+    display:grid !important;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    position: relative;
+}
 /* 상품이미지 */
 #product-Explanation img{
     display: block;
