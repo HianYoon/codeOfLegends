@@ -97,6 +97,11 @@
 			</div>
 		</div>
 		<div class="mobile-title">
+				<div class="mobile-logo-left">
+					<input type="image" class="left"
+					src="${path }/resources/images/profile/left.png"/>
+					<p></p>
+				</div>
 			<a href="#">
 				<div class="mobile-logo-cont">
 					<img src="${path }/resources/images/logo/signature.png" alt="" />
