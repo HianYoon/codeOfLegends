@@ -23,7 +23,7 @@
 				<tr>
 
 					<td class="first-column"><input type="text"
-						class="input--text" placeholder="123-456-12345 형식" id="businessNo"
+						class="input--text input-validator" placeholder="123-456-12345 형식" id="businessNo"
 						name="businessNo" required /></td>
 					<td><img src="${path}/resources/images/signUp/checked.png"
 						class="opacity0 checker" id="businessNoCheck" alt="" /></td>
@@ -42,7 +42,7 @@
 				</tr>
 				<th class="form-titles">사업자 전화번호</th>
 				<tr>
-					<td class="first-column"><input type="tel" class="input--text"
+					<td class="first-column"><input type="tel" class="input--text input-validator"
 						id="businessTel" name="businessTel"></td>
 					<td><img src="${path}/resources/images/signUp/checked.png"
 						class="opacity0 checker" id="businessNoCheck" alt="" /></td>
@@ -58,14 +58,14 @@
 				<tr>
 
 					<td class="first-column"><input type="text"
-						class="input--text" readonly name="address1" id="address1" /></td>
+						class="input--text input-validator" readonly name="businessAddress1" id="businessAddress1" /></td>
 					<td><img src="${path}/resources/images/signUp/checked.png"
 						class="opacity0 checker" id="addressCheck" alt="" /></td>
 				</tr>
 				<tr>
 
 					<td class="first-column"><input type="text"
-						class="input--text" name="address2" id="address2"
+						class="input--text" name="businessAddress2" id="businessAddress2"
 						placeholder="나머지 주소" /></td>
 				</tr>
 				<th class="form-titles">카테고리</th>
@@ -138,7 +138,7 @@
 			</div>
 		</div>
 	</form>
-
+	
 	<script src="${path }/resources/js/signUp/businessInfo.js"></script>
 	<script>
 		

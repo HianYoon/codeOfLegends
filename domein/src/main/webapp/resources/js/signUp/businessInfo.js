@@ -18,3 +18,35 @@ imgLabelsContainer.click(e=>{
       $(e.target).parents("label").children().removeClass("animate__shakeX").addClass("animate__shakeY");
   }
 }); 
+
+let checker = [false, false, false];
+
+const regexes = [
+  /^\d{10}$/,
+  /^\d{2,3}-\d{3,4}-\d{4}$/
+];
+
+const businessNo = $("#businessNo");
+const businessTel = $("#businessTel");
+const businessAddress1 = $("#businessAddress1");
+const businessNoCheck = $("#businessNoCheck");
+
+
+businessNo.keyup((e) => {
+  
+  if(regexes[0].test(businessNo.val())){
+    $.ajax({
+      method: "POST",
+      url: path+"/business/signup/business/no",
+      data: {data: businessNo.val()},
+      async: false,
+      success: result => {
+        console.log(result);
+      }
+    });
+    businessNoCheck.removeClass("opacity0");
+  } else {
+    businessNoCheck.addClass("opacity0");
+    checker[0] = false;
+  }
+});
