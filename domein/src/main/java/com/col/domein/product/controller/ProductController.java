@@ -136,6 +136,11 @@ public class ProductController {
 		return mv;
 		
 	}
+	
+	@RequestMapping("/product/productDetail.do")
+	public String productDetailGo() {
+		return "product/productDetail";
+	}
 	//productDetail 데이터 불러오기
 	@RequestMapping("/product/productView.do")
 	public ModelAndView selectproductDetail(ModelAndView mv,int productNo) {

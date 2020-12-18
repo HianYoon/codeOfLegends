@@ -1,7 +1,31 @@
 @charset "UTF-8";
 
 
-
+/* 카테고리  dropbar */
+.categorytap {
+    position: fixed !important;
+    display: flex !important;
+    background: #b0bec5;
+    text-align: center;
+    width: 100%;
+    height: auto;
+    margin: 0px;
+    padding: 0px;
+}
+ul.one2 {
+	width:100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 10px;
+}
+ul.one2 li{
+	margin: 0px 40px;
+}
+ul.one2 li a{
+	margin:20px;
+}
+/* 카테고리  dropbar */
 
 .container {
 	box-sizing: border-box;
@@ -263,5 +287,8 @@
 	.mobile-logo-cont>img{
 		width:150px;
 		height:60px;
+	}
+	.categorytap{
+	display:none;
 	}
 }

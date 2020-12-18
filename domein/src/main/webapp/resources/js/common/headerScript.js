@@ -15,3 +15,11 @@ window.addEventListener('scroll', function(){
         mainNav.classList.remove('txt-white');
     }
 });
+$(function(){
+	$('#categoryTap').mouseenter(function(){
+		$(".one2").show();
+	});
+	$(".one2").mouseleave(function(){
+		$(".one2").hide();
+	});
+});
