@@ -3,117 +3,138 @@
     <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
     <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
     <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
- <link rel="stylesheet" href="${path }/resources/css/product/productDetail.css"/>
- <link rel="stylesheet" href="${path }/resources/css/jihunTab/TabMedia.css"/>
- 
      <c:set var="path" value="${pageContext.request.contextPath }"/>
+<link rel="stylesheet" href="${path}/resources/css/product/productDetail.css"/>
+ <link rel="stylesheet" href="${path}/resources/css/sharedStyle.css"/>
+ <link rel="stylesheet"
+	href="${path}/resources/css/jihunTab/TabMedia.css" />
+ 
 <jsp:include page="/WEB-INF/views/common/header.jsp">
 	<jsp:param name="title" value=""/>
 </jsp:include>
+      <script>
+                            window.addEventListener("load",function(){
+                                var minus=document.querySelector(".minus");
+                                var plus=document.querySelector(".plus");
+                                var number=document.querySelector(".number");
+
+                                minus.onclick=function(){
+                                    const ss=parseInt(number.value);
+                                    if(ss>0)
+                                    number.value= ss-1;
+                                    else(ss<0) 
+                                    return;
+                                    
+                                }
+                                plus.onclick=function(){
+                                    const ss=parseInt(number.value);
+                                    if(ss>=0)
+                                    number.value=ss+1;
+                                   
+                                }
+
+                                //찜 클릭시 색변화
+                                var jjim=document.querySelector("#jjim");
+                                jjim.onclick=function(){
+                                    jjim.style.color="red";
+                                }
+                                
+                                //select box클릭시 박스 복사 및 텍스트값 복사
+                             var orderCount=document.querySelector(".order-product")[0];//클릭햇을때 복사
+                             var productSelect=document.querySelector(".productNames option:checked");//클릭대상
+                             var addproductSelect=document.querySelector(".addProductname option:checked");//클릭대상
+                             
+                             
+                             
+                           
+                            	var productClone=orderCount.cloneNode(true);
+                            	orderCount.appendChild(productClone);
+                          
+                    
+                            	var addProduct=orderCount.cloneNode(true);
+                            	orderCount.appendChild(addProduct);
+                           	 
+                         
+                            });
+                        </script>
 <section id="content">
 	 <div class="productDetailPage">
         <div class="product-text-group">
             <div class="product-small-group">
                 <ul>
                     <li><img src="" alt="이미지1"></li>
-                    <li><img src="" alt="이미지2"></li>
-                    <li><img src="" alt="이미지3"></li>
-                    <li><img src="" alt="이미지4"></li>
-                    <li><img src="" alt="이미지5"></li>
                 </ul>
 
             </div>
             
                 
             <div class="product-img">
-                <img src="" alt="빅이미지">
+                <img src="${path}/resources/upload/product/${product.prenamedfilename}" alt="빅이미지">
             </div>
-
-            <!-- 700px슬라이드용 이미지 -->
-            <!--  -->
-            <div class="slideshow-container" style="display: none;">
-
-                <div class="mySlides fade">
-                  <div class="numbertext">1 / 5</div>
-                  <img src="" style="width:100%">
-                  <div class="text">Caption Text</div>
-                </div>
-                
-                <div class="mySlides fade">
-                  <div class="numbertext">2 / 5</div>
-                  <img src="" style="width:100%">
-                  <div class="text">Caption Two</div>
-                </div>
-                
-                <div class="mySlides fade">
-                  <div class="numbertext">3 / 5</div>
-                  <img src="" style="width:100%">
-                  <div class="text">Caption Three</div>
-                </div>
-                
-                <div class="mySlides fade">
-                  <div class="numbertext">4 / 5</div>
-                  <img src="" style="width:100%">
-                  <div class="text">Caption Three</div>
-                </div>
-                
-                <div class="mySlides fade">
-                  <div class="numbertext">5 / 5</div>
-                  <img src="" style="width:100%">
-                  <div class="text">Caption Three</div>
-                </div>
-                
-                </div>
-                <br>
-                <div style="text-align:center">
-                    <span class="dot"></span> 
-                    <span class="dot"></span> 
-                    <span class="dot"></span> 
-                    <span class="dot"></span> 
-                    <span class="dot"></span> 
-                </div>
-                <!-- 700px슬라이드용 이미지 -->
-
                 
             <div class="product-textgroup">
-                <form action="" method="post" >
+                <form action="${path}/product/productOrder.do" method="post" >
                     <h2>카테고리명</h2>
-                    <ul>
-                        <li><span>☆</span><span>☆</span><span>☆</span><span>☆</span><span>☆</span><span>조회수</span></li>
-                        <li><img src="" alt="찜"></li>
+                    <ul class="star">
+                        <li><span>☆</span><span>☆</span><span>☆</span><span>☆</span><span>☆</span>리뷰수:</li>
+                        <li><img src="${path}/resources/images/profile/jjim.png" style="width:20px;height:20px"alt="찜" id="jjim"></li>
                         <li><img src="" alt="공유하기"></li>
                     </ul>
                     
+                    
                     <div class="product-origin">
-                        <h3>상품명</h3>
+                        <h3>${product.TITLE }</h3>
                         <div class="product-price">
-                            <p>원가격</p>
-                            <p>할인가격</p>
+                            <p>${product.PRICE}</p>
+                            <p>포인트적립 0.5%</p>
                         </div>
-                        <p><span class="text-left">원산지</span> <span class="text-right">국내산</span></p>
-                        <p><span class="text-left">배송비:</span> <span class="text-right">3000원</span></p>
+                        <p><span class="text-left">원산지:</span> <span class="text-right">${product.ORIGIN}</span></p>
+                        <p><span class="text-left">배송비:</span> <span class="text-right">10만원이하 3000원</span></p>
                         <p><span class="text-left">배송방법:</span> <span class="text-right">업체배송</span></p>
                         <p>조건에 따라 추가비용이 발생할수있습니다.</p>
                         
                     </div>
-                   
-                        <select name="" id="product-select-List">
-                            <option value="1">1</option>
-                        </select>
+                   		<div class="select-container">
+                   		
+	                   	<div>
+	                        <select name="productNames"  class="productNames" id="product-select-List">
+		                        <c:forEach var="pName" items="${product.productName}" varStatus="status">
+		                            <option value="">옵션</option>
+		                            <option value="<c:out value="${pName}"/>"><c:out value="${pName}"/></option>
+		                            
+		                        </c:forEach>
+	                        </select>
+	                   	</div>
+	                   	<div>
+	                        <select name="addProductname" class="addProductname" id="product-select-List">
+		                         <c:forEach var="pName" items="${product.productName}" varStatus="status">
+		                            <option value="옵션">옵션</option>
+		                            <option value="<c:out value="${pName}"/>"><c:out value="${pName}"/></option>
+		                            
+		                        </c:forEach>
+	                        </select>
+	                   	</div>
+                        </div>
                     
-                    <div class="order-container">
-                        <h4>상품명</h4>
-                        <div class="product-price">
-                            <input type="button" class="minus" value="-"/>
-                            <input type="number" value="0" readonly>
-                            <input type="button" class="plus" value="+"/>
-                        </div>
-                        <div class="price-text">
-                            <p><span class="text-left">가격</span> <span class="text-right">3000원</span></p>
-                            
-                        </div>
-                        
-                        
+                    <div class="order-product">
+	                   	 <div class="order-container">
+	                        <h4><c:out value="${product.ProductName}"/></h4>
+	                        <div class="product-price">
+	                            <input type="button" class="minus" value="-"/>
+	                            <input type="number" name="count" class="number" value="0" readonly>
+	                            <input type="button" class="plus" value="+"/>
+	                       </div>
+	                      <div class="price-text">
+	                            <p><span class="text-left">가격</span> <span class="text-right">${product.PRICE}</span></p>
+	                            
+	                      </div>
+	                    </div>   
+                  
+
+                    </div>
+                    <div class="button-order">
+                        <button type="button" id="" class="btn btn--primary1">장바구니</button>
+                        <button type="submit" id="" class="btn btn--primary1">구매하기</button>
 
                     </div>
 

@@ -136,12 +136,24 @@ public class ProductController {
 		return mv;
 		
 	}
+	//productDetail화면
+	@RequestMapping("/product/productDetail.do")
+	public String productDetailGo() {
+		return "product/productDetail";
+	}
+	
 	//productDetail 데이터 불러오기
 	@RequestMapping("/product/productView.do")
 	public ModelAndView selectproductDetail(ModelAndView mv,int productNo) {
 		
 		mv.addObject("product",service.selectProductDetail(productNo));
 		mv.setViewName("product/productDetail");
+		return mv;
+	}
+	
+	//상품 주문
+	@RequestMapping("/product/productOrder.do")
+	public ModelAndView insertProductCart(ModelAndView mv) {
 		return mv;
 	}
 	
