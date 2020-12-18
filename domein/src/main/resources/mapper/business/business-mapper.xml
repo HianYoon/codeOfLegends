@@ -6,4 +6,17 @@
   	SELECT COUNT(*) FROM BUSINESS WHERE BUSINESS_NO = #{businessNo}
   </select>
   
+  <select id="getSeqBusinessKeyNextVal" resultType="_int">
+  	SELECT SEQ_BUSINESS_KEY.NEXTVAL FROM DUAL
+  </select>
+  
+  <insert id="insertBusiness" parameterType="business">
+  	INSERT INTO BUSINESS(BUSINESS_KEY,MEMBER_KEY,BUSINESS_NO,BUSINESS_NAME,BUSINESS_TEL,IS_VERIFIED,BUSINESS_NICKNAME,BUSINESS_ADDRESS)
+  	VALUES(	#{businessKey},#{memberKey},#{businessNo},#{businessName},#{businessTel},#{isVerified},#{businessNickname},#{businessAddress})
+  </insert>
+  
+  <insert id="insertBusinessCategory" parameterType="map">
+    INSERT INTO BUSINESS_CATEGORIES(BUSINESS_KEY) VALUES(#{businessKey},#{businessCategoryNo})
+  </insert>
+  
 </mapper>

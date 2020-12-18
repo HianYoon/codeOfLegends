@@ -16,12 +16,11 @@
 	<div class="form-logo-cont">
 		<img src="${path}/resources\images\logo\signature.png" alt="" />
 	</div>
-	<form action="">
+	<form action="${path }/business/businessInfoEnd.do" method="post">
 		<div class="form-wrapper">
 			<table>
 				<th class="form-titles">사업자 등록번호</th>
 				<tr>
-
 					<td class="first-column"><input type="text"
 						class="input--text input-validator" placeholder="'-'제외 숫자만"
 						id="businessNo" name="businessNo" required /></td>

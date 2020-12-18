@@ -25,7 +25,7 @@ import org.springframework.web.client.RestTemplate;
 import com.col.domein.business.model.service.BusinessService;
 
 @RestController
-@RequestMapping("/business")
+@RequestMapping("/rest/business")
 public class BusinessRestController {
 	
 	@Autowired

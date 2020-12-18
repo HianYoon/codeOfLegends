@@ -5,5 +5,18 @@
 	<select id="isEmptyData" parameterType="map" resultType="_int">
 		SELECT COUNT(*) FROM MEMBER WHERE ${target} = #{data}
 	</select>
-
+	
+	<select id="getSeqMemberKeyNextVal" resultType="_int">
+		SELECT SEQ_MEMBER_KEY.NEXTVAL FROM DUAL
+	</select>
+	
+	<insert id="insertMember" parameterType="member">
+		INSERT INTO MEMBER(MEMBER_KEY,ID,PASSWORD,USERNAME,NICKNAME,PHONE,EMAIL,IS_SUBSCRIBED) 
+		VALUES(#{memberKey},#{id},#{password},#{userName},#{nickname},#{phone},#{email},#{isSubscribed})
+	</insert>
+	
+	<insert id="sendEmailVerification" parameterType="map">
+		INSERT INTO EMAIL_CHECK(MEMBER_KEY,CONFIRMATION_KEY)
+		VALUES(${memberKey},#{confirmationKey})
+	</insert>
 </mapper>

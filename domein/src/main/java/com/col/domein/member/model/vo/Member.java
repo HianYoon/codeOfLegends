@@ -383,5 +383,13 @@ public class Member implements Comparable<Member>{
 			return false;
 		return true;
 	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
 	
 }

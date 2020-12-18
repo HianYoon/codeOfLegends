@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.col.domein.member.model.service.MemberService;
 
 @RestController
-@RequestMapping("/member")
+@RequestMapping("/rest/member")
 public class MemberRestController {
 
 	@Autowired
