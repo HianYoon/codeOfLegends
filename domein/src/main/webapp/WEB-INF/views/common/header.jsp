@@ -146,14 +146,14 @@
 		
 		   <div class="categorytap">
 		        <ul class="one2"style="" >
-		            <li><a href="${path}/product/productDetail.do"><img src="${path }/resources/images/signUp/beef.png" alt=""/>test중 product</a></li>
-		            <li><a href="#"><img src="${path }/resources/images/signUp/fish.png" alt="" />수산</a></li>
-		            <li><a href="#"><img src="${path }/resources/images/signUp/vegetables.png" alt="" />야채</a></li>
-		            <li><a href="#"><img src="${path }/resources/images/signUp/beam.png" alt="" />철강</a></li>
-		            <li><a href="#"><img src="${path }/resources/images/signUp/bone.png" alt="" />애견</a></li>
-		            <li><a href="#"><img src="${path }/resources/images/signUp/bread.png" alt="" />베이커리</a></li>
-		            <li><a href="#"><img src="${path }/resources/images/signUp/free-icon-lightning-616494.png" alt=""/>전자기기</a></li>
-		            <li><a href="#"><img src="${path }/resources/images/signUp/free-icon-question-mark-in-dark-circle-71768.png" alt=""/>기타</a></li>
+		            <li><a href="${path}/product/productDetail.do"><img src="${path }/resources/images/signUp/beef.png" style="width:30px; height:30px; box-sizing:border-box; " alt=""/>test중 product</a></li>
+		            <li><a href="#"><img src="${path }/resources/images/signUp/fish.png" alt="" style="width:30px; height:30px; box-sizing:border-box; "/>수산</a></li>
+		            <li><a href="#"><img src="${path }/resources/images/signUp/vegetables.png" alt="" style="width:30px; height:30px; box-sizing:border-box; "/>야채</a></li>
+		            <li><a href="#"><img src="${path }/resources/images/signUp/beam.png" alt="" style="width:30px; height:30px; box-sizing:border-box; "/>철강</a></li>
+		            <li><a href="#"><img src="${path }/resources/images/signUp/bone.png" alt="" style="width:30px; height:30px; box-sizing:border-box; "/>애견</a></li>
+		            <li><a href="#"><img src="${path }/resources/images/signUp/bread.png" alt=""style="width:30px; height:30px; box-sizing:border-box; " />베이커리</a></li>
+		            <li><a href="#"><img src="${path }/resources/images/signUp/free-icon-lightning-616494.png" alt="" style="width:30px; height:30px; box-sizing:border-box; "/>전자기기</a></li>
+		            <li><a href="#"><img src="${path }/resources/images/signUp/free-icon-question-mark-in-dark-circle-71768.png" alt="" style="width:30px; height:30px; box-sizing:border-box; "/>기타</a></li>
 		        </ul>
 
     		</div>
@@ -166,7 +166,7 @@
     			});
     			$(".one2").mouseleave(function(){
     				if(width>768) $(".one2").hide();
-    			});
+    			
     		
 
     		});

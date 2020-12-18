@@ -34,12 +34,14 @@ public class ProductServiceImpl implements ProductService {
 			if(files !=null) {
 				for(Attachement a: files) {
 					a.setProductNo(p.getProductNo());
-					//for(int i=0; i<files.size();i++) {
-					//	int no=++i;
-					//	System.out.println("번호"+no);
-					//	a.setProductImageNo(no);
-					//	System.out.println("파일번호:"+a.getProductImageNo());
-				//	}
+					int fs=files.size();
+					System.out.println("숫자몇이니"+fs);
+					for(int i=1; i<fs;i++) {
+						int no =i++;
+						System.out.println("번호"+no);
+						a.setProductImageNo(no);
+						System.out.println("파일번호:"+a.getProductImageNo());
+					}
 					result=dao.insertAttachment(session,a);
 				}
 			}
@@ -71,9 +73,9 @@ public class ProductServiceImpl implements ProductService {
 	}
 
 	@Override
-	public List<Map> selectProductDetail(int productNo) {
+	public List<Map> selectProductDetail(int articleNo) {
 		// TODO Auto-generated method stub
-		return dao.selectProductDetail(session,productNo);
+		return dao.selectProductDetail(session,articleNo);
 	}
 
 

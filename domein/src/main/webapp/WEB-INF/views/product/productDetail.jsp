@@ -13,6 +13,7 @@
 	<jsp:param name="title" value=""/>
 </jsp:include>
       <script>
+      					//물건 count
                             window.addEventListener("load",function(){
                                 var minus=document.querySelector(".minus");
                                 var plus=document.querySelector(".plus");
@@ -40,19 +41,21 @@
                                 }
                                 
                                 //select box클릭시 박스 복사 및 텍스트값 복사
-                             var orderCount=document.querySelector(".order-product")[0];//클릭햇을때 복사
+                           
                              var productSelect=document.querySelector(".productNames option:checked");//클릭대상
                              var addproductSelect=document.querySelector(".addProductname option:checked");//클릭대상
                              
-                             
-                             
-                           
-                            	var productClone=orderCount.cloneNode(true);
-                            	orderCount.appendChild(productClone);
+                        
+                             function cartBtn(){
+                                 var ordd=document.querySelector(".order-product");
+                                    var productClone=ordd.cloneNode(true);
+                                    ordd.appendChild(productClone);
+                                    alert("성공햇다!!");
+    
                           
-                    
-                            	var addProduct=orderCount.cloneNode(true);
-                            	orderCount.appendChild(addProduct);
+                             }
+                           /*  	var addProduct=orderCount.cloneNode(true);
+                            	orderCount.appendChild(addProduct); */
                            	 
                          
                             });
@@ -69,7 +72,7 @@
             
                 
             <div class="product-img">
-                <img src="${path}/resources/upload/product/${product.prenamedfilename}" alt="빅이미지">
+                <img src="${path}/resources/upload/product/${product.P_RENAMED_FILE_NAME}" alt="빅이미지">
             </div>
                 
             <div class="product-textgroup">
@@ -98,16 +101,16 @@
                    		
 	                   	<div>
 	                        <select name="productNames"  class="productNames" id="product-select-List">
-		                        <c:forEach var="pName" items="${product.productName}" varStatus="status">
+		                        <c:forEach var="pName" items="${product.product_Name}" varStatus="status">
 		                            <option value="">옵션</option>
-		                            <option value="<c:out value="${pName}"/>"><c:out value="${pName}"/></option>
+		                            <option value="<c:out value="${product.product_Name}"/>"><c:out value="${product.product_Name}"/></option>
 		                            
 		                        </c:forEach>
 	                        </select>
 	                   	</div>
 	                   	<div>
 	                        <select name="addProductname" class="addProductname" id="product-select-List">
-		                         <c:forEach var="pName" items="${product.productName}" varStatus="status">
+		                         <c:forEach var="pName" items="${product}" varStatus="status">
 		                            <option value="옵션">옵션</option>
 		                            <option value="<c:out value="${pName}"/>"><c:out value="${pName}"/></option>
 		                            
@@ -118,14 +121,14 @@
                     
                     <div class="order-product">
 	                   	 <div class="order-container">
-	                        <h4><c:out value="${product.ProductName}"/></h4>
+	                        <h4><c:out value="${product.product_Name}"/></h4>
 	                        <div class="product-price">
 	                            <input type="button" class="minus" value="-"/>
 	                            <input type="number" name="count" class="number" value="0" readonly>
 	                            <input type="button" class="plus" value="+"/>
 	                       </div>
 	                      <div class="price-text">
-	                            <p><span class="text-left">가격</span> <span class="text-right">${product.PRICE}</span></p>
+	                            <p><span class="text-left">가격</span> <input id="pprice" value="${product.PRICE}" class="text-right" readonly/></p>
 	                            
 	                      </div>
 	                    </div>   
@@ -133,6 +136,7 @@
 
                     </div>
                     <div class="button-order">
+                    <input type="button" id="cartBtn">
                         <button type="button" id="" class="btn btn--primary1">장바구니</button>
                         <button type="submit" id="" class="btn btn--primary1">구매하기</button>
 

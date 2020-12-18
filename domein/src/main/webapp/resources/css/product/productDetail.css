@@ -67,11 +67,17 @@ ul li{
     border-radius: 3px;
     padding: 5px;
 
-    background: rgba(0,0,0,0.3);
+    background: white;
 }
 .order-container h4,p{
     margin: auto;
 }
+input#pprice {
+    outline: none;
+    border: none;
+}
+input#pprice:hover{}
+	
 select#product-select-List {
     width: 500px;
     height: 40px;

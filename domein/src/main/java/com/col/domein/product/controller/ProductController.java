@@ -138,18 +138,15 @@ public class ProductController {
 	}
 	//productDetail화면
 	@RequestMapping("/product/productDetail.do")
-	public String productDetailGo() {
-		return "product/productDetail";
-	}
-	
-	//productDetail 데이터 불러오기
-	@RequestMapping("/product/productView.do")
-	public ModelAndView selectproductDetail(ModelAndView mv,int productNo) {
+	public ModelAndView selectproductDetail(ModelAndView mv,int articleNo) {
+		System.out.println("널이니"+articleNo);
 		
-		mv.addObject("product",service.selectProductDetail(productNo));
+		mv.addObject("product",service.selectProductDetail(articleNo));
 		mv.setViewName("product/productDetail");
 		return mv;
 	}
+	
+
 	
 	//상품 주문
 	@RequestMapping("/product/productOrder.do")

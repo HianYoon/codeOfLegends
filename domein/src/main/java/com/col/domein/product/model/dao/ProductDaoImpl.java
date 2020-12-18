@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 import com.col.domein.product.model.vo.Attachement;
 import com.col.domein.product.model.vo.BoardProductSaleContent;
 import com.col.domein.product.model.vo.Product;
+import com.col.domein.product.model.vo.ProductAll;
 
 @Repository
 public class ProductDaoImpl implements ProductDao {
@@ -48,8 +49,8 @@ public class ProductDaoImpl implements ProductDao {
 	}
 	//상품detail페이지
 	@Override
-	public List<Map> selectProductDetail(SqlSession session, int productNo) {
+	public List<Map> selectProductDetail(SqlSession session, int articleNo) {
 		// TODO Auto-generated method stub
-		return session.selectOne("product.selectProductDetail",productNo);
+		return session.selectOne("product.selectProductDetail",articleNo);
 	}
 }
