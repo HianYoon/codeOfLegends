@@ -23,8 +23,8 @@
 				<tr>
 
 					<td class="first-column"><input type="text"
-						class="input--text input-validator" placeholder="123-456-12345 형식" id="businessNo"
-						name="businessNo" required /></td>
+						class="input--text input-validator" placeholder="'-'제외 숫자만"
+						id="businessNo" name="businessNo" required /></td>
 					<td><img src="${path}/resources/images/signUp/checked.png"
 						class="opacity0 checker" id="businessNoCheck" alt="" /></td>
 				</tr>
@@ -37,37 +37,28 @@
 				<th class="form-titles">사업자 별칭</th>
 				<tr>
 					<td class="first-column"><input type="text"
-						class="input--text" id="businessNickname" name="businessNickname"
-						placeholder="미입력 시 상호명 자동 입력"></td>
+						class="input--text" maxlength="20" id="businessNickname" name="businessNickname"
+						placeholder="미입력 시 상호명 자동 입력/ 20자 제한"></td>
+					
 				</tr>
 				<th class="form-titles">사업자 전화번호</th>
 				<tr>
-					<td class="first-column"><input type="tel" class="input--text input-validator"
-						id="businessTel" name="businessTel"></td>
+					<td class="first-column "><input type="tel"
+						class="input--text input-validator" id="businessTel"
+						name="businessTel" placeholder="자동 입력 / 수정 가능"></td>
 					<td><img src="${path}/resources/images/signUp/checked.png"
-						class="opacity0 checker" id="businessNoCheck" alt="" /></td>
+						class="opacity0 checker" id="businessTelCheck" alt="" /></td>
 				</tr>
 
 				<th class="form-titles">주소</th>
 				<tr>
-
 					<td class="first-column"><input type="text"
-						class="input--text" id="narrow-field" readonly name="postcode" />
-						<button class="btn btn--primary">우편번호 찾기</button></td>
-				</tr>
-				<tr>
-
-					<td class="first-column"><input type="text"
-						class="input--text input-validator" readonly name="businessAddress1" id="businessAddress1" /></td>
+						class="input--text input-validator" readonly
+						name="businessAddress" id="businessAddress" /></td>
 					<td><img src="${path}/resources/images/signUp/checked.png"
 						class="opacity0 checker" id="addressCheck" alt="" /></td>
 				</tr>
-				<tr>
 
-					<td class="first-column"><input type="text"
-						class="input--text" name="businessAddress2" id="businessAddress2"
-						placeholder="나머지 주소" /></td>
-				</tr>
 				<th class="form-titles">카테고리</th>
 				<tr>
 
@@ -133,12 +124,12 @@
 				</div>
 			</table>
 			<div class="btn-cont">
-				<button class="btn btn--primary2" disabled>가입</button>
+				<button class="btn btn--primary2" disabled id="submit-btn">가입</button>
 				<button class="btn btn--primary2">취소</button>
 			</div>
 		</div>
 	</form>
-	
+
 	<script src="${path }/resources/js/signUp/businessInfo.js"></script>
 	<script>
 		
