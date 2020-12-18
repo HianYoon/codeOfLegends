@@ -30,19 +30,31 @@
                                     const ss=parseInt(number.value);
                                     if(ss>=0)
                                     number.value=ss+1;
-                                
                                    
                                 }
-                             var orderCount=document.querySelector(".order-product");//클릭햇을때 복사
-                             var productSelect=document.querySelector("#product-select-List option:checked");//클릭대상
+
+                                //찜 클릭시 색변화
+                                var jjim=document.querySelector("#jjim");
+                                jjim.onclick=function(){
+                                    jjim.style.color="red";
+                                }
+                                
+                                //select box클릭시 박스 복사 및 텍스트값 복사
+                             var orderCount=document.querySelector(".order-product")[0];//클릭햇을때 복사
+                             var productSelect=document.querySelector(".productNames option:checked");//클릭대상
+                             var addproductSelect=document.querySelector(".addProductname option:checked");//클릭대상
                              
-                             var currentBox=orderCount.firstElementChild;
                              
-                             productSelect.onclick=function(){
-                            //자식노드를 함께 복사하기 위해 true를 입력
-                                var tds=orderCount.cloneNode(true);
-                                orderCount.append(tds);
-                             };
+                             
+                           
+                            	var productClone=orderCount.cloneNode(true);
+                            	orderCount.appendChild(productClone);
+                          
+                    
+                            	var addProduct=orderCount.cloneNode(true);
+                            	orderCount.appendChild(addProduct);
+                           	 
+                         
                             });
                         </script>
 <section id="content">
@@ -64,7 +76,7 @@
                 <form action="${path}/product/productOrder.do" method="post" >
                     <h2>카테고리명</h2>
                     <ul class="star">
-                        <li><span>☆</span><span>☆</span><span>☆</span><span>☆</span><span>☆</span><span>조회수</span></li>
+                        <li><span>☆</span><span>☆</span><span>☆</span><span>☆</span><span>☆</span>리뷰수:</li>
                         <li><img src="${path}/resources/images/profile/jjim.png" style="width:20px;height:20px"alt="찜" id="jjim"></li>
                         <li><img src="" alt="공유하기"></li>
                     </ul>
@@ -85,7 +97,7 @@
                    		<div class="select-container">
                    		
 	                   	<div>
-	                        <select name="productNames" id="product-select-List">
+	                        <select name="productNames"  class="productNames" id="product-select-List">
 		                        <c:forEach var="pName" items="${product.productName}" varStatus="status">
 		                            <option value="">옵션</option>
 		                            <option value="<c:out value="${pName}"/>"><c:out value="${pName}"/></option>
@@ -94,7 +106,7 @@
 	                        </select>
 	                   	</div>
 	                   	<div>
-	                        <select name="addProductname" id="product-select-List">
+	                        <select name="addProductname" class="addProductname" id="product-select-List">
 		                         <c:forEach var="pName" items="${product.productName}" varStatus="status">
 		                            <option value="옵션">옵션</option>
 		                            <option value="<c:out value="${pName}"/>"><c:out value="${pName}"/></option>
@@ -118,6 +130,11 @@
 	                      </div>
 	                    </div>   
                   
+
+                    </div>
+                    <div class="button-order">
+                        <button type="button" id="" class="btn btn--primary1">장바구니</button>
+                        <button type="submit" id="" class="btn btn--primary1">구매하기</button>
 
                     </div>
 

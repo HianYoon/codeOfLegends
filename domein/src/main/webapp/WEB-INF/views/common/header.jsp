@@ -165,6 +165,7 @@
     			$(".one2").mouseleave(function(){
     				$(".one2").hide();
     			});
+    		
     		});
     	</script>
 	</header>
