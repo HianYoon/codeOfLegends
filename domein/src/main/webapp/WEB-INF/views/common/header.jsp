@@ -158,7 +158,8 @@
 
     		</div>
     	<script>
-    	$(".one2").hide();
+    	let width = $(window).width();
+    	if (width<=768) $(".one2").hide();
     			$('#categoryTap').mouseenter(function(){
     				let width = $(window).width();
     				if(width>768) $(".one2").show();
