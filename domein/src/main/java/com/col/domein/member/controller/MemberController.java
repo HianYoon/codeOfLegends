@@ -36,35 +36,35 @@ public class MemberController {
 	}
 
 	@RequestMapping("/signUp/signUpEnd.do")
-	public String confirmEmail(HttpSession session, HttpServletRequest request, Member m, String isSubscribed, String additionalInfo) {
+	public String confirmEmail(HttpSession session, HttpServletRequest request, Member m, String isSubscribed,
+			String additionalInfo) {
 
 		String url = "confirmEmail.do";
-		
+
 		if (isSubscribed != null)
 			m.setIsSubscribed(1);
 
-		if (additionalInfo != null) {
-			url = "additionalInfo.do";
-		}
 //		비밀번호 암호화
 		m.setPassword(pwEncoder.encode(m.getPassword()));
 
 		session.setAttribute("newMember", m);
+		if (additionalInfo != null) {
+			url = "additionalInfo.do";
+		} else {
+			int memberKey = ms.insertMember(m);
 
-		int memberKey = ms.insertMember(m);
-
-		if (memberKey == -1) {
+			if (memberKey == -1) {
 //			에러시 기본 화면으로 이동/ 추후 에러페이지로 이동!
-			return "redirect: "+request.getContextPath();
-		}
-		/////////////////////////////
-		boolean emailFlag = ms.sendEmailVerification(memberKey);
+				return "redirect: " + request.getContextPath();
+			}
+			/////////////////////////////
+			boolean emailFlag = ms.sendEmailVerification(memberKey);
 
 //		에러 상황시
-		if (!emailFlag)
-			return "redirect: "+request.getContextPath();
-
-		return "redirect: "+request.getContextPath()+"/member/signUp/" + url;
+			if (!emailFlag)
+				return "redirect: " + request.getContextPath();
+		}
+		return "redirect: " + request.getContextPath() + "/member/signUp/" + url;
 	}
 
 	@RequestMapping("/signUp/confirmEmail.do")

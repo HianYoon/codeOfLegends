@@ -16,7 +16,7 @@
   </insert>
   
   <insert id="insertBusinessCategory" parameterType="map">
-    INSERT INTO BUSINESS_CATEGORIES(BUSINESS_KEY) VALUES(#{businessKey},#{businessCategoryNo})
+    INSERT INTO BUSINESS_CATEGORIES(BUSINESS_KEY,BUSINESS_CATEGORY_NO) VALUES(#{businessKey},#{businessCategoryNo})
   </insert>
   
 </mapper>
