@@ -10,6 +10,22 @@
     height:auto;
 
 }
+.product-container {
+    display: flex;
+    gap: 30px;
+    justify-content: center;
+    align-items: end;
+    margin: 20px 0px;
+}
+.product-img {
+    width: 300px;
+    height: 100%;
+    box-sizing: border-box;
+    margin: 40px 0px;
+    padding: 10px;
+    display: block;
+    margin-right: 30px;
+}
 .product-text-group {
     display: flex;
     justify-content: space-around;
@@ -76,14 +92,12 @@ input#pprice {
     outline: none;
     border: none;
 }
-input#pprice:hover{}
 	
 select#product-select-List {
     width: 500px;
     height: 40px;
     margin: 10px 0;
     background: 1px solid radial-gradient(black, transparent);
-    border: 1px solid red;
     border-radius: 4px;
     font-size: 20px;
     font-weight: 400;
@@ -91,7 +105,7 @@ select#product-select-List {
 
 .link-text-container ul {
     width: auto;
-    height: 30px;
+    height: 50px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -112,13 +126,10 @@ select#product-select-List {
 div#product-Explanation {
     display: block;
     justify-content: center;
-    background: red;
     margin: 0 20px;
     border-radius: 5px;
 }
 #product-Explanation p{
-    
-    text-align: center;
     display: block;
     width: auto;
     height: auto;
@@ -135,13 +146,15 @@ div#product-Explanation {
     position: relative;
 }
 /* 상품이미지 */
-#product-Explanation img{
-    display: block;
-    width: 800px;
+#product-Explanation img {
+    display: initial;
+    width: 100%;
     height: 300px;
-    margin: 10px 10px 20px;
+    margin: 20px 0px;
+    justify-content: center;
+    align-content: center;
+    box-sizing: border-box;
 }
-
 /* 댓글 */
 .review-container{
     border: 1px solid rgba(0,0,0,0.1);
@@ -254,7 +267,6 @@ div#product-Explanation {
     width: 500px !important;
     display: grid !important;
     justify-content: center;
-    background: red;
     margin: 0 100px 20px !important;
     border-radius: 5px;
     box-sizing: border-box;
