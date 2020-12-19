@@ -66,5 +66,11 @@ public class MemberService {
 	
 		return md.sendEmailVerification(session,keys);
 	}
+	
+	public List<Map> selectMemberList(int cPage, int numperPage){
+		
+		return md.selectMemberList(session,cPage,numperPage);
+		
+	}
 
 }
