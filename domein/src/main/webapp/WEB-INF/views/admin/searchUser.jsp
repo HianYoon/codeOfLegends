@@ -46,6 +46,7 @@
 				</div>
 				<div class="wrap-contents">
 					<ul class="list-result">
+						<c:forEach items="${list }" var="l">
 						<li>
 							<div class="box-img">
 								<img src="프사.png" alt="">
@@ -55,66 +56,16 @@
 								<dl>
 									<div>
 										<dt>회원번호</dt>
-										<dd>신태일</dd>
+										<dd><c:out value="${l.MEMBER_KEY }"/></dd>
 									</div>
 									<div>
 										<dt>이름</dt>
-										<dd>신태일</dd>
+										<dd>${l.USERNAME }</dd>
 									</div>
 								</dl>
 							</div>
 						</li>
-						<li>
-							<div class="box-img">
-								<img src="프사.png" alt="">
-								<span class="text-red">비인증</span>
-							<div class="box-text">
-								<dl>
-									<div>
-										<dt>회원번호</dt>
-										<dd>신태일</dd>
-									</div>
-									<div>
-										<dt>이름</dt>
-										<dd>신태일</dd>
-									</div>
-								</dl>
-							</div>
-						</li>
-						<li>
-							<div class="box-img">
-								<img src="프사.png" alt="">
-								<span class="text-red">비인증</span>
-							<div class="box-text">
-								<dl>
-									<div>
-										<dt>회원번호</dt>
-										<dd>신태일</dd>
-									</div>
-									<div>
-										<dt>이름</dt>
-										<dd>신태일</dd>
-									</div>
-								</dl>
-							</div>
-						</li>
-						<li>
-							<div class="box-img">
-								<img src="프사.png" alt="">
-								<span class="text-red">비인증</span>
-							<div class="box-text">
-								<dl>
-									<div>
-										<dt>회원번호</dt>
-										<dd>신태일</dd>
-									</div>
-									<div>
-										<dt>이름</dt>
-										<dd>신태일</dd>
-									</div>
-								</dl>
-							</div>
-						</li>
+						</c:forEach>
 					</ul>
 				</div>
 			</div>

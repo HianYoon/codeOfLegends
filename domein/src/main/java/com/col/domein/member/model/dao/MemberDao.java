@@ -1,7 +1,9 @@
 package com.col.domein.member.model.dao;
 
+import java.util.List;
 import java.util.Map;
 
+import org.apache.ibatis.session.RowBounds;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
@@ -37,5 +39,9 @@ public class MemberDao {
 
 	public int updateTryCount(SqlSession session, int memberKey) {
 		return session.update("signup.updateTryCount", memberKey);
+	}
+	
+	public List<Map> selectMemberList(SqlSession session, int cPage, int numperPage){
+		return session.selectList("member.selectMemberList",null,new RowBounds(((cPage-1)*numperPage),numperPage));
 	}
 }

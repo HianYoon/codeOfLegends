@@ -83,6 +83,12 @@ public class MemberService {
 		
 		return flag;
 	}
+	
+	public List<Map> selectMemberList(int cPage, int numperPage){
+		
+		return md.selectMemberList(session,cPage,numperPage);
+		
+	}
 
 	public String createConfirmationKey() {
 //		confirmation_key 만드는 로직
