@@ -23,3 +23,8 @@ $(function(){
 		$(".one2").hide();
 	});
 });
+$(document).ready(function(){
+	$(".left").click(function(){
+		window.history.back();
+	});
+});

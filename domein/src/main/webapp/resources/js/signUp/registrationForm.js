@@ -37,7 +37,7 @@ const regexes = [
 
 function ajaxForm(index, url, value) {
 	$.ajax({
-		url: path + "/member/signup/" + url,
+		url: path + "/rest/member/signup/" + url,
 		method: "POST",
 		data: { data: value },
 		async: false,

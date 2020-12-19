@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -97,6 +98,11 @@
 			</div>
 		</div>
 		<div class="mobile-title">
+					<div class="mobile-logo-left">
+						<input type="image" class="left"
+						src="${path }/resources/images/profile/left.png"/>
+						<p></p>
+					</div>
 			<a href="#">
 				<div class="mobile-logo-cont">
 					<img src="${path }/resources/images/logo/signature.png" alt="" />
@@ -166,9 +172,6 @@
     			});
     			$(".one2").mouseleave(function(){
     				if(width>768) $(".one2").hide();
-    			
-    		
-
     		});
 
     	</script>
@@ -177,5 +180,6 @@
 
 
 	<script src="${path }/resources/js/common/headerScript.js"></script>
+
 </body>
 </html>

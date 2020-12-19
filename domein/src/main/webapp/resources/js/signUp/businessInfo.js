@@ -44,7 +44,7 @@ businessNo.keyup((e) => {
 	if (regexes[0].test(businessNo.val())) {
 		$.ajax({
 			method: "POST",
-			url: path + "/business/signup/business/no",
+			url: path + "/rest/business/signup/business/no",
 			data: { data: businessNo.val() },
 			success: (result) => {
 				if (businessName != null || businessName == "") {

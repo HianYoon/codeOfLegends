@@ -289,6 +289,17 @@ ul.one2 li a{
 		width:150px;
 		height:60px;
 	}
+	.mobile-logo-cont-left{
+		justify-content: space-between;
+	}
+	input.left {
+	    width: 40px;
+	    height: 40px;
+	    padding-top: 20%;
+	    padding-left: 30%;
+	    border: 0;
+	    outline: 0;
+	}
 	.categorytap{
 		display:none;
 	}
