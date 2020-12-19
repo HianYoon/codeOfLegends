@@ -8,6 +8,7 @@ import org.apache.ibatis.session.SqlSession;
 import com.col.domein.product.model.vo.Attachement;
 import com.col.domein.product.model.vo.BoardProductSaleContent;
 import com.col.domein.product.model.vo.Product;
+import com.col.domein.product.model.vo.ProductAll;
 
 
 public interface ProductDao {
@@ -26,7 +27,7 @@ public interface ProductDao {
 	//조회수
 	int selectCount(SqlSession session);
 
-	List<Map> selectProductDetail(SqlSession session, int productNo);
+	List<Map> selectProductDetail(SqlSession session, int articleNo);
 
 
 

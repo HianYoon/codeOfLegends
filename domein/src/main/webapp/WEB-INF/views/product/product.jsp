@@ -595,8 +595,8 @@ button.btn .btn--primary{
                     <c:forEach items="${board}" var="b">
                     <div class="oction--grid--container">
                        		
-                            <a class="oction-img-group" href="${path }/product/productView.do?productNo=${b.product_No}&articleNo=${b.article_No}">
-                                <img id="big-target" src="${path }/resources/upload/product/${b.P_RENAMED_FILE_NAME}" alt="이미지" data-zoom="3"/>
+                            <a class="oction-img-group" href="${path}/product/productDetail.do?articleNo=${b.ARTICLE_NO}">
+                                <img id="big-target" src="${path}/resources/upload/product/${b.P_RENAMED_FILE_NAME}" alt="이미지" data-zoom="3"/>
                                 
                             </a>
                             <div>
@@ -605,6 +605,7 @@ button.btn .btn--primary{
                                     <li><c:out value="${b.TITLE }"/></li>
                                     <li><fmt:formatNumber value="${b.PRICE}" pattern="###,###,###"/>원</li>
                                     <li>리뷰수<c:out value="${b.ATTAC }"/>
+                                    <c:out value="${b.ARTICLE_NO}"/>
                                     </li>
                                       <li>
                                              <span><a href="${path}"><img src="${path }/resources/images/profile/jjim.png" alt="찜" style="width: 15px;height:15px;"></a></span>
