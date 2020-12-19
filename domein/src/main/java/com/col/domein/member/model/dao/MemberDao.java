@@ -22,7 +22,7 @@ public class MemberDao {
 		return session.insert("signup.insertMember", m)==1;
 	}
 	
-	public boolean sendEmailVerification(SqlSession session, Map<String, String> keys) {
+	public boolean insertConfirmationKey(SqlSession session, Map<String, String> keys) {
 		return session.insert("signup.sendEmailVerification", keys)==1;
 	}
 }

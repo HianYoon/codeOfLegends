@@ -5,11 +5,16 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.mail.internet.MimeMessage;
+
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import com.col.domein.mail.model.vo.SignUpVerificationEmail;
 import com.col.domein.member.model.dao.MemberDao;
 import com.col.domein.member.model.vo.Member;
 
@@ -20,7 +25,8 @@ public class MemberService {
 	private MemberDao md;
 	@Autowired
 	private SqlSession session;
-	
+	@Autowired
+	private JavaMailSender mailSender;
 
 	public boolean isEmptyData(Map<String, String> map) {
 
@@ -30,41 +36,82 @@ public class MemberService {
 	public int insertMember(Member m) {
 
 		int memberKey = md.getSeqMemberKeyNextVal(session);
+		
 		m.setMemberKey(memberKey);
+		
 		boolean flag = false;
 		try {
 			flag = md.insertMember(session, m);
 		} catch (Exception e) {
 //			에러가 나면 -1로 멤버키를 보낸다. 컨트롤러에서 이를 보고 비지니스를 애드할지에 대해서 판단!
-			memberKey=-1;
+			memberKey = -1;
 		}
-		
-		if(flag == false) memberKey=-1;
-		
+
+		if (flag == false)
+			memberKey = -1;
+
 		return memberKey;
 	}
-	
-	public boolean sendEmailVerification(int memberKey) {
-		
-//		confirmation_key 만드는 로직
-		List<Character> randomKey = new ArrayList<Character>(); 
-		while(randomKey.size()<6) {
-			char c= (char)(int)(Math.random()*'z'+1);
-			if((c>='A'&&c<='Z')||(c>='a'&&c<='z')) randomKey.add(c);
-		}
-		String stringRandomKey="";
-		
-		for(char c : randomKey) stringRandomKey+=c;
-		
-		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-		String encodedRandomKey = encoder.encode(stringRandomKey);
+
+	public boolean sendEmailVerification(Member m) {
+		int memberKey = m.getMemberKey();
+		boolean flag = false;
+		String encodedRandomKey = createConfirmationKey();
 		///////////////////////////////////////////////
+
+		boolean createKeyFlag = insertConfirmationKey(memberKey, encodedRandomKey);
+		if (!createKeyFlag) return false;
+
+		MimeMessage message = mailSender.createMimeMessage();
+
+		MimeMessageHelper messageHelper;
+		try {
+			messageHelper = new MimeMessageHelper(message, true,"UTF-8");
+			messageHelper.setFrom("domein2020@gmail.com");
+			messageHelper.setTo(m.getEmail());
+			messageHelper.setSubject("[도매-인]이메일 인증 메일입니다");
+			messageHelper.setText(new SignUpVerificationEmail(m, encodedRandomKey).emailContent(),true);
+			
+			mailSender.send(message);
+			flag = true;
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return false;
+		}
 		
-		Map<String, String> keys = new HashMap<String, String>();
-		keys.put("memberKey", ""+memberKey);
-		keys.put("confirmationKey", encodedRandomKey);
-	
-		return md.sendEmailVerification(session,keys);
+		return flag;
 	}
 
+	public String createConfirmationKey() {
+//		confirmation_key 만드는 로직
+		List<Character> randomKey = new ArrayList<Character>();
+		while (randomKey.size() < 6) {
+			char c = (char) (int) (Math.random() * 'z' + 1);
+			if ((c >= 'A' && c <= 'Z') || (c >= 'a' && c <= 'z'))
+				randomKey.add(c);
+		}
+		String stringRandomKey = "";
+
+		for (char c : randomKey)
+			stringRandomKey += c;
+
+		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+		String encodedRandomKey = encoder.encode(stringRandomKey);
+
+		return encodedRandomKey;
+	}
+
+	public boolean insertConfirmationKey(int memberKey, String encodedRandomKey) {
+
+//		DB에 생성된 키 넣기
+		Map<String, String> keys = new HashMap<String, String>();
+		keys.put("memberKey", "" + memberKey);
+		keys.put("confirmationKey", encodedRandomKey);
+
+		boolean createKeyFlag = md.insertConfirmationKey(session, keys);
+
+		return createKeyFlag;
+	}
+	
 }
