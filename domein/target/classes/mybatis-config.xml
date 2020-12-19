@@ -10,7 +10,7 @@
 		<typeAlias type="com.col.domein.member.model.vo.Member" alias="member"/>
 		<typeAlias type="com.col.domein.business.model.vo.Business" alias="business"/>
 		<typeAlias type="com.col.domein.business.model.vo.BusinessCategory" alias="businessCategory"/>
-	
+		<typeAlias type="com.col.domein.member.model.vo.EmailCheck" alias="emailCheck"/>
 	
 	</typeAliases>
 </configuration>

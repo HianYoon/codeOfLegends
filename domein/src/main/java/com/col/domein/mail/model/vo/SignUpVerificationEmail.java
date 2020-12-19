@@ -136,12 +136,21 @@ public class SignUpVerificationEmail {
 				
 				+ " 님 본인 확인을 위해 다음 버튼을 클릭해주세요!</h4>\r\n" + 
 				"				<br />\r\n" + 
-				"				<button id='verificationBtn' class='btn btn--primary'>링크 클릭</button>\r\n" + 
+				"				<a\r\n" + 
+				"					href='http://mightymosses.hopto.org:9090/domein/member/signUp/accountVerify.do?memberKey="
+				+ newMember.getMemberKey()
+				
+				+ "&confirmationKey="
+				
+				+ encodedRandomKey
+				
+				+ "'\r\n" + 
+				"				>\r\n" + 
+				"				<button id='verificationBtn' class='btn btn--primary'>링크 클릭</button>\r\n</a>" + 
 				"				<br />\r\n" + 
 				"				<br />\r\n" + 
 				"				<a\r\n" + 
 				"					href='http://mightymosses.hopto.org:9090/domein/member/signUp/accountVerify.do?memberKey="
-				
 				+ newMember.getMemberKey()
 				
 				+ "&confirmationKey="

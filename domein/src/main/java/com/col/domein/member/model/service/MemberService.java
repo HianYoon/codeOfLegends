@@ -16,6 +16,7 @@ import org.springframework.stereotype.Service;
 
 import com.col.domein.mail.model.vo.SignUpVerificationEmail;
 import com.col.domein.member.model.dao.MemberDao;
+import com.col.domein.member.model.vo.EmailCheck;
 import com.col.domein.member.model.vo.Member;
 
 @Service
@@ -112,6 +113,36 @@ public class MemberService {
 		boolean createKeyFlag = md.insertConfirmationKey(session, keys);
 
 		return createKeyFlag;
+	}
+	
+	public int accountVerify(String memberKey, String confirmationKey) {
+		
+//		1.먼저 해당 멤버키의 Email_check데이터가 있는지 확인하고, 그것을 받아온다.
+		EmailCheck ec = md.selectEmailCheck(session,Integer.parseInt(memberKey));
+//		2.
+//		1)try_count가 5회 이하
+//      2)reg_date가 24시간을 넘지 않았고 
+//		3)인증키가 일치하면 인증 -> 멤버 is_confirmed를 1로 바꿔줌 / 인증키 지움 ->1
+//		 else 1-1)인증키가 일치하지 않으면 try_count를 1회 증가 ->2
+//			-> 현재 try_count가 4번이었으면/ 기존 인증키 제거 후 / 새로운 인증키 자동 발송 ->3
+//		 2-2)인증키가 만료되었다고 알려주고 / 기존 인증키 제거 후 / 새로운 인증키 자동 발송 ->4
+		
+		if(ec.getDateDif()!=0) return 4;
+		if(ec.getConfirmationKey()!=confirmationKey) {
+			if(ec.getTryCount()==4) {
+//				딜리트 후 새로 인서트
+				return 3;
+			} else {
+//				try_count 1회 증가 로직
+				md.updateTryCount(session, Integer.parseInt(memberKey));
+				return 2;
+			}
+		}
+		
+		
+		
+		
+		return 0;
 	}
 	
 }

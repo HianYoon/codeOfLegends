@@ -6,6 +6,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.col.domein.member.model.service.MemberService;
@@ -76,4 +77,15 @@ public class MemberController {
 	public String additionalInfo() {
 		return "member/signUp/businessInfo";
 	}
+	
+	@GetMapping("/signUp/accountVerify.do")
+	public String accountVerify(HttpServletRequest request, String memberKey, String confirmationKey) {
+		
+		String url ="emailConfirmed";
+		
+		int result = ms.accountVerify(memberKey, confirmationKey);
+		
+		return "redirect: "+request.getContextPath()+"/member/signUp/"+url+".do";
+	}
+	
 }

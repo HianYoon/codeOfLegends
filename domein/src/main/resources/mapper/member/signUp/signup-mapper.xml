@@ -2,6 +2,13 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="signup">
 
+	<resultMap type="emailCheck" id="emailC">
+		<result column="MEMBER_KEY" property="memberKey"/>
+		<result column="CONFIRMATION_KEY" property="confirmationKey"/>
+		<result column="DATE_DIF" property="dateDif"/>
+		<result column="TRY_COUNT" property="tryCount"/>
+	</resultMap>
+	
 	<select id="isEmptyData" parameterType="map" resultType="_int">
 		SELECT COUNT(*) FROM MEMBER WHERE ${target} = #{data}
 	</select>
@@ -19,4 +26,21 @@
 		INSERT INTO EMAIL_CHECK(MEMBER_KEY,CONFIRMATION_KEY)
 		VALUES(${memberKey},#{confirmationKey})
 	</insert>
+	
+	<select id="selectEmailCheck" parameterType="_int" resultMap="emailC" resultType="emailCheck">
+		SELECT MEMBER_KEY, FLOOR(SYSDATE - SENT_DATE) AS DATE_DIF, CONFIRMATION_KEY, TRY_COUNT
+		FROM EMAIL_CHECK WHERE MEMBER_KEY = #{memberKey} 
+	</select>
+	
+	<update id="updateTryCount" parameterType="_int">
+		UPDATE EMAIL_CHECK SET TRY_COUNT = TRY_COUNT + 1 WHERE MEMBER_KEY = #{memberKey}
+	</update>
+	
+	<select id="accountVerify" parameterType="map">
+		SELECT COUNT(DIF) FROM (SELECT SYSDATE-SENT_DATE AS DIF FROM EMAIL_CHECK 
+		WHERE MEMBER_KEY = ${memberKey} AND CONFIRMATION_KEY = #{confirmation_key}) AND <![CDATA[TRY_COUNT<5]]>
+		<![CDATA[WHERE DIF<1]]>
+	</select>
+	
+	
 </mapper>
