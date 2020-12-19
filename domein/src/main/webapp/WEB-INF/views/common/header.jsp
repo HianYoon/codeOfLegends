@@ -151,7 +151,7 @@
 		
 		   <div class="categorytap">
 		        <ul class="one2"style="" >
-		            <li><a href="${path}/product/productDetail.do"><img src="${path }/resources/images/signUp/beef.png" style="width:30px; height:30px; box-sizing:border-box; " alt=""/>test중 product</a></li>
+		            <li><a href="${path}/product/productDetailView.do"><img src="${path }/resources/images/signUp/beef.png" style="width:30px; height:30px; box-sizing:border-box; " alt=""/>test중 product</a></li>
 		            <li><a href="#"><img src="${path }/resources/images/signUp/fish.png" alt="" style="width:30px; height:30px; box-sizing:border-box; "/>수산</a></li>
 		            <li><a href="#"><img src="${path }/resources/images/signUp/vegetables.png" alt="" style="width:30px; height:30px; box-sizing:border-box; "/>야채</a></li>
 		            <li><a href="#"><img src="${path }/resources/images/signUp/beam.png" alt="" style="width:30px; height:30px; box-sizing:border-box; "/>철강</a></li>

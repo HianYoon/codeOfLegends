@@ -146,8 +146,11 @@ public class ProductController {
 		return mv;
 	}
 	
-
-	
+	//test용 
+	@RequestMapping("/product/productDetailView.do")
+	public String productDetailGo() {
+		return "product/productDetail";
+	}
 	//상품 주문
 	@RequestMapping("/product/productOrder.do")
 	public ModelAndView insertProductCart(ModelAndView mv) {

@@ -51,6 +51,6 @@ public class ProductDaoImpl implements ProductDao {
 	@Override
 	public List<Map> selectProductDetail(SqlSession session, int articleNo) {
 		// TODO Auto-generated method stub
-		return session.selectOne("product.selectProductDetail",articleNo);
+		return session.selectList("product.selectProductDetail",articleNo);
 	}
 }

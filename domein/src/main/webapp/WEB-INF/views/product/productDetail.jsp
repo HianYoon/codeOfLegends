@@ -63,6 +63,9 @@
 <section id="content">
 	 <div class="productDetailPage">
         <div class="product-text-group">
+        <c:forEach items="${product }" var="p">
+        
+       
             <div class="product-small-group">
                 <ul>
                     <li><img src="" alt="이미지1"></li>
@@ -72,7 +75,7 @@
             
                 
             <div class="product-img">
-                <img src="${path}/resources/upload/product/${product.P_RENAMED_FILE_NAME}" alt="빅이미지">
+                <img src="${path}/resources/upload/product/${p.P_RENAMED_FILE_NAME}" alt="빅이미지">
             </div>
                 
             <div class="product-textgroup">
@@ -86,12 +89,12 @@
                     
                     
                     <div class="product-origin">
-                        <h3>${product.TITLE }</h3>
+                        <h3><c:out value="${p.TITLE }"/></h3>
                         <div class="product-price">
-                            <p>${product.PRICE}</p>
+                            <p><c:out value="${p.PRICE}"/></p>
                             <p>포인트적립 0.5%</p>
                         </div>
-                        <p><span class="text-left">원산지:</span> <span class="text-right">${product.ORIGIN}</span></p>
+                        <p><span class="text-left">원산지:</span> <span class="text-right"><c:out value="${p.ORIGIN}"/></span></p>
                         <p><span class="text-left">배송비:</span> <span class="text-right">10만원이하 3000원</span></p>
                         <p><span class="text-left">배송방법:</span> <span class="text-right">업체배송</span></p>
                         <p>조건에 따라 추가비용이 발생할수있습니다.</p>
@@ -101,18 +104,18 @@
                    		
 	                   	<div>
 	                        <select name="productNames"  class="productNames" id="product-select-List">
-		                        <c:forEach var="pName" items="${product.product_Name}" varStatus="status">
+		                        <c:forEach var="pName" items="${product}" varStatus="status">
 		                            <option value="">옵션</option>
-		                            <option value="<c:out value="${product.product_Name}"/>"><c:out value="${product.product_Name}"/></option>
+		                            <option value="${pName.PRODUCT_NAME}"><c:out value="${pName.PRODUCT_NAME}"/></option>
 		                            
 		                        </c:forEach>
 	                        </select>
 	                   	</div>
 	                   	<div>
 	                        <select name="addProductname" class="addProductname" id="product-select-List">
-		                         <c:forEach var="pName" items="${product}" varStatus="status">
+		                         <c:forEach var="p1" items="${product}" varStatus="status">
 		                            <option value="옵션">옵션</option>
-		                            <option value="<c:out value="${pName}"/>"><c:out value="${pName}"/></option>
+		                            <option value="${p1.PRODUCT_NAME}"><c:out value="${p1.PRODUCT_NAME}"/></option>
 		                            
 		                        </c:forEach>
 	                        </select>
@@ -121,14 +124,14 @@
                     
                     <div class="order-product">
 	                   	 <div class="order-container">
-	                        <h4><c:out value="${product.product_Name}"/></h4>
+	                        <h4><c:out value="${p.PRODUCT_NAME}"/></h4>
 	                        <div class="product-price">
 	                            <input type="button" class="minus" value="-"/>
 	                            <input type="number" name="count" class="number" value="0" readonly>
 	                            <input type="button" class="plus" value="+"/>
 	                       </div>
 	                      <div class="price-text">
-	                            <p><span class="text-left">가격</span> <input id="pprice" value="${product.PRICE}" class="text-right" readonly/></p>
+	                            <p><span class="text-left">가격</span> <input id="pprice" value="${p.PRICE}" class="text-right" readonly/></p>
 	                            
 	                      </div>
 	                    </div>   
@@ -159,8 +162,9 @@
         <div id="product-Explanation">
             <img src="" alt="상품이미지">
             <p>상품설명</p>
-            <p>좋아요!! 무조건사요</p>
+            <p><c:out value="${p.SALE_CONTENT }"/></p>
         </div>
+         </c:forEach>
         <div id="reviews">
             <form action="" method="POST" >
                 <div class="review-container">

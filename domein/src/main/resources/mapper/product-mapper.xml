@@ -63,7 +63,7 @@
 		 </select>
 		 
 		 <select id="selectProductDetail" parameterType="_int" resultType="map">
-		 	select * from product_all WHERE ARTICLE_NO=${ARTICLE_NO}
+		 	select * from product_all WHERE ARTICLE_NO=#{ARTICLE_NO}
 		 </select>
 		
 </mapper>
