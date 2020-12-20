@@ -28,6 +28,8 @@
 								//count
 									minus.onclick=function(str){
 									  const ss=parseInt(number.value);
+									  
+									  if(ss==1) price.value=ss;
 									  if(ss>1){
 									    number.value= ss-1;
 									    totalnumber=pchange*(ss-1);
@@ -50,30 +52,75 @@
 	   								 
 								};
                                 })
-                                //
-
-                                //찜 클릭시 색변화
-                                var jjim=document.querySelector("#jjim");
-                                jjim.onclick=function(){
-                                    jjim.style.color="red";
-                                }
+                                //coment 댓글 토글 보여주기 /감추기
+                                	var ProductComment=document.querySelector(".ProductComment");
+									var reviewContainer=document.querySelector(".review-container");
+									
+									
+									ProductComment.onclick=function(){
+										if(reviewContainer.style.display=='none'){
+											
+											reviewContainer.style.display="block";
+										}else{
+											reviewContainer.style.display='none';
+										}
+				
+									}
+									//신고기능 토글
+									var Declaration=document.querySelector("#Declaration");
+									var hamburger=document.querySelector(".hamburger");
+									
+									hamburger.onclick=function(){
+									if(Declaration.style.display=='none')
+										Declaration.style.display="block";
+									}	
+										//reviewSingo form보여주기
+									var singoForm=document.querySelector(".singoForm");
+									var singo=document.querySelector(".singo");
+									
+									singo.onclick=function(){
+									if(singoForm.style.display=='none')
+										singoForm.style.display="block";
+										
+								}
+								
                                 
+                                //신고 모달 box 기능
+                                
+                                  const open=document.querySelector(".singo");
+                                  
+                                  const close=document.querySelector("#modalClose");
+                                  const form=document.querySelector(".singoForm");
+                                  
+                                  close.onclick=function(){
+                                  
+                                  	form.style.display='none';
+                                  };
+                                  
+                                  open.onclick=function(){
+                                  	form.style.display='flex';
+                                  	
+                                  };
+                                  
+                                  
+                                  
+                                  
+                                  
                                 //select box클릭시 박스 복사 및 텍스트값 복사
                            
                              var productSelect=document.querySelector(".productNames option:checked");//클릭대상
                              var addproductSelect=document.querySelector(".addProductname option:checked");//클릭대상
                              
-                        
-                             function cartBtn(){
-                                 var ordd=document.querySelector(".order-product");
-                                    var productClone=ordd.cloneNode(true);
-                                    ordd.appendChild(productClone);
-                                    alert("성공햇다!!");
-    
-                          
-                             }
                            /*  	var addProduct=orderCount.cloneNode(true);
                             	orderCount.appendChild(addProduct); */
-                           	 
-                         
+							
+							//select값 가져오기                           	 
+                  
+              				var selectOption=document.querySelector(".productNames");
+              				
+              				selectOption= selectOption.options[selectOption.selectedIndex].value;
+              				
+              				console.log(selectOption);
+                      
+                   
                            

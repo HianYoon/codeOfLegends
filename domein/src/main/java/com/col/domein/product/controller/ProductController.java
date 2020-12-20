@@ -151,10 +151,5 @@ public class ProductController {
 	public String productDetailGo() {
 		return "product/productDetail";
 	}
-	//상품 주문
-	@RequestMapping("/product/productOrder.do")
-	public ModelAndView insertProductCart(ModelAndView mv) {
-		return mv;
-	}
 	
 }
