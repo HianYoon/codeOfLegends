@@ -32,13 +32,17 @@ public class MemberDao {
 	public EmailCheck selectEmailCheck(SqlSession session, int memberKey) {
 		return session.selectOne("signup.selectEmailCheck", memberKey);
 	}
-	
-	public boolean accountVerify(SqlSession session, Map<String, String> keys) {
-		return (int)session.selectOne("signup.accountVerify", keys) == 1;
-	}
 
 	public int updateTryCount(SqlSession session, int memberKey) {
 		return session.update("signup.updateTryCount", memberKey);
+	}
+	
+	public boolean deleteTryCount(SqlSession session, int memberKey) {
+		return session.delete("signup.deleteTryCount", memberKey)==1;
+	}
+	
+	public Member selectMemberByMemberKey(SqlSession session, int memberKey) {
+		return session.selectOne("member.selectMemberByMemberKey", memberKey);
 	}
 	
 	public List<Map> selectMemberList(SqlSession session, int cPage, int numperPage){

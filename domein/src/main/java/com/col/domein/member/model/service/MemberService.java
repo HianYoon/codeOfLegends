@@ -121,10 +121,10 @@ public class MemberService {
 		return createKeyFlag;
 	}
 	
-	public int accountVerify(String memberKey, String confirmationKey) {
+	public int accountVerify(int memberKey, String confirmationKey) {
 		
 //		1.먼저 해당 멤버키의 Email_check데이터가 있는지 확인하고, 그것을 받아온다.
-		EmailCheck ec = md.selectEmailCheck(session,Integer.parseInt(memberKey));
+		EmailCheck ec = md.selectEmailCheck(session,memberKey);
 //		2.
 //		1)try_count가 5회 이하
 //      2)reg_date가 24시간을 넘지 않았고 
@@ -132,23 +132,46 @@ public class MemberService {
 //		 else 1-1)인증키가 일치하지 않으면 try_count를 1회 증가 ->2
 //			-> 현재 try_count가 4번이었으면/ 기존 인증키 제거 후 / 새로운 인증키 자동 발송 ->3
 //		 2-2)인증키가 만료되었다고 알려주고 / 기존 인증키 제거 후 / 새로운 인증키 자동 발송 ->4
-		
-		if(ec.getDateDif()!=0) return 4;
+//		db와 커넥션 중 에러 -> 9
+		if(ec.getDateDif()!=0) {
+			
+			boolean flag = sendNewEmailVerification(memberKey);
+			if(!flag) return 9;
+			
+			return 4;
+		}
 		if(ec.getConfirmationKey()!=confirmationKey) {
 			if(ec.getTryCount()==4) {
 //				딜리트 후 새로 인서트
+				boolean flag = sendNewEmailVerification(memberKey);
+				if(!flag) return 9;
+				
 				return 3;
 			} else {
 //				try_count 1회 증가 로직
-				md.updateTryCount(session, Integer.parseInt(memberKey));
+				md.updateTryCount(session, memberKey);
 				return 2;
 			}
 		}
 		
+//		정상적으로 인증되었을 시 로직
 		
 		
 		
 		return 0;
 	}
 	
+	
+	public boolean sendNewEmailVerification(int memberKey) {
+		boolean flag = md.deleteTryCount(session, memberKey);
+		if(!flag) return false;
+		
+		Member m = md.selectMemberByMemberKey(session, memberKey);
+		if(m == null) return false;
+		
+		flag = sendEmailVerification(m);
+		if(!flag) return false;
+		
+		return true;
+	}
 }

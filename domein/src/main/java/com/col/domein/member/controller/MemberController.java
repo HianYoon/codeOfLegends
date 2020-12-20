@@ -82,8 +82,19 @@ public class MemberController {
 	public String accountVerify(HttpServletRequest request, String memberKey, String confirmationKey) {
 		
 		String url ="emailConfirmed";
+		int intMemberKey=0;
 		
-		int result = ms.accountVerify(memberKey, confirmationKey);
+		try {
+			intMemberKey = Integer.parseInt(memberKey);
+		} catch (Exception e) {
+			return "redirect: /error.do";
+		}
+		
+		int result = ms.accountVerify(intMemberKey, confirmationKey);
+		
+		switch(result) {
+//		상황에 따른 result
+		}
 		
 		return "redirect: "+request.getContextPath()+"/member/signUp/"+url+".do";
 	}

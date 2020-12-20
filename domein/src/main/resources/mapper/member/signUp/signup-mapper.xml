@@ -42,5 +42,9 @@
 		<![CDATA[WHERE DIF<1]]>
 	</select>
 	
+	<delete id="deleteTryCount" parameterType="_int">
+		DELETE FROM EMAIL_CHECK WHERE MEMBER_KEY = #{memberKey}
+	</delete>
+	
 	
 </mapper>
