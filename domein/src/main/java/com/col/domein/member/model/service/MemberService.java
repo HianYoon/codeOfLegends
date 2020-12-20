@@ -133,6 +133,8 @@ public class MemberService {
 //			-> 현재 try_count가 4번이었으면/ 기존 인증키 제거 후 / 새로운 인증키 자동 발송 ->3
 //		 2-2)인증키가 만료되었다고 알려주고 / 기존 인증키 제거 후 / 새로운 인증키 자동 발송 ->4
 //		db와 커넥션 중 에러 -> 9
+//		3)tryCount는 5에 도달할 시 삭제되어지도록 구성되어 있기 때문에 존재하지 않음
+//		2-1)
 		if(ec.getDateDif()!=0) {
 			
 			boolean flag = sendNewEmailVerification(memberKey);
@@ -140,7 +142,8 @@ public class MemberService {
 			
 			return 4;
 		}
-		if(ec.getConfirmationKey()!=confirmationKey) {
+//		1-1)
+		if(!ec.getConfirmationKey().equals(confirmationKey)) {
 			if(ec.getTryCount()==4) {
 //				딜리트 후 새로 인서트
 				boolean flag = sendNewEmailVerification(memberKey);
@@ -156,16 +159,21 @@ public class MemberService {
 		
 //		정상적으로 인증되었을 시 로직
 		
+		boolean flag = md.updateMemberToConfirmed(session, memberKey);
+		if(!flag) return 9;
 		
+		flag = md.deleteEmailCheck(session, memberKey);
+		if(!flag) return 9;
 		
-		return 0;
+//		정상 상태 코드 1
+		return 1;
 	}
 	
 	
 	public boolean sendNewEmailVerification(int memberKey) {
-		boolean flag = md.deleteTryCount(session, memberKey);
+		boolean flag = md.deleteEmailCheck(session, memberKey);
 		if(!flag) return false;
-		
+		 
 		Member m = md.selectMemberByMemberKey(session, memberKey);
 		if(m == null) return false;
 		

@@ -37,8 +37,8 @@ public class MemberDao {
 		return session.update("signup.updateTryCount", memberKey);
 	}
 	
-	public boolean deleteTryCount(SqlSession session, int memberKey) {
-		return session.delete("signup.deleteTryCount", memberKey)==1;
+	public boolean deleteEmailCheck(SqlSession session, int memberKey) {
+		return session.delete("signup.deleteEmailCheck", memberKey)==1;
 	}
 	
 	public Member selectMemberByMemberKey(SqlSession session, int memberKey) {
@@ -48,4 +48,9 @@ public class MemberDao {
 	public List<Map> selectMemberList(SqlSession session, int cPage, int numperPage){
 		return session.selectList("member.selectMemberList",null,new RowBounds(((cPage-1)*numperPage),numperPage));
 	}
+	
+	public boolean updateMemberToConfirmed(SqlSession session, int memberKey) {
+		return session.update("signup.updateMemberToConfirmed", memberKey)==1;
+	}
+	
 }

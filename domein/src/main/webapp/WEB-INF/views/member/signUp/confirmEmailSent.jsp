@@ -25,7 +25,7 @@
       <br>
       <h5>${newMember.userName } 회원님 ${newMember.email } 으로</h5>
       <h5>인증 메일이 발송되었습니다.</h5>
-      <h5>이메일 인증을 완료하시면 계정 생성이 완료됩니다.</h5>
+      <h5>24시간 이내에 이메일 인증을 완료하시면 계정 생성이 완료됩니다.</h5>
       <br>
       <div>
         <button class="btn btn--primary">로그인 페이지로</button>

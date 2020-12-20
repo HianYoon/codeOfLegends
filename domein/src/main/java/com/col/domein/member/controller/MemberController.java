@@ -81,7 +81,7 @@ public class MemberController {
 	@GetMapping("/signUp/accountVerify.do")
 	public String accountVerify(HttpServletRequest request, String memberKey, String confirmationKey) {
 		
-		String url ="emailConfirmed";
+		String url ="";
 		int intMemberKey=0;
 		
 		try {
@@ -94,9 +94,37 @@ public class MemberController {
 		
 		switch(result) {
 //		상황에 따른 result
+		case 1: url = "emailConfirmed"; break;
+		case 2: url = "wrongConfirmationKey"; break;
+		case 3: url = "tooManyTryCount"; break;
+		case 4: url = "confirmationTimeOut"; break;
+		case 9:
+		default: url = "somethingWentWrong";
 		}
 		
 		return "redirect: "+request.getContextPath()+"/member/signUp/"+url+".do";
+	}
+	
+	@RequestMapping("/signUp/emailConfirmed.do")
+	public String emailConfirmed() {
+		return "member/signUp/emailConfirmed";
+	}
+	
+	@RequestMapping("/signUp/wrongConfirmationKey.do")
+	public String wrongConfirmationKey() {
+		return "member/signUp/wrongConfirmationKey";
+	}
+	@RequestMapping("/signUp/tooManyTryCount.do")
+	public String tooManyTryCount() {
+		return "member/signUp/tooManyTryCount";
+	}
+	@RequestMapping("/signUp/confirmationTimeOut.do")
+	public String confirmationTimeOut() {
+		return "member/signUp/confirmationTimeOut";
+	}
+	@RequestMapping("/signUp/somethingWentWrong.do")
+	public String somethingWentWrong() {
+		return "member/signUp/somethingWentWrong";
 	}
 	
 }
