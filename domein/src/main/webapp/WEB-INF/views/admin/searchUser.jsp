@@ -40,35 +40,37 @@
 					<div class="wrap-inner">
 						<ul class="lists-result">
 							<c:forEach items="${list }" var="l">
-							<li class="wrap-user-profile">
-								<div class="box-img">								
-									<c:choose>
-										<c:when test="${l.PROFILE_URL eq null }">
-										<img src="https://secure.gravatar.com/avatar/91524e06c4642938f6dff01039a4b2a3?s=96&r=g&d=https://drsuleymantas.com/wp-content/plugins/userswp/assets/images/no_profile.png" width="120">
-										</c:when>
-										<c:otherwise>
-										<img src="${path }/resources/images/profile/${l.PROFILE_URL}" width="120">
-										</c:otherwise>
-									</c:choose>
-									<c:if test="${l.IS_CONFIRMED==0 }">
-									<span class="labeling red">비인증</span>
-									</c:if>
-									<c:if test="${l.IS_CONFIRMED==1 }">
-									<span class="labeling green">인증</span>
-									</c:if>
-								</div>
-								<div class="box-text">
-									<dl class="list-user-profile">
-										<div>
-											<dt>회원번호</dt>
-											<dd><a href="${path}/admin/userInfo.do"><c:out value="${l.MEMBER_KEY }"/></a></dd>
-										</div>
-										<div>
-											<dt>이름</dt>
-											<dd>${l.USERNAME }</dd>
-										</div>
-									</dl>
-								</div>
+							<li>
+								<a class="wrap-user-profile" href="${path}/admin/userInfo.do?memberKey=${l.MEMBER_KEY}">
+									<div class="box-img">								
+										<c:choose>
+											<c:when test="${l.PROFILE_URL eq null }">
+											<img src="https://secure.gravatar.com/avatar/91524e06c4642938f6dff01039a4b2a3?s=96&r=g&d=https://drsuleymantas.com/wp-content/plugins/userswp/assets/images/no_profile.png" width="120">
+											</c:when>
+											<c:otherwise>
+											<img src="${path }/resources/images/profile/${l.PROFILE_URL}" width="120">
+											</c:otherwise>
+										</c:choose>
+										<c:if test="${l.BUSINESS_NO == NULL }">
+										<span class="labeling red">미등록</span>
+										</c:if>
+										<c:if test="${l.BUSINESS_NO != NULL }">
+										<span class="labeling green">사업자</span>
+										</c:if>
+									</div>
+									<div class="box-text">
+										<dl class="list-user-profile">
+											<div>
+												<dt>회원번호</dt>
+												<dd><c:out value="${l.MEMBER_KEY }"/></dd>
+											</div>
+											<div>
+												<dt>이름</dt>
+												<dd>${l.USERNAME }</dd>
+											</div>
+										</dl>
+									</div>
+								</a>
 							</li>
 							</c:forEach>
 						</ul>

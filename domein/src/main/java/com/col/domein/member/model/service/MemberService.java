@@ -183,4 +183,8 @@ public class MemberService {
 		
 		return true;
 	}
+	
+	public Member selectOneMemberWithBusinessNo(int memberKey) {
+		return md.selectOneMemberWithBusinessNo(session,memberKey);
+	}
 }

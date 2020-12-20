@@ -53,4 +53,7 @@ public class MemberDao {
 		return session.update("signup.updateMemberToConfirmed", memberKey)==1;
 	}
 	
+	public Member selectOneMemberWithBusinessNo(SqlSession session, int memberKey) {
+		return session.selectOne("member.selectOneMemberWithBusinessNo",memberKey);
+	}
 }

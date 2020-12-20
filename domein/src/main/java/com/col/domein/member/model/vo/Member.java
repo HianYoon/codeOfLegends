@@ -46,6 +46,7 @@ public class Member implements Comparable<Member>{
 			String email, String postcode, String address1, String address2, int levelNo,
 			Date enrollDate, Date modifiedDate, String profileUrl, int isConfirmed, int accountStatusNo, int isSubscribed,
 			int totalPoint, TreeSet<Business> businessKeys) {
+
 		super();
 		this.memberKey = memberKey;
 		this.id = id;
@@ -242,8 +243,7 @@ public class Member implements Comparable<Member>{
 	public String getStatusDesc() {
 		return statusDesc;
 	}
-
-
+	
 	public int getTotalPoint() {
 		return totalPoint;
 	}
@@ -405,6 +405,7 @@ public class Member implements Comparable<Member>{
 			return false;
 		return true;
 	}
+
 	
 	
 }

@@ -25,6 +25,10 @@
 		SELECT * FROM MEMBER
 	</select>
 	
+	<select id="selectOneMemberWithBusinessNo" parameterType="_int" resultType="member" resultMap="memberMap">
+		SELECT M.*,(SELECT BUSINESS_NO FROM BUSINESS WHERE MEMBER_KEY = #{memberKey}) AS BUSINESS_NO FROM MEMBER M WHERE MEMBER_KEY = #{memberKey}
+	</select>
+	
 	<select id="selectMemberByMemberKey" parameterType="_int" resultType="member" resultMap="memberMap">
 		SELECT * FROM MEMBER WHERE MEMBER_KEY = #{memberKey}
 	</select>

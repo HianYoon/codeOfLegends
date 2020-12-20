@@ -17,20 +17,47 @@
 				<div class="wrap-inner">
 					<div class="wrap-user-profile">
 						<div class="box-img">
-							<img src="/domein/resources/images/profile/profile.png" alt="">
-							<span class="labeling red">
-								비인증
-							</span>
+							<c:choose>
+								<c:when test="${m.profileUrl != null }">
+									<img src="/domein/resources/images/profile/${m.profileUrl }" alt="">
+								</c:when>
+								<c:otherwise>
+									<img src="https://secure.gravatar.com/avatar/91524e06c4642938f6dff01039a4b2a3?s=96&r=g&d=https://drsuleymantas.com/wp-content/plugins/userswp/assets/images/no_profile.png" width="120">
+								</c:otherwise>
+							</c:choose>
+							<c:choose>
+								<c:when test="${m.businessNo == null }">
+									<span class="labeling red">
+										미등록
+									</span>
+								</c:when>
+								<c:otherwise>
+									<span class="labeling green">
+										사업자
+									</span>
+								</c:otherwise>
+							</c:choose>
 						</div>
 						<div class="box-text">
 							<dl class="list-user-profile">
 								<div>
 									<dt>회원번호</dt>
-									<dd>8282</dd>
+									<dd><c:out value="${m.memberKey }"/></dd>
 								</div>
 								<div>
 									<dt>이름</dt>
-									<dd>김대욱</dd>
+									<dd><c:out value="${m.userName }"/></dd>
+								</div>
+								<div>
+									<dt>사업자번호</dt>
+									<dd>
+										<c:if test="${m.businessNo != null }">
+											<c:out value="${m.businessNo }"/>
+										</c:if>
+										<c:if test="${m.businessNo == null }">
+											미등록
+										</c:if>
+									</dd>
 								</div>
 							</dl>
 						</div>
