@@ -56,7 +56,7 @@ public class BusinessController {
 		if(!businessFlag) return "redirect: "+contextPath;
 		
 		///////////////////////////////////////////
-		boolean emailFlag = ms.sendEmailVerification(m, contextPath);
+		boolean emailFlag = ms.sendEmailVerification(m, request);
 		
 //		에러 상황시
 		if(!emailFlag) return "redirect: "+contextPath;

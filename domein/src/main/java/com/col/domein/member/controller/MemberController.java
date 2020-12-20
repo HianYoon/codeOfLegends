@@ -62,7 +62,7 @@ public class MemberController {
 				return "redirect: " + request.getContextPath();
 			}
 			/////////////////////////////
-			boolean emailFlag = ms.sendEmailVerification(m, request.getContextPath());
+			boolean emailFlag = ms.sendEmailVerification(m, request);
 
 //		에러 상황시
 			if (!emailFlag)
@@ -93,7 +93,7 @@ public class MemberController {
 			return "redirect: "+request.getContextPath()+"/error.do";
 		}
 		
-		int result = ms.accountVerify(intMemberKey, confirmationKey, request.getContextPath());
+		int result = ms.accountVerify(intMemberKey, confirmationKey, request);
 		
 		switch(result) {
 //		상황에 따른 result
@@ -107,6 +107,11 @@ public class MemberController {
 		
 		return "redirect: "+request.getContextPath()+"/member/signUp/"+url+".do";
 	}
+		
+		@RequestMapping("/signUp/emailConfirmed.do")
+		public String emailConfirmed() {
+			return "member/signUp/emailConfirmed";
+		}
 	
 		@RequestMapping("/signUp/wrongConfirmationKey.do")
 		public String wrongConfirmationKey(Model model) {

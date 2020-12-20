@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.col.domein.member.model.service.MemberService;
+import com.col.domein.member.model.vo.Member;
 
 @Controller
 public class AdminController {
@@ -27,7 +28,11 @@ public class AdminController {
 	}
 	
 	@RequestMapping("admin/userInfo.do")
-	public String userInfo(Model m) {
+	public String userInfo(Model m, int memberKey) {
+		
+		Member member = ms.selectOneMemberWithBusinessNo(memberKey);
+		m.addAttribute("m",member);
+		
 		return "admin/userInfo";
 	}
 }

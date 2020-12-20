@@ -1,5 +1,7 @@
 package com.col.domein.mail.model.vo;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.stereotype.Component;
 
 import com.col.domein.member.model.vo.Member;
@@ -8,20 +10,20 @@ import com.col.domein.member.model.vo.Member;
 public class SignUpVerificationEmail {
 	
 	private Member newMember;
-	private String contextPath;
+	private HttpServletRequest request;
 	private String encodedRandomKey;
 	
 	public SignUpVerificationEmail() {
 		// TODO Auto-generated constructor stub
 	}
 	
-	public SignUpVerificationEmail(Member newMember,String contextPath, String encodedRandomKey) throws Exception {
+	public SignUpVerificationEmail(Member newMember, HttpServletRequest request, String encodedRandomKey) throws Exception {
 		super();
 		this.newMember = newMember;
-		this.contextPath = contextPath;
+		this.request = request;
 		this.encodedRandomKey = encodedRandomKey;
 		
-		if(newMember== null || contextPath == null || contextPath.equals("") || encodedRandomKey == null || encodedRandomKey.equals("")) {
+		if(newMember== null || request == null || encodedRandomKey == null || encodedRandomKey.equals("")) {
 			throw new Exception("[[SYSTEM]]SignUpVerificationEmail의 생성자의 파라미터는 공란으로 둘 수 없습니다.");
 		}
 	}
@@ -140,7 +142,7 @@ public class SignUpVerificationEmail {
 				"				<br />\r\n" + 
 				"				<a\r\n" + 
 				"					href='"
-				+ contextPath
+				+ request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+"/"+request.getContextPath()
 				+ "/member/signUp/accountVerify.do?memberKey="
 				+ newMember.getMemberKey()
 				
@@ -155,7 +157,7 @@ public class SignUpVerificationEmail {
 				"				<br />\r\n" + 
 				"				<a\r\n" + 
 				"					href='"
-				+ contextPath 
+				+ request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+"/"+request.getContextPath()
 				+"/member/signUp/accountVerify.do?memberKey="
 				+ newMember.getMemberKey()
 				
@@ -179,7 +181,7 @@ public class SignUpVerificationEmail {
 				"		$('#verificationBtn').click((e) => {\r\n" + 
 				"			location.href =\r\n" + 
 				"				'"
-				+ contextPath
+				+ request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+"/"+request.getContextPath()
 				+ "/member/signUp/accountVerify.do?memberKey="
 				
 				+ newMember.getMemberKey()

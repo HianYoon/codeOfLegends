@@ -9,14 +9,14 @@
 <jsp:include page="/WEB-INF/views/common/header.jsp">
 	<jsp:param name="title" value=" " />
 </jsp:include>
-<link rel="stylesheet"
-	href="${path }/resources/css/member/login.css" />
+<link rel="stylesheet" href="${path }/resources/css/member/login.css" />
+<script src="https://apis.google.com/js/platform.js" async defer></script>
+<meta name="google-signin-client_id" content="1048798785374-akhqjnf6p4g1fdo3mkf2pudg9ffh5ger.apps.googleusercontent.com">
 <section id="context">
 
 	<div class="login-logo-container">
 		<img class="login-logo"
-			src="${path }/resources/images/logo/signature.png"
-			alt="" />
+			src="${path }/resources/images/logo/signature.png" alt="" />
 	</div>
 
 	<div class="login-fields-container">
@@ -37,20 +37,27 @@
 	<div class="oauth-button-container">
 		<h4>간편 로그인 / 회원가입</h4>
 		<div class="buttons">
-			<img
-				src="${path }/resources/images/sns/google.svg"
-				alt="" id="btn-google" /> <img
-				src="${path }/resources/images/sns/kakao.png"
-				alt="" id="btn-kakao" /> <img
-				src="${path }/resources/images/sns/naver.png"
-				alt="" id="btn-naver" />
-			</div>
+			<img src="${path }/resources/images/sns/google.svg" alt=""
+				id="btn-google" /> <img
+				src="${path }/resources/images/sns/kakao.png" alt="" id="btn-kakao" />
+			<img src="${path }/resources/images/sns/naver.png" alt=""
+				id="btn-naver" />
 		</div>
+	</div>
+
+	<div class="oauth-hidden-btn-cont">
+		<div class="g-signin2" id="googleSignIn" data-onsuccess="onSignIn"></div>
+	</div>
+
 </section>
 
 <script>
 	$(".sign-up").click(e => {
 		location.href = "${path}/member/signUp/signUp.do";
+	})
+	$("#btn-google").click(e=>{
+		$("#googleSignIn *").trigger("click");
+		console.log("클릭됨");
 	})
 
 </script>

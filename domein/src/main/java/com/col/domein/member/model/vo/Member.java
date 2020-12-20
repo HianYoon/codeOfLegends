@@ -1,14 +1,12 @@
 package com.col.domein.member.model.vo;
 
 import java.sql.Date;
+import java.util.TreeSet;
 
 import org.springframework.stereotype.Component;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
+import com.col.domein.business.model.vo.Business;
 
-@AllArgsConstructor
-@Builder
 @Component
 public class Member implements Comparable<Member>{
 	
@@ -32,7 +30,7 @@ public class Member implements Comparable<Member>{
 	private String statusDesc;
 	private int isSubscribed;
 	private int totalPoint;
-	
+	private TreeSet<Business> businessKeys;
 	
 	@Override
 	public int compareTo(Member o) {
@@ -47,7 +45,8 @@ public class Member implements Comparable<Member>{
 	public Member(int memberKey, String id, String password, String userName, String nickname, String phone,
 			String email, String postcode, String address1, String address2, int levelNo,
 			Date enrollDate, Date modifiedDate, String profileUrl, int isConfirmed, int accountStatusNo, int isSubscribed,
-			int totalPoint) {
+			int totalPoint, TreeSet<Business> businessKeys) {
+
 		super();
 		this.memberKey = memberKey;
 		this.id = id;
@@ -67,6 +66,7 @@ public class Member implements Comparable<Member>{
 		this.accountStatusNo = accountStatusNo;
 		this.isSubscribed = isSubscribed;
 		this.totalPoint = totalPoint;
+		this.businessKeys = businessKeys;
 		
 		switch(levelNo) {
 		case 1: levelDesc="1st"; break;
@@ -243,14 +243,29 @@ public class Member implements Comparable<Member>{
 	public String getStatusDesc() {
 		return statusDesc;
 	}
-
-
+	
 	public int getTotalPoint() {
 		return totalPoint;
 	}
 
 	public void setTotalPoint(int totalPoint) {
 		this.totalPoint = totalPoint;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public TreeSet<Business> getBusinessKeys() {
+		return businessKeys;
+	}
+
+	public void setBusinessKeys(TreeSet<Business> businessKeys) {
+		this.businessKeys = businessKeys;
 	}
 
 	@Override
@@ -260,7 +275,8 @@ public class Member implements Comparable<Member>{
 				+ ", address1=" + address1 + ", address2=" + address2 + ", levelNo=" + levelNo + ", levelDesc="
 				+ levelDesc + ", enrollDate=" + enrollDate + ", modifiedDate=" + modifiedDate + ", profileUrl="
 				+ profileUrl + ", isConfirmed=" + isConfirmed + ", accountStatusNo=" + accountStatusNo + ", statusDesc="
-				+ statusDesc + ", isSubscribed=" + isSubscribed + ", totalPoint=" + totalPoint + "]";
+				+ statusDesc + ", isSubscribed=" + isSubscribed + ", totalPoint=" + totalPoint + ", businessKeys="
+				+ businessKeys + "]";
 	}
 
 	@Override
@@ -270,6 +286,7 @@ public class Member implements Comparable<Member>{
 		result = prime * result + accountStatusNo;
 		result = prime * result + ((address1 == null) ? 0 : address1.hashCode());
 		result = prime * result + ((address2 == null) ? 0 : address2.hashCode());
+		result = prime * result + ((businessKeys == null) ? 0 : businessKeys.hashCode());
 		result = prime * result + ((email == null) ? 0 : email.hashCode());
 		result = prime * result + ((enrollDate == null) ? 0 : enrollDate.hashCode());
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
@@ -310,6 +327,11 @@ public class Member implements Comparable<Member>{
 			if (other.address2 != null)
 				return false;
 		} else if (!address2.equals(other.address2))
+			return false;
+		if (businessKeys == null) {
+			if (other.businessKeys != null)
+				return false;
+		} else if (!businessKeys.equals(other.businessKeys))
 			return false;
 		if (email == null) {
 			if (other.email != null)
@@ -384,12 +406,6 @@ public class Member implements Comparable<Member>{
 		return true;
 	}
 
-	public String getEmail() {
-		return email;
-	}
-
-	public void setEmail(String email) {
-		this.email = email;
-	}
+	
 	
 }
