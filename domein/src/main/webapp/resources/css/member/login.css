@@ -87,3 +87,7 @@ section{
   height: 45px;
   cursor: pointer;
 }
+
+.oauth-hidden-btn-cont{
+	display:none;
+}
