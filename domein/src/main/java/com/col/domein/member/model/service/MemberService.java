@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.mail.internet.MimeMessage;
+import javax.servlet.http.HttpServletRequest;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -54,7 +55,7 @@ public class MemberService {
 		return memberKey;
 	}
 
-	public boolean sendEmailVerification(Member m, String contextPath) {
+	public boolean sendEmailVerification(Member m, HttpServletRequest request) {
 		int memberKey = m.getMemberKey();
 		boolean flag = false;
 		String encodedRandomKey = createConfirmationKey();
@@ -71,7 +72,7 @@ public class MemberService {
 			messageHelper.setFrom("domein2020@gmail.com");
 			messageHelper.setTo(m.getEmail());
 			messageHelper.setSubject("[도매-인]이메일 인증 메일입니다");
-			messageHelper.setText(new SignUpVerificationEmail(m, contextPath, encodedRandomKey).emailContent(),true);
+			messageHelper.setText(new SignUpVerificationEmail(m, request, encodedRandomKey).emailContent(),true);
 			
 			mailSender.send(message);
 			flag = true;
@@ -121,7 +122,7 @@ public class MemberService {
 		return createKeyFlag;
 	}
 	
-	public int accountVerify(int memberKey, String confirmationKey, String contextPath) {
+	public int accountVerify(int memberKey, String confirmationKey, HttpServletRequest request) {
 		
 //		1.먼저 해당 멤버키의 Email_check데이터가 있는지 확인하고, 그것을 받아온다.
 		EmailCheck ec = md.selectEmailCheck(session,memberKey);
@@ -137,7 +138,7 @@ public class MemberService {
 //		2-1)
 		if(ec.getDateDif()!=0) {
 			
-			boolean flag = sendNewEmailVerification(memberKey, contextPath);
+			boolean flag = sendNewEmailVerification(memberKey, request);
 			if(!flag) return 9;
 			
 			return 4;
@@ -146,7 +147,7 @@ public class MemberService {
 		if(!ec.getConfirmationKey().equals(confirmationKey)) {
 			if(ec.getTryCount()==4) {
 //				딜리트 후 새로 인서트
-				boolean flag = sendNewEmailVerification(memberKey, contextPath);
+				boolean flag = sendNewEmailVerification(memberKey, request);
 				if(!flag) return 9;
 				
 				return 3;
@@ -170,14 +171,14 @@ public class MemberService {
 	}
 	
 	
-	public boolean sendNewEmailVerification(int memberKey, String contextPath) {
+	public boolean sendNewEmailVerification(int memberKey, HttpServletRequest request) {
 		boolean flag = md.deleteEmailCheck(session, memberKey);
 		if(!flag) return false;
 		 
 		Member m = md.selectMemberByMemberKey(session, memberKey);
 		if(m == null) return false;
 		
-		flag = sendEmailVerification(m, contextPath);
+		flag = sendEmailVerification(m, request);
 		if(!flag) return false;
 		
 		return true;
