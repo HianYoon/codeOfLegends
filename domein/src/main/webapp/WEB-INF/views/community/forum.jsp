@@ -14,16 +14,19 @@
             <img src="${path }/resources/images/profile/logo.png" alt="">
         </div>
         <div class="forum-title">
-            <p>밥은 국밥이지 밥은 국밥인가 국밥은 밥이지 국밥은 밥인가 국밥은 밥이다 국밥 한끼 7천원</p>
+        <form action="" method="post">
+            <h4><c:out value="${b.BOARDTITLE }"/></h4>
         </div>
+        </form>
         <div class="forum-writer">
             <div class="forum-profile">
                 <img src="gookbab.jpg" alt="" width="100px">
             </div>
             <div class="forum-content">
+            	
                 <div class="forum-content-name">
                     <h2>국밥원정대</h2>
-                    <p>글 1개</p>
+                    <p>글 1개</p> ?
                     <h5>2020-12-16</h5>
                 </div>
                 <div class="forum-content-content">
@@ -39,15 +42,16 @@
                 </div>
             </div>
         </div>
-        <div class="forum-writer">
+        <form action="${path }/board/forum.do" method="post">       	
+         <div class="forum-writer">
             <div class="forum-profile">
                 <img src="frog.jpg" alt="" width="100px">
             </div>
             <div class="forum-content">
                 <div class="forum-content-name">
-                    <h2>개구리</h2>
+                    <c:out value="${b.BOARDWRITER }"/>
                     <p>글 1개</p>
-                    <h5>2020-12-16</h5>
+                    <c:out value="${b.BOARDWRITTENDATE }"/>
                 </div>
                 <div class="forum-content-content">
                     <p>뜨근~하고 든든~한 국밥<br>
@@ -60,7 +64,8 @@
                 </div>
             </div>
         </div>
-        <div class="forum-writer">
+        </form>
+<!--         <div class="forum-writer">
             <div class="forum-profile">
                 <img src="toy.png" alt="" width="100px">
             </div>
@@ -80,7 +85,7 @@
                     <input type="button" value="삭제">
                 </div>
             </div>
-        </div>
+        </div> -->
         <div class="community-bottom-right">
             <table class="board_list">
                 <thead>
@@ -92,7 +97,33 @@
                         <th>날짜</th>
                     </tr>
                 </thead>
-                <tbody>
+	            <c:forEach items="${list }" var="b">
+	            	<tr>
+	                	<td class="tit">
+	                		<a href="#">
+	                			<c:out value="${b.BOARDTITLE }"/>
+	                		</a>
+	                	</td>
+	                	<td class="tit">
+	                		<a href="#">
+	                			<c:out value="${b.BOARDWRITER }"/>
+	                		</a>
+	                	</td>
+	                	<td class="tit">
+	                		<c:out value="${b.BOARDCOUNT }"/>
+	                    	</td>
+	                    <td class="tit">
+	                    <c:out value="${b.BOARDREADCOUNT }"/>
+	                    </td>
+	                    <td class="tit">
+	                    	<c:out value="${b.BOARDREADCOUNT }"/>
+	                    </td>
+	                    <td class="tit">
+	                    	<c:out value="${b.BOARDWRITTENDATE }"/>
+	                    </td>
+	                    </tr>
+	             </c:forEach>
+<!--                 <tbody>
                     <tr>
                         <td class="tit">
                             <a href='#'>밥은 국밥이지 밥은 국밥인가</a>
@@ -155,7 +186,7 @@
                         <td>5</td>
                         <td>12-10</td>
                     </tr>
-                </tbody>
+                </tbody> -->
             </table>
         </div>
     </div>
