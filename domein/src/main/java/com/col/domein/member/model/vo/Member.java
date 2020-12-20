@@ -31,6 +31,7 @@ public class Member implements Comparable<Member>{
 	private int accountStatusNo;
 	private String statusDesc;
 	private int isSubscribed;
+	private String businessNo;
 	private int totalPoint;
 	
 	
@@ -47,7 +48,7 @@ public class Member implements Comparable<Member>{
 	public Member(int memberKey, String id, String password, String userName, String nickname, String phone,
 			String email, String postcode, String address1, String address2, int levelNo,
 			Date enrollDate, Date modifiedDate, String profileUrl, int isConfirmed, int accountStatusNo, int isSubscribed,
-			int totalPoint) {
+			String businessNo,int totalPoint) {
 		super();
 		this.memberKey = memberKey;
 		this.id = id;
@@ -66,6 +67,7 @@ public class Member implements Comparable<Member>{
 		this.isConfirmed = isConfirmed;
 		this.accountStatusNo = accountStatusNo;
 		this.isSubscribed = isSubscribed;
+		this.businessNo = businessNo;
 		this.totalPoint = totalPoint;
 		
 		switch(levelNo) {
@@ -245,6 +247,14 @@ public class Member implements Comparable<Member>{
 	}
 
 
+	public String getBusinessNo() {
+		return businessNo;
+	}
+	
+	public void setBusinessNo(String businessNo) {
+		this.businessNo = businessNo;
+	}
+	
 	public int getTotalPoint() {
 		return totalPoint;
 	}

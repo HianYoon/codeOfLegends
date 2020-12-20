@@ -18,11 +18,16 @@
 		<result column="PROFILE_URL" property="profileUrl"/>
 		<result column="IS_CONFIRMED" property="isConfirmed"/>
 		<result column="ACCOUNT_STATUS_NO" property="accountStatusNo"/>
+		<result column="BUSINESS_NO" property="businessNo"/>
 		<result column="IS_SUBSCRIBED" property="isSubscribed"/>
 	
 	</resultMap>
 	<select id="selectMemberList" resultType="map">
-		SELECT * FROM MEMBER
+		SELECT M.*, B.BUSINESS_NO FROM MEMBER M LEFT JOIN BUSINESS B ON M.MEMBER_KEY = B.MEMBER_KEY
+	</select>
+	
+	<select id="selectOneMemberWithBusinessNo" parameterType="_int" resultType="member" resultMap="memberMap">
+		SELECT M.*,(SELECT BUSINESS_NO FROM BUSINESS WHERE MEMBER_KEY = #{memberKey}) AS BUSINESS_NO FROM MEMBER M WHERE MEMBER_KEY = #{memberKey}
 	</select>
 	
 	<select id="selectMemberByMemberKey" parameterType="_int" resultType="member" resultMap="memberMap">
