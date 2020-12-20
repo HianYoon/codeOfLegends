@@ -6,6 +6,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -25,7 +26,9 @@ public class MemberController {
 	public String memberLogin() {
 		return "member/memberLogin";
 	}
-
+/////////////////////////////////////////////////////////
+////////////회원가입 로직 ///////////////////////////////	
+/////////////////////////////////////////////////////////
 	@RequestMapping("/signUp/signUp.do")
 	public String signUp() {
 		return "member/signUp/signUpConsent";
@@ -59,7 +62,7 @@ public class MemberController {
 				return "redirect: " + request.getContextPath();
 			}
 			/////////////////////////////
-			boolean emailFlag = ms.sendEmailVerification(m);
+			boolean emailFlag = ms.sendEmailVerification(m, request.getContextPath());
 
 //		에러 상황시
 			if (!emailFlag)
@@ -87,10 +90,10 @@ public class MemberController {
 		try {
 			intMemberKey = Integer.parseInt(memberKey);
 		} catch (Exception e) {
-			return "redirect: /error.do";
+			return "redirect: "+request.getContextPath()+"/error.do";
 		}
 		
-		int result = ms.accountVerify(intMemberKey, confirmationKey);
+		int result = ms.accountVerify(intMemberKey, confirmationKey, request.getContextPath());
 		
 		switch(result) {
 //		상황에 따른 result
@@ -105,26 +108,44 @@ public class MemberController {
 		return "redirect: "+request.getContextPath()+"/member/signUp/"+url+".do";
 	}
 	
-	@RequestMapping("/signUp/emailConfirmed.do")
-	public String emailConfirmed() {
-		return "member/signUp/emailConfirmed";
-	}
-	
-	@RequestMapping("/signUp/wrongConfirmationKey.do")
-	public String wrongConfirmationKey() {
-		return "member/signUp/wrongConfirmationKey";
-	}
-	@RequestMapping("/signUp/tooManyTryCount.do")
-	public String tooManyTryCount() {
-		return "member/signUp/tooManyTryCount";
-	}
-	@RequestMapping("/signUp/confirmationTimeOut.do")
-	public String confirmationTimeOut() {
-		return "member/signUp/confirmationTimeOut";
-	}
-	@RequestMapping("/signUp/somethingWentWrong.do")
-	public String somethingWentWrong() {
-		return "member/signUp/somethingWentWrong";
-	}
+		@RequestMapping("/signUp/wrongConfirmationKey.do")
+		public String wrongConfirmationKey(Model model) {
+			String titleMsg = "인증키 오류";
+			String msgContent = "<h5>인증키가 잘못되었습니다.</h5><h5>다시 시도해 주세요.</h5>";
+			model.addAttribute("titleMsg", titleMsg);
+			model.addAttribute("msgContent", msgContent);
+			return "member/signUp/emailError";
+		}
+		
+		@RequestMapping("/signUp/tooManyTryCount.do")
+		public String tooManyTryCount(Model model) {
+			String titleMsg = "인증 시도 회수 초과";
+			String msgContent = "<h5>새로운 인증 메일을 보냈습니다.</h5><h5>확인해 주세요.</h5>";
+			model.addAttribute("titleMsg", titleMsg);
+			model.addAttribute("msgContent", msgContent);
+			return "member/signUp/emailError";
+		}
+		
+		@RequestMapping("/signUp/confirmationTimeOut.do")
+		public String confirmationTimeOut(Model model) {
+			String titleMsg = "인증 기한 만료";
+			String msgContent = "<h5>인증 기한인 24시간이 초과되어</h5><h5>새로운 인증 메일을 보냈습니다.</h5><h5>확인해 주세요.</h5>";
+			model.addAttribute("titleMsg", titleMsg);
+			model.addAttribute("msgContent", msgContent);
+			return "member/signUp/emailError";
+		}
+		
+		@RequestMapping("/signUp/somethingWentWrong.do")
+		public String somethingWentWrong(Model model) {
+			String titleMsg = "인증 과정 중 오류";
+			String msgContent = "<h5>인증 과정 중에 에러가 발생했습니다.</h5><h5>관리자에게 문의하여주세요.</h5>";
+			model.addAttribute("titleMsg", titleMsg);
+			model.addAttribute("msgContent", msgContent);
+			return "member/signUp/emailError";
+		}
+		
+/////////////////////////////////////////////////////////
+////////////회원가입 로직 끝 ////////////////////////////
+/////////////////////////////////////////////////////////
 	
 }

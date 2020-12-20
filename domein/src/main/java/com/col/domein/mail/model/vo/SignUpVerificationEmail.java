@@ -8,18 +8,20 @@ import com.col.domein.member.model.vo.Member;
 public class SignUpVerificationEmail {
 	
 	private Member newMember;
+	private String contextPath;
 	private String encodedRandomKey;
 	
 	public SignUpVerificationEmail() {
 		// TODO Auto-generated constructor stub
 	}
 	
-	public SignUpVerificationEmail(Member newMember, String encodedRandomKey) throws Exception {
+	public SignUpVerificationEmail(Member newMember,String contextPath, String encodedRandomKey) throws Exception {
 		super();
 		this.newMember = newMember;
+		this.contextPath = contextPath;
 		this.encodedRandomKey = encodedRandomKey;
 		
-		if(newMember== null || encodedRandomKey == null || encodedRandomKey == "") {
+		if(newMember== null || contextPath == null || contextPath.equals("") || encodedRandomKey == null || encodedRandomKey.equals("")) {
 			throw new Exception("[[SYSTEM]]SignUpVerificationEmail의 생성자의 파라미터는 공란으로 둘 수 없습니다.");
 		}
 	}
@@ -137,7 +139,9 @@ public class SignUpVerificationEmail {
 				+ " 님 본인 확인을 위해 다음 버튼을 클릭해주세요!</h4>\r\n" + 
 				"				<br />\r\n" + 
 				"				<a\r\n" + 
-				"					href='http://mightymosses.hopto.org:9090/domein/member/signUp/accountVerify.do?memberKey="
+				"					href='"
+				+ contextPath
+				+ "/member/signUp/accountVerify.do?memberKey="
 				+ newMember.getMemberKey()
 				
 				+ "&confirmationKey="
@@ -150,7 +154,9 @@ public class SignUpVerificationEmail {
 				"				<br />\r\n" + 
 				"				<br />\r\n" + 
 				"				<a\r\n" + 
-				"					href='http://mightymosses.hopto.org:9090/domein/member/signUp/accountVerify.do?memberKey="
+				"					href='"
+				+ contextPath 
+				+"/member/signUp/accountVerify.do?memberKey="
 				+ newMember.getMemberKey()
 				
 				+ "&confirmationKey="
@@ -172,7 +178,9 @@ public class SignUpVerificationEmail {
 				"	<script>\r\n" + 
 				"		$('#verificationBtn').click((e) => {\r\n" + 
 				"			location.href =\r\n" + 
-				"				'http://mightymosses.hopto.org:9090/domein/member/signUp/accountVerify.do?memberKey="
+				"				'"
+				+ contextPath
+				+ "/member/signUp/accountVerify.do?memberKey="
 				
 				+ newMember.getMemberKey()
 				

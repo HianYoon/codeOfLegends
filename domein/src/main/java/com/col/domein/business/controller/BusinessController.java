@@ -29,7 +29,7 @@ public class BusinessController {
 	@RequestMapping("/businessInfoEnd.do")
 	public String businessInfoEnd(HttpSession session,HttpServletRequest request, Business b,
 			@RequestParam(defaultValue = "99", required = false) String[] categories) {
-
+		String contextPath = request.getContextPath();
 		if (b.getBusinessNickname() == null || b.getBusinessNickname() == "") {
 			b.setBusinessNickname(b.getBusinessName());
 		}
@@ -46,23 +46,23 @@ public class BusinessController {
 		
 		if(memberKey == -1) {
 //			에러시 기본 화면으로 이동/ 추후 에러페이지로 이동!
-			return "redirect: "+request.getContextPath();
+			return "redirect: "+contextPath;
 		}
 		/////////////////////////////
 		b.setMemberKey(memberKey);
 		boolean businessFlag = bs.insertBusiness(b);
 		
 //		에러 상황시
-		if(!businessFlag) return "redirect: "+request.getContextPath();
+		if(!businessFlag) return "redirect: "+contextPath;
 		
 		///////////////////////////////////////////
-		boolean emailFlag = ms.sendEmailVerification(m);
+		boolean emailFlag = ms.sendEmailVerification(m, contextPath);
 		
 //		에러 상황시
-		if(!emailFlag) return "redirect: "+request.getContextPath();
+		if(!emailFlag) return "redirect: "+contextPath;
 		
 		
-		return "redirect: "+request.getContextPath()+"/member/signUp/confirmEmail.do";
+		return "redirect: "+contextPath+"/member/signUp/confirmEmail.do";
 	}
 
 }
