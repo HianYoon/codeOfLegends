@@ -49,8 +49,21 @@
 						<c:forEach items="${list }" var="l">
 						<li>
 							<div class="box-img">
-								<img src="프사.png" alt="">
+								
+								<c:choose>
+									<c:when test="${l.PROFILE_URL eq null }">
+									<img src="https://secure.gravatar.com/avatar/91524e06c4642938f6dff01039a4b2a3?s=96&r=g&d=https://drsuleymantas.com/wp-content/plugins/userswp/assets/images/no_profile.png" width="120">
+									</c:when>
+									<c:otherwise>
+									<img src="${path }/resources/images/profile/${l.PROFILE_URL}" width="120">
+									</c:otherwise>
+								</c:choose>
+								<c:if test="${l.IS_CONFIRMED==0 }">
 								<span class="text-red">비인증</span>
+								</c:if>
+								<c:if test="${l.IS_CONFIRMED==1 }">
+								<span class="text-green">인증</span>
+								</c:if>
 							</div>
 							<div class="box-text">
 								<dl>
@@ -190,6 +203,14 @@
 		right: 0;
 		bottom: 0;
 		background-color: red;
+		color: white;
+		font-size: 9px;
+	}
+	.wrap-result .wrap-contents .list-result li .box-img .text-green{
+		position: absolute;
+		right: 0;
+		bottom: 0;
+		background-color: green;
 		color: white;
 		font-size: 9px;
 	}
