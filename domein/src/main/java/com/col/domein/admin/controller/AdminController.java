@@ -26,4 +26,8 @@ public class AdminController {
 		return "admin/searchUser";
 	}
 	
+	@RequestMapping("admin/userInfo.do")
+	public String userInfo(Model m) {
+		return "admin/userInfo";
+	}
 }
