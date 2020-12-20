@@ -36,11 +36,12 @@
 		UPDATE EMAIL_CHECK SET TRY_COUNT = TRY_COUNT + 1 WHERE MEMBER_KEY = #{memberKey}
 	</update>
 	
-	<select id="accountVerify" parameterType="map">
-		SELECT COUNT(DIF) FROM (SELECT SYSDATE-SENT_DATE AS DIF FROM EMAIL_CHECK 
-		WHERE MEMBER_KEY = ${memberKey} AND CONFIRMATION_KEY = #{confirmation_key}) AND <![CDATA[TRY_COUNT<5]]>
-		<![CDATA[WHERE DIF<1]]>
-	</select>
+	<delete id="deleteEmailCheck" parameterType="_int">
+		DELETE FROM EMAIL_CHECK WHERE MEMBER_KEY = #{memberKey}
+	</delete>
 	
+	<update id="updateMemberToConfirmed" parameterType="_int">
+		UPDATE MEMBER SET IS_CONFIRMED = 1 WHERE MEMBER_KEY = #{memberKey}
+	</update>
 	
 </mapper>

@@ -15,16 +15,16 @@
 		/>
 <section id="context">
 	<div
-		class="animate__animated animate__tada animate__infinite animate__slower img-cont">
+		class="animate__animated animate__rubberBand animate__infinite animate__slower img-cont">
 		<img src="${path }/resources/images/signUp/free-icon-mail-1334855.png"
 			alt="">
 
 	</div>
 	<br>
-	<h2>인증이 완료되었습니다</h2>
+	<h2>${titleMsg }</h2>
 	<br>
-	<h5>환영합니다.</h5>
-	<h5>이메일 인증에 성공하셨습니다.</h5>
+	${msgContent }
+	
 
 	<br>
 	<div>
