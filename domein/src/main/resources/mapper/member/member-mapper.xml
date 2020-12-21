@@ -43,5 +43,9 @@
 		SELECT * FROM MEMBER WHERE MEMBER_KEY = #{memberKey}
 	</select>
 	
+	<select id="selectMemberByEmail" parameterType="string" resultType="member" resultMap="memberMap">
+		SELECT * FROM MEMBER WHERE EMAIL = #{email}
+	</select>
+	
 	
 </mapper>

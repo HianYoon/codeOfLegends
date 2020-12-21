@@ -57,9 +57,25 @@
 	})
 	$("#btn-google").click(e=>{
 		$("#googleSignIn *").trigger("click");
-		console.log("클릭됨");
 	})
-
+	
+	function onSignIn(googleUser){
+		const id_token = googleUser.getAuthResponse().id_token;
+		$.ajax({
+			url: path + "/rest/member/oauth/google",
+			method: "POST",
+			data : {"idToken": id_token},
+			success: result =>{
+				let uri="";
+				switch(result){
+				case 1: uri = ""; break;
+				case 2: uri = ""; break;
+				case 3: uri = ""; break;
+				}
+				location.href = path+"/"+uri;
+			}
+		})
+	}
 </script>
 
 <jsp:include page="/WEB-INF/views/common/footer.jsp" />

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="oauth">
+	<select id="checkMemberThroughSnsId" parameterType="snsInfo"
+		resultType="_int">
+		SELECT MEMBER_KEY FROM SNS_LOGIN WHERE LOGIN_SOURCE_NO =
+		#{loginSourceNo} AND SNS_ID = #{snsId}
+	</select>
+</mapper>

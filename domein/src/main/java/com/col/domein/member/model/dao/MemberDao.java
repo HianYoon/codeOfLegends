@@ -9,6 +9,8 @@ import org.springframework.stereotype.Repository;
 
 import com.col.domein.member.model.vo.EmailCheck;
 import com.col.domein.member.model.vo.Member;
+import com.col.domein.member.model.vo.MemberLog;
+import com.col.domein.member.model.vo.SnsInfo;
 
 @Repository
 public class MemberDao {
@@ -56,5 +58,22 @@ public class MemberDao {
 	public boolean insertMemberPoint(SqlSession session, Map<String, Integer> values) {
 		return session.insert("point.insertMemberPoint",values)==1;
 	}
-
+	
+	public int checkMemberThroughSnsId(SqlSession session, SnsInfo sns) {
+		int result = 0;
+		try{
+			result = session.selectOne("oauth.checkMemberThroughSnsId", sns);
+		} catch (Exception e) {
+			result = 0;
+		}
+		return result;
+	}
+	
+	public boolean insertMemberLog(SqlSession session, MemberLog log) {
+		return session.insert("log.insertMemberLog", log) == 1;
+	}
+	
+	public Member selectMemberByEmail(SqlSession session, String email) {
+		return session.selectOne("member.selectMemberByEmail", email);
+	}
 }
