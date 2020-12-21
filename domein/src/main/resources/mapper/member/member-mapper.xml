@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="member">
 	<resultMap type="member" id="memberMap">
-		<constructor></constructor>
+		
 		<id column="MEMBER_KEY" property="memberKey" />
 		<result column="ID" property="id" />
 		<result column="PASSWORD" property="password" />

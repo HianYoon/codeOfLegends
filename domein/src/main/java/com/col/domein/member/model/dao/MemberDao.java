@@ -53,6 +53,8 @@ public class MemberDao {
 		return session.update("signup.updateMemberToConfirmed", memberKey)==1;
 	}
 	
-
+	public boolean insertMemberPoint(SqlSession session, Map<String, Integer> values) {
+		return session.insert("point.insertMemberPoint",values)==1;
+	}
 
 }

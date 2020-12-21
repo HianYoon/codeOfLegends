@@ -34,7 +34,16 @@ public class MemberService {
 
 		return md.isEmptyData(session, map);
 	}
-
+	
+	public boolean insertMemberPoint(int memberKey, int pointDifference) {
+		boolean flag = false;
+		Map<String, Integer> values = new HashMap<String, Integer>();
+		values.put("memberKey",memberKey);
+		values.put("pointDifference", pointDifference);
+		flag = md.insertMemberPoint(session, values);
+		return flag;
+	}
+	
 	public int insertMember(Member m) {
 
 		int memberKey = md.getSeqMemberKeyNextVal(session);
@@ -44,11 +53,12 @@ public class MemberService {
 		boolean flag = false;
 		try {
 			flag = md.insertMember(session, m);
+			flag = insertMemberPoint(m.getMemberKey(), 3000);
 		} catch (Exception e) {
 //			에러가 나면 -1로 멤버키를 보낸다. 컨트롤러에서 이를 보고 비지니스를 애드할지에 대해서 판단!
 			memberKey = -1;
 		}
-
+		
 		if (flag == false)
 			memberKey = -1;
 
