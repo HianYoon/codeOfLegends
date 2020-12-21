@@ -11,6 +11,7 @@
 		<typeAlias type="com.col.domein.business.model.vo.Business" alias="business"/>
 		<typeAlias type="com.col.domein.business.model.vo.BusinessCategory" alias="businessCategory"/>
 		<typeAlias type="com.col.domein.member.model.vo.EmailCheck" alias="emailCheck"/>
-	
+		<typeAlias type="com.col.domein.member.model.vo.SnsInfo" alias="snsInfo"/>
+		<typeAlias type="com.col.domein.member.model.vo.MemberLog" alias="memberLog"/>
 	</typeAliases>
 </configuration>

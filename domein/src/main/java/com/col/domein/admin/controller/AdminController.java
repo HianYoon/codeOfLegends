@@ -30,7 +30,7 @@ public class AdminController {
 	@RequestMapping("admin/userInfo.do")
 	public String userInfo(Model m, int memberKey) {
 		
-		Member member = ms.selectOneMemberWithBusinessNo(memberKey);
+		Member member = ms.selectMemberByMemberKey(memberKey);
 		m.addAttribute("m",member);
 		
 		return "admin/userInfo";

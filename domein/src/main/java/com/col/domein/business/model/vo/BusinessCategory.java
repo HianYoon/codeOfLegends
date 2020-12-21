@@ -2,8 +2,6 @@ package com.col.domein.business.model.vo;
 
 import org.springframework.stereotype.Component;
 
-import lombok.Builder;
-
 @Component
 public class BusinessCategory implements Comparable<BusinessCategory>{
 
@@ -14,22 +12,12 @@ public class BusinessCategory implements Comparable<BusinessCategory>{
 		// TODO Auto-generated constructor stub
 	}
 	
-	
-	
-	public BusinessCategory(int businessCategoryNo) {
+
+
+	public BusinessCategory(int businessCategoryNo, String categoryDesc) {
 		super();
 		this.businessCategoryNo = businessCategoryNo;
-		switch (businessCategoryNo) {
-		case 1: this.categoryDesc = "정육"; break;
-		case 2: this.categoryDesc = "수산"; break;
-		case 3: this.categoryDesc = "야채"; break;
-		case 4: this.categoryDesc = "철물"; break;
-		case 5: this.categoryDesc = "애견"; break;
-		case 6: this.categoryDesc = "베이커리"; break;
-		case 7: this.categoryDesc = "전자기기"; break;
-		case 99: this.categoryDesc = "기타"; break;
-		default: this.categoryDesc = ""+businessCategoryNo;
-		}
+		this.categoryDesc = categoryDesc;
 	}
 
 
@@ -50,23 +38,18 @@ public class BusinessCategory implements Comparable<BusinessCategory>{
 
 	public void setBusinessCategoryNo(int businessCategoryNo) {
 		this.businessCategoryNo = businessCategoryNo;
-		switch (businessCategoryNo) {
-		case 1: this.categoryDesc = "정육"; break;
-		case 2: this.categoryDesc = "수산"; break;
-		case 3: this.categoryDesc = "야채"; break;
-		case 4: this.categoryDesc = "철물"; break;
-		case 5: this.categoryDesc = "애견"; break;
-		case 6: this.categoryDesc = "베이커리"; break;
-		case 7: this.categoryDesc = "전자기기"; break;
-		case 99: this.categoryDesc = "기타"; break;
-		default: this.categoryDesc = ""+businessCategoryNo;
-		}
 	}
 
 
 
 	public String getCategoryDesc() {
 		return categoryDesc;
+	}
+
+
+
+	public void setCategoryDesc(String categoryDesc) {
+		this.categoryDesc = categoryDesc;
 	}
 
 
@@ -107,6 +90,7 @@ public class BusinessCategory implements Comparable<BusinessCategory>{
 			return false;
 		return true;
 	}
-	
-	
+
+
+
 }

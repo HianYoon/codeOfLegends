@@ -43,9 +43,9 @@ public class Member implements Comparable<Member>{
 	}
 
 	public Member(int memberKey, String id, String password, String userName, String nickname, String phone,
-			String email, String postcode, String address1, String address2, int levelNo,
-			Date enrollDate, Date modifiedDate, String profileUrl, int isConfirmed, int accountStatusNo, int isSubscribed,
-			int totalPoint, TreeSet<Business> businessKeys) {
+			String email, String postcode, String address1, String address2, int levelNo, String levelDesc,
+			Date enrollDate, Date modifiedDate, String profileUrl, int isConfirmed, int accountStatusNo,
+			String statusDesc, int isSubscribed, int totalPoint, TreeSet<Business> businessKeys) {
 
 		super();
 		this.memberKey = memberKey;
@@ -59,34 +59,16 @@ public class Member implements Comparable<Member>{
 		this.address1 = address1;
 		this.address2 = address2;
 		this.levelNo = levelNo;
+		this.levelDesc = levelDesc;
 		this.enrollDate = enrollDate;
 		this.modifiedDate = modifiedDate;
 		this.profileUrl = profileUrl;
 		this.isConfirmed = isConfirmed;
 		this.accountStatusNo = accountStatusNo;
+		this.statusDesc = statusDesc;
 		this.isSubscribed = isSubscribed;
 		this.totalPoint = totalPoint;
 		this.businessKeys = businessKeys;
-		
-		switch(levelNo) {
-		case 1: levelDesc="1st"; break;
-		case 2: levelDesc="2nd"; break;
-		case 3: levelDesc="3rd"; break;
-		case 4: levelDesc="4th"; break;
-		case 5: levelDesc="5th"; break;
-		case 99: levelDesc="관리자"; break;
-		default: levelDesc=""+levelNo;
-		}
-		
-		switch(accountStatusNo) {
-		case 0: statusDesc = "미인증"; break;
-		case 1: statusDesc = "정상"; break;
-		case 6: statusDesc = "제제 중"; break;
-		case 9: statusDesc = "탈퇴"; break;
-		default: statusDesc = ""+accountStatusNo;
-		}
-		
-		
 	}
 
 	public int getMemberKey() {
@@ -137,13 +119,12 @@ public class Member implements Comparable<Member>{
 		this.phone = phone;
 	}
 
-
-	public int getIsSubscribed() {
-		return isSubscribed;
+	public String getEmail() {
+		return email;
 	}
 
-	public void setIsSubscribed(int isSubscribed) {
-		this.isSubscribed = isSubscribed;
+	public void setEmail(String email) {
+		this.email = email;
 	}
 
 	public String getPostcode() {
@@ -176,22 +157,15 @@ public class Member implements Comparable<Member>{
 
 	public void setLevelNo(int levelNo) {
 		this.levelNo = levelNo;
-		switch(levelNo) {
-		case 1: levelDesc="1st"; break;
-		case 2: levelDesc="2nd"; break;
-		case 3: levelDesc="3rd"; break;
-		case 4: levelDesc="4th"; break;
-		case 5: levelDesc="5th"; break;
-		case 99: levelDesc="관리자"; break;
-		default: levelDesc=""+levelNo;
-		}
 	}
 
 	public String getLevelDesc() {
 		return levelDesc;
 	}
 
-
+	public void setLevelDesc(String levelDesc) {
+		this.levelDesc = levelDesc;
+	}
 
 	public Date getEnrollDate() {
 		return enrollDate;
@@ -231,33 +205,30 @@ public class Member implements Comparable<Member>{
 
 	public void setAccountStatusNo(int accountStatusNo) {
 		this.accountStatusNo = accountStatusNo;
-		switch(accountStatusNo) {
-		case 0: statusDesc = "미인증"; break;
-		case 1: statusDesc = "정상"; break;
-		case 6: statusDesc = "제제 중"; break;
-		case 9: statusDesc = "탈퇴"; break;
-		default: statusDesc = ""+accountStatusNo;
-		}
 	}
 
 	public String getStatusDesc() {
 		return statusDesc;
 	}
-	
+
+	public void setStatusDesc(String statusDesc) {
+		this.statusDesc = statusDesc;
+	}
+
+	public int getIsSubscribed() {
+		return isSubscribed;
+	}
+
+	public void setIsSubscribed(int isSubscribed) {
+		this.isSubscribed = isSubscribed;
+	}
+
 	public int getTotalPoint() {
 		return totalPoint;
 	}
 
 	public void setTotalPoint(int totalPoint) {
 		this.totalPoint = totalPoint;
-	}
-
-	public String getEmail() {
-		return email;
-	}
-
-	public void setEmail(String email) {
-		this.email = email;
 	}
 
 	public TreeSet<Business> getBusinessKeys() {
@@ -406,6 +377,5 @@ public class Member implements Comparable<Member>{
 		return true;
 	}
 
-	
 	
 }

@@ -36,7 +36,7 @@ public class BusinessController {
 		if (categories != null) {
 			TreeSet<BusinessCategory> businessCategories = new TreeSet<BusinessCategory>();
 			for (String c : categories) {
-				BusinessCategory bc = new BusinessCategory(Integer.parseInt(c));
+				BusinessCategory bc = new BusinessCategory(Integer.parseInt(c),null);
 				businessCategories.add(bc);
 			}
 			b.setBusinessCategories(businessCategories);

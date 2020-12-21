@@ -3,6 +3,8 @@ package com.col.domein.member.controller;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -47,6 +49,12 @@ public class MemberRestController {
 		map.put("target", "EMAIL");
 		map.put("data",data);
 		return ms.isEmptyData(map);
+	}
+	
+	@PostMapping("/oauth/google")
+	public int googleSignIn(HttpSession session, String idToken) {
+		int result = ms.googleSignIn(session, idToken);
+		return result;
 	}
 	
 }
