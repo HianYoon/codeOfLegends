@@ -1,22 +1,51 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="business">
-  
-  <select id="isEmptyBusinessNo" parameterType="string" resultType="_int">
-  	SELECT COUNT(*) FROM BUSINESS WHERE BUSINESS_NO = #{businessNo}
-  </select>
-  
-  <select id="getSeqBusinessKeyNextVal" resultType="_int">
-  	SELECT SEQ_BUSINESS_KEY.NEXTVAL FROM DUAL
-  </select>
-  
-  <insert id="insertBusiness" parameterType="business">
-  	INSERT INTO BUSINESS(BUSINESS_KEY,MEMBER_KEY,BUSINESS_NO,BUSINESS_NAME,BUSINESS_TEL,IS_VERIFIED,BUSINESS_NICKNAME,BUSINESS_ADDRESS)
-  	VALUES(	#{businessKey},#{memberKey},#{businessNo},#{businessName},#{businessTel},#{isVerified},#{businessNickname},#{businessAddress})
-  </insert>
-  
-  <insert id="insertBusinessCategory" parameterType="map">
-    INSERT INTO BUSINESS_CATEGORIES(BUSINESS_KEY,BUSINESS_CATEGORY_NO) VALUES(#{businessKey},#{businessCategoryNo})
-  </insert>
-  
+	<resultMap type="business" id="businessMap">
+
+		<id column="BUSINESS_KEY" property="businessKey" />
+		<result column="MEMBER_KEY" property="memberKey" />
+		<result column="BUSINESS_NO" property="businessNo" />
+		<result column="BUSINESS_NAME" property="businessName" />
+		<result column="BUSINESS_TEL" property="businessTel" />
+		<result column="BANK_CODE" property="bankCode" />
+		<result column="BANK_ACCOUNT_NO" property="bankAccountNo" />
+		<result column="BANK_ACCOUNT_NAME" property="bankAccountName" />
+		<result column="IS_VERIFIED" property="isVerified" />
+		<result column="REG_DATE" property="regDate" />
+		<result column="BUSINESS_NICKNAME" property="businessNickname" />
+		<result column="BUSINESS_ADDRESS" property="businessAddress" />
+		<association property="bankName" column="BANK_CODE" javaType="String" select="business.selectBankName"></association>
+		<collection property="businessCategories" javaType="java.util.TreeSet" column="BUSINESS_KEY" select="category.selectCategoriesByBusinessKey"></collection>
+	</resultMap>
+	
+	<!-- 리절트 맵 세팅 -->
+	<select id="selectBankName" resultType="string">
+		SELECT BANK_NAME FROM BANK_CODE WHERE BANK_CODE = #{bankCode}
+	</select>
+	
+	<select id="selectBusinessByMemberKey" resultType="business" resultMap="businessMap">
+		SELECT * FROM BUSINESS WHERE MEMBER_KEY = #{memberKey}
+	</select>
+	
+	<!-- 맵 세팅 끝 -->
+	
+	<select id="isEmptyBusinessNo" parameterType="string"
+		resultType="_int">
+		SELECT COUNT(*) FROM BUSINESS WHERE BUSINESS_NO = #{businessNo}
+	</select>
+
+	<select id="getSeqBusinessKeyNextVal" resultType="_int">
+		SELECT SEQ_BUSINESS_KEY.NEXTVAL FROM DUAL
+	</select>
+
+	<insert id="insertBusiness" parameterType="business">
+		INSERT INTO
+		BUSINESS(BUSINESS_KEY,MEMBER_KEY,BUSINESS_NO,BUSINESS_NAME,BUSINESS_TEL,IS_VERIFIED,BUSINESS_NICKNAME,BUSINESS_ADDRESS)
+		VALUES(
+		#{businessKey},#{memberKey},#{businessNo},#{businessName},#{businessTel},#{isVerified},#{businessNickname},#{businessAddress})
+	</insert>
+
+
+
 </mapper>

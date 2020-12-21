@@ -23,6 +23,6 @@ public class BusinessDao {
 	}
 	
 	public boolean insertBusinessCategory(SqlSession session, Map<String,Integer> keys) {
-		return session.insert("business.insertBusinessCategory",keys)==1;
+		return session.insert("category.insertBusinessCategory",keys)==1;
 	}
 }
