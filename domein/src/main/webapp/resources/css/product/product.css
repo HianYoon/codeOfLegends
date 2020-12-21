@@ -1,5 +1,15 @@
 @charset "UTF-8";
-
+/* 내상품list */
+#tab2 table.table {
+    width: 100%;
+    height: auto;
+    margin: 10px;
+}
+#tab2 tbody {
+    width: 100%;
+    height: auto;
+}
+/* 내상품list */
 
 
 

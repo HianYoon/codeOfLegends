@@ -14,8 +14,7 @@ import com.col.domein.board.model.service.BoardService;
 @Controller
 public class BoardController {
 	
-	@Autowired
-	private BoardService service;
+
 		
 	@RequestMapping("/board/community.do")
 	public String community() {

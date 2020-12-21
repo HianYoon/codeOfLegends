@@ -78,6 +78,12 @@ public class ProductServiceImpl implements ProductService {
 		return dao.selectProductDetail(session,articleNo);
 	}
 
+	@Override
+	public int selectProductUpdate(int businessKey) {
+		// TODO Auto-generated method stub
+		return dao.selectProductUpdate(session,businessKey);
+	}
+
 
 	
 }

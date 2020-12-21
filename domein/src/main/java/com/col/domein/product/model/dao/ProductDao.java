@@ -29,6 +29,8 @@ public interface ProductDao {
 
 	List<Map> selectProductDetail(SqlSession session, int articleNo);
 
+	int selectProductUpdate(SqlSession session, int businessKey);
+
 
 
 

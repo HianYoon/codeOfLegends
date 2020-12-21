@@ -319,6 +319,7 @@ button.btn .btn--primary{
             alert($('#remaningQuantity').val());
         }
     });
+ 
 
 </script>
 
@@ -329,7 +330,7 @@ button.btn .btn--primary{
             <ul class="tabs">
                 <li><a href="#tab1">판매등록</a></li>
                 <li><a href="#tab2">Action 참여</a></li>
-                <li><a href="#tab3">상품수정</a></li>
+                <li><a href="#tab3" id="tab3">my상품List</a></li>
                 <li><a href="#tab4">상품List</a></li>
             </ul>
         
@@ -490,7 +491,43 @@ button.btn .btn--primary{
              
              <div id="tab3" class="tab_content">
                  <!--Content-->
-                 <div class="direct-Product-container">
+                  <div class="myListSearch">내상품조회</div>
+                  <script>
+                  $(".myListSearch").click(function(){
+                	  locale.href("${path}/product/SelectMyList.do?=businessKey=${p.business_Key}")
+                  });
+                  </script>
+                 <table class="table">
+                    <tr>
+                        <th scope="col">번호</th>
+                        <th scope="col">제목</th>
+                        <th scope="col">상품이름</th>
+                        <th scope="col">가격</th>
+                        <th scope="col">등록일</th>
+                        <th scope="col">수정</th>
+                        <th scope="col">삭제</th>
+                    </tr>
+					<form action="${path }/product/productUpdate.do" method="post">
+                    <c:forEach items="${product}" var="p">
+                        <tr>
+                            <td><c:out value="${p.ARTICLE_NO }"/></td>
+ 		                    <td><c:out value="${p.TITLE }"/></td>
+           			       	<td><c:out value="${p.PRODUCTNAME }"/></td>
+          	             	 <td><c:out value="${p.PRICE}"/></td>
+                	         <td><fmt:formatDate value="${p.WRITTEN_DATE}" pattern="yyyy-MM-dd"/></td>
+                       
+                            <td>
+                                <button  type="submit" class="btn btn-primary2">수정</button>
+                            </td>
+                            <td>
+                                <button type="button" class="btn btn-primary2" onclick="productDelete();">삭제</button>
+                            </td>
+                        </tr>
+                        
+                    </c:forEach>
+					</form>
+                    </table>
+                 <div class="direct-Product-container" style="">
                  
                 		<form action="${path}/boardSaleContent/insert.do?=businessKey=1" method="post">
                                 <label for="category-select">카테고리품목</label>

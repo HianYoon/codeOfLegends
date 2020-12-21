@@ -10,12 +10,8 @@ import org.springframework.stereotype.Service;
 import com.col.domein.board.model.dao.BoardDao;
 
 @Service
-public class BoardService {
+public interface BoardService {
 
-	@Autowired
-	private BoardDao bd;
-	@Autowired
-	private SqlSession session;
 
 	/* List<Map> selectBoardList(int cPage, int numPerpage); */
 }
