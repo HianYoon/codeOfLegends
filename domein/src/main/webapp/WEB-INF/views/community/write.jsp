@@ -26,7 +26,7 @@
             </table>
         </div>
         <div class="row">
-            <form method="post"></form>
+            <form action="${path }/board/write.do"method="post"></form>
                 <textarea class = "editor4" name = "editor4"></textarea>
             </form>
         </div>

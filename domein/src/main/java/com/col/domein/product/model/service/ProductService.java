@@ -25,6 +25,8 @@ public interface ProductService {
 	//조회
 	int selectCount();
 	List<Map> selectProductDetail(int articleNo);
+	//내상품조회
+	int selectProductUpdate(int businessKey);
 
 
 }

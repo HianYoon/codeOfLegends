@@ -16,6 +16,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.col.domein.common.pageBar.PageBarFactory;
+import com.col.domein.member.model.vo.Member;
 import com.col.domein.product.model.service.ProductService;
 import com.col.domein.product.model.vo.Attachement;
 import com.col.domein.product.model.vo.BoardProductSaleContent;
@@ -30,7 +31,7 @@ public class ProductController {
 	
 	@Autowired
 	private ProductService service;
-	
+	private Member m;
 	//메인에서 product.jsp로 페이지 전환
 	@RequestMapping("/product/into.do")
 	public String product() {
@@ -151,10 +152,17 @@ public class ProductController {
 	public String productDetailGo() {
 		return "product/productDetail";
 	}
-	//상품 주문
-	@RequestMapping("/product/productOrder.do")
-	public ModelAndView insertProductCart(ModelAndView mv) {
-		return mv;
+	
+	//Update
+	@RequestMapping("/product/update.do")
+	public ModelAndView selectproductUpdate(ModelAndView mv,int businessKey) {
+	
+			
+			int result=service.selectProductUpdate(businessKey);
+			mv.addObject("product");
+			mv.setViewName("product/product");
+			return mv;
+		
 	}
 	
 }

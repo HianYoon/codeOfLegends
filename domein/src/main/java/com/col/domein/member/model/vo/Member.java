@@ -46,6 +46,7 @@ public class Member implements Comparable<Member>{
 			String email, String postcode, String address1, String address2, int levelNo, String levelDesc,
 			Date enrollDate, Date modifiedDate, String profileUrl, int isConfirmed, int accountStatusNo,
 			String statusDesc, int isSubscribed, int totalPoint, TreeSet<Business> businessKeys) {
+
 		super();
 		this.memberKey = memberKey;
 		this.id = id;

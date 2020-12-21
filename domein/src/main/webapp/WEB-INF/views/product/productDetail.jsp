@@ -33,12 +33,12 @@
 	            </div>
 	                
 	            <div class="product-textgroup">
-	                <form action="${path}/product/productOrder.do" method="post" >
+	                <form action="${path}/cart/cart.do?memberKey=1" method="post" >
 	                    <h2>카테고리명<input type="hidden" id="pNo" name="pNo" value="${p.PRODUCT_NO}"></h2>
 	                    <ul class="star">
 	                        <li><span>☆</span><span>☆</span><span>☆</span><span>☆</span><span>☆</span>리뷰수:</li>
-	                        <li><img src="${path}/resources/images/profile/jjim.png" style="width:20px;height:20px"alt="찜" id="jjim"></li>
-	                        <li><img src="" alt="공유하기"></li>
+	                        <!--  <li><img src="${path}/resources/images/profile/jjim.png" style="width:20px;height:20px"alt="찜" id="jjim"></li>
+	                        <li><img src="" alt="공유하기"></li> -->
 	                    </ul>
 	                    
 	                    
@@ -67,7 +67,7 @@
 		                        </select>
 		                   	</div>
 		                   	<div>
-		                        <select name="addProductname" class="addProductname" id="product-select-List">
+		                        <select name="addProductname" class="addProductname" id="product-select-List" style="display:none;">
 			                         <c:forEach var="p1" items="${product}" varStatus="status">
 			                            <option value="옵션">옵션</option>
 			                            <option value="${p1.PRODUCT_NAME}"><c:out value="${p1.PRODUCT_NAME}"/></option>
@@ -95,8 +95,8 @@
 	                    </div>
 	                    <div class="button-order">
 	                   
-	                        <button type="button" id="cart" class="btn btn--primary1">장바구니</button>
-	                        <button type="submit" id="" class="btn btn--primary1">구매하기</button>
+	                        <button type="submit" id="cart"  class="btn btn--primary1">장바구니</button>
+	                        <button type="submit" id="orderPay" class="btn btn--primary1">구매하기</button>
 	
 	                    </div>
 	
@@ -111,6 +111,10 @@
                 <li><a href="#reviews">리뷰</a></li>
                 <li><a href="#">문의</a></li>
                 <li><a href="#">좋아요<img src="" alt="따봉"></a></li>
+                <c:if test="${member.memberId }!=null">
+                
+                </c:if>
+               		 <li class="ProductComment">댓글쓰기</li>
             </ul>
         </div>
         <hr/>
@@ -121,18 +125,30 @@
         </div>
          </c:forEach>
         <div id="reviews">
-            <form action="" method="POST" >
-                <div class="review-container">
+            <form action="" method="POST"  enctype="multipart/form-data" >
+                <div class="review-container" style="display:none">
                          <!-- //점 이미지 -->
-                    <div class="top-comment"><span>닉네임/아이디</span><span><img src="" alt=""></span></div>
+                    <div class="top-comment"><span><input type="text" id="userNickName" name="userNickName" value="${member.NICKNAME}"/>닉네임</span>
+	                    <span class="hamburger" style="padding: 15px;">
+	                    	<a id="Declaration" href="${path}/resources/images/profile/12.jpg">♡
+	                    	</a>											
+	                    	<div class="singo" style="display:none;">
+	                    	
+	                    	</div>
+	                    </span>
+	                    <input type="hidden" name="writerKey" value="${member.MEMBER_KEY }"/>
+	                    <input type="hidden" name="reviewStatus" value="${ARTICLE_NO }"/>
+	                    <input type="hidden" name="articleStatus" value="${articlestatus.article_status_no }"/>
+	                    
+                    </div>
                     <textarea name="" id="reviewComment" cols="30" rows="10" placeholder="문의사항을 남겨보세요!"></textarea>
                     <div class="comment-group">
                         <div >
                             <span><img src="" alt="" class="comment-img"></span>
-                            <span><img src="" alt=""class="comment-img"></span>
+                            <span><input type="file" name="reviewFile" id="reFile"/></span>
                         </div>
                         <div>
-                           <p>등록</p>
+                           <button type="submit" id="PcommentGo" class="btn btn-primary">등록</button>
                         </div>
                     </div>
                 </div>
@@ -140,26 +156,40 @@
              </form>
         </div>
 	</div>
-	<script>
-		//좋아요
-		
-			var scart=$("#cart");
-			var pNo=$("#pNo").val();
-			cnosole.log(pNo);
-			$("#cart").click(e=>{
-				$.ajax({
-					url:"s{path}/cart/cart.do",
-					type:"POST",
-					dataType:"json",
-					data:"pNo:"+pNo,
-					success: function(data){
-						var msg= '';
-						var
-					}
-				});
-			});
-		
-	</script>
+								<div class="singoForm" style="display:none;">
+	                    			<form id="modal" action="${path }" method="post"  enctype="multipart/form-data">
+	                    			<div class="modal-title">
+	                    			
+	                    				<input type="hidden" name="writerKey" value="${member.MEMBER_KEY }" readonly/>
+	                    				<input type="text" name="nickName" value="${member.NICKNAME }" readonly/>
+	                    				<input type="text" name="reviewContent" value="${bds_review.REVIEW_CONTENT }" readonly/>
+	                    			</div>
+	                    			<div class="modal-title">
+	                    			<div>
+	                    				<input type="radio" name="reportTarget" value="1" /><span>부적절한홍보게시글</span>
+	                    			</div>
+	                    			<div>
+	                    				<input type="radio" name="reportTarget" value="2" /><span>음란성또는 청소년에게부적한내용</span>
+	                    			</div>
+	                    			<div>
+	                    				<input type="radio" name="reportTarget" value="3" /><span>명예훼손/사생활침해및저작권침해등</span>
+	                    			</div>
+	                    			<div>
+	                    				<input type="radio" name="reportTarget" value="4" /><span>기타</span>
+	                    			</div>
+	                    			
+	                    			</div>
+	                    				
+	                    				<div class="close-wrapper">
+	                    					<button type="submit" class="btn btn-primary2">신고하기</button>
+	                    					<button type="reset" id="modalClose" class="btn btn-primary2">취소</button>
+	                    				</div>
+	                    			</form>
+	                    		</div>
+		<script>
+	
+		</script>
+
  <script src="${path }/resources/js/productDetail/productDetail.js" defer></script>
 </section>
 <jsp:include page="/WEB-INF/views/common/footer.jsp"/>
