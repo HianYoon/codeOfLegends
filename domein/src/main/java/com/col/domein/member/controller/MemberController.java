@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -173,10 +174,31 @@ public class MemberController {
 	public String emailFound(HttpSession session, Model model) {
 		Member m = (Member) session.getAttribute("emailFoundMember");
 		String email = m.getEmail();
-		String id = m.getId();
+		String id = m.getId().substring(0, m.getId().length() - 3) + "**";
 		model.addAttribute("email", email);
 		model.addAttribute("id", id);
 		return "member/oauth/emailFound";
+	}
+
+	@RequestMapping("/oauth/emailFoundEnd.do")
+	public String emailFoundEnd(HttpSession session, HttpServletRequest request, String password, Model model) {
+		String url = "";
+		Member m = (Member) session.getAttribute("emailFoundMember");
+//		비밀번호 확인
+		boolean pwMatcher = pwEncoder.matches(password, m.getPassword());
+		if (!pwMatcher) {
+			model.addAttribute("pwFlag", true);
+			String email = m.getEmail();
+			String id = m.getId().substring(0, m.getId().length() - 3) + "**";
+			model.addAttribute("email", email);
+			model.addAttribute("id", id);
+			return  "member/oauth/emailFound";
+		}
+//		비밀번호 일치 시
+		SnsInfo sns = (SnsInfo) session.getAttribute("snsForEmailFoundMember");
+		boolean flag = ms.insertSnsInfoForEmailFoundMember(session, m, sns);
+		if(!flag) return "redirect: /error.do";
+		return "redirect: " + request.getContextPath() + "/" + url;
 	}
 
 	@RequestMapping("/oauth/newOauthMember.do")
@@ -188,18 +210,19 @@ public class MemberController {
 	}
 
 	@RequestMapping("/oauth/newOauthMemberEnd.do")
-	public String newOauthEnd(HttpSession session, @RequestParam(required = false) String email,
-			@RequestParam(defaultValue = "0") String isSubscribed) {
+	public String newOauthEnd(HttpSession session, HttpServletRequest request,
+			@RequestParam(required = false) String email, @RequestParam(defaultValue = "0") String isSubscribed) {
 		Member m = (Member) session.getAttribute("newSnsMember");
 		SnsInfo sns = (SnsInfo) session.getAttribute("snsForNewSnsMember");
-		if(email !=null && email !="") m.setEmail(email);
+		if (email != null && email != "")
+			m.setEmail(email);
 		int intIsSub = Integer.parseInt(isSubscribed);
 		m.setIsSubscribed(intIsSub);
-		
+
 		boolean flag = ms.insertNewOauthMember(session, m, sns);
-		if(!flag) return "redirect: /error.do";
-		return "redirect: /domein/";
+		if (!flag)
+			return "redirect: /error.do";
+		return "redirect: " + request.getContextPath();
 	}
-	
 
 }
