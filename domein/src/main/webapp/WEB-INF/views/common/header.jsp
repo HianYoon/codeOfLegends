@@ -16,6 +16,9 @@
 	href="${path }/resources/css/common/headerStyle.css" />
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+<script src="https://apis.google.com/js/platform.js" async defer></script>
+<meta name="google-signin-client_id"
+	content="1048798785374-akhqjnf6p4g1fdo3mkf2pudg9ffh5ger.apps.googleusercontent.com">
 <title><%=request.getParameter("title")%></title>
 <script>
 	const path = "${path}";
@@ -58,23 +61,22 @@
 								src="${path }/resources/images/profile/user.png" alt="" />
 
 						</a></li>
-						<li><a href="${path }/member/logout.do"> <img class="top-buttons"
-							src="${path }/resources/images/common/logout.png"
-							alt="로그아웃" />
-					</a></li>
-						
+						<li><a href="${path }/member/logout.do"> <img
+								class="top-buttons"
+								src="${path }/resources/images/common/logout.png" alt="로그아웃" />
+						</a></li>
+
 					</c:if>
 					<c:if
 						test="${signedInMember != null and signedInMember.profileUrl != null}">
 						<li><a href="${path }/member/myPage.do"> <img
-								class="top-buttons circle-pic-frame" src="${signedInMember.profileUrl }" alt=""
-								/>
+								class="top-buttons circle-pic-frame"
+								src="${signedInMember.profileUrl }" alt="" />
 
 						</a></li>
-						<li><a href="${path }/member/logout.do"> <img class="top-buttons"
-							src="${path }/resources/images/common/logout.png"
-							alt="로그아웃" />
-					</a></li>
+						<li id="logout"><a href="#"> <img class="top-buttons"
+								src="${path }/resources/images/common/logout.png" alt="로그아웃" />
+						</a></li>
 					</c:if>
 
 				</ul>
@@ -239,11 +241,21 @@
 				if (width > 768)
 					$(".one2").hide();
 			});
+			
+			$("#logout *").click(e=>{
+				signOut();
+				location.href = path+"/member/logout.do";
+			})
+			
+			function signOut(){
+				const auth2 = gapi.auth2.getAuthInstance();
+				auth2.signOut();
+			}
 		</script>
 	</header>
 
 
-
+	<div class="g-signin2 displayNone" data-onsuccess=""></div>
 	<script src="${path }/resources/js/common/headerScript.js"></script>
 
 </body>

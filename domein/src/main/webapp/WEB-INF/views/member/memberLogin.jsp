@@ -17,9 +17,6 @@
 </c:if>
 
 <link rel="stylesheet" href="${path }/resources/css/member/login.css" />
-<script src="https://apis.google.com/js/platform.js" async defer></script>
-<meta name="google-signin-client_id"
-	content="1048798785374-akhqjnf6p4g1fdo3mkf2pudg9ffh5ger.apps.googleusercontent.com">
 <section id="context">
 	<div class="login-logo-container">
 		<img class="login-logo"

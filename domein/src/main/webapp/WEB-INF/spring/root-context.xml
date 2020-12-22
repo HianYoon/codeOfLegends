@@ -3,10 +3,13 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xmlns:tx="http://www.springframework.org/schema/tx"
 	xmlns:aop="http://www.springframework.org/schema/aop"
-	xsi:schemaLocation="http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xsi:schemaLocation="http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.3.xsd
+		http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd
 		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.3.xsd
 		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.3.xsd">
-	
 	<!-- Root Context: defines shared resources visible to all other web components -->
 	<!-- DB Bean 등록하기 
 		1. DB연결정보를 가지는 객체를 bean으로 등록 -> BasicDataSource
@@ -45,6 +48,9 @@
 		<constructor-arg index="0" ref="sqlSessionFactoryBean"></constructor-arg>
 	</bean>
 	
+	<mvc:annotation-driven />
+		<context:component-scan
+		base-package="com.col.domein" />
 	<!-- 트랜잭션 처리하기
 	트랜잭션 매니저 등록하기 -->
 	
@@ -68,4 +74,6 @@
 		</property>
 	</bean>
 	
+	<bean id="memberService" class="com.col.domein.member.model.service.MemberService"></bean>
+
 </beans>
