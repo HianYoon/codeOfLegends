@@ -21,11 +21,11 @@
         // Some raw data (not necessarily accurate)
         var data = google.visualization.arrayToDataTable([
           ['Month', '승인', '반려', '대기', '총 요청건', '광고수 추이'],
-          ['8월',  9,      2,         0,             11,      9],
-          ['9월',  5,      1,        0,             6,      5],
-          ['10월',  13,      9,        0,             22,      13],
-          ['11월',  18,      13,        0,             31,      18],
-          ['12월',  8,      3,         1,             12,      8]
+          ['8월',9,2,0,11,9],
+          ['9월',5,1,0,6,5],
+          ['10월',13,9,0,22,13],
+          ['11월',18,13,0,31,18],
+          ['12월',8,3,1,12,8]
         ]);
 
         var options = {
@@ -52,11 +52,12 @@
 <style>
 #wholeback{
     display:flex;
-    flex-flow:row wrap;
+    flex-flow:row wrap;    
 }
 .tab_menu{
     width:18%;
     min-width: 240px;    
+    height:100vh;
     background-color: #ffca28;
     font-size:18px;
 }
