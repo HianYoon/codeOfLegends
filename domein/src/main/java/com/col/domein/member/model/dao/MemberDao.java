@@ -16,7 +16,7 @@ import com.col.domein.member.model.vo.SnsInfo;
 public class MemberDao {
 	
 	public boolean isEmptyData(SqlSession session, Map<String, String> map) {
-		return (int)(session.selectOne("signup.isEmptyData", map))==0;
+		return (int)(session.selectOne("signup.isEmptyData", map)) == 0;
 	}
 	
 	public int getSeqMemberKeyNextVal(SqlSession session) {
@@ -75,5 +75,17 @@ public class MemberDao {
 	
 	public Member selectMemberByEmail(SqlSession session, String email) {
 		return session.selectOne("member.selectMemberByEmail", email);
+	}
+	
+	public boolean insertSnsInfo(SqlSession session, SnsInfo sns) {
+		return session.insert("oauth.insertSnsInfo", sns) == 1;
+	}
+	
+	public boolean updateMemberProfileUrl(SqlSession session, SnsInfo sns) {
+		return session.update("member.insertMemberProfileUrl",sns)==1;
+	}
+	
+	public Member selectMemberById(SqlSession session, Map<String, String> values) {
+		return session.selectOne("member.selectMemberById", values);
 	}
 }

@@ -53,10 +53,22 @@ public class ProductDaoImpl implements ProductDao {
 		// TODO Auto-generated method stub
 		return session.selectList("product.selectProductDetail",articleNo);
 	}
-
+	//내상품조회
 	@Override
-	public int selectProductUpdate(SqlSession session, int businessKey) {
+	public List<Map> selectProductUpdate(SqlSession session, int businessKey) {
 		// TODO Auto-generated method stub
-		return session.selectOne("product,selectProductMylist",businessKey);
+		return session.selectList("product.selectProductMylist",businessKey);
+	}
+	//내상품 수정버튼 클릭시 불러오기
+	@Override
+	public List<Map> selectProductOne(SqlSession session, int articleNo) {
+		// TODO Auto-generated method stub
+		return session.selectOne("product.selectProductOne",articleNo);
+	}
+	//상품삭제
+	@Override
+	public int DeleteProduct(SqlSession session, int articleNo) {
+		// TODO Auto-generated method stub
+		return session.delete("product.deleteProductOne",articleNo);
 	}
 }

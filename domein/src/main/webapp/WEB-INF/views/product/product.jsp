@@ -318,6 +318,12 @@ button.btn .btn--primary{
             $('#remaningQuantity').val(val);
             alert($('#remaningQuantity').val());
         }
+        //my상품조회
+        var Mylist=document.querySelector(".myListSearch");
+        Mylist.onclick=function(e){
+      	  location.href="${path}/product/SelectMyList.do?businessKey=1";
+        }
+     
     });
  
 
@@ -330,7 +336,7 @@ button.btn .btn--primary{
             <ul class="tabs">
                 <li><a href="#tab1">판매등록</a></li>
                 <li><a href="#tab2">Action 참여</a></li>
-                <li><a href="#tab3" id="tab3">my상품List</a></li>
+                <li><a href="#tab3">my상품List</a></li>
                 <li><a href="#tab4">상품List</a></li>
             </ul>
         
@@ -348,7 +354,7 @@ button.btn .btn--primary{
                             <!--Content-->
                  <div class="direct-Product-container">
                  
-                		<form action="${path}/boardSaleContent/insert.do?=businessKey=1" method="post">
+                		<form action="${path}/boardSaleContent/insert.do" method="post">
                                 <label for="category-select">카테고리품목</label>
                                 <select name="category" id="category-select">
                                     <option value="1">정육</option>
@@ -370,7 +376,7 @@ button.btn .btn--primary{
 		                            <button type="reset" class="btn btn--primary">취소하기</button>
                         </div>
                 		</form>
-                        <form action="${path }/product/insert.do?=${articleNo}" method="post" enctype="multipart/form-data" id="oction--form" >
+                        <form action="${path }/product/insert.do?articleNo=${articleNo}" method="post" enctype="multipart/form-data" id="oction--form" >
                         
                             <div class="direct--product--img">
                                 <h1>상품 등록</h1>
@@ -491,12 +497,8 @@ button.btn .btn--primary{
              
              <div id="tab3" class="tab_content">
                  <!--Content-->
-                  <div class="myListSearch">내상품조회</div>
-                  <script>
-                  $(".myListSearch").click(function(){
-                	  locale.href("${path}/product/SelectMyList.do?=businessKey=${p.business_Key}")
-                  });
-                  </script>
+                  <button type="button"class="myListSearch">내상품조회</button>
+                
                  <table class="table">
                     <tr>
                         <th scope="col">번호</th>
@@ -507,29 +509,30 @@ button.btn .btn--primary{
                         <th scope="col">수정</th>
                         <th scope="col">삭제</th>
                     </tr>
-					<form action="${path }/product/productUpdate.do" method="post">
                     <c:forEach items="${product}" var="p">
+					
                         <tr>
                             <td><c:out value="${p.ARTICLE_NO }"/></td>
  		                    <td><c:out value="${p.TITLE }"/></td>
-           			       	<td><c:out value="${p.PRODUCTNAME }"/></td>
-          	             	 <td><c:out value="${p.PRICE}"/></td>
+           			       	<td><c:out value="${p.PRODUCT_NAME }"/></td>
+          	             	 <td><fmt:setLocale value="ko_KR"/><fmt:formatNumber type="currency" value="${p.PRICE}"/>원</td>
                 	         <td><fmt:formatDate value="${p.WRITTEN_DATE}" pattern="yyyy-MM-dd"/></td>
                        
                             <td>
-                                <button  type="submit" class="btn btn-primary2">수정</button>
+                                <button  type="button" onclick="location.href='${path }/product/productUpdate.do?articleNo=${p.ARTICLE_NO}';" class="btn btn-primary2">수정</button>
                             </td>
                             <td>
-                                <button type="button" class="btn btn-primary2" onclick="productDelete();">삭제</button>
+                                <button type="button" class="btn btn-primary2"
+                                 onclick="location.href='${path}/product/productDelete.do?articleNo=${p.ARTICLE_NO }';">삭제</button>
                             </td>
                         </tr>
                         
+                        
                     </c:forEach>
-					</form>
                     </table>
-                 <div class="direct-Product-container" style="">
-                 
-                		<form action="${path}/boardSaleContent/insert.do?=businessKey=1" method="post">
+                 <div class="direct-Product-container" style="display:block;">
+                 <c:forEach items="${update }" var="up">
+                		<form action="${path}/boardSaleContent/updateBDS.do?articleNo=${up.ARTICLE_NO}" method="post">
                                 <label for="category-select">카테고리품목</label>
                                 <select name="category" id="category-select">
                                     <option value="1">정육</option>
@@ -542,16 +545,20 @@ button.btn .btn--primary{
                                     <option value="8">기타</option>
                                 </select>
                                
-                                <input type="text" class="input--text" name="businessKey" placeholder="사업자번호"  required>
-                                <input type="text" class="input--text" name="title" placeholder="제목"  required>
-								 <textarea name="saleContent" id="" cols="30" rows="10" class="input-text"placeholder="내용설명">내용설명:
+                                <input type="hidden" class="input--text" value="${up.ARTICLE_NO }" name="articleNo" placeholder="사업자번호"  required>
+                                <input type="hidden" class="input--text" value="${up.BUSINESS_KEY }" name="businessKey" placeholder="사업자번호"  required>
+                                <input type="text" class="input--text" value="${up.TITLE }" name="title" placeholder="제목"  required>
+								 <textarea name="saleContent" id=""  value="${up.SALE_CONTENT }" cols="30" rows="10" class="input-text"placeholder="내용설명">내용설명:
                        			 </textarea>
                        	 <div class="direct-btn-group">
 		                            <button type="submit" class="btn btn--primary">등록하기</button>
 		                            <button type="reset" class="btn btn--primary">취소하기</button>
                         </div>
                 		</form>
-                        <form action="${path }/product/insert.do?=${a.articleNo}" method="post" enctype="multipart/form-data" id="oction--form" >
+
+                		
+                		
+                        <form action="${path }/product/updatePDS.do?productNo=${up.PRODUCT_NO}" method="post" enctype="multipart/form-data" id="oction--form" >
                         
                             <div class="direct--product--img">
                                 <h1>상품 등록</h1>
@@ -563,15 +570,16 @@ button.btn .btn--primary{
                                 </select>
                             <div class="product-textgroup">
 
-                                <input type="text" class="input--text" name="articleNo" placeholder="글번호" required>
-                                <input type="text" class="input--text" name="productStatusNo" placeholder="카테고리" required>
-                                <input type="text" class="input--text" name="productName" placeholder="상품명" required>
-                                <input type="text" class="input--text" name="origin" placeholder="원산지" required>
-                                <input type="text" class="input--text" name="productQuality" placeholder="등급" required>
-                                <input type="text" class="input--text" name="productQuantity" placeholder="수량" required>
-                                <input type="text" class="input--text" name="measureUnit" placeholder="단위:box/20kg-box/set/개/kg"required>
-                                <input type="text" class="input--text" name="price" placeholder="가격"  required>
-                                <input type="text" class="input--text" name="remaningQuantity" placeholder="갯수"  readonly>
+                                <input type="hidden" class="input--text" value="${up.ARTICLE_NO}" name="articleNo" placeholder="글번호" required>
+                                <input type="text" class="input--text" value="${up.PRODUCT_NO}" name="productNo" placeholder="상품번호" required>
+                                <input type="text" class="input--text" value="${up.product_Status_No}" name="productStatusNo" placeholder="카테고리" required>
+                                <input type="text" class="input--text" value="${up.product_Name}" name="productName" placeholder="상품명" required>
+                                <input type="text" class="input--text" value="${up.origin}" name="origin" placeholder="원산지" required>
+                                <input type="text" class="input--text" value="${up.productQuality}" name="productQuality" placeholder="등급" required>
+                                <input type="text" class="input--text" value="${up.productQuantity}" name="productQuantity" placeholder="수량" required>
+                                <input type="text" class="input--text" value="${up.measureUnit}" name="measureUnit" placeholder="단위:box/20kg-box/set/개/kg"required>
+                                <input type="text" class="input--text" value="${up.price}" name="price" placeholder="가격"  required>
+                                <input type="text" class="input--text" value="${up.remaningQuantity}" name="remaningQuantity" placeholder="갯수"  readonly>
                                
                             </div>
                                 
@@ -580,7 +588,7 @@ button.btn .btn--primary{
                                                 
                                     </div>
                                     <div class="direct-img-file">
-                                        <input type="file" class="input--text upFile" id="upFile" name="upFile" required />
+                                        <input type="file" class="input--text upFile" id="upFile" name="upFile" value="${up.P_RENAMED_FILE_NAME}" required />
                                   
         
                                     </div>
@@ -592,7 +600,7 @@ button.btn .btn--primary{
                             <button type="reset" class="btn btn--primary">취소하기</button>
                         </div>
                     </form>
-                    
+                   </c:forEach>
                  </div>           
              </div>
      
@@ -670,5 +678,5 @@ button.btn .btn--primary{
         </div>
      </div>
 </section>
-<script src="${path }/resources/js/common/product.js" defer></script>
+
 <jsp:include page="/WEB-INF/views/common/footer.jsp"/>

@@ -28,8 +28,12 @@ public interface ProductDao {
 	int selectCount(SqlSession session);
 
 	List<Map> selectProductDetail(SqlSession session, int articleNo);
+	//내상품조회
+	List<Map> selectProductUpdate(SqlSession session, int businessKey);
+	//내상품조회 상품 수정
+	List<Map> selectProductOne(SqlSession session, int articleNo);
 
-	int selectProductUpdate(SqlSession session, int businessKey);
+	int DeleteProduct(SqlSession session, int articleNo);
 
 
 

@@ -47,5 +47,12 @@
 		SELECT * FROM MEMBER WHERE EMAIL = #{email}
 	</select>
 	
+	<select id="selectMemberById" parameterType="map" resultMap="memberMap" resultType="member">
+		SELECT * FROM MEMBER WHERE ID = #{id}
+	</select>
+	
+	<update id="insertMemberProfileUrl" parameterType="snsInfo">
+		UPDATE MEMBER SET PROFILE_URL = #{snsProfilePic} WHERE MEMBER_KEY = #{memberKey}
+	</update>
 	
 </mapper>

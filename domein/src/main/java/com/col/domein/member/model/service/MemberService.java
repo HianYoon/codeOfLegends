@@ -38,7 +38,9 @@ public class MemberService {
 	private SqlSession session;
 	@Autowired
 	private JavaMailSender mailSender;
-
+	@Autowired
+	private BCryptPasswordEncoder pwEncoder;
+	
 	private String googleClientId = "1048798785374-akhqjnf6p4g1fdo3mkf2pudg9ffh5ger.apps.googleusercontent.com";
 
 	public boolean isEmptyData(Map<String, String> map) {
@@ -225,7 +227,6 @@ public class MemberService {
 //		코드 3: 미가입 -> 자동 가입(이메일 인증 X)
 //		코드 4: 커넥션 에러 등
 
-	
 //////////////////////////////////////////////////////////////////////
 // 구글 로그인 / 회원 가입
 	public int googleSignIn(HttpSession httpSession, String idToken) {
@@ -234,7 +235,7 @@ public class MemberService {
 				.setAudience(Collections.singletonList(googleClientId)).build();
 		GoogleIdToken token = null;
 		Payload payload = null;
-		
+
 		try {
 			token = verifier.verify(idToken);
 		} catch (Exception e) {
@@ -242,23 +243,23 @@ public class MemberService {
 //			커넥션 와중 에러 9
 			return 9;
 		}
-		
-		if(token != null) {
+
+		if (token != null) {
 //			정보 받아오기
 			payload = token.getPayload();
 			String id = payload.getSubject();
-			
+
 //			이 구글 유니크 아이디가 벌써 등록되어있는지 체크
 //			로그인 소스 1은 구글 2는 네이버 3은 카카오
 			int loginSourceNo = 1;
-			
+
 			int memberKey = checkMemberThroughSnsId(loginSourceNo, id);
 ////////////////////////////////////////////////////////////////////////////
 //			Code 1
-			if(memberKey > 0) {
+			if (memberKey > 0) {
 				m = md.selectMemberByMemberKey(session, memberKey);
 				signInSuccess(httpSession, loginSourceNo, m);
-				
+
 				return 1;
 			}
 /////////////////////////////////////////////////////////////////////////
@@ -269,20 +270,19 @@ public class MemberService {
 //			(이메일은 유니크이므로 중복값을 없게하기 위함이기도 함) 
 //			-만약 패스워드 잃어버렸으면 다시 찾아야함
 			String email = payload.getEmail();
-			String pictureURL = (String)payload.get("picture");
-			String familyName = (String)payload.get("family_name");
-			String givenName = (String)payload.get("given_name");
-			String name = familyName+" "+givenName;
-			
-			
+			String pictureURL = (String) payload.get("picture");
+			String familyName = (String) payload.get("family_name");
+			String givenName = (String) payload.get("given_name");
+			String name = familyName + " " + givenName;
+
 			SnsInfo sns = new SnsInfo();
 			sns.setLoginSourceNo(loginSourceNo);
 			sns.setSnsId(id);
 			sns.setSnsName(name);
 			sns.setSnsProfilePic(pictureURL);
-			
+
 			Member emailFoundMember = md.selectMemberByEmail(session, email);
-			if(emailFoundMember != null) {
+			if (emailFoundMember != null) {
 				httpSession.setAttribute("emailFoundMember", emailFoundMember);
 				httpSession.setAttribute("snsForEmailFoundMember", sns);
 				return 2;
@@ -291,25 +291,26 @@ public class MemberService {
 ///////////////////////////////////////////////////////////////
 //			Code 3
 //			멤버 객체 만들기
-			
-			Member newM = new Member();
-			newM.setEmail(email);
-			newM.setUserName(name);
-			newM.setProfileUrl(pictureURL);
-			
+
+			Member newSnsMember = new Member();
+			newSnsMember.setEmail(email);
+			newSnsMember.setUserName(name);
+			newSnsMember.setProfileUrl(pictureURL);
+			httpSession.setAttribute("newSnsMember", newSnsMember);
+			httpSession.setAttribute("snsForNewSnsMember", sns);
+			return 3;
 		}
-		
-		
+
 		return 9;
 	}
-	
+
 	public int checkMemberThroughSnsId(int loginSourceNo, String id) {
 		SnsInfo sns = new SnsInfo(-1, loginSourceNo, null, id, null, null, null);
 		return md.checkMemberThroughSnsId(session, sns);
 	}
-	
+
 	public boolean signInSuccess(HttpSession httpSession, int loginSource, Member m) {
-		
+
 //		1. 세션어트리뷰트로 signedInMember에 m 담아주기
 		httpSession.setAttribute("signedInMember", m);
 
@@ -317,8 +318,63 @@ public class MemberService {
 		MemberLog log = new MemberLog(m.getMemberKey(), null, 1, null, loginSource, null);
 		boolean flag = md.insertMemberLog(session, log);
 //		3. 장바구니 불러오기
-		
+
 		return flag;
 	}
+
+	public boolean insertNewOauthMember(HttpSession httpSession, Member m, SnsInfo sns) {
+		long currentTime = System.currentTimeMillis();
+		m.setId(sns.getLoginSourceNo() + "_" + currentTime);
+		m.setPassword(pwEncoder.encode("" + currentTime));
+		m.setUserName(sns.getSnsName() != null ? sns.getSnsName() : "" + currentTime);
+		m.setNickname("" + currentTime);
+		m.setPhone("000-0000-0000");
+
+		int memberKey = insertMember(m);
+		boolean flag = md.updateMemberToConfirmed(session, memberKey);
+		if (!flag)
+			return false;
+
+		sns.setMemberKey(memberKey);
+		if (sns.getSnsProfilePic() != null)
+			flag = updateMemberProfileUrl(sns);
+
+		flag = md.insertSnsInfo(session, sns);
+		if (!flag)
+			return false;
+
+		Member signedUpMember = md.selectMemberByMemberKey(session, memberKey);
+		flag = signInSuccess(httpSession, sns.getLoginSourceNo(), signedUpMember);
+		httpSession.removeAttribute("newSnsMember");
+		httpSession.removeAttribute("snsForNewSnsMember");
+		return flag;
+	}
+
+	public boolean updateMemberProfileUrl(SnsInfo sns) {
+		return md.updateMemberProfileUrl(session, sns);
+	}
+
+	public boolean insertSnsInfoForEmailFoundMember(HttpSession httpSession, Member m, SnsInfo sns) {
+		boolean flag = insertSnsInfo(httpSession, m, sns);
+		if (!flag)
+			return false;
+		httpSession.removeAttribute("emailFoundMember");
+		httpSession.removeAttribute("snsForEmailFoundMember");
+		return flag;
+	}
+
+	public boolean insertSnsInfo(HttpSession httpSession, Member m, SnsInfo sns) {
+		sns.setMemberKey(m.getMemberKey());
+		boolean flag = md.insertSnsInfo(session, sns);
+		if (!flag)
+			return false;
+
+		return signInSuccess(httpSession, sns.getLoginSourceNo(), m);
+	}
 	
+	public Member selectMemberById(String id) {
+		Map<String, String> values = new HashMap<String, String>();
+		values.put("id", id);
+		return md.selectMemberById(session, values);
+	}
 }

@@ -4,4 +4,8 @@
 	<select id="seletTotalPoint" resultType="_int">
 		SELECT SUM(POINT_DIFFERENCE) FROM POINT WHERE MEMBER_KEY = #{memberKey}
 	</select>
+	
+	<insert id="insertMemberPoint" parameterType="map">
+		INSERT INTO POINT(MEMBER_KEY,POINT_DIFFERENCE) VALUES(#{memberKey},#{pointDifference})
+	</insert>
 </mapper>

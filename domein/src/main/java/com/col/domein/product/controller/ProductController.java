@@ -16,7 +16,6 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.col.domein.common.pageBar.PageBarFactory;
-import com.col.domein.member.model.vo.Member;
 import com.col.domein.product.model.service.ProductService;
 import com.col.domein.product.model.vo.Attachement;
 import com.col.domein.product.model.vo.BoardProductSaleContent;
@@ -31,7 +30,7 @@ public class ProductController {
 	
 	@Autowired
 	private ProductService service;
-	private Member m;
+
 	//메인에서 product.jsp로 페이지 전환
 	@RequestMapping("/product/into.do")
 	public String product() {
@@ -147,21 +146,54 @@ public class ProductController {
 		return mv;
 	}
 	
-	//test용 
-	@RequestMapping("/product/productDetailView.do")
-	public String productDetailGo() {
-		return "product/productDetail";
-	}
-	
-	//Update
-	@RequestMapping("/product/update.do")
+
+	//myList조회
+	@RequestMapping("/product/SelectMyList.do")
 	public ModelAndView selectproductUpdate(ModelAndView mv,int businessKey) {
 	
+			System.out.println("businessKey"+businessKey);
 			
-			int result=service.selectProductUpdate(businessKey);
-			mv.addObject("product");
+			mv.addObject("product",service.selectProductUpdate(businessKey));
 			mv.setViewName("product/product");
 			return mv;
+		
+	}
+	//my상품list조회
+	@RequestMapping("/product/productUpdate.do")
+	public ModelAndView productUpdate(ModelAndView mv, int articleNo) {
+		System.out.println("articleNo"+articleNo);
+		
+		mv.addObject("update",service.selectProductOne(articleNo));
+		mv.setViewName("product/productUpdate");
+		return mv;
+		
+	}
+
+	/*
+	 * //boardContentSale --update
+	 * 
+	 * @RequestMapping("/boardSaleContent/updateBDS.do") public ModelAndView
+	 * updateBDS(ModelAndView mv,int articleNo) {
+	 * System.out.println("articleNo:"+articleNo); int
+	 * result=service.updateBDS(articleNo);
+	 * mv.addObject("msg",result>0?"입력성공":"입력실패");
+	 * mv.setViewName("product/product"); return mv; }
+	 */
+	//directSaleproduct update
+	@RequestMapping("/product/updatePDS.do")
+	public ModelAndView updateBDS(ModelAndView mv,int productNo,
+			@RequestParam(value="upFile",required=false) MultipartFile[] upFile,
+			HttpSession session) {
+		System.out.println(""+productNo);
+		return mv;
+	}
+	//상품삭제
+	@RequestMapping("/product/productDelete.do")
+	public ModelAndView productDelete(ModelAndView mv,int articleNo) {
+		int result=service.productDelete(articleNo);
+		mv.addObject("msg",result>0?"삭제성공":"삭제실패");
+		mv.setViewName("product/product");
+		return mv;
 		
 	}
 	
