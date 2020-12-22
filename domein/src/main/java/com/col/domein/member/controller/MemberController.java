@@ -230,7 +230,7 @@ public class MemberController {
 /////////////////////////////////////////////////////////	
 
 //////////////////////////////////////////////////////
-////////////일반 로그인 ///////////////////////////////////
+////////////일반 로그인 & 로그오프////////////////////
 //////////////////////////////////////////////////////
 	@RequestMapping("/loginVerify.do")
 	public String loginVerify(HttpSession session, HttpServletRequest request, String id, String password,
@@ -249,4 +249,11 @@ public class MemberController {
 		ms.signInSuccess(session, 0, m);
 		return "redirect: " + request.getContextPath();
 	}
+	
+	@RequestMapping("/logout.do")
+	public String logout(HttpSession session, HttpServletRequest request) {
+		session.invalidate();
+		return "redirect: " + request.getContextPath();
+	}
+//////////////////////////////////////////////////////////////
 }

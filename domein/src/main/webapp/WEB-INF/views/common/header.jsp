@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <c:set var="path" value="${pageContext.request.contextPath }" />
@@ -46,8 +47,36 @@
 							src="${path }/resources/images/profile/add-to-basket.png"
 							alt="장바구니" />
 					</a></li>
-					<li><a href="${path }/member/memberLogin.do">로그인</a></li>
-					<li><a href="${path }/member/signUp/signUp.do">회원가입</a></li>
+					<c:if test="${signedInMember == null }">
+						<li><a href="${path }/member/memberLogin.do">로그인</a></li>
+						<li><a href="${path }/member/signUp/signUp.do">회원가입</a></li>
+					</c:if>
+					<c:if
+						test="${signedInMember != null and signedInMember.profileUrl == null}">
+						<li><a href="${path }/member/myPage.do"> <img
+								class="top-buttons"
+								src="${path }/resources/images/profile/user.png" alt="" />
+
+						</a></li>
+						<li><a href="${path }/member/logout.do"> <img class="top-buttons"
+							src="${path }/resources/images/common/logout.png"
+							alt="로그아웃" />
+					</a></li>
+						
+					</c:if>
+					<c:if
+						test="${signedInMember != null and signedInMember.profileUrl != null}">
+						<li><a href="${path }/member/myPage.do"> <img
+								class="top-buttons circle-pic-frame" src="${signedInMember.profileUrl }" alt=""
+								/>
+
+						</a></li>
+						<li><a href="${path }/member/logout.do"> <img class="top-buttons"
+							src="${path }/resources/images/common/logout.png"
+							alt="로그아웃" />
+					</a></li>
+					</c:if>
+
 				</ul>
 			</div>
 			<div class="mainNav-bottom">
@@ -97,11 +126,11 @@
 			</div>
 		</div>
 		<div class="mobile-title">
-					<div class="mobile-logo-left">
-						<input type="image" class="left"
-						src="${path }/resources/images/profile/left.png"/>
-						<p></p>
-					</div>
+			<div class="mobile-logo-left">
+				<input type="image" class="left"
+					src="${path }/resources/images/profile/left.png" />
+				<p></p>
+			</div>
 			<a href="#">
 				<div class="mobile-logo-cont">
 					<img src="${path }/resources/images/logo/signature.png" alt="" />
@@ -140,40 +169,77 @@
 					</a>
 				</div>
 				<div>
-					<a href="${path }/member/signUp/memberLogin.do">
-						<div>
-							<img src="${path }/resources/images/profile/user.png" alt="" />
-						</div>
-					</a>
+					<c:if test="${signedInMember == null }">
+						<a href="${path }/member/memberLogin.do">
+							<div>
+								<img src="${path }/resources/images/profile/user.png" alt="" />
+							</div>
+						</a>
+					</c:if>
+					<c:if
+						test="${signedInMember != null and signedInMember.profileUrl == null}">
+						<a href="${path }/member/myPage.do">
+							<div>
+								<img src="${path }/resources/images/profile/user.png" alt="" />
+							</div>
+						</a>
+					</c:if>
+					<c:if
+						test="${signedInMember != null and signedInMember.profileUrl != null}">
+						<a href="${path }/member/myPage.do">
+							<div>
+								<img src="${signedInMember.profileUrl }" alt=""
+									class="circle-pic-frame" />
+							</div>
+						</a>
+					</c:if>
 				</div>
 			</div>
 		</div>
-		
-		   <div class="categorytap">
-		        <ul class="one2"style="" >
-		            <li><a href="${path}/product/productDetailView.do"><img src="${path }/resources/images/signUp/beef.png" style="width:30px; height:30px; box-sizing:border-box; " alt=""/>test중 product</a></li>
-		            <li><a href="#"><img src="${path }/resources/images/signUp/fish.png" alt="" style="width:30px; height:30px; box-sizing:border-box; "/>수산</a></li>
-		            <li><a href="#"><img src="${path }/resources/images/signUp/vegetables.png" alt="" style="width:30px; height:30px; box-sizing:border-box; "/>야채</a></li>
-		            <li><a href="#"><img src="${path }/resources/images/signUp/beam.png" alt="" style="width:30px; height:30px; box-sizing:border-box; "/>철강</a></li>
-		            <li><a href="#"><img src="${path }/resources/images/signUp/bone.png" alt="" style="width:30px; height:30px; box-sizing:border-box; "/>애견</a></li>
-		            <li><a href="#"><img src="${path }/resources/images/signUp/bread.png" alt=""style="width:30px; height:30px; box-sizing:border-box; " />베이커리</a></li>
-		            <li><a href="#"><img src="${path }/resources/images/signUp/free-icon-lightning-616494.png" alt="" style="width:30px; height:30px; box-sizing:border-box; "/>전자기기</a></li>
-		            <li><a href="#"><img src="${path }/resources/images/signUp/free-icon-question-mark-in-dark-circle-71768.png" alt="" style="width:30px; height:30px; box-sizing:border-box; "/>기타</a></li>
-		        </ul>
 
-    		</div>
-    	<script>
-    	let width = $(window).width();
-    	if (width<=768) $(".one2").hide();
-    			$('#categoryTap').mouseenter(function(){
-    				let width = $(window).width();
-    				if(width>768) $(".one2").show();
-    			});
-    			$(".one2").mouseleave(function(){
-    				if(width>768) $(".one2").hide();
-    		});
+		<div class="categorytap">
+			<ul class="one2" style="">
+				<li><a href="${path}/product/productDetailView.do"><img
+						src="${path }/resources/images/signUp/beef.png"
+						style="width: 30px; height: 30px; box-sizing: border-box;" alt="" />test중
+						product</a></li>
+				<li><a href="#"><img
+						src="${path }/resources/images/signUp/fish.png" alt=""
+						style="width: 30px; height: 30px; box-sizing: border-box;" />수산</a></li>
+				<li><a href="#"><img
+						src="${path }/resources/images/signUp/vegetables.png" alt=""
+						style="width: 30px; height: 30px; box-sizing: border-box;" />야채</a></li>
+				<li><a href="#"><img
+						src="${path }/resources/images/signUp/beam.png" alt=""
+						style="width: 30px; height: 30px; box-sizing: border-box;" />철강</a></li>
+				<li><a href="#"><img
+						src="${path }/resources/images/signUp/bone.png" alt=""
+						style="width: 30px; height: 30px; box-sizing: border-box;" />애견</a></li>
+				<li><a href="#"><img
+						src="${path }/resources/images/signUp/bread.png" alt=""
+						style="width: 30px; height: 30px; box-sizing: border-box;" />베이커리</a></li>
+				<li><a href="#"><img
+						src="${path }/resources/images/signUp/free-icon-lightning-616494.png"
+						alt="" style="width: 30px; height: 30px; box-sizing: border-box;" />전자기기</a></li>
+				<li><a href="#"><img
+						src="${path }/resources/images/signUp/free-icon-question-mark-in-dark-circle-71768.png"
+						alt="" style="width: 30px; height: 30px; box-sizing: border-box;" />기타</a></li>
+			</ul>
 
-    	</script>
+		</div>
+		<script>
+			let width = $(window).width();
+			$(".one2").hide();
+			$('#categoryTap').mouseenter(function() {
+				let width = $(window).width();
+				if (width > 768)
+					$(".one2").show();
+			});
+			$(".one2").mouseleave(function() {
+				if (width > 768)
+					$(".one2").hide();
+			});
+		</script>
 	</header>
 
 

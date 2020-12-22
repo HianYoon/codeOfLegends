@@ -69,6 +69,11 @@ a {
 	align-items: center;
 }
 
+.circle-pic-frame{
+	border-radius: 70%;
+	border: solid black 3px;
+}
+
 ul li {
 	list-style-type: none;
 }

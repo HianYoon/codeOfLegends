@@ -317,7 +317,10 @@ public class MemberService {
 //		2. 로그인 로그 남기기
 		MemberLog log = new MemberLog(m.getMemberKey(), null, 1, null, loginSource, null);
 		boolean flag = md.insertMemberLog(session, log);
-//		3. 장바구니 불러오기
+		
+//		2-1로그오프를 위해서 로그인 소스 담기
+		httpSession.setAttribute("loginSource", loginSource);
+//		3. 장바구니 불러오기 - 리스너로
 
 		return flag;
 	}
@@ -376,5 +379,10 @@ public class MemberService {
 		Map<String, String> values = new HashMap<String, String>();
 		values.put("id", id);
 		return md.selectMemberById(session, values);
+	}
+	
+	public boolean logoutMember(Member m, int loginSource) {
+		MemberLog log= new MemberLog(m.getMemberKey(), null, 9, null, loginSource, null);
+		return md.insertMemberLog(session, log);
 	}
 }

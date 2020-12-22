@@ -9,12 +9,18 @@
 <jsp:include page="/WEB-INF/views/common/header.jsp">
 	<jsp:param name="title" value=" " />
 </jsp:include>
+<!-- 로그인 된 상태로 이곳으로 오려고 하면 인덱스로 내쫓기 -->
+<c:if test="${signedInMember !=null}">
+	<script>
+			location.href = path;
+		</script>
+</c:if>
+
 <link rel="stylesheet" href="${path }/resources/css/member/login.css" />
 <script src="https://apis.google.com/js/platform.js" async defer></script>
 <meta name="google-signin-client_id"
 	content="1048798785374-akhqjnf6p4g1fdo3mkf2pudg9ffh5ger.apps.googleusercontent.com">
 <section id="context">
-
 	<div class="login-logo-container">
 		<img class="login-logo"
 			src="${path }/resources/images/logo/signature.png" alt="" />
