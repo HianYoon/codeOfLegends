@@ -1,33 +1,25 @@
 package com.col.domein.board.controller;
 
-import javax.servlet.http.HttpSession;
-
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.servlet.ModelAndView;
 
-import com.col.domein.board.model.service.BoardService;
 
 @Controller
 public class BoardController {
-	
 
-		
-	@RequestMapping("/board/community.do")
+	@RequestMapping("/community/community.do")
 	public String community() {
-		return "board/community";
+		return "community/community";
 	}
 	
-	@RequestMapping("/board/forum.do")
-	public String forum() {
-		return "board/forum";
-	}
-	@RequestMapping("/board/write.do")
+	@RequestMapping("/community/write.do")
 	public String write() {
-		return "board/write";
+		return "community/write";
+	}
+	
+	@RequestMapping("/community/forum.do")
+	public String forum() {
+		return "community/forum";
 	}
 /*	@RequestMapping("/board/write.do")
 	public ModelAndView insertBoard(Board board, ModelAndView mv, 

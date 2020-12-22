@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 import com.col.domein.board.model.dao.BoardDao;
 
 @Service
-public interface BoardService {
+public class BoardService {
 
 
 	/* List<Map> selectBoardList(int cPage, int numPerpage); */
