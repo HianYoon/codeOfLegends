@@ -292,11 +292,13 @@ public class MemberService {
 //			Code 3
 //			멤버 객체 만들기
 			
-			Member newM = new Member();
-			newM.setEmail(email);
-			newM.setUserName(name);
-			newM.setProfileUrl(pictureURL);
-			
+			Member newSnsMember = new Member();
+			newSnsMember.setEmail(email);
+			newSnsMember.setUserName(name);
+			newSnsMember.setProfileUrl(pictureURL);
+			httpSession.setAttribute("newSnsMember", newSnsMember);
+			httpSession.setAttribute("snsForNewSnsMember", sns);
+			return 3;
 		}
 		
 		
@@ -321,4 +323,31 @@ public class MemberService {
 		return flag;
 	}
 	
+	public boolean insertNewOauthMember(HttpSession httpSession, Member m, SnsInfo sns) {
+		long currentTime = System.currentTimeMillis();
+		m.setId(sns.getLoginSourceNo()+"_"+currentTime);
+		m.setPassword(""+currentTime);
+		m.setUserName(sns.getSnsName() !=null? sns.getSnsName() : ""+currentTime);
+		m.setNickname(""+currentTime);
+		m.setPhone("000-0000-0000");
+		
+		int memberKey = insertMember(m);
+		boolean flag = md.updateMemberToConfirmed(session, memberKey);
+		if(!flag) return false;
+		
+		sns.setMemberKey(memberKey);
+		if(sns.getSnsProfilePic()!=null)
+		flag = updateMemberProfileUrl(sns);
+		
+		flag = md.insertSnsInfo(session,sns);
+		if(!flag) return false;
+		
+		Member signedUpMember = md.selectMemberByMemberKey(session, memberKey);
+		flag = signInSuccess(httpSession, sns.getLoginSourceNo(), signedUpMember);
+		return flag;
+	}
+	
+	public boolean updateMemberProfileUrl(SnsInfo sns) {
+		return md.updateMemberProfileUrl(session, sns);
+	}
 }

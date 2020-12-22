@@ -6,4 +6,10 @@
 		SELECT MEMBER_KEY FROM SNS_LOGIN WHERE LOGIN_SOURCE_NO =
 		#{loginSourceNo} AND SNS_ID = #{snsId}
 	</select>
+
+	<insert id="insertSnsInfo" parameterType="snsInfo">
+		INSERT INTO
+		SNS_LOGIN(MEMBER_KEY,LOGIN_SOURCE_NO,SNS_ID,SNS_NAME,SNS_PROFILE_PIC)
+		VALUES(#{memberKey},#{loginSourceNo},#{snsId},#{snsName},#{snsProfilePic})
+	</insert>
 </mapper>

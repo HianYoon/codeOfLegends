@@ -69,8 +69,10 @@
 				let uri="";
 				switch(result){
 				case 1: uri = ""; break;
-				case 2: uri = ""; break;
-				case 3: uri = ""; break;
+				case 2: uri = "member/oauth/emailFound.do"; break;
+				case 3: uri = "member/oauth/newOauthMember.do"; break;
+				case 9:
+					default: "error.do";
 				}
 				location.href = path+"/"+uri;
 			}

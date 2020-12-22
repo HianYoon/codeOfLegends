@@ -47,5 +47,7 @@
 		SELECT * FROM MEMBER WHERE EMAIL = #{email}
 	</select>
 	
-	
+	<update id="insertMemberProfileUrl" parameterType="snsInfo">
+		UPDATE MEMBER SET PROFILE_URL = #{snsProfilePic} WHERE MEMBER_KEY = #{memberKey}
+	</update>
 </mapper>
