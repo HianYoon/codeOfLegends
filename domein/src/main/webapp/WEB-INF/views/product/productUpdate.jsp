@@ -1,68 +1,70 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
         <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
     <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
     <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
      <c:set var="path" value="${pageContext.request.contextPath }"/>
 
  <link rel="stylesheet" href="${path }/resources/css/product/product.css"/>
+ <link rel="stylesheet" href="${path }/resources/css/product/productUpdate.css"/>
   <link rel="stylesheet" href="${path }/resources/css/jihunTab/TabMedia.css"/>
   <link rel="stylesheet" href="${path }/resources/css/sharedStyle.css"/>
 
 <jsp:include page="/WEB-INF/views/common/header.jsp">
 	<jsp:param name="title" value=""/>
 </jsp:include>
-<section>
- <div class="direct-Product-container" style="display:block;">
-              
-                		<form action="${path}/boardSaleContent/updateBDS.do?articleNo=${update.ARTICLE_NO}" method="post">
-                                <label for="category-select">ƒ´≈◊∞Ì∏Æ«∞∏Ò</label>
+
+<section class="updatePage">
+ <div class="direct-Product-container">
+              <c:forEach items="${product }" var="p">
+                		<form action="${path}/boardSaleContent/updateBDS.do" method="post">
+                                <label for="category-select">Ïπ¥ÌÖåÍ≥†Î¶¨ÌíàÎ™©</label>
                                 <select name="category" id="category-select">
-                                    <option value="1">¡§¿∞</option>
-                                    <option value="2">ºˆªÍ</option>
-                                    <option value="3">æﬂ√§</option>
-                                    <option value="4">∞˙¿œ</option>
-                                    <option value="5">ƒø««</option>
-                                    <option value="6">æ÷∞ﬂ</option>
-                                    <option value="7">¡¶∞˙</option>
-                                    <option value="8">±‚≈∏</option>
+                                    <option value="1">Ï†ïÏú°</option>
+                                    <option value="2">ÏàòÏÇ∞</option>
+                                    <option value="3">ÏïºÏ±Ñ</option>
+                                    <option value="4">Í≥ºÏùº</option>
+                                    <option value="5">Ïª§Ìîº</option>
+                                    <option value="6">Ïï†Í≤¨</option>
+                                    <option value="7">Ï†úÍ≥º</option>
+                                    <option value="8">Í∏∞ÌÉÄ</option>
                                 </select>
                                
-                                <input type="hidden" class="input--text" value="${update.ARTICLE_NO }" name="articleNo" placeholder="ªÁæ˜¿⁄π¯»£"  required>
-                                <input type="hidden" class="input--text" value="${update.BUSINESS_KEY }" name="businessKey" placeholder="ªÁæ˜¿⁄π¯»£"  required>
-                                <input type="text" class="input--text" value="${update.TITLE }" name="title" placeholder="¡¶∏Ò"  required>
-								 <textarea name="saleContent" id=""  value="${update.SALE_CONTENT }" cols="30" rows="10" class="input-text"placeholder="≥ªøÎº≥∏Ì">≥ªøÎº≥∏Ì:
+                                <input type="hidden" class="input--text" value="${p.ARTICLE_NO}" name="articleNo" placeholder="ÏÇ¨ÏóÖÏûêÎ≤àÌò∏" readonly required>
+                                <input type="hidden" class="input--text" value="${p.BUSINESS_KEY }" name="businessKey" placeholder="Í∏ÄÎ≤àÌò∏" readonly required>
+                                <input type="text" class="input--text" value="${p.TITLE }" name="title" placeholder="Ï†úÎ™©"  required>
+								 <textarea name="saleContent" cols="30" rows="10" class="input-text"placeholder="ÎÇ¥Ïö©ÏÑ§Î™Ö">${p.SALE_CONTENT }
                        			 </textarea>
                        	 <div class="direct-btn-group">
-		                            <button type="submit" class="btn btn--primary">µÓ∑œ«œ±‚</button>
-		                            <button type="reset" class="btn btn--primary">√Îº“«œ±‚</button>
+		                            <button type="submit" class="btn btn--primary">Îì±Î°ùÌïòÍ∏∞</button>
+		                            <button type="reset" class="btn btn--primary">Ï∑®ÏÜåÌïòÍ∏∞</button>
                         </div>
                 		</form>
 
                 		
                 		
-                        <form action="${path }/product/updatePDS.do?productNo=${update.PRODUCT_NO}" method="post" enctype="multipart/form-data" id="oction--form" >
+                        <form action="${path }/product/updatePDS.do" method="post" enctype="multipart/form-data" id="oction--form" >
                         
                             <div class="direct--product--img">
-                                <h1>ªÛ«∞ µÓ∑œ</h1>
+                                <h1>ÏÉÅÌíà Îì±Î°ù</h1>
                             </div>
                              <select name="productStatusNo" id="productStatusNo">
-                                	<option value="1" >∆«∏≈Ω√¿€</option>
-                                	<option value="0">∆«∏≈¡ﬂ¥‹</option>
+                                	<option value="1" >ÌåêÎß§ÏãúÏûë</option>
+                                	<option value="0">ÌåêÎß§Ï§ëÎã®</option>
                                 	
                                 </select>
                             <div class="product-textgroup">
 
-                                <input type="hidden" class="input--text" value="${update.ARTICLE_NO}" name="articleNo" placeholder="±€π¯»£" required>
-                                <input type="text" class="input--text" value="${update.PRODUCT_NO}" name="productNo" placeholder="ªÛ«∞π¯»£" required>
-                                <input type="text" class="input--text" value="${update.product_Status_No}" name="productStatusNo" placeholder="ƒ´≈◊∞Ì∏Æ" required>
-                                <input type="text" class="input--text" value="${update.product_Name}" name="productName" placeholder="ªÛ«∞∏Ì" required>
-                                <input type="text" class="input--text" value="${update.origin}" name="origin" placeholder="ø¯ªÍ¡ˆ" required>
-                                <input type="text" class="input--text" value="${update.productQuality}" name="productQuality" placeholder="µÓ±ﬁ" required>
-                                <input type="text" class="input--text" value="${update.productQuantity}" name="productQuantity" placeholder="ºˆ∑Æ" required>
-                                <input type="text" class="input--text" value="${update.measureUnit}" name="measureUnit" placeholder="¥‹¿ß:box/20kg-box/set/∞≥/kg"required>
-                                <input type="text" class="input--text" value="${update.price}" name="price" placeholder="∞°∞›"  required>
-                                <input type="text" class="input--text" value="${update.remaningQuantity}" name="remaningQuantity" placeholder="∞πºˆ"  readonly>
+                                <input type="hidden" class="input--text" value="${p.ARTICLE_NO }" name="articleNo" placeholder="Í∏ÄÎ≤àÌò∏" readonly required>
+                                <input type="text" class="input--text" value="${p.PRODUCT_NO }" name="productNo" placeholder="ÏÉÅÌíàÎ≤àÌò∏" readonly required>
+                                <input type="text" class="input--text" value="${p.PRODUCT_STATUS_NO }" name="productStatusNo" placeholder="Ïπ¥ÌÖåÍ≥†Î¶¨" required>
+                                <input type="text" class="input--text" value="${p.PRODUCT_NAME }" name="productName" placeholder="ÏÉÅÌíàÎ™Ö" required>
+                                <input type="text" class="input--text" value="${p.PRODUCT_ORIGIN }" name="origin" placeholder="ÏõêÏÇ∞ÏßÄ" required>
+                                <input type="text" class="input--text" value="${p.PRODUCT_QUALITY }" name="productQuality" placeholder="Îì±Í∏â" required>
+                                <input type="text" class="input--text" value="${p.PRODUCT_QUANTITY }" name="productQuantity" placeholder="ÏàòÎüâ" required>
+                                <input type="text" class="input--text" value="${p.MEASURE_UNIT }" name="measureUnit" placeholder="Îã®ÏúÑ:box/20kg-box/set/Í∞ú/kg"required>
+                                <input type="text" class="input--text" value="${p.PRICE }" name="price" placeholder="Í∞ÄÍ≤©"  required>
+                                <input type="text" class="input--text" value="${p.REMAINING_QUANTITY }" name="remaningQuantity" placeholder="Í∞ØÏàò"  readonly>
                                
                             </div>
                                 
@@ -71,18 +73,19 @@
                                                 
                                     </div>
                                     <div class="direct-img-file">
-                                        <input type="file" class="input--text upFile" id="upFile" name="upFile" value="${up.P_RENAMED_FILE_NAME}" required />
-                                  
+                                        <input type="file" class="input--text upFile" id="upFile" name="upFile" value="${p.P_RENAMED_FILE_NAME }" required />
+                                  		
         
                                     </div>
         
                                 </div>
                           
                         <div class="direct-btn-group">
-                            <button type="submit" class="btn btn--primary">µÓ∑œ«œ±‚</button>
-                            <button type="reset" class="btn btn--primary">√Îº“«œ±‚</button>
+                            <button type="submit" class="btn btn--primary">Îì±Î°ùÌïòÍ∏∞</button>
+                            <button type="reset" class="btn btn--primary">Ï∑®ÏÜåÌïòÍ∏∞</button>
                         </div>
                     </form>
-                 </div>           
+                 </div>    
+                 </c:forEach>       
 </section>
 <jsp:include page="/WEB-INF/views/common/footer.jsp"/>

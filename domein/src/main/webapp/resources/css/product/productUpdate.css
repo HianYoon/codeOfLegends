@@ -1,0 +1,17 @@
+@charset "UTF-8";
+section.updatePage {
+    width: 1200px;
+    height: auto;
+    display: grid;
+    justify-content: center;
+    align-items: center;
+}
+@media (max-width: 768px){
+	section.updatePage {
+    width: 768px;
+    height: auto;
+    display: grid;
+    justify-content: center;
+    align-items: center;
+}
+}

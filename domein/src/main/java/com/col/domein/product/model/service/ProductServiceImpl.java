@@ -98,6 +98,36 @@ public class ProductServiceImpl implements ProductService {
 		return dao.DeleteProduct(session,articleNo);
 	}
 
-
+	@Override
+	public int updateBDS(ProductAll p) {
+		// TODO Auto-generated method stub
+		return dao.updateBDS(session,p);
+	}
+//상품 PDS 수정
+	@Override
+	public int updatePDS(ProductAll p,List<Attachement> files) {
+	
+		
+		// TODO Auto-generated method stub
+		int result=dao.updatePDS(session, p);
+		if(result>0) {
+			if(files !=null) {
+				for(Attachement a: files) {
+					a.setProductNo(p.getProductNo());
+					int fs=files.size();
+					System.out.println("숫자몇이니"+fs);
+					for(int i=1; i<fs;i++) {
+						int no =i++;
+						System.out.println("번호"+no);
+						a.setProductImageNo(no);
+						System.out.println("파일번호:"+a.getProductImageNo());
+					}
+					result=dao.updateAttachment(session,a);
+				}
+			}
+		}
+		return result;
+	}	
+	
 	
 }

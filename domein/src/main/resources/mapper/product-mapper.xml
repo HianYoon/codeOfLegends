@@ -71,8 +71,29 @@
 		</select>
 			<!-- 상품수정을위한 상품하나불러오기쿼리-->
 			<select id="selectProductOne" parameterType="_int" resultType="map">
-				select * from product_all where ARTICLE_NO=#{p.articleNo}
+				select * from product_all where ARTICLE_NO=#{articleNo}
 			</select> 
+			<!-- 상품수정BDS-->
+			<update id="updateBDS" parameterType="boardProductSaleContent">
+				update BOARD_DIRECT_SALE SET 
+				ARTICLE_NO=#{articleNo},TITLE=#{title},BUSINESS_KEY=#{businessKey},
+				WRITTEN_DATE=SYSDATE,MODIFIED_DATE=SYSDATE,SALE_CONTENT=#{saleContent}
+				WHERE ARTICLE_NO=#{articleNo}
+			</update>
+			<!--상품수정PDS  -->
+			<update id="updatePDS" parameterType="product">
+				update DIRECT_SALE_PRODUCT set PRODUCT_NAME=#{productName},
+				PRODUCT_QUALITY=#{productQuality},PRODUCT_ORIGIN=#{origin},PRODUCT_QUANTITY=#{productQuantity},
+				MEASURE_UNIT=#{measureUnit},PRICE=#{price},REMAINING_QUANTITY=#{productQuantity},
+				PRODUCT_STATUS_NO=#{productStatusNo} where PRODUCT_NO=#{productNo}
+			
+			</update>
+			<update id="updateFiles" parameterType="attachement">
+				update BDS_ATTACHED_IMAGE set P_ORIGINAL_FILE_NAME=#{originFileName},
+				P_RENAMED_FILE_NAME=#{renamedFileName}
+				where PRODUCT_NO=#{productNo}
+				
+			</update>
 			
 				<!-- 상품삭제 -->
 		<delete id="deleteProductOne" parameterType="productAll">

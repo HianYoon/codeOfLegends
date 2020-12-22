@@ -31,6 +31,10 @@ public interface ProductService {
 	List<Map> selectProductOne(int articleNo);
 	//상품삭제
 	int productDelete(int articleNo);
+	//상품수정 BDS수정  
+	int updateBDS(ProductAll p);
+	//상품수정PDS수정
+	int updatePDS(ProductAll p, List<Attachement> files);
 
 
 }

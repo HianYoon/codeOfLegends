@@ -63,12 +63,32 @@ public class ProductDaoImpl implements ProductDao {
 	@Override
 	public List<Map> selectProductOne(SqlSession session, int articleNo) {
 		// TODO Auto-generated method stub
-		return session.selectOne("product.selectProductOne",articleNo);
+		return session.selectList("product.selectProductOne",articleNo);
 	}
 	//상품삭제
 	@Override
 	public int DeleteProduct(SqlSession session, int articleNo) {
 		// TODO Auto-generated method stub
 		return session.delete("product.deleteProductOne",articleNo);
+	}
+	//updateBDS
+	@Override
+	public int updateBDS(SqlSession session,ProductAll p) {
+		// TODO Auto-generated method stub
+		return session.update("product.updateBDS",p);
+	}
+	//상품수정PDS
+	@Override
+	public int updatePDS(SqlSession session, ProductAll p) {
+		// TODO Auto-generated method stub
+		System.out.println(""+p);
+		return session.update("product.updatePDS",p);
+	}
+	//상품파일수정
+
+	@Override
+	public int updateAttachment(SqlSession session, Attachement a) {
+		// TODO Auto-generated method stub
+		return session.update("product.updateFiles",a);
 	}
 }
