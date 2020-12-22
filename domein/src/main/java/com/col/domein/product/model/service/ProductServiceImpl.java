@@ -77,11 +77,25 @@ public class ProductServiceImpl implements ProductService {
 		// TODO Auto-generated method stub
 		return dao.selectProductDetail(session,articleNo);
 	}
-
+	
+	//내상품조회
 	@Override
-	public int selectProductUpdate(int businessKey) {
+	public List<Map> selectProductUpdate(int businessKey) {
 		// TODO Auto-generated method stub
 		return dao.selectProductUpdate(session,businessKey);
+	}
+	//내상품선택시
+
+	@Override
+	public List<Map> selectProductOne(int articleNo) {
+		// TODO Auto-generated method stub
+		return dao.selectProductOne(session,articleNo);
+	}
+	//상품삭제
+	@Override
+	public int productDelete(int articleNo) {
+		// TODO Auto-generated method stub
+		return dao.DeleteProduct(session,articleNo);
 	}
 
 

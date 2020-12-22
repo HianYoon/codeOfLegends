@@ -26,7 +26,11 @@ public interface ProductService {
 	int selectCount();
 	List<Map> selectProductDetail(int articleNo);
 	//내상품조회
-	int selectProductUpdate(int businessKey);
+	List<Map> selectProductUpdate(int businessKey);
+	//상품선택시 상품 리스트불러오기
+	List<Map> selectProductOne(int articleNo);
+	//상품삭제
+	int productDelete(int articleNo);
 
 
 }
