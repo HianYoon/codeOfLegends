@@ -371,4 +371,10 @@ public class MemberService {
 
 		return signInSuccess(httpSession, sns.getLoginSourceNo(), m);
 	}
+	
+	public Member selectMemberById(String id) {
+		Map<String, String> values = new HashMap<String, String>();
+		values.put("id", id);
+		return md.selectMemberById(session, values);
+	}
 }

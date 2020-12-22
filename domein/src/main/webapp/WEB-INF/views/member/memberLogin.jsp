@@ -11,29 +11,37 @@
 </jsp:include>
 <link rel="stylesheet" href="${path }/resources/css/member/login.css" />
 <script src="https://apis.google.com/js/platform.js" async defer></script>
-<meta name="google-signin-client_id" content="1048798785374-akhqjnf6p4g1fdo3mkf2pudg9ffh5ger.apps.googleusercontent.com">
+<meta name="google-signin-client_id"
+	content="1048798785374-akhqjnf6p4g1fdo3mkf2pudg9ffh5ger.apps.googleusercontent.com">
 <section id="context">
 
 	<div class="login-logo-container">
 		<img class="login-logo"
 			src="${path }/resources/images/logo/signature.png" alt="" />
 	</div>
-
-	<div class="login-fields-container">
-		<h4 class="login-error-msg">아이디나 비밀번호가 틀렸습니다</h4>
-		<h3>아이디</h3>
-		<input type="text" class="input--text" id="login-id" />
-		<h3>비밀번호</h3>
-		<input type="password" class="input--text" id="login-pw" />
-	</div>
-	<div class="login-sub-menu-container">
-		<h5 class="id-pw-finder">ID/PW 찾기</h5>
-		<h5>|</h5>
-		<h5 class="sign-up">회원가입</h5>
-	</div>
-	<div class="login-button-container">
-		<button class="btn btn--primary">로그인</button>
-	</div>
+	<form action="${path }/member/loginVerify.do" method="post"
+		class="login-form">
+		<div class="login-fields-container">
+			<c:if test="${loginFlag == true}">
+				<h5>아이디나 비밀번호가 틀렸습니다</h5>
+			</c:if>
+			<h3>아이디</h3>
+			<input type="text" class="input--text" id="login-id" name="id" required/>
+			<h3>비밀번호</h3>
+			<input type="password" class="input--text" id="login-pw"
+				name="password" required/>
+		</div>
+		<div class="login-sub-menu-cont">
+			<div class="login-sub-menu-container">
+				<h5 class="id-pw-finder">ID/PW 찾기</h5>
+				<h5>|</h5>
+				<h5 class="sign-up">회원가입</h5>
+			</div>
+		</div>
+		<div class="login-button-container flex-center">
+			<button class="btn btn--primary">로그인</button>
+		</div>
+	</form>
 	<div class="oauth-button-container">
 		<h4>간편 로그인 / 회원가입</h4>
 		<div class="buttons">

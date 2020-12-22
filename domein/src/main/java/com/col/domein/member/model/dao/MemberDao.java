@@ -84,4 +84,8 @@ public class MemberDao {
 	public boolean updateMemberProfileUrl(SqlSession session, SnsInfo sns) {
 		return session.update("member.insertMemberProfileUrl",sns)==1;
 	}
+	
+	public Member selectMemberById(SqlSession session, Map<String, String> values) {
+		return session.selectOne("member.selectMemberById", values);
+	}
 }

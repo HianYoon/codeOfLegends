@@ -192,12 +192,13 @@ public class MemberController {
 			String id = m.getId().substring(0, m.getId().length() - 3) + "**";
 			model.addAttribute("email", email);
 			model.addAttribute("id", id);
-			return  "member/oauth/emailFound";
+			return "member/oauth/emailFound";
 		}
 //		비밀번호 일치 시
 		SnsInfo sns = (SnsInfo) session.getAttribute("snsForEmailFoundMember");
 		boolean flag = ms.insertSnsInfoForEmailFoundMember(session, m, sns);
-		if(!flag) return "redirect: /error.do";
+		if (!flag)
+			return "redirect: " + request.getContextPath() + "/error.do";
 		return "redirect: " + request.getContextPath() + "/" + url;
 	}
 
@@ -221,8 +222,31 @@ public class MemberController {
 
 		boolean flag = ms.insertNewOauthMember(session, m, sns);
 		if (!flag)
-			return "redirect: /error.do";
+			return "redirect: " + request.getContextPath() + "/error.do";
 		return "redirect: " + request.getContextPath();
 	}
+/////////////////////////////////////////////////////////
+////////////Oauth 2.0 종료///////////////////////////////////
+/////////////////////////////////////////////////////////	
 
+//////////////////////////////////////////////////////
+////////////일반 로그인 ///////////////////////////////////
+//////////////////////////////////////////////////////
+	@RequestMapping("/loginVerify.do")
+	public String loginVerify(HttpSession session, HttpServletRequest request, String id, String password,
+			Model model) {
+
+		Member m = ms.selectMemberById(id);
+		if (m == null) {
+			model.addAttribute("loginFlag", true);
+			return "member/memberLogin";
+		}
+		boolean pwFlag = pwEncoder.matches(password, m.getPassword());
+		if (!pwFlag) {
+			model.addAttribute("loginFlag", true);
+			return "member/memberLogin";
+		}
+		ms.signInSuccess(session, 0, m);
+		return "redirect: " + request.getContextPath();
+	}
 }

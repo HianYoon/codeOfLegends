@@ -40,11 +40,17 @@ section{
   display: none;
 }
 
+.login-sub-menu-cont{
+	width: 100%;
+	display: flex;
+	justify-content: center;
+}
+
 .login-sub-menu-container{
   display: flex;
   justify-content: space-between;
   margin:5px;
-  width: 50%;
+  width: 100%;
   max-width: 300px;
   min-width: 150px;
 }
@@ -90,4 +96,12 @@ section{
 
 .oauth-hidden-btn-cont{
 	display:none;
+}
+
+.login-form{
+	width:100%;
+	display: flex;
+	justify-content: center;
+	flex-direction: column;
+	align-content: center;
 }
