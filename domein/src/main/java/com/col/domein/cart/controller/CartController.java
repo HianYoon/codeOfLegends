@@ -24,18 +24,23 @@ public class CartController {
 	@RequestMapping("/cart/cart.do")
 	public <MutipartFile> ModelAndView cart(ModelAndView mv,@ModelAttribute Cart c,HttpSession session
 			){
-		
+		System.out.println(""+c);
         //@ModelAttribute는 sumit된 form의 내용을 저장해서 전달받거나, 다시 뷰로 넘겨서 출력하기 위해 사용되는 오브젝트 이다.
 
         //도메인 오브젝트나 DTO의 프로퍼티에 요청 파라미터를 바인딩해서 한번에 받으면 @ModelAttribute 라고 볼 수 있다.
 
         //@ModelAttribute는 컨트롤러가 리턴하는 모델에 파라미터로 전달한 오브젝트를 자동으로 추가해준다.
 		//로그인 여부를 체크하기위해 세션에 저장된 memberkey확인
-		int memberkey=(int)session.getAttribute("signedInMember");
-		if(memberkey==0) {
+		
 			//로그인하지않은상태이면  amount1개로 설정해서 저장.
+		
+		//int memberkey=(int)session.getAttribute("memberkey");
+		if(c.getMemberKey()==0) {
+			//로그인하지않은상태이면 로그인 화면으로 이동
+			
+			return mv;
 		}
-		c.setMemberKey(memberkey);
+	
 		service.insertProductCart(c);//장바구니테이블에 저장됨
 		mv.addObject("");
 		mv.setViewName("cart/cart");//장바구니 목록으로 이동

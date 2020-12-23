@@ -6,6 +6,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.TreeSet;
 
 import javax.servlet.http.HttpSession;
 
@@ -16,7 +17,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.col.domein.business.model.vo.Business;
 import com.col.domein.common.pageBar.PageBarFactory;
+import com.col.domein.member.model.vo.Member;
 import com.col.domein.product.model.service.ProductService;
 import com.col.domein.product.model.vo.Attachement;
 import com.col.domein.product.model.vo.BoardProductSaleContent;
@@ -32,7 +35,8 @@ public class ProductController {
 	
 	@Autowired
 	private ProductService service;
-
+	@Autowired
+	private Member m;
 	//메인에서 product.jsp로 페이지 전환
 	@RequestMapping("/product/into.do")
 	public String product() {
@@ -157,11 +161,18 @@ public class ProductController {
 	}
 	//my상품list조회
 	@RequestMapping("/product/productUpdate.do")
-	public ModelAndView productUpdate(ModelAndView mv, int articleNo) {
+	public ModelAndView productUpdate(ModelAndView mv, int articleNo ) {
 		System.out.println("articleNo"+articleNo);
-		List<Map> product=service.selectProductOne(articleNo);
-		mv.addObject("product",product);
-		mv.setViewName("product/productUpdate");
+		
+		TreeSet<Business> businessses=m.getBusinesses();//트리셋으로 비지니스키 가져오기
+		
+		if(m.getBusinesses().equals("businesses")) {		
+			List<Map> product=service.selectProductOne(articleNo);
+			mv.addObject("product",product);
+			mv.setViewName("product/productUpdate");
+		}else {
+			mv.setViewName("index");
+		}
 		return mv;
 		
 	}

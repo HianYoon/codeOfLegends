@@ -4,6 +4,7 @@
     <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
     <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
      <c:set var="path" value="${pageContext.request.contextPath }"/>
+     <c:set var="member" value="${sessionScope.signedInMember}"/>
 <link rel="stylesheet" href="${path}/resources/css/product/productDetail.css"/>
  <link rel="stylesheet" href="${path}/resources/css/sharedStyle.css"/>
  <link rel="stylesheet"
@@ -13,8 +14,7 @@
 	<jsp:param name="title" value=""/>
 </jsp:include>
 <%@ page import="com.col.domein.member.model.vo.Member" %>
-<%  Member m= (Member)request.getAttribute("signedInMember"); %>
- 
+
    
 <section id="content">
 	 <div class="productDetailPage">
@@ -35,8 +35,8 @@
 	            </div>
 	                
 	            <div class="product-textgroup">
-	                <form action="${path}/cart/cart.do?memberKey=${m}" method="post" >
-	                    <h2>카테고리명<input type="hidden" id="pNo" name="pNo" value="${p.PRODUCT_NO}"></h2>
+	                <form name="form" action="${path}/cart/cart.do?memberKey=1" method="post" >
+	                    <h2>카테고리명<input type="hidden" id="pNo" name="productNo" value="${p.PRODUCT_NO}"></h2>
 	                    <<input type="hidden"  name="memberkey" value="1">
 	                    <ul class="star">
 	                        <li><span>☆</span><span>☆</span><span>☆</span><span>☆</span><span>☆</span>리뷰수:</li>
@@ -61,9 +61,9 @@
 	                   		<div class="select-container">
 	                   		
 		                   	<div>
-		                        <select name="productNames"  class="productNames" id="product-select-List">
+		                        <select name="productNames"  class="productNames" id="product-select-List" >
 			                        <c:forEach var="pName" items="${product}" varStatus="status">
-			                            <option value="">옵션</option>
+			                            <option value="">선택하세요</option>
 			                            <option value="${pName.PRODUCT_NAME}"><c:out value="${pName.PRODUCT_NAME}"/></option>
 			                            
 			                        </c:forEach>
@@ -72,7 +72,7 @@
 		                   	<div>
 		                        <select name="addProductname" class="addProductname" id="product-select-List" style="display:none;">
 			                         <c:forEach var="p1" items="${product}" varStatus="status">
-			                            <option value="옵션">옵션</option>
+			                            <option value="옵션">선택하세요</option>
 			                            <option value="${p1.PRODUCT_NAME}"><c:out value="${p1.PRODUCT_NAME}"/></option>
 			                            
 			                        </c:forEach>
@@ -82,10 +82,10 @@
 	                    
 	                    <div class="order-product">
 		                   	 <div class="order-container">
-		                        <h4><c:out value="${p.PRODUCT_NAME}"/></h4>
+		                        <h4 class="orderText"></h4>
 		                        <div class="product-price">
 		                            <input type="button" class="minus" value="-"/>
-		                            <input type="number" name="count" class="number" value="1" readonly>
+		                            <input type="number" name="amount" class="number" value="1" readonly>
 		                            <input type="button" class="plus" value="+"/>
 		                       </div>
 		                      <div class="price-text">
@@ -98,8 +98,14 @@
 	                    </div>
 	                    <div class="button-order">
 	                   <c:if test="${signedInMember ==null }">
-	                        <button type="submit" id="cart"  class="btn btn--primary1">장바구니</button>
 	                   </c:if>
+	                        <button type="button" id="cart" onclick="cartGo();" class="btn btn--primary1">장바구니</button>
+	                   <script type="text/javascript">
+	                   		function cartGo(){
+	                   			session.setAttributte("ProductNo"+productNo+"\nAmount:"+amount);
+	                   			location.href="${path}/cart/cart.do?productNo="+productNo+"&amount="+amount;
+	                   		}
+	                   </script>
 	                   <c:if test="${signedInMember !=null }">
 	                        <button type="submit" id="cart"  class="btn btn--primary1">장바구니</button>
 	                   </c:if>
