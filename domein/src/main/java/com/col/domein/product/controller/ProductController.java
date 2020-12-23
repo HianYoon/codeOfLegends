@@ -37,7 +37,6 @@ public class ProductController {
 	private ProductService service;
 	@Autowired
 	private Member m;
-	//메인에서 product.jsp로 페이지 전환
 	@RequestMapping("/product/into.do")
 	public String product() {
 		return "product/product";

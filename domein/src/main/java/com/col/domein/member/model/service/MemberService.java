@@ -382,7 +382,7 @@ public class MemberService {
 	}
 	
 	public boolean logoutMember(Member m, int loginSource) {
-		System.out.println("dkssud");
+		
 		MemberLog log= new MemberLog(m.getMemberKey(), null, 9, null, loginSource, null);
 		return md.insertMemberLog(session, log);
 	}
