@@ -19,6 +19,12 @@ public class BoardProductSaleContent implements Comparable<BoardProductSaleConte
 	private String saleContent;
 	private int orderCount;
 	private int saleStatusNo;
+
+	@Override
+	public int compareTo(BoardProductSaleContent o) {
+		// TODO Auto-generated method stub
+		return this.articleNo-o.getArticleNo();
+	}
 	
 	public BoardProductSaleContent() {
 		
@@ -36,38 +42,69 @@ public class BoardProductSaleContent implements Comparable<BoardProductSaleConte
 		this.orderCount = orderCount;
 		this.saleStatusNo = saleStatusNo;
 	}
-	
 
 	public int getArticleNo() {
 		return articleNo;
+	}
+
+	public void setArticleNo(int articleNo) {
+		this.articleNo = articleNo;
 	}
 
 	public String getTitle() {
 		return title;
 	}
 
+	public void setTitle(String title) {
+		this.title = title;
+	}
+
 	public int getBusinessKey() {
 		return businessKey;
+	}
+
+	public void setBusinessKey(int businessKey) {
+		this.businessKey = businessKey;
 	}
 
 	public Date getWrittenDate() {
 		return writtenDate;
 	}
 
+	public void setWrittenDate(Date writtenDate) {
+		this.writtenDate = writtenDate;
+	}
+
 	public Date getModifiedDate() {
 		return modifiedDate;
+	}
+
+	public void setModifiedDate(Date modifiedDate) {
+		this.modifiedDate = modifiedDate;
 	}
 
 	public String getSaleContent() {
 		return saleContent;
 	}
 
+	public void setSaleContent(String saleContent) {
+		this.saleContent = saleContent;
+	}
+
 	public int getOrderCount() {
 		return orderCount;
 	}
 
+	public void setOrderCount(int orderCount) {
+		this.orderCount = orderCount;
+	}
+
 	public int getSaleStatusNo() {
 		return saleStatusNo;
+	}
+
+	public void setSaleStatusNo(int saleStatusNo) {
+		this.saleStatusNo = saleStatusNo;
 	}
 
 	@Override
@@ -132,30 +169,6 @@ public class BoardProductSaleContent implements Comparable<BoardProductSaleConte
 		return true;
 	}
 
-	@Override
-	public int compareTo(BoardProductSaleContent o) {
-		// TODO Auto-generated method stub
-		return this.articleNo-o.getArticleNo();
-	}
-
-	public void setTitle(String trim) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	public void setBusinessKey(int businessKey2) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	public void setSaleContent(String saleContent2) {
-		// TODO Auto-generated method stub
-		
-	}
-	
-	
-	
-	
 	
 
 }
