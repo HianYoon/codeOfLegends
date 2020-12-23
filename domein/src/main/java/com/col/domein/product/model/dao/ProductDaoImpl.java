@@ -91,4 +91,10 @@ public class ProductDaoImpl implements ProductDao {
 		// TODO Auto-generated method stub
 		return session.update("product.updateFiles",a);
 	}
+
+	@Override
+	public List<Map> selectProductByBusinessKey(SqlSession session, int businessKey) {
+		// TODO Auto-generated method stub
+		return session.selectList("product.selectProductByBusinessKey",businessKey);
+	}
 }

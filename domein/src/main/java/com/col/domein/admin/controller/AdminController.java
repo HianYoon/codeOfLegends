@@ -11,12 +11,16 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.col.domein.member.model.service.MemberService;
 import com.col.domein.member.model.vo.Member;
+import com.col.domein.product.model.service.ProductService;
 
 @Controller
 public class AdminController {
 
 	@Autowired
 	private MemberService ms;
+	
+	@Autowired
+	private ProductService ps;
 	
 	@RequestMapping("admin/searchUser.do")
 	public String searchUser(Model m,@RequestParam(value="cPage",defaultValue="1")int cPage,
@@ -28,11 +32,14 @@ public class AdminController {
 	}
 	
 	@RequestMapping("admin/userInfo.do")
-	public String userInfo(Model m, int memberKey) {
+	public String userInfo(Model m, int memberKey, int businessKey, String businessNo) {
+		
 		
 		Member member = ms.selectMemberByMemberKey(memberKey);
 		m.addAttribute("m",member);
-		
+		m.addAttribute("businessKey",businessKey);
+		m.addAttribute("businessNo",businessNo);
+		m.addAttribute("productList",ps.selectProductByBusinessKey(businessKey));
 		return "admin/userInfo";
 	}
 }

@@ -16,6 +16,7 @@
 			<ul>
 				<li><a href="#">사용자 관리</a></li>
 				<li><a href="#">게시글 제재</a></li>
+				<li><a href="#">${path }</a></li>
 			</ul>
 		</div>
 		<div class="search-result">
@@ -41,20 +42,25 @@
 						<ul class="lists-result">
 							<c:forEach items="${list }" var="l">
 							<li>
-								<a class="wrap-user-profile" href="${path}/admin/userInfo.do?memberKey=${l.MEMBER_KEY}">
+								<c:if test="${l.BUSINESS_KEY != null }">
+								<a class="wrap-user-profile" href="${path}/admin/userInfo.do?memberKey=${l.MEMBER_KEY}&businessKey=${l.BUSINESS_KEY}&businessNo=${l.BUSINESS_NO}">
+								</c:if>
+								<c:if test="${l.BUSINESS_KEY == null }">
+								<a class="wrap-user-profile" href="${path}/admin/userInfo.do?memberKey=${l.MEMBER_KEY}&businessKey=-1">
+								</c:if>
 									<div class="box-img">								
 										<c:choose>
 											<c:when test="${l.PROFILE_URL eq null }">
 											<img src="https://secure.gravatar.com/avatar/91524e06c4642938f6dff01039a4b2a3?s=96&r=g&d=https://drsuleymantas.com/wp-content/plugins/userswp/assets/images/no_profile.png" width="120">
 											</c:when>
 											<c:otherwise>
-											<img src="${path }/resources/images/profile/${l.PROFILE_URL}" width="120">
+											<img src="${l.PROFILE_URL}" width="120">
 											</c:otherwise>
 										</c:choose>
-										<c:if test="${l.BUSINESS_NO == NULL }">
+										<c:if test="${l.BUSINESS_KEY == NULL }">
 										<span class="labeling red">미등록</span>
 										</c:if>
-										<c:if test="${l.BUSINESS_NO != NULL }">
+										<c:if test="${l.BUSINESS_KEY != NULL }">
 										<span class="labeling green">사업자</span>
 										</c:if>
 									</div>

@@ -35,6 +35,8 @@ public interface ProductService {
 	int updateBDS(ProductAll p);
 	//상품수정PDS수정
 	int updatePDS(ProductAll p, List<Attachement> files);
+	//비즈니스키로 상품목록 조회
+	List<Map> selectProductByBusinessKey(int businessKey);
 
 
 }

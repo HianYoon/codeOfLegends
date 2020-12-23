@@ -40,6 +40,7 @@ public interface ProductDao {
 	int updatePDS(SqlSession session,ProductAll p);
 	//상품files수정
 	int updateAttachment(SqlSession session, Attachement a);
+	List<Map> selectProductByBusinessKey(SqlSession session,int businessKey);
 
 
 
