@@ -471,3 +471,279 @@ ul.pagination.ustify-content-center.pagenation-sm {
           
         }
 }
+/* tab Media */
+    @media (max-width: 768px){
+        div#octionPage {
+            display: contents;
+            justify-content: center;
+            align-items: center;
+            width: 700px;
+            height: auto;
+        }
+      div#octionPage div#wrapper {
+            display: block;
+            width: 100%;
+            height: auto;
+        }
+    div#octionPage ul.tabs {
+            display: flex;
+            width: 700px;
+            height:auto;
+            background: #ffca28;
+            margin: 0!important;
+            
+        }
+   div#octionPage ul.tabs li{
+            width: 100%;
+            height:40px;
+            margin-bottom: 10px;
+           
+        }
+       div#octionPage .tabs li a{
+            font-size: 18px !important;
+            font-weight: 500;
+        }
+    
+    }
+
+
+
+div#octionPage .tab_content{
+    display:block;
+    width: 900px;
+    height: auto;
+    
+
+}
+div#octionPage .direct-Product-container{
+    display: block;
+    width: 800px;
+    height: auto;
+    justify-content: center;
+    align-content: center;
+}
+div#octionPage .product-textgroup {
+    width: 600px;
+    display: grid;
+    grid-template-columns: auto;
+    align-items: center;
+    height: auto;
+}
+div#octionPage .product-textgroup input{
+    margin-bottom: 10px;
+}
+div#octionPage .direct-img-file {
+    width: 600px;
+    height: 50px;
+}
+div#octionPage .direct-Product-container textarea {
+    width: 600px;
+    margin: 10px 0;
+    border-radius: 5px;
+}
+.direct-btn-group {
+    display: flex;
+    margin: 10px 0;
+    padding: 10px;
+}
+.direct-btn-group button{
+    margin: 0 10px;
+}
+/* 상품list/ */
+.oction--header {
+    display: block;
+      width: 900px;
+      height: auto;
+  }
+  .oction-searchbox {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-top: 10px;
+  }
+  .product--search-list ul{
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+  }
+  .product--search-list ul li{
+      margin-right: 15px;
+      
+  }
+  img#big-target {
+    width: 150px;
+    height: 150px;
+}
+.grid2-container {
+    display: grid;
+    grid-template-columns: auto auto auto auto auto;
+    gap: 10px;
+}
+.oction--grid--container {
+    width: 100%;
+    height: auto;
+    box-sizing: border-box;
+}
+div#pageBar {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: auto;
+    height: 50px;
+    margin: 10px;
+}
+
+
+
+
+
+@media (max-width: 768px){
+    #oction-page{
+        width: 700px;
+        height: auto;
+        margin: none;
+        padding: none;
+    }
+    .tab_content{
+        display:none;
+    
+        
+    }
+    .direct-Product-container {
+        width: 600px;
+        height: auto;
+        display: block;
+        justify-content: center;
+        box-sizing: border-box;
+      
+    }
+    .product-textgroup {
+        width: 100%;
+        display: grid;
+        grid-template-columns: auto;
+        align-items: center;
+        height: auto;
+    }
+    .product-textgroup input{
+        width:500px;
+    }
+ 
+    .direct-Product-container textarea {
+        width: 500px;
+        margin: 10px 0;
+        border-radius: 5px;
+    }
+    .input-container input{
+        width: 500px;
+        height: 40px;
+        margin-bottom: 10px;
+    }
+    div.double-date span input[type="date"] {
+        width: 150px !important;
+    }
+    .product-register-btn{
+        display: flex;
+        justify-content: start;
+        align-items: center;
+    }
+    .double-date {
+        width: 300px;
+        height: auto;
+        box-sizing: border-box;
+    }
+    div.double-date input{
+        width: 300px;
+    }
+    .product-register-btn button{
+        margin-right: 20px;
+    }
+    .joinformBtn {
+        display: flex;
+    }
+    .joinformBtn button{
+       margin-right: 20px;
+       
+    }
+    /* 상품List */
+
+    .product--search-list ul {
+        display: flex;
+        justify-content: end;
+        align-items: center;
+        margin-bottom: 30px;
+    }
+  div#grid2 {
+      width: 700px;
+      height: auto;
+           
+        }
+        .oction--grid--container {
+            width: 70%;
+            height: auto;
+            position: relative;
+        }
+        .oction-img-group {
+            display: block;
+            width: 100%;
+            height: 180px;
+            margin-bottom: 5px;
+            font-size: 15px;
+            font-weight: 400;
+            box-sizing: border-box;
+        }
+        img#big-target {
+            width: 150px !important;
+            height: 150px;
+        }
+        .grid2-container {
+            width: 700px;
+            height: auto;
+            gap: 30px;
+            display: grid;
+            grid-template-columns: auto auto auto !important;
+          
+        }
+}
+
+ /* 전체 html display  flex*/
+ #octionPage{
+    display:flex;
+    width: 1200px;
+    height: auto;
+    gap:50px;
+   
+}
+.tab-container-group{
+    width:900px;
+    height:auto;
+    margin:10px 30px;
+}
+div#wrapper {
+    width: 200px;
+    background: #ffca28;
+}
+div#wrapper .tab-container-group{
+    width:900px;
+    height:auto;
+    margin:10px 30px;
+}
+
+div#wrapper .tabs{
+    margin-top: 80px;
+}
+div#wrapper .tabs li{
+    list-style-type: none;
+    margin-top: 20px;
+}
+
+div#wrapper .tabs li a{
+    font-size: 26px;
+    color:black;
+}
+ul li{
+ list-style-type: none;
+}
+button.btn .btn--primary{
+	z-index:0;
+}
+

@@ -33,7 +33,7 @@ public interface ProductDao {
 	//내상품조회 상품 수정
 	List<Map> selectProductOne(SqlSession session, int articleNo);
 	// 상품 삭제
-	int DeleteProduct(SqlSession session, int articleNo);
+	int deleteProduct(SqlSession session, int articleNo);
 	//상품 BDS 수정
 	int updateBDS(SqlSession session, ProductAll p);
 	//상품PDS 수정

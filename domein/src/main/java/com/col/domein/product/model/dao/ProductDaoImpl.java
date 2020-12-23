@@ -67,7 +67,7 @@ public class ProductDaoImpl implements ProductDao {
 	}
 	//상품삭제
 	@Override
-	public int DeleteProduct(SqlSession session, int articleNo) {
+	public int deleteProduct(SqlSession session, int articleNo) {
 		// TODO Auto-generated method stub
 		return session.delete("product.deleteProductOne",articleNo);
 	}

@@ -41,14 +41,9 @@ public class ProductController {
 	
 	//BoardSaleContent등록
 	@RequestMapping("/boardSaleContent/insert.do")
-	public ModelAndView insertBoardSaleContent(BoardProductSaleContent bp,ModelAndView mv,int businessKey) {
+	public ModelAndView insertBoardSaleContent(BoardProductSaleContent bp,ModelAndView mv) {
 		
 		System.out.println(""+bp);
-		businessKey=1;
-		bp.setBusinessKey(businessKey);
-		
-		bp.setTitle(bp.getTitle().trim());
-		bp.setSaleContent(bp.getSaleContent());
 		
 		int result=service.insertBoardSContent(bp);
 		mv.addObject("msg",result>0?"입력성공":"입력실패");
