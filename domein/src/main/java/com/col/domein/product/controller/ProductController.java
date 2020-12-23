@@ -43,7 +43,7 @@ public class ProductController {
 	@RequestMapping("/boardSaleContent/insert.do")
 	public ModelAndView insertBoardSaleContent(BoardProductSaleContent bp,ModelAndView mv,int businessKey) {
 		
-		System.out.println(""+bp);
+		System.out.println(bp);
 		businessKey=1;
 		bp.setBusinessKey(businessKey);
 		
