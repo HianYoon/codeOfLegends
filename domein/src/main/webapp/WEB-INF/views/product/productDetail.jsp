@@ -35,9 +35,9 @@
 	            </div>
 	                
 	            <div class="product-textgroup">
-	                <form name="form" action="${path}/cart/cart.do?memberKey=1" method="post" >
+	                <form name="form" action="${path}/cart/cart.do" method="post" >
 	                    <h2>카테고리명<input type="hidden" id="pNo" name="productNo" value="${p.PRODUCT_NO}"></h2>
-	                    <<input type="hidden"  name="memberkey" value="1">
+	                    <input type="hidden" value="${signedInMember.memberKey}"  name="memberkey" value="1">
 	                    <ul class="star">
 	                        <li><span>☆</span><span>☆</span><span>☆</span><span>☆</span><span>☆</span>리뷰수:</li>
 	                        <!--  <li><img src="${path}/resources/images/profile/jjim.png" style="width:20px;height:20px"alt="찜" id="jjim"></li>
@@ -99,13 +99,13 @@
 	                    <div class="button-order">
 	                   <c:if test="${signedInMember ==null }">
 	                   </c:if>
-	                        <button type="button" id="cart" onclick="cartGo();" class="btn btn--primary1">장바구니</button>
-	                   <script type="text/javascript">
+	                        <button type="submit" id="cart" onclick="cartGo();" class="btn btn--primary1">장바구니</button>
+	                 <!--   <script type="text/javascript">
 	                   		function cartGo(){
 	                   			session.setAttributte("ProductNo"+productNo+"\nAmount:"+amount);
 	                   			location.href="${path}/cart/cart.do?productNo="+productNo+"&amount="+amount;
 	                   		}
-	                   </script>
+	                   </script> -->
 	                   <c:if test="${signedInMember !=null }">
 	                        <button type="submit" id="cart"  class="btn btn--primary1">장바구니</button>
 	                   </c:if>
