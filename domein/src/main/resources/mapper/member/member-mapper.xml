@@ -23,7 +23,7 @@
 		<association property="levelDesc" javaType="String" column="LEVEL_NO" select="member.selectLevelDesc"></association>
 		<association property="statusDesc" column="ACCOUNT_STATUS_NO" javaType="String" select="member.selectStatusDesc"></association>
 		<association property="totalPoint" javaType="int" column="MEMBER_KEY" select="point.seletTotalPoint" ></association>
-		<collection property="businessKeys" javaType="java.util.TreeSet" column="MEMBER_KEY" select="business.selectBusinessByMemberKey"></collection>
+		<collection property="businesses" javaType="java.util.TreeSet" column="MEMBER_KEY" select="business.selectBusinessByMemberKey"></collection>
 	</resultMap>
 <!-- 리절트맵 세팅을 위한 구문 -->
 	<select id="selectLevelDesc" resultType="string">
