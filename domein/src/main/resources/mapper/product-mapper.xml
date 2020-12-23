@@ -69,6 +69,10 @@
 		<select id="selectProductMylist" parameterType="_int" resultType="map">
 			select * from product_all where business_key=#{businessKey}
 		</select>
+		<!-- BUSINESS_KEY로 상품목록 불러오기 -->
+		<select id="selectProductByBusinessKey" parameterType="_int" resultType="map">
+			SELECT * FROM PRODUCT_ALL WHERE BUSINESS_KEY = #{businessKey}
+		</select>
 			<!-- 상품수정을위한 상품하나불러오기쿼리-->
 			<select id="selectProductOne" parameterType="_int" resultType="map">
 				select * from product_all where ARTICLE_NO=#{articleNo}

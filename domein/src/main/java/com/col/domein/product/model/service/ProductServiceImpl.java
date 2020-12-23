@@ -127,6 +127,12 @@ public class ProductServiceImpl implements ProductService {
 			}
 		}
 		return result;
+	}
+
+	@Override
+	public List<Map> selectProductByBusinessKey(int businessKey) {
+		// TODO Auto-generated method stub
+		return dao.selectProductByBusinessKey(session,businessKey);
 	}	
 	
 	

@@ -19,14 +19,14 @@
 						<div class="box-img">
 							<c:choose>
 								<c:when test="${m.profileUrl != null }">
-									<img src="/domein/resources/images/profile/${m.profileUrl }" alt="">
+									<img src="${m.profileUrl }" alt="">
 								</c:when>
 								<c:otherwise>
 									<img src="https://secure.gravatar.com/avatar/91524e06c4642938f6dff01039a4b2a3?s=96&r=g&d=https://drsuleymantas.com/wp-content/plugins/userswp/assets/images/no_profile.png" width="120">
 								</c:otherwise>
 							</c:choose>
 							<c:choose>
-								<c:when test="${m.businessNo == null }">
+								<c:when test="${businessKey == -1 }">
 									<span class="labeling red">
 										미등록
 									</span>
@@ -49,12 +49,16 @@
 									<dd><c:out value="${m.userName }"/></dd>
 								</div>
 								<div>
+									<dt>닉네임</dt>
+									<dd><c:out value="${m.nickname}"/></dd>
+								</div>
+								<div>
 									<dt>사업자번호</dt>
 									<dd>
-										<c:if test="${m.businessNo != null }">
-											<c:out value="${m.businessNo }"/>
+										<c:if test="${businessKey != -1 }">
+											<c:out value="${businessNo}"/>
 										</c:if>
-										<c:if test="${m.businessNo == null }">
+										<c:if test="${businessKey == -1 }">
 											미등록
 										</c:if>
 									</dd>
@@ -100,32 +104,21 @@
 						</ul>
 						<div class="contents-tab">
 							<ul class="lists-result">
-								<li class="item-user-activity">
-									<div class="box-text">
-										<p class="labeling blue">거래중</p>
-										<p class="list-title">
-											<a href="" >수입 삼겹살 유통 판매합니다.</a>
-										</p>
-										<p class="date">2020.11.15</p>	
-									</div>
-									<div class="box-button">
-										<button class="button-type-1" >블라인드</button>
-										<button class="button-type-1" >삭제</button>
-									</div>
-								</li>
-								<li class="item-user-activity">
-									<div class="box-text">
-										<p class="labeling blue">거래중</p>
-										<p class="list-title">
-											<a href="" >수입 삼겹살 유통 판매합니다.수입 삼겹살 유통 판매합니다.</a>
-										</p>
-										<p class="date">2020.11.15</p>	
-									</div>
-									<div class="box-button">
-										<button class="button-type-1" >블라인드</button>
-										<button class="button-type-1" >삭제</button>
-									</div>
-								</li>
+								<c:forEach items="${productList }" var="proList">
+									<li class="item-user-activity">
+										<div class="box-text">
+											<p class="labeling blue">거래중</p>
+											<p class="list-title">
+												<a href="" ><c:out value="${proList.TITLE }"/></a>
+											</p>
+											<p class="date"><c:out value="${proList.WRITTEN_DATE }"/></p>	
+										</div>
+										<div class="box-button">
+											<button class="button-type-1" >블라인드</button>
+											<button class="button-type-1" >삭제</button>
+										</div>
+									</li>
+								</c:forEach>
 							</ul>
 						</div>
 					</div>
