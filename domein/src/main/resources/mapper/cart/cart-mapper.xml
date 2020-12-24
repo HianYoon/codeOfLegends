@@ -1,10 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="cart">
-
 	<!--cart 로그인햇을경우가 잇을경우  -->
 	<insert id="insertProductCart" parameterType="cart">
 		insert into cart values(#{memberkey},#{pNo},#{count})
 	</insert>
 	
+	<!-- 비회원 장바구니 상품 불러오기 -->
+	<select id="selectProductList" resultType="_int">
+		select * from Product_all where PRODUCT_NO = #{productNo}
+	</select>
+	
+	<select id="selectCartOne" resultType="map">
+		select * from product_all where PRODUCT_NO = #{productNo}
+	</select>
 </mapper>

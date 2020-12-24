@@ -3,12 +3,12 @@
     <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
     <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
     <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
-    
+     <c:set var="path" value="${pageContext.request.contextPath }"/>
+
   <link rel="stylesheet"
 	href="${path }/resources/css/cart/cart.css" />
   <link rel="stylesheet" href="${path }/resources/css/jihunTab/TabMedia.css"/>
     
-     <c:set var="path" value="${pageContext.request.contextPath }"/>
 <jsp:include page="/WEB-INF/views/common/header.jsp">
 	<jsp:param name="title" value=""/>
 </jsp:include>
@@ -67,7 +67,9 @@
 
                                             <p>상품명:</p>
                                             
-                                            <input type="number"  name="cartQuantity" value="0" maxlength=""/>
+                                            <input type="button" id="minus" name="minus" value="-" maxlength=""/>
+                                            <input type="text" id="amount" name="amount" value="${amount}" maxlength="" readonly/>
+                                            <input type="button" id="plus" name="plus" value="+" maxlength=""/>
                                               
                                             <p>가격:</p>
             

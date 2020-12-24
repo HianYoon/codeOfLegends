@@ -13,7 +13,7 @@
 <jsp:include page="/WEB-INF/views/common/header.jsp">
 	<jsp:param name="title" value=""/>
 </jsp:include>
-<%@ page import="com.col.domein.member.model.vo.Member" %>
+
 
    
 <section id="content">
@@ -89,7 +89,7 @@
 		                            <input type="button" class="plus" value="+"/>
 		                       </div>
 		                      <div class="price-text">
-		                            <p><span class="text-left">가격</span><input type="hidden" id="pprice1" value="${p.PRICE}" class="text-right" readonly/> <input id="pprice" name="price" value="" class="text-right" type="text" readonly/>원</p>
+		                            <p><span class="text-left">가격</span><input type="hidden" id="pprice1" value="${p.PRICE}" class="text-right"readonly/> <input id="pprice" name="price" value="${p.PRICE}" class="text-right" type="text" readonly/>원</p>
 		                            
 		                      </div>
 		                    </div>   
