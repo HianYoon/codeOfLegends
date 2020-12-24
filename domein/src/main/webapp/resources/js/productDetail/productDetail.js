@@ -29,7 +29,7 @@
 									minus.onclick=function(str){
 									  const ss=parseInt(number.value);
 									  
-									  if(ss==1) price.value=ss;
+									  if(ss==1) price.value=tagPrice;
 									  if(ss>1){
 									    number.value= ss-1;
 									    totalnumber=pchange*(ss-1);
@@ -101,26 +101,12 @@
                                   	form.style.display='flex';
                                   	
                                   };
+                                  //title orderbox에 출력하기
+                                  $("#product-select-List").change(function(){
+                                  	var OptionVal=$(this).val();
+                                  	$(".orderText").text(OptionVal);
+                                  var ff= $(".orderText").text=OptionVal;
+                                  	console.log(ff);
+                                  });
                                   
                                   
-                                  
-                                  
-                                  
-                                //select box클릭시 박스 복사 및 텍스트값 복사
-                           
-                             var productSelect=document.querySelector(".productNames option:checked");//클릭대상
-                             var addproductSelect=document.querySelector(".addProductname option:checked");//클릭대상
-                             
-                           /*  	var addProduct=orderCount.cloneNode(true);
-                            	orderCount.appendChild(addProduct); */
-							
-							//select값 가져오기                           	 
-                  
-              				var selectOption=document.querySelector(".productNames");
-              				
-              				selectOption= selectOption.options[selectOption.selectedIndex].value;
-              				
-              				console.log(selectOption);
-                      
-                   
-                           

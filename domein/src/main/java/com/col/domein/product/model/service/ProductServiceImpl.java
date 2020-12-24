@@ -95,7 +95,7 @@ public class ProductServiceImpl implements ProductService {
 	@Override
 	public int productDelete(int articleNo) {
 		// TODO Auto-generated method stub
-		return dao.DeleteProduct(session,articleNo);
+		return dao.deleteProduct(session,articleNo);
 	}
 
 	@Override

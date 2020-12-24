@@ -13,5 +13,6 @@
 		<typeAlias type="com.col.domein.member.model.vo.EmailCheck" alias="emailCheck"/>
 		<typeAlias type="com.col.domein.member.model.vo.SnsInfo" alias="snsInfo"/>
 		<typeAlias type="com.col.domein.member.model.vo.MemberLog" alias="memberLog"/>
+		<typeAlias type="com.col.domein.cart.model.vo.Cart" alias="cart"/>
 	</typeAliases>
 </configuration>
