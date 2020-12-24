@@ -4,16 +4,21 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.client.RestTemplate;
 
 import com.col.domein.member.model.service.MemberService;
 import com.col.domein.member.model.vo.Member;
+import com.col.domein.member.model.vo.NaverAccessTokenRequest;
+import com.col.domein.member.model.vo.NaverOauthResult;
+import com.col.domein.member.model.vo.NaverProfile;
 import com.col.domein.member.model.vo.SnsInfo;
 
 @Controller
@@ -225,6 +230,47 @@ public class MemberController {
 			return "redirect: " + request.getContextPath() + "/error.do";
 		return "redirect: " + request.getContextPath();
 	}
+
+//	Naver
+	@RequestMapping("/oauth/naver.do")
+	public String naverSignIn(HttpSession session, HttpServletRequest request, String state, String code) {
+		String naverState = (String) session.getAttribute("naverState");
+//		상태 토큰 불일치 시!
+		if (!naverState.equals(state)) {
+			session.removeAttribute("naverState");
+			return "redirect: " + request.getContextPath() + "/error.do";
+		}
+		String clientId = "SRI621amFGMTUu3kZVHJ";
+		String clientSecret = "sWGzb7TzkW";
+		String requestUrl = "https://nid.naver.com/oauth2.0/token?client_id=" + clientId + "&client_secret="
+				+ clientSecret + "&grant_type=authorization_code&state=" + naverState + "&code=" + code;
+		
+		RestTemplate rest = new RestTemplate();
+//		토큰 받아옴
+		NaverAccessTokenRequest token = rest.getForObject(requestUrl, NaverAccessTokenRequest.class);
+		
+//		프로필 받아오기
+		rest = new RestTemplate();
+		HttpHeaders headers = new HttpHeaders();
+		headers.add("Authorization", "Bearer "+token.getAccess_token());
+		HttpEntity<String> profileRequest = new HttpEntity<String>("",headers);
+		NaverOauthResult result =   rest.postForObject("https://openapi.naver.com/v1/nid/me", profileRequest, NaverOauthResult.class);
+		NaverProfile profile = result.getResponse(); 
+		
+		int signInResult = ms.naverSignIn(session, profile);
+		
+		String url = "";
+		String path = request.getContextPath();
+		switch(signInResult) {
+		case 1: url = "redirect: "+path; break;
+		case 2: url = "redirect: "+path+"/member/oauth/emailFound.do"; break;
+		case 3: url = "redirect: "+path+"/member/oauth/newOauthMember"; break;
+		default: url = "redirect: "+path+"/error.do";
+		}
+		
+		return url;
+	}
+
 /////////////////////////////////////////////////////////
 ////////////Oauth 2.0 종료///////////////////////////////////
 /////////////////////////////////////////////////////////	
@@ -249,7 +295,7 @@ public class MemberController {
 		ms.signInSuccess(session, 0, m);
 		return "redirect: " + request.getContextPath();
 	}
-	
+
 	@RequestMapping("/logout.do")
 	public String logout(HttpSession session, HttpServletRequest request) {
 		session.invalidate();

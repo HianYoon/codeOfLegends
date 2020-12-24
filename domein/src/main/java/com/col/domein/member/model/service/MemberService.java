@@ -22,6 +22,7 @@ import com.col.domein.member.model.dao.MemberDao;
 import com.col.domein.member.model.vo.EmailCheck;
 import com.col.domein.member.model.vo.Member;
 import com.col.domein.member.model.vo.MemberLog;
+import com.col.domein.member.model.vo.NaverProfile;
 import com.col.domein.member.model.vo.SnsInfo;
 import com.google.api.client.googleapis.auth.oauth2.GoogleIdToken;
 import com.google.api.client.googleapis.auth.oauth2.GoogleIdToken.Payload;
@@ -225,7 +226,7 @@ public class MemberService {
 //		코드 1: 정상 로그인, 
 //		코드 2: 이미 가입되어있는 이메일/연결 여부 묻기,
 //		코드 3: 미가입 -> 자동 가입(이메일 인증 X)
-//		코드 4: 커넥션 에러 등
+//		코드 9: 커넥션 에러 등
 
 //////////////////////////////////////////////////////////////////////
 // 구글 로그인 / 회원 가입
@@ -304,6 +305,68 @@ public class MemberService {
 		return 9;
 	}
 
+//	2.Kakao
+	
+	
+//	3.Naver
+	
+	public int naverSignIn(HttpSession httpSession, NaverProfile profile) {
+		
+		Member m = null;
+		int loginSourceNo = 3;
+//		네이버 아이디가 이미 있는지 체크
+		int memberKey = checkMemberThroughSnsId(loginSourceNo, profile.getId());
+////////////////////////////////////////////////////////////////////////////
+//Code 1
+		if(memberKey>0) {
+			m = md.selectMemberByMemberKey(session, memberKey);
+			signInSuccess(httpSession, loginSourceNo, m);
+
+			return 1;
+		}
+		
+/////////////////////////////////////////////////////////////////////////
+//Code 2
+		String email = profile.getEmail();
+		String pictureURL = profile.getProfile_image();
+		String name = profile.getName();
+		String id = profile.getId();
+		if(email==null) email="";
+		if(pictureURL == null) pictureURL = "";
+		if(name == null) name ="";
+		if(id == null) id = "";
+		
+		SnsInfo sns = new SnsInfo();
+		sns.setLoginSourceNo(loginSourceNo);
+		sns.setSnsId(id);
+		sns.setSnsName(name);
+		sns.setSnsProfilePic(pictureURL);
+		
+		Member emailFoundMember = md.selectMemberByEmail(session, email);
+		if (emailFoundMember != null) {
+			httpSession.setAttribute("emailFoundMember", emailFoundMember);
+			httpSession.setAttribute("snsForEmailFoundMember", sns);
+			return 2;
+		}
+		
+///////////////////////////////////////////////////////////////
+//Code 3
+		
+
+		Member newSnsMember = new Member();
+		newSnsMember.setEmail(email);
+		newSnsMember.setUserName(name);
+		newSnsMember.setProfileUrl(pictureURL);
+		httpSession.setAttribute("newSnsMember", newSnsMember);
+		httpSession.setAttribute("snsForNewSnsMember", sns);
+		return 3;
+	}
+	
+	
+	
+	
+	
+	
 	public int checkMemberThroughSnsId(int loginSourceNo, String id) {
 		SnsInfo sns = new SnsInfo(-1, loginSourceNo, null, id, null, null, null);
 		return md.checkMemberThroughSnsId(session, sns);
