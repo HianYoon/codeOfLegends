@@ -29,10 +29,11 @@
 				<h5>아이디나 비밀번호가 틀렸습니다</h5>
 			</c:if>
 			<h3>아이디</h3>
-			<input type="text" class="input--text" id="login-id" name="id" required/>
+			<input type="text" class="input--text" id="login-id" name="id"
+				required />
 			<h3>비밀번호</h3>
 			<input type="password" class="input--text" id="login-pw"
-				name="password" required/>
+				name="password" required />
 		</div>
 		<div class="login-sub-menu-cont">
 			<div class="login-sub-menu-container">
@@ -88,7 +89,28 @@
 				location.href = path+"/"+uri;
 			}
 		})
+		
 	}
+	
+	$("#btn-kakao").click(e=>{
+		$.ajax({
+			url: path+"/rest/member/oauth/kakao",
+			method: "POST",
+			success: result =>{
+				location.href = result;
+			}
+		})
+	})
+	
+	$("#btn-naver").click(e=>{
+		$.ajax({
+			url: path+"/rest/member/oauth/naver",
+			method: "POST",
+			success: result =>{
+				location.href = result;
+			}
+		})
+	})
 </script>
 
 <jsp:include page="/WEB-INF/views/common/footer.jsp" />

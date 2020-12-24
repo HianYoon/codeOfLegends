@@ -1,4 +1,4 @@
-package com.col.domein.member.model.vo;
+package com.col.domein.member.oauth.model.vo;
 
 import java.sql.Date;
 

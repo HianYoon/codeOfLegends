@@ -1,4 +1,4 @@
-package com.col.domein.member.model.vo;
+package com.col.domein.mail.model.vo;
 
 import org.springframework.stereotype.Component;
 

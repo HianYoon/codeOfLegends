@@ -1,20 +1,32 @@
 package com.col.domein.member.controller;
 
+import java.util.Collections;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.client.RestTemplate;
 
 import com.col.domein.member.model.service.MemberService;
 import com.col.domein.member.model.vo.Member;
-import com.col.domein.member.model.vo.SnsInfo;
+import com.col.domein.member.oauth.model.vo.KakaoOauthResult;
+import com.col.domein.member.oauth.model.vo.KakaoToken;
+import com.col.domein.member.oauth.model.vo.NaverAccessTokenRequest;
+import com.col.domein.member.oauth.model.vo.NaverOauthResult;
+import com.col.domein.member.oauth.model.vo.NaverProfile;
+import com.col.domein.member.oauth.model.vo.SnsInfo;
 
 @Controller
 @RequestMapping("/member")
@@ -225,6 +237,123 @@ public class MemberController {
 			return "redirect: " + request.getContextPath() + "/error.do";
 		return "redirect: " + request.getContextPath();
 	}
+/////////////////////////////////////////////////////////////////////
+//	Kakao
+	@RequestMapping("/oauth/kakao.do")
+	public String kakaoSignIn(HttpSession session, HttpServletRequest request, String state, String code, @RequestParam(required = false) String error) {
+		int signInResult = 0;
+		String path = request.getContextPath();
+		String url = "";
+		
+		if((error!=null && error.equals("access_denied"))||(state==null || code == null)) return "redirect: " + request.getContextPath() + "/error.do";
+		
+		String kakaoState = (String) session.getAttribute("kakaoState");
+//		상태 토큰 불일치 시!
+		if(!kakaoState.equals(state)) {
+			session.removeAttribute("kakaoState");
+			return "redirect: " + request.getContextPath() + "/error.do";
+		}
+		String clientId = "6a88db9a5a494eb2b45b1226ad76d34a";
+		String clientSecret = "aGCaAJV2nuVTenmFpDeMF1zZ2TDWfqga";
+		String redirectUri = "http://mightymosses.hopto.org:9090/domein/member/oauth/kakao.do";
+		
+		RestTemplate rest = new RestTemplate();
+		MultiValueMap<String, String> parameters = new LinkedMultiValueMap<String,String>();
+		
+		HttpHeaders headers = new HttpHeaders();
+		headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
+		headers.setAccept(Collections.singletonList(MediaType.APPLICATION_JSON));
+		parameters.add("grant_type", "authorization_code");
+		parameters.add("client_id", clientId);
+		parameters.add("redirect_uri", redirectUri);
+		parameters.add("code",code);
+		parameters.add("client_secret", clientSecret);
+
+		HttpEntity<MultiValueMap<String, String>> tokenRequest = new HttpEntity<MultiValueMap<String, String>>(parameters, headers);
+		KakaoToken token = rest.postForObject("https://kauth.kakao.com/oauth/token",tokenRequest, KakaoToken.class);
+		
+//		액세스 토큰으로 정보 받아오기
+		rest = new RestTemplate();
+		headers = new HttpHeaders();
+		headers.add("Authorization", "Bearer "+token.getAccess_token());
+		HttpEntity<String> authEntity = new HttpEntity<String>("", headers);
+		KakaoOauthResult result = rest.postForObject("https://kapi.kakao.com/v2/user/me", authEntity, KakaoOauthResult.class);
+		
+		signInResult = ms.kakaoSignIn(session, result);
+		
+		switch (signInResult) {
+		case 1:
+			url = "redirect: " + path;
+			break;
+		case 2:
+			url = "redirect: " + path + "/member/oauth/emailFound.do";
+			break;
+		case 3:
+			url = "redirect: " + path + "/member/oauth/newOauthMember.do";
+			break;
+		default:
+			url = "redirect: " + path + "/error.do";
+		}
+		
+		session.removeAttribute("kakaoState");
+		
+		return url;
+	}
+	
+	
+//	Naver
+	@RequestMapping("/oauth/naver.do")
+	public String naverSignIn(HttpSession session, HttpServletRequest request, String state, String code) {
+		int signInResult = 0;
+		String path = request.getContextPath();
+		String url = "";
+		if(state==null || code == null) return "redirect: " + request.getContextPath() + "/error.do";
+		String naverState = (String) session.getAttribute("naverState");
+//		상태 토큰 불일치 시!
+		if (!naverState.equals(state)) {
+			session.removeAttribute("naverState");
+			return "redirect: " + request.getContextPath() + "/error.do";
+		}
+		String clientId = "SRI621amFGMTUu3kZVHJ";
+		String clientSecret = "sWGzb7TzkW";
+		String requestUrl = "https://nid.naver.com/oauth2.0/token?client_id=" + clientId + "&client_secret="
+				+ clientSecret + "&grant_type=authorization_code&state=" + naverState + "&code=" + code;
+
+		RestTemplate rest = new RestTemplate();
+//		토큰 받아옴
+		NaverAccessTokenRequest token = rest.getForObject(requestUrl, NaverAccessTokenRequest.class);
+
+//		프로필 받아오기
+		rest = new RestTemplate();
+		HttpHeaders headers = new HttpHeaders();
+		headers.add("Authorization", "Bearer " + token.getAccess_token());
+		HttpEntity<String> profileRequest = new HttpEntity<String>("", headers);
+		NaverOauthResult result = rest.postForObject("https://openapi.naver.com/v1/nid/me", profileRequest,
+				NaverOauthResult.class);
+		if (result.getMessage().equals("success")) {
+			NaverProfile profile = result.getResponse();
+
+			signInResult = ms.naverSignIn(session, profile);
+			switch (signInResult) {
+			case 1:
+				url = "redirect: " + path;
+				break;
+			case 2:
+				url = "redirect: " + path + "/member/oauth/emailFound.do";
+				break;
+			case 3:
+				url = "redirect: " + path + "/member/oauth/newOauthMember.do";
+				break;
+			default:
+				url = "redirect: " + path + "/error.do";
+			}
+		} else {
+			url = "redirect: " + path + "/error.do";
+		}
+		session.removeAttribute("naverState");
+		return url;
+	}
+
 /////////////////////////////////////////////////////////
 ////////////Oauth 2.0 종료///////////////////////////////////
 /////////////////////////////////////////////////////////	
@@ -235,7 +364,6 @@ public class MemberController {
 	@RequestMapping("/loginVerify.do")
 	public String loginVerify(HttpSession session, HttpServletRequest request, String id, String password,
 			Model model) {
-
 		Member m = ms.selectMemberById(id);
 		if (m == null) {
 			model.addAttribute("loginFlag", true);
@@ -249,7 +377,7 @@ public class MemberController {
 		ms.signInSuccess(session, 0, m);
 		return "redirect: " + request.getContextPath();
 	}
-	
+
 	@RequestMapping("/logout.do")
 	public String logout(HttpSession session, HttpServletRequest request) {
 		session.invalidate();
