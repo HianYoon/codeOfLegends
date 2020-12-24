@@ -4,10 +4,15 @@
 	<typeAliases>
 		<typeAlias type="com.col.domein.product.model.vo.Product" alias="product"/>
 		<typeAlias type="com.col.domein.product.model.vo.Attachement" alias="attachement"/>
+		<typeAlias type="com.col.domein.product.model.vo.ProductAll" alias="productAll"/>
 		<typeAlias type="com.col.domein.product.model.vo.BoardProductSaleContent" alias="boardProductSaleContent"/>
 		<typeAlias type="com.col.domein.common.typeHandler.StringArrayTypeHandler" alias="strArr"/>
-		
-	
-	
+		<typeAlias type="com.col.domein.member.model.vo.Member" alias="member"/>
+		<typeAlias type="com.col.domein.business.model.vo.Business" alias="business"/>
+		<typeAlias type="com.col.domein.business.model.vo.BusinessCategory" alias="businessCategory"/>
+		<typeAlias type="com.col.domein.member.model.vo.EmailCheck" alias="emailCheck"/>
+		<typeAlias type="com.col.domein.member.model.vo.SnsInfo" alias="snsInfo"/>
+		<typeAlias type="com.col.domein.member.model.vo.MemberLog" alias="memberLog"/>
+		<typeAlias type="com.col.domein.cart.model.vo.Cart" alias="cart"/>
 	</typeAliases>
 </configuration>

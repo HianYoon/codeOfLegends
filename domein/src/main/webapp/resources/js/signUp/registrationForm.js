@@ -37,7 +37,7 @@ const regexes = [
 
 function ajaxForm(index, url, value) {
 	$.ajax({
-		url: path + "/member/signup/" + url,
+		url: path + "/rest/member/signup/" + url,
 		method: "POST",
 		data: { data: value },
 		async: false,
@@ -73,7 +73,8 @@ function submitBtnChanger() {
 	}
 }
 
-const regForm = $(".reg-form").each((i, v) => {
+const regForm = $(".reg-form");
+regForm.each((i, v) => {
 	$(v).keyup((e) => {
 		let index = i;
 		flags[i] = false;
@@ -81,11 +82,11 @@ const regForm = $(".reg-form").each((i, v) => {
 			ajaxForm(index, "id", e.target.value);
 		} else if (index == 1) {
 			flags[1] = true;
-			$($(".reg-form")[2]).trigger("keyup");
+			$(regForm[2]).trigger("keyup");
 		} else if (index == 2) {
 			if (
-				$(".reg-form")[2].value == $(".reg-form")[1].value &&
-				$(".reg-form")[1].value != null
+				regForm[2].value == regForm[1].value &&
+				regForm[1].value != null
 			)
 				flags[2] = true;
 		} else if (index == 3) {

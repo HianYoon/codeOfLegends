@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 import com.col.domein.product.model.vo.Attachement;
 import com.col.domein.product.model.vo.BoardProductSaleContent;
 import com.col.domein.product.model.vo.Product;
+import com.col.domein.product.model.vo.ProductAll;
 
 @Repository
 public class ProductDaoImpl implements ProductDao {
@@ -48,8 +49,52 @@ public class ProductDaoImpl implements ProductDao {
 	}
 	//상품detail페이지
 	@Override
-	public List<Map> selectProductDetail(SqlSession session, int productNo) {
+	public List<Map> selectProductDetail(SqlSession session, int articleNo) {
 		// TODO Auto-generated method stub
-		return session.selectOne("product.selectProductDetail",productNo);
+		return session.selectList("product.selectProductDetail",articleNo);
+	}
+	//내상품조회
+	@Override
+	public List<Map> selectProductUpdate(SqlSession session, int businessKey) {
+		// TODO Auto-generated method stub
+		return session.selectList("product.selectProductMylist",businessKey);
+	}
+	//내상품 수정버튼 클릭시 불러오기
+	@Override
+	public List<Map> selectProductOne(SqlSession session, int articleNo) {
+		// TODO Auto-generated method stub
+		return session.selectList("product.selectProductOne",articleNo);
+	}
+	//상품삭제
+	@Override
+	public int deleteProduct(SqlSession session, int articleNo) {
+		// TODO Auto-generated method stub
+		return session.delete("product.deleteProductOne",articleNo);
+	}
+	//updateBDS
+	@Override
+	public int updateBDS(SqlSession session,ProductAll p) {
+		// TODO Auto-generated method stub
+		return session.update("product.updateBDS",p);
+	}
+	//상품수정PDS
+	@Override
+	public int updatePDS(SqlSession session, ProductAll p) {
+		// TODO Auto-generated method stub
+		System.out.println(""+p);
+		return session.update("product.updatePDS",p);
+	}
+	//상품파일수정
+
+	@Override
+	public int updateAttachment(SqlSession session, Attachement a) {
+		// TODO Auto-generated method stub
+		return session.update("product.updateFiles",a);
+	}
+
+	@Override
+	public List<Map> selectProductByBusinessKey(SqlSession session, int businessKey) {
+		// TODO Auto-generated method stub
+		return session.selectList("product.selectProductByBusinessKey",businessKey);
 	}
 }

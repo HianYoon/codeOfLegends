@@ -3,7 +3,9 @@
     <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
     <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
     <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+    <%@ page import="com.col.domein.member.model.vo.Member,java.util.List" %>
      <c:set var="path" value="${pageContext.request.contextPath }"/>
+
  <link rel="stylesheet" href="${path }/resources/css/product/product.css"/>
   <link rel="stylesheet" href="${path }/resources/css/jihunTab/TabMedia.css"/>
   <link rel="stylesheet" href="${path }/resources/css/sharedStyle.css"/>
@@ -11,52 +13,8 @@
 <jsp:include page="/WEB-INF/views/common/header.jsp">
 	<jsp:param name="title" value=""/>
 </jsp:include>
-<style>
 
 
- /* 전체 html display  flex*/
- #octionPage{
-    display:flex;
-    width: 1200px;
-    height: auto;
-    gap:50px;
-   
-}
-.tab-container-group{
-    width:900px;
-    height:auto;
-    margin:10px 30px;
-}
-div#wrapper {
-    width: 200px;
-    background: #ffca28;
-}
-div#wrapper .tab-container-group{
-    width:900px;
-    height:auto;
-    margin:10px 30px;
-}
-
-div#wrapper .tabs{
-    margin-top: 80px;
-}
-div#wrapper .tabs li{
-    list-style-type: none;
-    margin-top: 20px;
-}
-
-div#wrapper .tabs li a{
-    font-size: 26px;
-    color:black;
-}
-ul li{
- list-style-type: none;
-}
-button.btn .btn--primary{
-	z-index:0;
-}
-
-</style>
 <section id="content">
 	<script>
     $(document).ready(function(){
@@ -85,7 +43,14 @@ button.btn .btn--primary{
             $('#remaningQuantity').val(val);
             alert($('#remaningQuantity').val());
         }
+        //my상품조회
+        var Mylist=document.querySelector(".myListSearch");
+        Mylist.onclick=function(e){
+      	  location.href="${path}/product/SelectMyList.do?businessKey=1";
+        }
+     
     });
+ 
 
 </script>
 
@@ -96,7 +61,7 @@ button.btn .btn--primary{
             <ul class="tabs">
                 <li><a href="#tab1">판매등록</a></li>
                 <li><a href="#tab2">Action 참여</a></li>
-                <li><a href="#tab3">상품수정</a></li>
+                <li><a href="#tab3">my상품List</a></li>
                 <li><a href="#tab4">상품List</a></li>
             </ul>
         
@@ -114,7 +79,7 @@ button.btn .btn--primary{
                             <!--Content-->
                  <div class="direct-Product-container">
                  
-                		<form action="${path}/boardSaleContent/insert.do?=businessKey=1" method="post">
+                		<form action="${path}/boardSaleContent/insert.do" method="post">
                                 <label for="category-select">카테고리품목</label>
                                 <select name="category" id="category-select">
                                     <option value="1">정육</option>
@@ -136,7 +101,7 @@ button.btn .btn--primary{
 		                            <button type="reset" class="btn btn--primary">취소하기</button>
                         </div>
                 		</form>
-                        <form action="${path }/product/insert.do?=${articleNo}" method="post" enctype="multipart/form-data" id="oction--form" >
+                        <form action="${path }/product/insert.do?articleNo=${articleNo}" method="post" enctype="multipart/form-data" id="oction--form" >
                         
                             <div class="direct--product--img">
                                 <h1>상품 등록</h1>
@@ -257,73 +222,39 @@ button.btn .btn--primary{
              
              <div id="tab3" class="tab_content">
                  <!--Content-->
-                 <div class="direct-Product-container">
-                 
-                		<form action="${path}/boardSaleContent/insert.do?=businessKey=1" method="post">
-                                <label for="category-select">카테고리품목</label>
-                                <select name="category" id="category-select">
-                                    <option value="1">정육</option>
-                                    <option value="2">수산</option>
-                                    <option value="3">야채</option>
-                                    <option value="4">과일</option>
-                                    <option value="5">커피</option>
-                                    <option value="6">애견</option>
-                                    <option value="7">제과</option>
-                                    <option value="8">기타</option>
-                                </select>
-                               
-                                <input type="text" class="input--text" name="businessKey" placeholder="사업자번호"  required>
-                                <input type="text" class="input--text" name="title" placeholder="제목"  required>
-								 <textarea name="saleContent" id="" cols="30" rows="10" class="input-text"placeholder="내용설명">내용설명:
-                       			 </textarea>
-                       	 <div class="direct-btn-group">
-		                            <button type="submit" class="btn btn--primary">등록하기</button>
-		                            <button type="reset" class="btn btn--primary">취소하기</button>
-                        </div>
-                		</form>
-                        <form action="${path }/product/insert.do?=${a.articleNo}" method="post" enctype="multipart/form-data" id="oction--form" >
+                  <button type="button"class="myListSearch">내상품조회</button>
+                
+                 <table class="table">
+                    <tr>
+                        <th scope="col">번호</th>
+                        <th scope="col">제목</th>
+                        <th scope="col">상품이름</th>
+                        <th scope="col">가격</th>
+                        <th scope="col">등록일</th>
+                        <th scope="col">수정</th>
+                        <th scope="col">삭제</th>
+                    </tr>
+                    <c:forEach items="${product}" var="p">
+					
+                        <tr>
+                            <td><c:out value="${p.ARTICLE_NO }"/></td>
+ 		                    <td><c:out value="${p.TITLE }"/></td>
+           			       	<td><c:out value="${p.PRODUCT_NAME }"/></td>
+          	             	 <td><fmt:setLocale value="ko_KR"/><fmt:formatNumber type="currency" value="${p.PRICE}"/>원</td>
+                	         <td><fmt:formatDate value="${p.WRITTEN_DATE}" pattern="yyyy-MM-dd"/></td>
+                       
+                            <td>
+                                <button  type="button" onclick="location.href='${path }/product/productUpdate.do?articleNo=${p.ARTICLE_NO}';" class="btn btn-primary2">수정</button>
+                            </td>
+                            <td>
+                                <button type="button" class="btn btn-primary2"
+                                 onclick="location.href='${path}/product/productDelete.do?articleNo=${p.ARTICLE_NO }';">삭제</button>
+                            </td>
+                        </tr>
                         
-                            <div class="direct--product--img">
-                                <h1>상품 등록</h1>
-                            </div>
-                             <select name="productStatusNo" id="productStatusNo">
-                                	<option value="1" >판매시작</option>
-                                	<option value="0">판매중단</option>
-                                	
-                                </select>
-                            <div class="product-textgroup">
-
-                                <input type="text" class="input--text" name="articleNo" placeholder="글번호" required>
-                                <input type="text" class="input--text" name="productStatusNo" placeholder="카테고리" required>
-                                <input type="text" class="input--text" name="productName" placeholder="상품명" required>
-                                <input type="text" class="input--text" name="origin" placeholder="원산지" required>
-                                <input type="text" class="input--text" name="productQuality" placeholder="등급" required>
-                                <input type="text" class="input--text" name="productQuantity" placeholder="수량" required>
-                                <input type="text" class="input--text" name="measureUnit" placeholder="단위:box/20kg-box/set/개/kg"required>
-                                <input type="text" class="input--text" name="price" placeholder="가격"  required>
-                                <input type="text" class="input--text" name="remaningQuantity" placeholder="갯수"  readonly>
-                               
-                            </div>
-                                
-                                <div class="direct-img-container">
-                                    <div class="direct-img-file1">
-                                                
-                                    </div>
-                                    <div class="direct-img-file">
-                                        <input type="file" class="input--text upFile" id="upFile" name="upFile" required />
-                                  
-        
-                                    </div>
-        
-                                </div>
-                          
-                        <div class="direct-btn-group">
-                            <button type="submit" class="btn btn--primary">등록하기</button>
-                            <button type="reset" class="btn btn--primary">취소하기</button>
-                        </div>
-                    </form>
-                    
-                 </div>           
+                        
+                    </c:forEach>
+                    </table>
              </div>
      
         
@@ -343,7 +274,6 @@ button.btn .btn--primary{
                      <ul>
                          <li>인기순</li>
                          <li>등록순</li>
-                         <li>마감순</li>
                          <li>조회순</li>
                      </ul>
                      
@@ -360,18 +290,19 @@ button.btn .btn--primary{
                     
                     <!-- 절제선 -->
                     <c:forEach items="${board}" var="b">
-                    <div id="productDetailpage" class="oction--grid--container">
+                    <div class="oction--grid--container">
                        		
-                            <div class="oction-img-group">
-                                <img id="big-target" onclick="${path}/product/product" src="${path }/resources/upload/product/${b.P_RENAMED_FILE_NAME}" alt="이미지" data-zoom="3"/>
+                            <a class="oction-img-group" href="${path}/product/productDetail.do?articleNo=${b.ARTICLE_NO}">
+                                <img id="big-target" src="${path}/resources/upload/product/${b.P_RENAMED_FILE_NAME}" alt="이미지" data-zoom="3"/>
                                 
-                            </div>
+                            </a>
                             <div>
 
                                 <ul class="grid-text-group" style="padding:0">
                                     <li><c:out value="${b.TITLE }"/></li>
                                     <li><fmt:formatNumber value="${b.PRICE}" pattern="###,###,###"/>원</li>
                                     <li>리뷰수<c:out value="${b.ATTAC }"/>
+                                    <c:out value="${b.ARTICLE_NO}"/>
                                     </li>
                                       <li>
                                              <span><a href="${path}"><img src="${path }/resources/images/profile/jjim.png" alt="찜" style="width: 15px;height:15px;"></a></span>
@@ -382,12 +313,12 @@ button.btn .btn--primary{
                                 </ul>
                             </div>
                                
-                                <script type="text/javascript">
-                               	$("#productDetailpage").click(e=>{
-                               		location.href="${path}/product/productView.do";
+                              <!--   <script type="text/javascript">
+                               	$("#big-target").Click(e=>{
+                               		location.href="${path}/product/productView.do?productNo=${b.productNo}&article_No=${article_No}";
                                	});
                                 </script>
-                        
+                         -->
                      </div>
                   
                      </c:forEach>           
@@ -399,4 +330,5 @@ button.btn .btn--primary{
         </div>
      </div>
 </section>
+
 <jsp:include page="/WEB-INF/views/common/footer.jsp"/>

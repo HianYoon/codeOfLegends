@@ -24,7 +24,19 @@ public interface ProductService {
 	List<Map> selectProductList(int cPage, int numPerpage);
 	//조회
 	int selectCount();
-	List<Map>selectProductDetail(int productNo);
+	List<Map> selectProductDetail(int articleNo);
+	//내상품조회
+	List<Map> selectProductUpdate(int businessKey);
+	//상품선택시 상품 리스트불러오기
+	List<Map> selectProductOne(int articleNo);
+	//상품삭제
+	int productDelete(int articleNo);
+	//상품수정 BDS수정  
+	int updateBDS(ProductAll p);
+	//상품수정PDS수정
+	int updatePDS(ProductAll p, List<Attachement> files);
+	//비즈니스키로 상품목록 조회
+	List<Map> selectProductByBusinessKey(int businessKey);
 
 
 }

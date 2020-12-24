@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="point">
+	<select id="seletTotalPoint" resultType="_int">
+		SELECT SUM(POINT_DIFFERENCE) FROM POINT WHERE MEMBER_KEY = #{memberKey}
+	</select>
+	
+	<insert id="insertMemberPoint" parameterType="map">
+		INSERT INTO POINT(MEMBER_KEY,POINT_DIFFERENCE) VALUES(#{memberKey},#{pointDifference})
+	</insert>
+</mapper>

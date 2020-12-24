@@ -5,6 +5,8 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.TreeSet;
 
 import javax.servlet.http.HttpSession;
 
@@ -15,11 +17,14 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.col.domein.business.model.vo.Business;
 import com.col.domein.common.pageBar.PageBarFactory;
+import com.col.domein.member.model.vo.Member;
 import com.col.domein.product.model.service.ProductService;
 import com.col.domein.product.model.vo.Attachement;
 import com.col.domein.product.model.vo.BoardProductSaleContent;
 import com.col.domein.product.model.vo.Product;
+import com.col.domein.product.model.vo.ProductAll;
 
 
 
@@ -30,8 +35,8 @@ public class ProductController {
 	
 	@Autowired
 	private ProductService service;
-	
-	//메인에서 product.jsp로 페이지 전환
+	@Autowired
+	private Member m;
 	@RequestMapping("/product/into.do")
 	public String product() {
 		return "product/product";
@@ -39,14 +44,9 @@ public class ProductController {
 	
 	//BoardSaleContent등록
 	@RequestMapping("/boardSaleContent/insert.do")
-	public ModelAndView insertBoardSaleContent(BoardProductSaleContent bp,ModelAndView mv,int businessKey) {
+	public ModelAndView insertBoardSaleContent(BoardProductSaleContent bp,ModelAndView mv) {
 		
 		System.out.println(""+bp);
-		businessKey=1;
-		bp.setBusinessKey(businessKey);
-		
-		bp.setTitle(bp.getTitle().trim());
-		bp.setSaleContent(bp.getSaleContent());
 		
 		int result=service.insertBoardSContent(bp);
 		mv.addObject("msg",result>0?"입력성공":"입력실패");
@@ -136,13 +136,111 @@ public class ProductController {
 		return mv;
 		
 	}
-	//productDetail 데이터 불러오기
-	@RequestMapping("/product/productView.do")
-	public ModelAndView selectproductDetail(ModelAndView mv,int productNo) {
+	//productDetail화면
+	@RequestMapping("/product/productDetail.do")
+	public ModelAndView selectproductDetail(ModelAndView mv,int articleNo) {
+		System.out.println("널이니"+articleNo);
 		
-		mv.addObject("product",service.selectProductDetail(productNo));
+		mv.addObject("product",service.selectProductDetail(articleNo));
 		mv.setViewName("product/productDetail");
 		return mv;
+	}
+	
+
+	//myList조회
+	@RequestMapping("/product/SelectMyList.do")
+	public ModelAndView selectproductUpdate(ModelAndView mv,int businessKey) {
+	
+			System.out.println("businessKey"+businessKey);
+			
+			mv.addObject("product",service.selectProductUpdate(businessKey));
+			mv.setViewName("product/product");
+			return mv;
+		
+	}
+	//my상품list조회
+	@RequestMapping("/product/productUpdate.do")
+	public ModelAndView productUpdate(ModelAndView mv, int articleNo ) {
+		System.out.println("articleNo"+articleNo);
+		
+		TreeSet<Business> businessses=m.getBusinesses();//트리셋으로 비지니스키 가져오기
+		
+		if(m.getBusinesses().equals("businesses")) {		
+			List<Map> product=service.selectProductOne(articleNo);
+			mv.addObject("product",product);
+			mv.setViewName("product/productUpdate");
+		}else {
+			mv.setViewName("index");
+		}
+		return mv;
+		
+	}
+
+	
+	  //boardContentSale --update
+	  
+	  @RequestMapping("/boardSaleContent/updateBDS.do")
+	  public ModelAndView
+	  updateBDS(ModelAndView mv,ProductAll p) {
+	  System.out.println("articleNo:"+p);
+	  System.out.println("title:"+p.getTitle());
+	
+	  		int result=service.updateBDS(p);
+	  	mv.addObject("msg",result>0?"입력성공":"입력실패");
+	  	mv.setViewName("product/product"); 
+	  	return mv;
+	  	}
+	 
+	//directSaleproduct update
+	@RequestMapping("/product/updatePDS.do")
+	public ModelAndView updateBDS(ModelAndView mv,ProductAll p,
+			@RequestParam(value="upFile",required=false) MultipartFile[] upFile,
+			HttpSession session) {
+		System.out.println(""+p);
+		//upload실제 경로를 가져와야하는데 없으니깐 만들어준다.
+				String path=session.getServletContext().getRealPath("/resources/upload/product");
+				File dir=new File(path);
+				if(!dir.exists()) 
+					dir.mkdirs();//mkdirs()<-폴더를 생성을해라
+				//2.제너를 선언을해준다.
+				List<Attachement> files=new ArrayList();
+				//다중파일 업로드하기 MultipartFile객체의 transferTo()메소드 이용 파일을 저장
+				//rename처리해줘야함 ->file명을 재정의 하는것
+				for(MultipartFile f :upFile) {
+					if(!f.isEmpty()) {
+						//파일명 생성하기
+						String originalName=f.getOriginalFilename();
+						String ext=originalName.substring(originalName.lastIndexOf(".")+1);
+						
+						//리네임 규칙
+						SimpleDateFormat sdf=new SimpleDateFormat("yyyyMMdd_HHmmssSSS");
+						int rndValue=(int)(Math.random()*10000);
+						String reName=sdf.format(System.currentTimeMillis())+"_"+rndValue+"."+ext;
+						try {
+							f.transferTo(new File(path+"/"+reName));
+						}catch(IOException e) {
+							e.printStackTrace();
+						}
+						//1.파일 attachment 빌더어노테이션을 설정해주고   --has a관계.
+					 Attachement a=Attachement.builder().originFileName(originalName)
+							 .renamedFileName(reName).build();
+					 files.add(a);
+						}
+					}
+		int result=service.updatePDS(p,files);
+		mv.addObject("msg",result>0?"수정성공":"수정실패");
+		mv.setViewName("index");
+		return mv;
+	}
+	
+	//상품삭제
+	@RequestMapping("/product/productDelete.do")
+	public ModelAndView productDelete(ModelAndView mv,int articleNo) {
+		int result=service.productDelete(articleNo);
+		mv.addObject("msg",result>0?"삭제성공":"삭제실패");
+		mv.setViewName("product/product");
+		return mv;
+		
 	}
 	
 }

@@ -1,14 +1,12 @@
 package com.col.domein.member.model.vo;
 
 import java.sql.Date;
+import java.util.TreeSet;
 
 import org.springframework.stereotype.Component;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
+import com.col.domein.business.model.vo.Business;
 
-@AllArgsConstructor
-@Builder
 @Component
 public class Member implements Comparable<Member>{
 	
@@ -32,7 +30,7 @@ public class Member implements Comparable<Member>{
 	private String statusDesc;
 	private int isSubscribed;
 	private int totalPoint;
-	
+	private TreeSet<Business> businesses;
 	
 	@Override
 	public int compareTo(Member o) {
@@ -45,9 +43,9 @@ public class Member implements Comparable<Member>{
 	}
 
 	public Member(int memberKey, String id, String password, String userName, String nickname, String phone,
-			String email, String postcode, String address1, String address2, int levelNo,
-			Date enrollDate, Date modifiedDate, String profileUrl, int isConfirmed, int accountStatusNo, int isSubscribed,
-			int totalPoint) {
+			String email, String postcode, String address1, String address2, int levelNo, String levelDesc,
+			Date enrollDate, Date modifiedDate, String profileUrl, int isConfirmed, int accountStatusNo,
+			String statusDesc, int isSubscribed, int totalPoint, TreeSet<Business> businesses) {
 		super();
 		this.memberKey = memberKey;
 		this.id = id;
@@ -60,33 +58,16 @@ public class Member implements Comparable<Member>{
 		this.address1 = address1;
 		this.address2 = address2;
 		this.levelNo = levelNo;
+		this.levelDesc = levelDesc;
 		this.enrollDate = enrollDate;
 		this.modifiedDate = modifiedDate;
 		this.profileUrl = profileUrl;
 		this.isConfirmed = isConfirmed;
 		this.accountStatusNo = accountStatusNo;
+		this.statusDesc = statusDesc;
 		this.isSubscribed = isSubscribed;
 		this.totalPoint = totalPoint;
-		
-		switch(levelNo) {
-		case 1: levelDesc="1st"; break;
-		case 2: levelDesc="2nd"; break;
-		case 3: levelDesc="3rd"; break;
-		case 4: levelDesc="4th"; break;
-		case 5: levelDesc="5th"; break;
-		case 99: levelDesc="관리자"; break;
-		default: levelDesc=""+levelNo;
-		}
-		
-		switch(accountStatusNo) {
-		case 0: statusDesc = "미인증"; break;
-		case 1: statusDesc = "정상"; break;
-		case 6: statusDesc = "제제 중"; break;
-		case 9: statusDesc = "탈퇴"; break;
-		default: statusDesc = ""+accountStatusNo;
-		}
-		
-		
+		this.businesses = businesses;
 	}
 
 	public int getMemberKey() {
@@ -137,13 +118,12 @@ public class Member implements Comparable<Member>{
 		this.phone = phone;
 	}
 
-
-	public int getIsSubscribed() {
-		return isSubscribed;
+	public String getEmail() {
+		return email;
 	}
 
-	public void setIsSubscribed(int isSubscribed) {
-		this.isSubscribed = isSubscribed;
+	public void setEmail(String email) {
+		this.email = email;
 	}
 
 	public String getPostcode() {
@@ -176,22 +156,15 @@ public class Member implements Comparable<Member>{
 
 	public void setLevelNo(int levelNo) {
 		this.levelNo = levelNo;
-		switch(levelNo) {
-		case 1: levelDesc="1st"; break;
-		case 2: levelDesc="2nd"; break;
-		case 3: levelDesc="3rd"; break;
-		case 4: levelDesc="4th"; break;
-		case 5: levelDesc="5th"; break;
-		case 99: levelDesc="관리자"; break;
-		default: levelDesc=""+levelNo;
-		}
 	}
 
 	public String getLevelDesc() {
 		return levelDesc;
 	}
 
-
+	public void setLevelDesc(String levelDesc) {
+		this.levelDesc = levelDesc;
+	}
 
 	public Date getEnrollDate() {
 		return enrollDate;
@@ -231,19 +204,23 @@ public class Member implements Comparable<Member>{
 
 	public void setAccountStatusNo(int accountStatusNo) {
 		this.accountStatusNo = accountStatusNo;
-		switch(accountStatusNo) {
-		case 0: statusDesc = "미인증"; break;
-		case 1: statusDesc = "정상"; break;
-		case 6: statusDesc = "제제 중"; break;
-		case 9: statusDesc = "탈퇴"; break;
-		default: statusDesc = ""+accountStatusNo;
-		}
 	}
 
 	public String getStatusDesc() {
 		return statusDesc;
 	}
 
+	public void setStatusDesc(String statusDesc) {
+		this.statusDesc = statusDesc;
+	}
+
+	public int getIsSubscribed() {
+		return isSubscribed;
+	}
+
+	public void setIsSubscribed(int isSubscribed) {
+		this.isSubscribed = isSubscribed;
+	}
 
 	public int getTotalPoint() {
 		return totalPoint;
@@ -253,6 +230,14 @@ public class Member implements Comparable<Member>{
 		this.totalPoint = totalPoint;
 	}
 
+	public TreeSet<Business> getBusinesses() {
+		return businesses;
+	}
+
+	public void setBusinesses(TreeSet<Business> businesses) {
+		this.businesses = businesses;
+	}
+
 	@Override
 	public String toString() {
 		return "Member [memberKey=" + memberKey + ", id=" + id + ", password=" + password + ", userName=" + userName
@@ -260,7 +245,8 @@ public class Member implements Comparable<Member>{
 				+ ", address1=" + address1 + ", address2=" + address2 + ", levelNo=" + levelNo + ", levelDesc="
 				+ levelDesc + ", enrollDate=" + enrollDate + ", modifiedDate=" + modifiedDate + ", profileUrl="
 				+ profileUrl + ", isConfirmed=" + isConfirmed + ", accountStatusNo=" + accountStatusNo + ", statusDesc="
-				+ statusDesc + ", isSubscribed=" + isSubscribed + ", totalPoint=" + totalPoint + "]";
+				+ statusDesc + ", isSubscribed=" + isSubscribed + ", totalPoint=" + totalPoint + ", businesses="
+				+ businesses + "]";
 	}
 
 	@Override
@@ -270,6 +256,7 @@ public class Member implements Comparable<Member>{
 		result = prime * result + accountStatusNo;
 		result = prime * result + ((address1 == null) ? 0 : address1.hashCode());
 		result = prime * result + ((address2 == null) ? 0 : address2.hashCode());
+		result = prime * result + ((businesses == null) ? 0 : businesses.hashCode());
 		result = prime * result + ((email == null) ? 0 : email.hashCode());
 		result = prime * result + ((enrollDate == null) ? 0 : enrollDate.hashCode());
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
@@ -310,6 +297,11 @@ public class Member implements Comparable<Member>{
 			if (other.address2 != null)
 				return false;
 		} else if (!address2.equals(other.address2))
+			return false;
+		if (businesses == null) {
+			if (other.businesses != null)
+				return false;
+		} else if (!businesses.equals(other.businesses))
 			return false;
 		if (email == null) {
 			if (other.email != null)
@@ -383,5 +375,7 @@ public class Member implements Comparable<Member>{
 			return false;
 		return true;
 	}
+
+	
 	
 }

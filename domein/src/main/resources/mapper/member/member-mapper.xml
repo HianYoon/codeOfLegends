@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="member">
+	<resultMap type="member" id="memberMap">
+		
+		<id column="MEMBER_KEY" property="memberKey" />
+		<result column="ID" property="id" />
+		<result column="PASSWORD" property="password" />
+		<result column="USERNAME" property="userName" />
+		<result column="NICKNAME" property="nickname" />
+		<result column="PHONE" property="phone" />
+		<result column="EMAIL" property="email" />
+		<result column="POSTCODE" property="postcode" />
+		<result column="ADDRESS1" property="address1" />
+		<result column="ADDRESS2" property="address2" />
+		<result column="LEVEL_NO" property="levelNo" />
+		<result column="ENROLL_DATE" property="enrollDate" />
+		<result column="MODIFIED_DATE" property="modifiedDate" />
+		<result column="PROFILE_URL" property="profileUrl" />
+		<result column="IS_CONFIRMED" property="isConfirmed" />
+		<result column="ACCOUNT_STATUS_NO" property="accountStatusNo" />
+		<result column="IS_SUBSCRIBED" property="isSubscribed" />
+		<association property="levelDesc" javaType="String" column="LEVEL_NO" select="member.selectLevelDesc"></association>
+		<association property="statusDesc" column="ACCOUNT_STATUS_NO" javaType="String" select="member.selectStatusDesc"></association>
+		<association property="totalPoint" javaType="int" column="MEMBER_KEY" select="point.seletTotalPoint" ></association>
+		<collection property="businesses" javaType="java.util.TreeSet" column="MEMBER_KEY" select="business.selectBusinessByMemberKey"></collection>
+	</resultMap>
+<!-- 리절트맵 세팅을 위한 구문 -->
+	<select id="selectLevelDesc" resultType="string">
+		SELECT LEVEL_DESC FROM MEMBER_LEVEL WHERE LEVEL_NO = #{levelNo}
+	</select>
+	<select id="selectStatusDesc" resultType="string">
+		SELECT STATUS_DESC FROM ACCOUNT_STATUS WHERE ACCOUNT_STATUS_NO = #{accountStatusNo}
+	</select>
+<!-- 세팅 구문 끝 -->
+	<select id="selectMemberList" resultType="map">
+		SELECT M.*, B.BUSINESS_KEY,B.BUSINESS_NO FROM MEMBER M LEFT JOIN BUSINESS B ON M.MEMBER_KEY = B.MEMBER_KEY
+	</select>
+
+
+	<select id="selectMemberByMemberKey" parameterType="_int"
+		resultType="member" resultMap="memberMap">
+		SELECT * FROM MEMBER WHERE MEMBER_KEY = #{memberKey}
+	</select>
+	
+	<select id="selectMemberByEmail" parameterType="string" resultType="member" resultMap="memberMap">
+		SELECT * FROM MEMBER WHERE EMAIL = #{email}
+	</select>
+	
+	<select id="selectMemberById" parameterType="map" resultMap="memberMap" resultType="member">
+		SELECT * FROM MEMBER WHERE ID = #{id}
+	</select>
+	
+	<update id="insertMemberProfileUrl" parameterType="snsInfo">
+		UPDATE MEMBER SET PROFILE_URL = #{snsProfilePic} WHERE MEMBER_KEY = #{memberKey}
+	</update>
+	
+</mapper>

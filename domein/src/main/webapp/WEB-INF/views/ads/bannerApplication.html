@@ -8,9 +8,11 @@
 <style>
 #wholeback{
     display:flex;
+    flex-flow:row wrap;
 }
 .tab_menu{
     width:18%;
+    min-width: 240px;    
     background-color: #ffca28;
     font-size:18px;
 }
@@ -24,7 +26,7 @@
 #container hr{
     margin-left:-20px;
 }
-#container div{
+#container>form>div{
     margin-top:18px;
 }
 .div_intro{
@@ -33,6 +35,9 @@
     font-size:14px;   
     width:84%;
 }
+.div_intro>ul{
+    padding-right:5px;
+}
 #ads_title{
     width:50%;
 }
@@ -40,24 +45,29 @@
     width:84%;
 }
 .div_attached>span{
-    color: rgb(119, 119, 119);
+    color: rgb(119, 119, 119);    
 }
-.div_attached>div{
+.div_attached>div{    
     width:580px;
-    height:190px;
+    min-width: 580px;
+    /* width:580px; */
+    height:190px;        
     border:1px rgb(119, 119, 119) solid;
-    text-align: center;
+    text-align: center; 
+    margin-bottom:10px;           
 }
 .div_attached>div>p{    
-    margin-top:80px;
+    margin-top:15%;
     color:rgb(119, 119, 119);
-    text-decoration: underline;
+    text-decoration: underline;    
 }
 .div_url>input{
     width:50%;
 }
 .div_period>input[type=text]{
-    width:15%;
+    width:18%;
+    text-align: right;
+    margin-top:10px;
 }
 .div_submit{
     margin-left:33%;
@@ -95,7 +105,7 @@
 
                     <div class="div_description">
                         <span><u>요청메시지</u></span><br>
-                        <textarea name="ads_description" rows="8" cols="150" style="resize:none" placeholder="내용을 입력해주세요" required></textarea>
+                        <textarea name="ads_description" rows="12" cols="150" style="resize:none" placeholder="내용을 입력해주세요" required></textarea>
                     </div>
                     <br>
                     <div class="div_attached">
@@ -103,29 +113,23 @@
                         <span><u>Preview(미리보기)</u></span>
                         <div id="div_preImage">
                             <p>미리보기가 표시됩니다.</p>
-                            <!-- <img src="" alt="미리보기가 표시됩니다." id="preImage" width="580" height="190"><br> -->
-                        </div><br>
+                            <!-- <img src="C:\Users\Sungbin\Desktop\images\img_preview.png" alt="미리보기가 표시됩니다." id="preImage" width="100%" height="100%"><br> -->
+                        </div>
                         <input type="file" id="upload" name="upload" accept="image/*" onchange="fn_readImage(event);" required>
                         <input type="button" class=".btn.btn--primary" name="deleteFile" value="삭제" onclick="fn_deleteFile();">                
                     </div>
                     <br>
                     <div class="div_url">
-                        <label for="ads_url"><span><u>url</u></span></label>&nbsp;&nbsp;<input type="text" name="ads_url" id="ads_url" placeholder="이미지 클릭 시, 이동할 주소입력" required><br>
-                        <span>[이미지 클릭 시, 이동할 주소를 입력해주세요. 요청주소가 없을 시, -입력]</span>
+                        <span id="msg_url"></span><br>
+                        <label for="ads_url"><span><u>url</u></span></label>&nbsp;&nbsp;<input type="text" name="ads_url" id="ads_url" placeholder="이미지 클릭 시, 이동할 주소입력" required>                      
                     </div>
                     <br>
                     <div class="div_period">
                         <p><u>기간 및 가격</u></p>
-                        개시일&nbsp;&nbsp;<input type="date" name="ads_start_date" required><br><br>
-                        <input type="radio" name="ads_period" value="1">1일(10,000원)
-                        <input type="radio" name="ads_period" value="3">3일(28,000원)
-                        <input type="radio" name="ads_period" value="7">7일(58,000원)
-                        <input type="radio" name="ads_period" value="14">14일(110,000원)
-                        <input type="radio" name="ads_period" value="30">30일(220,000원)<br><br>
-                        <input type="radio" name="ads_period" value="">기타<br><br>
-                        종료일&nbsp;&nbsp;<input type="date" name="ads_end_date">
+                        개시일&nbsp;&nbsp;<input type="date" name="ads_start_date" min="" required>&nbsp;&nbsp;                        
+                        종료일&nbsp;&nbsp;<input type="date" name="ads_end_date" min="" required><br>
                         <!-- 기타 선택 시, return false로 체크 -->
-                        <input type="text" value="" name="ads_price" readonly>원
+                        결제금액&nbsp;&nbsp;<input type="text" value="0" name="ads_price" readonly>&nbsp;원
                     </div>
                     <br><br>
                     <div class="div_submit">
@@ -138,20 +142,39 @@
         </div>
     </section>
     <script>
+        $(function(){
+            $("#ads_url").focus(e=>{
+                $("#msg_url").html("[이미지 클릭 시, 이동할 주소를 입력해주세요. 요청주소가 없을 시, -입력]").css("color","green");
+            });
+            $("#ads_url").blur(e=>{
+                $("#msg_url").html("");
+            });
+        })
         function fn_readImage(e){
             var reader=new FileReader();
-            // if(!e.target.files.typeof==("image.*")){
+            // if(!e.target.files[0].match("image.*")){
             //     alert("이미지 파일만 업로드 가능합니다.");
             //     return;
-            // }
+            // }            
+            let extensionName=e.target.value.substring(e.target.value.lastIndexOf('.')+1,e.target.value.length);
+            console.log(extensionName);
+            if(extensionName=='jpg'||extensionName=='jpeg'||extensionName=='png'||extensionName=='gif'){
+                                
+            }else{
+                alert("이미지파일의 형식만 업로드 할 수 있습니다.\n(지원하는 확장자형식: jpg/jpeg/png/gif)");
+                return fn_deleteFile();
+            }
             reader.onload=function(e){     
                 // let img=$("<img>").attr({src:"e.target.result",name:"preImage",width:"580",height:"200"});           
                 let img=document.createElement("img");
                 img.setAttribute("src",e.target.result);
-                img.setAttribute("width","580");
-                img.setAttribute("height","190");
+                img.setAttribute("width","100%");
+                img.setAttribute("height","100%"); 
+                // img.setAttribute("object-fit","contain");                
                 $("#div_preImage").children().css("display","none");
                 $("#div_preImage").append(img);
+                // $("#preImage").attr("src",e.target.result);                
+                // // $("#div_preImage").append("#preImage");
             }
             reader.readAsDataURL(e.target.files[0]);
         }
