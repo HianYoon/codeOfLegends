@@ -65,12 +65,19 @@ public class MemberRestController {
 // 	2. Kakao
 
 	@PostMapping("/oauth/kakao")
-	public String kakaoSignIn() {
-		return "";
+	public String kakaoSignIn(HttpSession session) {
+		String state = generateState();
+		session.setAttribute("kakaoState", state);
+		String clientId = "6a88db9a5a494eb2b45b1226ad76d34a";
+		String url = "https://kauth.kakao.com/oauth/authorize?client_id="+clientId+"&response_type=code&redirect_uri=http://mightymosses.hopto.org:9090/domein/member/oauth/kakao.do&state="
+				+ state;
+
+		return url;
 	}
 	
 	@PostMapping("/oauth/kakao/leave")
-	public String kakaoLeave() {
+	public String kakaoLeave(HttpSession session) {
+
 		return "";
 	}
 	

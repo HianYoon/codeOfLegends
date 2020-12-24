@@ -22,6 +22,9 @@ import com.col.domein.mail.model.vo.SignUpVerificationEmail;
 import com.col.domein.member.model.dao.MemberDao;
 import com.col.domein.member.model.vo.Member;
 import com.col.domein.member.model.vo.MemberLog;
+import com.col.domein.member.oauth.model.vo.KakaoAccount;
+import com.col.domein.member.oauth.model.vo.KakaoAccountProfile;
+import com.col.domein.member.oauth.model.vo.KakaoOauthResult;
 import com.col.domein.member.oauth.model.vo.NaverProfile;
 import com.col.domein.member.oauth.model.vo.SnsInfo;
 import com.google.api.client.googleapis.auth.oauth2.GoogleIdToken;
@@ -306,6 +309,59 @@ public class MemberService {
 	}
 
 //	2.Kakao
+	
+	public int kakaoSignIn(HttpSession httpSession, KakaoOauthResult result) {
+		
+		Member m = null;
+		int loginSourceNo = 2;
+//		카카오 아이디가 이미 있는지 체크
+		int memberKey = checkMemberThroughSnsId(loginSourceNo, result.getId());
+///////////////////////////////////////////////////////
+//		Code 1
+		if(memberKey>0) {
+			if(memberKey>0) {
+				m = md.selectMemberByMemberKey(session, memberKey);
+				signInSuccess(httpSession, loginSourceNo, m);
+
+				return 1;
+			}
+		}
+		
+//////////////////////////////////////////////////////////////
+//		Code 2
+		KakaoAccount account = result.getKakao_account();
+		KakaoAccountProfile profile = account.getProfile();
+		
+		String email = account.getEmail();
+		String pictureURL = profile.getProfile_image_url();
+		String name = profile.getNickname();
+		String id = result.getId();
+		
+		SnsInfo sns = new SnsInfo();
+		sns.setLoginSourceNo(loginSourceNo);
+		sns.setSnsId(id);
+		sns.setSnsName(name);
+		sns.setSnsProfilePic(pictureURL);
+		
+		Member emailFoundMember = md.selectMemberByEmail(session, email);
+		if (emailFoundMember != null) {
+			httpSession.setAttribute("emailFoundMember", emailFoundMember);
+			httpSession.setAttribute("snsForEmailFoundMember", sns);
+			return 2;
+		}
+		
+///////////////////////////////////////////////////////////////
+//Code 3
+		
+		Member newSnsMember = new Member();
+		newSnsMember.setEmail(email);
+		newSnsMember.setUserName(name);
+		newSnsMember.setProfileUrl(pictureURL);
+		httpSession.setAttribute("newSnsMember", newSnsMember);
+		httpSession.setAttribute("snsForNewSnsMember", sns);
+		return 3;
+	
+	}
 	
 	
 //	3.Naver
