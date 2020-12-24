@@ -16,10 +16,10 @@ import org.springframework.web.client.RestTemplate;
 
 import com.col.domein.member.model.service.MemberService;
 import com.col.domein.member.model.vo.Member;
-import com.col.domein.member.model.vo.NaverAccessTokenRequest;
-import com.col.domein.member.model.vo.NaverOauthResult;
-import com.col.domein.member.model.vo.NaverProfile;
-import com.col.domein.member.model.vo.SnsInfo;
+import com.col.domein.member.oauth.model.vo.NaverAccessTokenRequest;
+import com.col.domein.member.oauth.model.vo.NaverOauthResult;
+import com.col.domein.member.oauth.model.vo.NaverProfile;
+import com.col.domein.member.oauth.model.vo.SnsInfo;
 
 @Controller
 @RequestMapping("/member")
@@ -264,7 +264,7 @@ public class MemberController {
 		switch(signInResult) {
 		case 1: url = "redirect: "+path; break;
 		case 2: url = "redirect: "+path+"/member/oauth/emailFound.do"; break;
-		case 3: url = "redirect: "+path+"/member/oauth/newOauthMember"; break;
+		case 3: url = "redirect: "+path+"/member/oauth/newOauthMember.do"; break;
 		default: url = "redirect: "+path+"/error.do";
 		}
 		
