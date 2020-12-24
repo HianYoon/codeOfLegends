@@ -234,6 +234,10 @@ public class MemberController {
 //	Naver
 	@RequestMapping("/oauth/naver.do")
 	public String naverSignIn(HttpSession session, HttpServletRequest request, String state, String code) {
+		int signInResult = 0;
+		String path = request.getContextPath();
+		String url = "";
+
 		String naverState = (String) session.getAttribute("naverState");
 //		상태 토큰 불일치 시!
 		if (!naverState.equals(state)) {
@@ -244,30 +248,39 @@ public class MemberController {
 		String clientSecret = "sWGzb7TzkW";
 		String requestUrl = "https://nid.naver.com/oauth2.0/token?client_id=" + clientId + "&client_secret="
 				+ clientSecret + "&grant_type=authorization_code&state=" + naverState + "&code=" + code;
-		
+
 		RestTemplate rest = new RestTemplate();
 //		토큰 받아옴
 		NaverAccessTokenRequest token = rest.getForObject(requestUrl, NaverAccessTokenRequest.class);
-		
+
 //		프로필 받아오기
 		rest = new RestTemplate();
 		HttpHeaders headers = new HttpHeaders();
-		headers.add("Authorization", "Bearer "+token.getAccess_token());
-		HttpEntity<String> profileRequest = new HttpEntity<String>("",headers);
-		NaverOauthResult result =   rest.postForObject("https://openapi.naver.com/v1/nid/me", profileRequest, NaverOauthResult.class);
-		NaverProfile profile = result.getResponse(); 
-		
-		int signInResult = ms.naverSignIn(session, profile);
-		
-		String url = "";
-		String path = request.getContextPath();
-		switch(signInResult) {
-		case 1: url = "redirect: "+path; break;
-		case 2: url = "redirect: "+path+"/member/oauth/emailFound.do"; break;
-		case 3: url = "redirect: "+path+"/member/oauth/newOauthMember.do"; break;
-		default: url = "redirect: "+path+"/error.do";
+		headers.add("Authorization", "Bearer " + token.getAccess_token());
+		HttpEntity<String> profileRequest = new HttpEntity<String>("", headers);
+		NaverOauthResult result = rest.postForObject("https://openapi.naver.com/v1/nid/me", profileRequest,
+				NaverOauthResult.class);
+		if (result.getMessage().equals("success")) {
+			NaverProfile profile = result.getResponse();
+
+			signInResult = ms.naverSignIn(session, profile);
+			switch (signInResult) {
+			case 1:
+				url = "redirect: " + path;
+				break;
+			case 2:
+				url = "redirect: " + path + "/member/oauth/emailFound.do";
+				break;
+			case 3:
+				url = "redirect: " + path + "/member/oauth/newOauthMember.do";
+				break;
+			default:
+				url = "redirect: " + path + "/error.do";
+			}
+		} else {
+			url = "redirect: " + path + "/error.do";
 		}
-		
+
 		return url;
 	}
 
@@ -281,7 +294,6 @@ public class MemberController {
 	@RequestMapping("/loginVerify.do")
 	public String loginVerify(HttpSession session, HttpServletRequest request, String id, String password,
 			Model model) {
-
 		Member m = ms.selectMemberById(id);
 		if (m == null) {
 			model.addAttribute("loginFlag", true);

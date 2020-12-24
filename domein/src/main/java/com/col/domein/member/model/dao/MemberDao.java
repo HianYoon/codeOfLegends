@@ -7,7 +7,7 @@ import org.apache.ibatis.session.RowBounds;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
-import com.col.domein.member.model.vo.EmailCheck;
+import com.col.domein.mail.model.vo.EmailCheck;
 import com.col.domein.member.model.vo.Member;
 import com.col.domein.member.model.vo.MemberLog;
 import com.col.domein.member.oauth.model.vo.SnsInfo;

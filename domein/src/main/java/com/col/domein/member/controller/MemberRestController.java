@@ -53,7 +53,7 @@ public class MemberRestController {
 		map.put("data", data);
 		return ms.isEmptyData(map);
 	}
-
+////////////////////////////////////////
 //	oauth 2.0
 //	1. Google
 	@PostMapping("/oauth/google")
@@ -64,6 +64,17 @@ public class MemberRestController {
 
 // 	2. Kakao
 
+	@PostMapping("/oauth/kakao")
+	public String kakaoSignIn() {
+		return "";
+	}
+	
+	@PostMapping("/oauth/kakao/leave")
+	public String kakaoLeave() {
+		return "";
+	}
+	
+	
 // 	3. Naver
 	@PostMapping("/oauth/naver")
 	public String naverSignIn(HttpSession session) {

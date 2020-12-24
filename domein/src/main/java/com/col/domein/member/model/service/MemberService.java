@@ -17,9 +17,9 @@ import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import com.col.domein.mail.model.vo.EmailCheck;
 import com.col.domein.mail.model.vo.SignUpVerificationEmail;
 import com.col.domein.member.model.dao.MemberDao;
-import com.col.domein.member.model.vo.EmailCheck;
 import com.col.domein.member.model.vo.Member;
 import com.col.domein.member.model.vo.MemberLog;
 import com.col.domein.member.oauth.model.vo.NaverProfile;
