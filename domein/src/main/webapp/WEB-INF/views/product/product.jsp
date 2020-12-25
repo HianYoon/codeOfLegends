@@ -48,7 +48,13 @@
         Mylist.onclick=function(e){
       	  location.href="${path}/product/SelectMyList.do?businessKey=1";
         }
-     
+     	//상품 조회
+     	$(function(){
+     		$("#searchBtn").click(function(){
+     			location.href="${path}/product/searchTitle.do"+'${pageMaker.makeQuery(1)}'+'&searchType='+$("select option:selected").val()
+     			+'&keyword='+encodeURIComponent($('#keywordInput').val());
+     		});
+     	});
     });
  
 
@@ -263,10 +269,22 @@
             
             <!--Content--> 
             <div class="oction--header">
-                <form action="" method="Post">
+                <form role="form" method="get">
                     <div class="oction-searchbox">
-                        <input type="search" class="input--text oction--input"/>
-                        <button type="submit" class="btn btn-primary2">검색</button>
+                    <select name="searchType">
+		                    <option value="null"
+		                    <c:out value="${scri.searchType == null? 'selected':''}"/>>
+		                    ---없음---</option>
+		                    <option value="title"
+		                    <c:out value="${scri.searchType eq 'title'? 'selected':''}"/>>제목</option>
+		                    <option value="content"
+		                    <c:out value="${scri.searchType eq 'content'? 'selected':''}"/>>내용</option>
+		                    <option value="all"
+		                    <c:out value="${scri.searchType eq 'all'? 'selected':''}"/>>All</option>
+	                   </select>
+                         <input type="text" name="keyword" id="keywordInput" value="${scri.keyword }" class="input--text oction--input"/>
+                         <button type="button" id="searchBtn" class="btn btn-primary2">검색</button>
+                    
                        
                     </div>
                     </form>

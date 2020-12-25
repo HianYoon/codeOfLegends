@@ -14,5 +14,6 @@
 		<typeAlias type="com.col.domein.member.oauth.model.vo.SnsInfo" alias="snsInfo"/>
 		<typeAlias type="com.col.domein.member.model.vo.MemberLog" alias="memberLog"/>
 		<typeAlias type="com.col.domein.cart.model.vo.Cart" alias="cart"/>
+		<typeAlias type="com.col.domein.common.crteria.SearchCriteria" alias="searchCriteria"/>
 	</typeAliases>
 </configuration>

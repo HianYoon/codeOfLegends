@@ -4,7 +4,7 @@
     <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
     <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
      <c:set var="path" value="${pageContext.request.contextPath }"/>
-     <c:set var="member" value="${sessionScope.signedInMember}"/>
+     <%-- <c:set var="member" value="${sessionScope.signedInMember}"/> --%>
 <link rel="stylesheet" href="${path}/resources/css/product/productDetail.css"/>
  <link rel="stylesheet" href="${path}/resources/css/sharedStyle.css"/>
  <link rel="stylesheet"
@@ -37,7 +37,7 @@
 	            <div class="product-textgroup">
 	                <form name="form" action="${path}/cart/cart.do" method="post" >
 	                    <h2>카테고리명<input type="hidden" id="pNo" name="productNo" value="${p.PRODUCT_NO}"></h2>
-	                    <input type="hidden" value="${signedInMember.memberKey}"  name="memberkey" value="1">
+	                    <input type="hidden" value=""  name="memberkey" value="1">
 	                    <ul class="star">
 	                        <li><span>☆</span><span>☆</span><span>☆</span><span>☆</span><span>☆</span>리뷰수:</li>
 	                        <!--  <li><img src="${path}/resources/images/profile/jjim.png" style="width:20px;height:20px"alt="찜" id="jjim"></li>
@@ -97,7 +97,7 @@
 	
 	                    </div>
 	                    <div class="button-order">
-	                   <c:if test="${signedInMember ==null }">
+	                   <c:if test="">
 	                   </c:if>
 	                        <button type="submit" id="cart" onclick="cartGo();" class="btn btn--primary1">장바구니</button>
 	                 <!--   <script type="text/javascript">
@@ -106,12 +106,12 @@
 	                   			location.href="${path}/cart/cart.do?productNo="+productNo+"&amount="+amount;
 	                   		}
 	                   </script> -->
-	                   <c:if test="${signedInMember !=null }">
+	                   <c:if test="">
 	                        <button type="submit" id="cart"  class="btn btn--primary1">장바구니</button>
 	                   </c:if>
 	                  
 	                      
-	                  <c:if test="${signedInMember !=null }">
+	                  <c:if test="">
 	                        <button type="submit" id="orderPay" class="btn btn--primary1">구매하기</button>
 	                  
 	                  </c:if>

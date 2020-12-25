@@ -8,7 +8,11 @@
   <link rel="stylesheet"
 	href="${path }/resources/css/cart/cart.css" />
   <link rel="stylesheet" href="${path }/resources/css/jihunTab/TabMedia.css"/>
+  <%@page import="com.col.domein.product.model.vo.ProductAll" %>
     
+ <%
+ 	ProductAll p=(ProductAll)session.getAttribute("list");
+ %>
 <jsp:include page="/WEB-INF/views/common/header.jsp">
 	<jsp:param name="title" value=""/>
 </jsp:include>
@@ -56,25 +60,29 @@
                         <!--Content-->
                         <h2>장바구니</h2>
                       <form action="" method="POST">
+                        
                         <div class="cart-container">
                             <hr/>
+                        <c:forEach items="${p }" var="p">
                                 <div class="product-cart">
+                                
                                     <input type="radio" name="cart" value="">
                                   
 
-                                        <img src="" alt="이미지">
+                                        <img src="${path }/resources/upload/product/${p.P_RENAMED_FILE_NAME}" alt="이미지">
                                         <div class="cartContent">
 
-                                            <p>상품명:</p>
+                                            <p>상품명:<c:out value="${p.title }"/></p>
                                             
                                             <input type="button" id="minus" name="minus" value="-" maxlength=""/>
-                                            <input type="text" id="amount" name="amount" value="${amount}" maxlength="" readonly/>
+                                            <input type="text" id="amount" name="amount" value="${cart.amount}" maxlength="" readonly/>
                                             <input type="button" id="plus" name="plus" value="+" maxlength=""/>
                                               
-                                            <p>가격:</p>
+                                            <p>가격:<c:out value="${p.price }"/></p>
             
                                         </div>
                                  
+                        </c:forEach>
                                  </div>
 
                                 </div>

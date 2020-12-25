@@ -37,7 +37,7 @@ public class CartController {
 	@Autowired
 	private Member m;
 	@RequestMapping("/cart/cart.do")
-	public String cart(Model m, Cart c,ProductAll p
+	public ModelAndView cart( Cart c,ProductAll p,ModelAndView mv
 			){
 		System.out.println(""+c);
 		System.out.println(""+p);
@@ -59,11 +59,11 @@ public class CartController {
 				List<Map> list=new ArrayList<Map>();
 						list=service.selectCartOne(c.getProductNo());
 						System.out.println("list:"+list);//상품이 담겨야한다.담겨진다.listmap으로 담겨진다.
-				m.addAttribute("list",list);
-				m.addAttribute("cart",c);	
-				m.addAttribute("msg","비회원장바구니");
-				m.addAttribute("loc","/");
-			loc="redirect:/cart/cartList.do";
+				mv.addObject("list",list);
+				mv.addObject("cart",c);	
+				mv.addObject("msg","비회원장바구니");
+				mv.addObject("loc","/");
+			mv.setViewName("redirect:/cart/cartList.do");
 			}
 		}
         //@ModelAttribute는 sumit된 form의 내용을 저장해서 전달받거나, 다시 뷰로 넘겨서 출력하기 위해 사용되는 오브젝트 이다.
@@ -71,7 +71,7 @@ public class CartController {
         //도메인 오브젝트나 DTO의 프로퍼티에 요청 파라미터를 바인딩해서 한번에 받으면 @ModelAttribute 라고 볼 수 있다.
 
         //@ModelAttribute는 컨트롤러가 리턴하는 모델에 파라미터로 전달한 오브젝트를 자동으로 추가해준다.
-		return loc;
+		return mv;
 	}
 	@RequestMapping("/cart/cartList.do")
 	public <Data> String cartProductList(Model m, Cart c, ProductAll p) {
