@@ -137,7 +137,7 @@ public class ProductServiceImpl implements ProductService {
 	}
 	//검색 기능
 	@Override
-	public List<ProductAll> searchList(SearchCriteria scri)throws Exception {
+	public List<Map> searchList(SearchCriteria scri)throws Exception {
 		// TODO Auto-generated method stub
 		return dao.searchListAll(session,scri);
 	}

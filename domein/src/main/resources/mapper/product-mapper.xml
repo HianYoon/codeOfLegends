@@ -100,11 +100,11 @@
 		</delete>
 		
 		<!-- 검색기능 -->
-		<select id="searchListAll" resultType="productAll" parameterType="searchCriteria">
-			SELECT * from (select ROW_NUMBER() over(order by productNo DESC) as RNUM from
+		<select id="searchListAll" resultType="map" parameterType="searchCriteria">
+			SELECT TITLE,PRODUCT_NO,PRICE,P_RENAMED_FILE_NAME from (select TITLE,PRODUCT_NO,PRICE,P_RENAMED_FILE_NAME,ROW_NUMBER() over(order by PRODUCT_NO DESC) as RNUM from
 			product_all where 1=1<include refid="search"></include>
 			 ) MP where RNUM between #{rowStart} and #{rowEnd}
-			 order by productNo DESC
+			 order by PRODUCT_NO DESC
 			
 		</select>
 			<!--  조회물 갯수-->

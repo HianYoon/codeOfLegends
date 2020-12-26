@@ -40,7 +40,7 @@ public interface ProductService {
 	List<Map> selectProductByBusinessKey(int businessKey);
 	
 	//검색기능
-	List<ProductAll> searchList(SearchCriteria scri)throws Exception;
+	List<Map> searchList(SearchCriteria scri)throws Exception;
 	//게시물 갯수
 	int searchListCount(SearchCriteria scri)throws Exception;
 

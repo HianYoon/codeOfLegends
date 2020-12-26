@@ -101,7 +101,7 @@ public class ProductDaoImpl implements ProductDao {
 	//검색기능
 
 	@Override
-	public List<ProductAll> searchListAll(SqlSession session, SearchCriteria scri) throws Exception {
+	public List<Map> searchListAll(SqlSession session, SearchCriteria scri) throws Exception {
 		// TODO Auto-generated method stub
 		return session.selectList("product.searchListAll",scri);
 	}

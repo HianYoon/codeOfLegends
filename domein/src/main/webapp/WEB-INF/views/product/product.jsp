@@ -51,7 +51,7 @@
      	//상품 조회
      	$(function(){
      		$("#searchBtn").click(function(){
-     			location.href="${path}/product/searchTitle.do"+'${pageMaker.makeQuery(1)}'+'&searchType='+$("select option:selected").val()
+     			self.location="${path}/product/searchTitle.do?"+'${pageMaker.makeQuery(1)}'+'&searchType='+$("select option:selected").val()
      			+'&keyword='+encodeURIComponent($('#keywordInput').val());
      		});
      	});
@@ -285,7 +285,7 @@
                          <input type="text" name="keyword" id="keywordInput" value="${scri.keyword }" class="input--text oction--input"/>
                          <button type="button" id="searchBtn" class="btn btn-primary2">검색</button>
                     
-                       
+                   
                     </div>
                     </form>
                  <div class="product--search-list">
@@ -294,7 +294,7 @@
                          <li>등록순</li>
                          <li>조회순</li>
                      </ul>
-                     
+                     	
                      
                  </div>   
             </div>
@@ -302,6 +302,56 @@
             
             
             
+            <div id="grid2" class="oction-list-container">
+                <!-- grid-content -->
+                <div class="grid2-container">
+                    
+                    <!-- 절제선 -->
+                    <c:forEach items="${list}" var="l">
+                    <div class="oction--grid--container">
+                       		
+                            <a class="oction-img-group" href="${path}/product/productDetail.do?articleNo=${l.ARTICLE_NO}">
+                                <img id="big-target" src="${path}/resources/upload/product/${l.P_RENAMED_FILE_NAME}" alt="이미지" data-zoom="3"/>
+                                
+                            </a>
+                            <div>
+
+                                <ul class="grid-text-group" style="padding:0">
+                                    <li><c:out value="${l.TITLE }"/></li>
+                                    <li><fmt:formatNumber value="${l.PRICE}" pattern="###,###,###"/>원</li>
+                                    <li>리뷰수<c:out value="${l.ATTAC }"/>
+                                    <c:out value="${l.ARTICLE_NO}"/>
+
+                                    </li>
+                                      <li>
+                                             <span><a href="${path}"><img src="${path }/resources/images/profile/jjim.png" alt="찜" style="width: 15px;height:15px;"></a></span>
+                                             <span><a href="${path}"><img src="${path }/resources/images/profile/add-to-basket.png" alt="like" style="width: 15px;height:15px;"></a></span>
+                
+                                   </li>
+                                    
+                                </ul>
+                            </div>
+                     </div>
+                  
+                     </c:forEach>           
+                              <!-- 절제선 -->
+                      </div>
+                      <div>
+                      	   <ul>
+                      			<c:if test="${pageMaker.prev }">
+	                      			<li><a href="list${pageMaker.makeSearch(pageMaker.startPage -1 )}">이전</a></li>
+                      			</c:if>
+                      			<c:forEach begin="${pageMaker.startPage }" end="${pageMaker.endPage}" var="idx">
+                      			
+	                      			<li><a href="list${pageMaker.makeSearch(idx)}">${idx}</a></li>
+                      			</c:forEach>
+                      			<c:if test="${pageMaker.next&&pageMaker.endPage > 0 }">
+                      			
+	                      			<li><a href="list${pageMaker.makeSearch(pageMaker.endPage +1)}">다음</a></li>
+                      			</c:if>
+                      			
+                      		</ul>
+                      </div>
             <div id="grid2" class="oction-list-container">
                 <!-- grid-content -->
                 <div class="grid2-container">
@@ -321,6 +371,7 @@
                                     <li><fmt:formatNumber value="${b.PRICE}" pattern="###,###,###"/>원</li>
                                     <li>리뷰수<c:out value="${b.ATTAC }"/>
                                     <c:out value="${b.ARTICLE_NO}"/>
+
                                     </li>
                                       <li>
                                              <span><a href="${path}"><img src="${path }/resources/images/profile/jjim.png" alt="찜" style="width: 15px;height:15px;"></a></span>
@@ -330,13 +381,6 @@
                                     
                                 </ul>
                             </div>
-                               
-                              <!--   <script type="text/javascript">
-                               	$("#big-target").Click(e=>{
-                               		location.href="${path}/product/productView.do?productNo=${b.productNo}&article_No=${article_No}";
-                               	});
-                                </script>
-                         -->
                      </div>
                   
                      </c:forEach>           

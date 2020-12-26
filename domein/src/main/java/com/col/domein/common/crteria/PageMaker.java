@@ -22,6 +22,34 @@ public class PageMaker {
 		this.totalCount=totalCount;
 		calcData();
 	}
+	
+	public int getTotalCount() {
+		return totalCount;
+	}
+	
+	public int getStartPage() {
+		return startPage;
+	}
+	
+	public int getEndPage() {
+		return endPage;
+	}
+	
+	public boolean isPrev() {
+		return prev;
+	}
+	
+	public boolean isNext() {
+		return next;
+	}
+	
+	public int getDisplayPageNum() {
+		return displayPageNum;
+	}
+	
+	public Criteria getCri() {
+		return cri;
+	}
 	private void calcData() {
 		endPage=(int)(Math.ceil(cri.getPage()/(double)displayPageNum)* displayPageNum);
 		startPage=(endPage -displayPageNum)+1;

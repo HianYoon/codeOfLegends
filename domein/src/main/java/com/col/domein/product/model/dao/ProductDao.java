@@ -44,7 +44,7 @@ public interface ProductDao {
 	List<Map> selectProductByBusinessKey(SqlSession session,int businessKey);
 	
 	//상품검색
-	List<ProductAll> searchListAll(SqlSession session, SearchCriteria scri)throws Exception;
+	List<Map> searchListAll(SqlSession session, SearchCriteria scri)throws Exception;
 	//상품조회물갯수
 	int searchListCount(SqlSession session, SearchCriteria scri);
 
