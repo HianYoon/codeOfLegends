@@ -7,6 +7,7 @@ import org.apache.ibatis.session.RowBounds;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
+import com.col.domein.common.crteria.SearchCriteria;
 import com.col.domein.product.model.vo.Attachement;
 import com.col.domein.product.model.vo.BoardProductSaleContent;
 import com.col.domein.product.model.vo.Product;
@@ -96,5 +97,18 @@ public class ProductDaoImpl implements ProductDao {
 	public List<Map> selectProductByBusinessKey(SqlSession session, int businessKey) {
 		// TODO Auto-generated method stub
 		return session.selectList("product.selectProductByBusinessKey",businessKey);
+	}
+	//검색기능
+
+	@Override
+	public List<Map> searchListAll(SqlSession session, SearchCriteria scri) throws Exception {
+		// TODO Auto-generated method stub
+		return session.selectList("product.searchListAll",scri);
+	}
+	//조회게시물 갯수
+	@Override
+	public int searchListCount(SqlSession session, SearchCriteria scri) {
+		// TODO Auto-generated method stub
+		return session.selectOne("product.searchListCount",scri);
 	}
 }

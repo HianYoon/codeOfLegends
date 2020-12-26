@@ -12,12 +12,6 @@
 			default,
 			'1'	
 			)
-	<!-- 	<selectKey order="AFTER" resultType="_int" keyProperty="aticleNo">
-				SELECT SEQ_article_No.CURRVAL FROM DUAL
-			</selectKey> -->
-	<!-- 		<selectKey order="BEFORE" resultType="_int" keyProperty="businessKey">
-				select b.business_key from business b, member m where  m.member_key=b.business_key
-			</selectKey> -->
 		</insert>
 		
 		<insert parameterType="product" id="insertProduct">
@@ -104,4 +98,30 @@
 			delete from product_all where article_no=#{p.articleNo}
 			
 		</delete>
+		
+		<!-- 검색기능 -->
+		<select id="searchListAll" resultType="map" parameterType="searchCriteria">
+			SELECT TITLE,PRODUCT_NO,PRICE,P_RENAMED_FILE_NAME from (select TITLE,PRODUCT_NO,PRICE,P_RENAMED_FILE_NAME,ROW_NUMBER() over(order by PRODUCT_NO DESC) as RNUM from
+			product_all where 1=1<include refid="search"></include>
+			 ) MP where RNUM between #{rowStart} and #{rowEnd}
+			 order by PRODUCT_NO DESC
+			
+		</select>
+			<!--  조회물 갯수-->
+		<select id="searchListCount" parameterType="searchCriteria" resultType="_int">
+			select count(PRODUCT_NO) from product_all where 1=1
+			<include refid="search"></include>
+			AND PRODUCT_NO > 0
+		</select>
+		
+		<sql id="search">
+			<if test="searchType != null">
+				<if test="searchType == 'title',toString()">AND TITLE LIKE '%'||#{keyword}||'%'</if>
+				<if test="searchType == 'content',toString()">AND SALE_CONTENT LIKE '%'||#{keyword}||'%'</if>
+				<if test="searchType == 'all',toString()">AND (TITLE LIKE '%'||#{keyword}||'%') or (SALE_CONTENT LIKE '%'||#{keyword}||'%')</if>
+			</if>
+		</sql>
+			
+		
+		
 </mapper>

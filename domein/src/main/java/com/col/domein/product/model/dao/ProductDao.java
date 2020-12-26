@@ -5,6 +5,7 @@ import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 
+import com.col.domein.common.crteria.SearchCriteria;
 import com.col.domein.product.model.vo.Attachement;
 import com.col.domein.product.model.vo.BoardProductSaleContent;
 import com.col.domein.product.model.vo.Product;
@@ -41,6 +42,11 @@ public interface ProductDao {
 	//상품files수정
 	int updateAttachment(SqlSession session, Attachement a);
 	List<Map> selectProductByBusinessKey(SqlSession session,int businessKey);
+	
+	//상품검색
+	List<Map> searchListAll(SqlSession session, SearchCriteria scri)throws Exception;
+	//상품조회물갯수
+	int searchListCount(SqlSession session, SearchCriteria scri);
 
 
 

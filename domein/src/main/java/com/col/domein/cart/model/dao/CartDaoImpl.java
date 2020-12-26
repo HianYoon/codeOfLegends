@@ -1,5 +1,9 @@
 package com.col.domein.cart.model.dao;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
@@ -13,6 +17,17 @@ public class CartDaoImpl implements CartDao{
 
 		
 		return session.insert("cart.insertProductCart",c);
+	}
+	//비회원 상품조회
+	@Override
+	public List<Cart> selectCartList(SqlSession session, int productNo) {
+		// TODO Auto-generated method stub
+		return session.selectList("cart.selectProductList",productNo);
+	}
+	@Override
+	public List<Map> selectCartOne(SqlSession session, int productNo) {
+		// TODO Auto-generated method stub
+		return session.selectList("cart.selectCartOne",productNo);
 	}
 
 }
