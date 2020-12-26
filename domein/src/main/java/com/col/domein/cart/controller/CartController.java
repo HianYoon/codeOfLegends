@@ -63,7 +63,7 @@ public class CartController {
 				mv.addObject("cart",c);	
 				mv.addObject("msg","비회원장바구니");
 				mv.addObject("loc","/");
-			mv.setViewName("redirect:/cart/cartList.do");
+			mv.setViewName("cart/cart");
 			}
 		}
         //@ModelAttribute는 sumit된 form의 내용을 저장해서 전달받거나, 다시 뷰로 넘겨서 출력하기 위해 사용되는 오브젝트 이다.
@@ -72,16 +72,6 @@ public class CartController {
 
         //@ModelAttribute는 컨트롤러가 리턴하는 모델에 파라미터로 전달한 오브젝트를 자동으로 추가해준다.
 		return mv;
-	}
-	@RequestMapping("/cart/cartList.do")
-	public <Data> String cartProductList(Model m, Cart c, ProductAll p) {
-		System.out.println("가져올수잇는 목록"+c);
-		System.out.println("비회원 cart목록:"+p);
-		
-		m.addAttribute("cart",c);
-		m.addAttribute("list",p);
-		return "cart/cart";
-		
 	}
 	@RequestMapping("/cart/insert.do")
 	public ModelAndView productInsertCart(ModelAndView mv,int memberNum ) {
