@@ -8,11 +8,7 @@
   <link rel="stylesheet"
 	href="${path }/resources/css/cart/cart.css" />
   <link rel="stylesheet" href="${path }/resources/css/jihunTab/TabMedia.css"/>
-  <%@page import="com.col.domein.product.model.vo.ProductAll" %>
     
- <%
- 	ProductAll p=(ProductAll)session.getAttribute("list");
- %>
 <jsp:include page="/WEB-INF/views/common/header.jsp">
 	<jsp:param name="title" value=""/>
 </jsp:include>
@@ -59,32 +55,33 @@
                     <div id="tab1" class="tab_content">
                         <!--Content-->
                         <h2>장바구니</h2>
-                      <form action="" method="POST">
+                      <form action="${path }" method="POST">
                         
                         <div class="cart-container">
                             <hr/>
-                        <c:forEach items="${p }" var="p">
+                         <c:forEach items="${list}" var="list">
+                            <c:set value="${cart}" var="cart"/>
                                 <div class="product-cart">
                                 
                                     <input type="radio" name="cart" value="">
                                   
 
-                                        <img src="${path }/resources/upload/product/${p.P_RENAMED_FILE_NAME}" alt="이미지">
+                                        <img src="${path }/resources/upload/product/${list.P_RENAMED_FILE_NAME}" alt="이미지">
                                         <div class="cartContent">
 
-                                            <p>상품명:<c:out value="${p.title }"/></p>
+                                            <p>상품명:<c:out value="${list.TITLE }"/></p>
                                             
                                             <input type="button" id="minus" name="minus" value="-" maxlength=""/>
                                             <input type="text" id="amount" name="amount" value="${cart.amount}" maxlength="" readonly/>
                                             <input type="button" id="plus" name="plus" value="+" maxlength=""/>
                                               
-                                            <p>가격:<c:out value="${p.price }"/></p>
+                                            <p>가격:<c:out value="${list.PRICE }"/>원</p>
             
                                         </div>
                                  
-                        </c:forEach>
+                   
                                  </div>
-
+						</c:forEach>
                                 </div>
                                 <hr/>
                                 <div class="cart-total-price">

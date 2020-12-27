@@ -20,14 +20,15 @@ public class CartDaoImpl implements CartDao{
 	}
 	//비회원 상품조회
 	@Override
-	public List<Cart> selectCartList(SqlSession session, int productNo) {
-		// TODO Auto-generated method stub
-		return session.selectList("cart.selectProductList",productNo);
-	}
-	@Override
 	public List<Map> selectCartOne(SqlSession session, int productNo) {
 		// TODO Auto-generated method stub
 		return session.selectList("cart.selectCartOne",productNo);
+	}
+	//멤버cart
+	@Override
+	public int insertMemberCart(SqlSession session, Cart c) {
+		// TODO Auto-generated method stub
+		return session.insert("cart.insertMemberCart",c);
 	}
 
 }

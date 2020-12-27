@@ -4,7 +4,7 @@
     <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
     <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
      <c:set var="path" value="${pageContext.request.contextPath }"/>
-     <%-- <c:set var="member" value="${sessionScope.signedInMember}"/> --%>
+     <c:set var="member" value="${signedInMember}"/> 
 <link rel="stylesheet" href="${path}/resources/css/product/productDetail.css"/>
  <link rel="stylesheet" href="${path}/resources/css/sharedStyle.css"/>
  <link rel="stylesheet"
@@ -14,6 +14,14 @@
 	<jsp:param name="title" value=""/>
 </jsp:include>
 
+<script type="text/javascript">
+	
+window.addEventListener('load',function(){
+		var pNo=document.querySelector("#pN").value;
+		console.log(pNo);
+		alert(pNo);
+	});
+</script>
 
    
 <section id="content">
@@ -37,7 +45,8 @@
 	            <div class="product-textgroup">
 	                <form name="form" action="${path}/cart/cart.do" method="post" >
 	                    <h2>카테고리명<input type="hidden" id="pNo" name="productNo" value="${p.PRODUCT_NO}"></h2>
-	                    <input type="hidden" value=""  name="memberkey" value="1">
+	                 <input type="hidden" id="pN" name="memberKey" value="${member.memberKey}">
+	                  
 	                    <ul class="star">
 	                        <li><span>☆</span><span>☆</span><span>☆</span><span>☆</span><span>☆</span>리뷰수:</li>
 	                        <!--  <li><img src="${path}/resources/images/profile/jjim.png" style="width:20px;height:20px"alt="찜" id="jjim"></li>
@@ -97,19 +106,14 @@
 	
 	                    </div>
 	                    <div class="button-order">
-	                   <c:if test="">
-	                   </c:if>
-	                        <button type="submit" id="cart" onclick="cartGo();" class="btn btn--primary1">장바구니</button>
-	                 <!--   <script type="text/javascript">
-	                   		function cartGo(){
-	                   			session.setAttributte("ProductNo"+productNo+"\nAmount:"+amount);
-	                   			location.href="${path}/cart/cart.do?productNo="+productNo+"&amount="+amount;
-	                   		}
-	                   </script> -->
-	                   <c:if test="">
+	                   <c:if test="${signedInMember !=null }">
 	                        <button type="submit" id="cart"  class="btn btn--primary1">장바구니</button>
+	                
 	                   </c:if>
 	                  
+	                  
+	                        <button type="submit" id="cart" class="btn btn--primary1">장바구니</button>
+	              
 	                      
 	                  <c:if test="">
 	                        <button type="submit" id="orderPay" class="btn btn--primary1">구매하기</button>
@@ -129,10 +133,10 @@
                 <li><a href="#reviews">리뷰</a></li>
                 <li><a href="#">문의</a></li>
                 <li><a href="#">좋아요<img src="" alt="따봉"></a></li>
-                <c:if test="${member.memberId }!=null">
+                <c:if test="${member.memberKey }!=null">
                 
-                </c:if>
                		 <li class="ProductComment">댓글쓰기</li>
+                </c:if>
             </ul>
         </div>
         <hr/>
@@ -146,7 +150,7 @@
             <form action="" method="POST"  enctype="multipart/form-data" >
                 <div class="review-container" style="display:none">
                          <!-- //점 이미지 -->
-                    <div class="top-comment"><span><input type="text" id="userNickName" name="userNickName" value="${member.NICKNAME}"/>닉네임</span>
+                    <div class="top-comment"><span><input type="text" id="userNickName" name="userNickName" value="${member.nickname}"/>닉네임</span>
 	                    <span class="hamburger" style="padding: 15px;">
 	                    	<div id="Declaration" href="${path}/resources/images/profile/12.jpg">♡
 	                    	</div>											
@@ -154,7 +158,7 @@
 	                    	
 	                    	</div>
 	                    </span>
-	                    <input type="hidden" name="writerKey" value="${member.MEMBER_KEY }"/>
+	                    <input type="hidden" name="writerKey" value="${member.memberKey }"/>
 	                    <input type="hidden" name="reviewStatus" value="${ARTICLE_NO }"/>
 	                    <input type="hidden" name="articleStatus" value="${articlestatus.article_status_no }"/>
 	                    
@@ -178,8 +182,8 @@
 	                    			<form id="modal" action="${path }" method="post"  enctype="multipart/form-data">
 	                    			<div class="modal-title">
 	                    			
-	                    				<input type="hidden" name="writerKey" value="${member.MEMBER_KEY }" readonly/>
-	                    				<input type="text" name="nickName" value="${member.NICKNAME }" readonly/>
+	                    				<input type="hidden" name="writerKey" value="${member.memberKey }" readonly/>
+	                    				<input type="text" name="nickName" value="${member.nickname }" readonly/>
 	                    				<input type="text" name="reviewContent" value="${bds_review.REVIEW_CONTENT }" readonly/>
 	                    			</div>
 	                    			<div class="modal-title">

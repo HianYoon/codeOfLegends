@@ -13,7 +13,9 @@ public interface CartDao {
 
 	int insertProductCart(SqlSession session, Cart c);
 	//비회원 상품 조회
-	List<Cart> selectCartList(SqlSession session, int productNo);
+	
 	List<Map> selectCartOne(SqlSession session, int productNo);
+	//멤버cart
+	int insertMemberCart(SqlSession session, Cart c);
 
 }

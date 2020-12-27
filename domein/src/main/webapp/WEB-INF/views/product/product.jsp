@@ -5,7 +5,7 @@
     <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
     <%@ page import="com.col.domein.member.model.vo.Member,java.util.List" %>
      <c:set var="path" value="${pageContext.request.contextPath }"/>
-
+ <c:set var="member" value="${signedInMember}"/> 
  <link rel="stylesheet" href="${path }/resources/css/product/product.css"/>
   <link rel="stylesheet" href="${path }/resources/css/jihunTab/TabMedia.css"/>
   <link rel="stylesheet" href="${path }/resources/css/sharedStyle.css"/>
@@ -310,7 +310,7 @@
                     <c:forEach items="${list}" var="l">
                     <div class="oction--grid--container">
                        		
-                            <a class="oction-img-group" href="${path}/product/productDetail.do?articleNo=${l.ARTICLE_NO}">
+                            <a class="oction-img-group" href="${path}/product/productDetail.do?articleNo=${l.ARTICLE_NO}&memberKey=${member.memberKey}">
                                 <img id="big-target" src="${path}/resources/upload/product/${l.P_RENAMED_FILE_NAME}" alt="이미지" data-zoom="3"/>
                                 
                             </a>
@@ -360,7 +360,7 @@
                     <c:forEach items="${board}" var="b">
                     <div class="oction--grid--container">
                        		
-                            <a class="oction-img-group" href="${path}/product/productDetail.do?articleNo=${b.ARTICLE_NO}">
+                            <a class="oction-img-group" href="${path}/product/productDetail.do?articleNo=${b.ARTICLE_NO}&memberKey=${member.memberKey}">
                                 <img id="big-target" src="${path}/resources/upload/product/${b.P_RENAMED_FILE_NAME}" alt="이미지" data-zoom="3"/>
                                 
                             </a>
