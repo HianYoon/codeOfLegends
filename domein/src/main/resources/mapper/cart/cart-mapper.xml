@@ -3,7 +3,7 @@
 <mapper namespace="cart">
 	<!--cart 로그인햇을경우가 잇을경우  -->
 	<insert id="insertProductCart" parameterType="cart">
-		insert into cart values(#{memberkey},#{pNo},#{count})
+		insert into cart values(#{memberKey},#{pNo},#{count})
 	</insert>
 	
 	<!-- 비회원 장바구니 상품 불러오기 -->
