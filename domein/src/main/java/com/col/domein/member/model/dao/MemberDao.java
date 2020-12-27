@@ -51,6 +51,10 @@ public class MemberDao {
 		return session.selectList("member.selectMemberList",null,new RowBounds(((cPage-1)*numperPage),numperPage));
 	}
 	
+	public List<Map> searchUser(SqlSession session, String keyword){
+		return session.selectList("member.searchUser",keyword);
+	}
+	
 	public boolean updateMemberToConfirmed(SqlSession session, int memberKey) {
 		return session.update("signup.updateMemberToConfirmed", memberKey)==1;
 	}

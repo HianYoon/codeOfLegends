@@ -22,13 +22,13 @@ public class AdminController {
 	@Autowired
 	private ProductService ps;
 	
-	@RequestMapping("admin/searchUser.do")
+	@RequestMapping("admin/userList.do")
 	public String searchUser(Model m,@RequestParam(value="cPage",defaultValue="1")int cPage,
 			@RequestParam(value="numPerpage",defaultValue="10")int numPerpage) {
 		
 		List<Map> list = ms.selectMemberList(cPage,numPerpage);
 		m.addAttribute("list",list);
-		return "admin/searchUser";
+		return "admin/userList";
 	}
 	
 	@RequestMapping("admin/userInfo.do")
@@ -41,5 +41,14 @@ public class AdminController {
 		m.addAttribute("businessNo",businessNo);
 		m.addAttribute("productList",ps.selectProductByBusinessKey(businessKey));
 		return "admin/userInfo";
+	}
+	@RequestMapping("admin/searchUser.do")
+	public String searchUser(Model m, int memberKey, int businessKey, String keyword) {
+		
+		
+		List<Map> list = ms.searchUser(keyword);
+		m.addAttribute("list",list);
+		return "admin/userList";
+		
 	}
 }

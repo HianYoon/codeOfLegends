@@ -21,7 +21,7 @@
 		</div>
 		<div class="search-result">
 			<div class="area-top">
-				<form action="">
+				<form action="${path }/admin/searchUser.do">
 					<div class="box-form">
 						<div class="wrap-data">
 							<label for="userInfo">
@@ -71,8 +71,16 @@
 												<dd><c:out value="${l.MEMBER_KEY }"/></dd>
 											</div>
 											<div>
-												<dt>이름</dt>
-												<dd>${l.USERNAME }</dd>
+												<dt>닉네임</dt>
+												<dd><c:out value="${l.NICKNAME }"/></dd>
+											</div>
+											<div>
+												<dt>전화번호</dt>
+												<dd><c:out value="${l.PHONE }"/></dd>
+											</div>
+											<div>
+												<dt>이메일</dt>
+												<dd><c:out value="${l.EMAIL }"/></dd>
 											</div>
 										</dl>
 									</div>

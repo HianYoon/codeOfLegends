@@ -118,6 +118,12 @@ public class MemberService {
 		return md.selectMemberList(session, cPage, numperPage);
 
 	}
+	
+
+	
+	public List<Map> searchUser(String keyword){
+		return md.searchUser(session,keyword);
+	}
 
 	public String createConfirmationKey() {
 //		confirmation_key 만드는 로직
