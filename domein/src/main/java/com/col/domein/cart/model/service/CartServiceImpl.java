@@ -29,17 +29,19 @@ public class CartServiceImpl implements CartService {
 
 
 	//비회원 상품가져오기
-	@Override
-	public List<Cart> selectCartList(int productNo) {
-		// TODO Auto-generated method stub
-		return dao.selectCartList(session,productNo);
-	}
 
 	//비회원 
 	@Override
 	public List<Map> selectCartOne(int productNo) {
 		// TODO Auto-generated method stub
 		return dao.selectCartOne(session,productNo);
+	}
+
+
+	@Override
+	public int insertMemberCart(Cart c) {
+		// TODO Auto-generated method stub
+		return dao.insertMemberCart(session,c);
 	}
 
 }
