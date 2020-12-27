@@ -111,9 +111,9 @@ window.addEventListener('load',function(){
 	                
 	                   </c:if>
 	                  
-	                  
+	                    <c:if test="${signedInMember ==null }">
 	                        <button type="submit" id="cart" class="btn btn--primary1">장바구니</button>
-	              
+	              		</c:if>
 	                      
 	                  <c:if test="">
 	                        <button type="submit" id="orderPay" class="btn btn--primary1">구매하기</button>
