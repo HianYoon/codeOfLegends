@@ -23,11 +23,14 @@
 			<div class="area-top">
 				<form action="${path }/admin/searchUser.do">
 					<div class="search-option">
-						<select name="searchOption">
+						<%-- <select name="searchOption">
 							<option value="allSearch" <c:out value="${option=='all'?'selected':'' }"/>>통합검색</option>
 							<option value="nickname" <c:out value="${option=='nickname'?'selected':'' }"/>>닉네임으로 검색</option>
 							<option value="email" <c:out value="${option=='email'?'selected':'' }"/>>이메일로 검색</option>
-						</select>
+						</select> --%>
+						<label><input type="radio" name="searchOption" value="allSearch" checked <c:out value="${option=='allSearch'?'checked':'' }"/>>통합검색</label>
+						<label><input type="radio" name="searchOption" value="nickname" <c:out value="${option=='nickname'?'checked':'' }"/>>닉네임으로 검색</label>
+						<label><input type="radio" name="searchOption" value="email" <c:out value="${option=='email'?'checked':'' }"/>>이메일로 검색</label>
 					</div>
 					<div class="box-form">
 						<div class="wrap-data">
@@ -42,7 +45,7 @@
 			</div>
 			<div class="wrap-result">
 				<div class="wrap-title">
-					<h2 class="page-title">검색결과: 2명</h2>
+					<h2 class="page-title">검색결과: ${list.size() }명</h2>
 				</div>
 				<div class="wrap-contents">
 					<div class="wrap-inner">
