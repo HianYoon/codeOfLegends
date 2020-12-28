@@ -1,0 +1,71 @@
+#wholeback{
+    display:flex;
+    flex-flow:row wrap;
+}
+.tab_menu{
+    width:18%;
+    min-width: 240px;    
+    background-color: #ffca28;
+    font-size:18px;
+}
+.tab_menu h2{
+    margin-left:-15px;
+}
+#container{
+    width:55%;    
+    margin-left:20px;
+}
+#container hr{
+    margin-left:-20px;
+}
+#container>form>div{
+    margin-top:18px;
+}
+.div_intro{
+    border: 1px rgb(54, 54, 54) solid;
+    color: rgb(88, 83, 83); 
+    font-size:14px;   
+    width:84%;
+}
+.div_intro>ul{
+    padding-right:5px;
+}
+.div_myArticle>p{
+    padding-top:10px;
+}
+.table_myArticle{
+    border: 1px black solid;
+    width:90%;
+    margin-top:-5px;
+    border-collapse: collapse;
+}
+.table_myArticle>thead th:first-child{
+    width:12%;
+}
+.table_myArticle>thead th:nth-child(2){
+    width:36%;
+}
+.table_myArticle>thead th:last-child{
+    width:5%;
+}
+.table_myArticle th{
+    border-bottom: 1px black solid;
+    height:2em;
+}
+.div_preview{
+    position:relative;
+}
+.div_ajax{
+    border:1px rgb(119, 119, 119) solid;    
+    width:90%;
+    min-width: 240px;
+    overflow:hidden;      
+}
+.div_period>input[type=text]{
+    width:18%;
+    text-align: right;
+    margin-top:10px;
+}
+.div_submit{
+    margin-left:33%;
+}
