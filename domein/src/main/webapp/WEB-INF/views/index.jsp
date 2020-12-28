@@ -10,7 +10,7 @@
 <section id="content">
 <div>
 	<pre>
-	<a href="${path }/admin/searchUser.do">ss</a>
+	<a href="${path }/admin/userList.do">ss</a>
 	asdf
 	sdf
 	d

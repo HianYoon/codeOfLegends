@@ -26,6 +26,20 @@
 		<collection property="businesses" javaType="java.util.TreeSet" column="MEMBER_KEY" select="business.selectBusinessByMemberKey"></collection>
 	</resultMap>
 <!-- 리절트맵 세팅을 위한 구문 -->
+<!-- searchOption에 따른 WHERE절 구문 -->
+	<select id="searchUser" parameterType="map" resultType="map">
+		SELECT M.*, B.BUSINESS_KEY,B.BUSINESS_NO FROM MEMBER M LEFT JOIN BUSINESS B ON M.MEMBER_KEY = B.MEMBER_KEY
+		<choose>
+			<when test="searchOption=='allSearch'">
+				WHERE NICKNAME like '%'||#{keyword}||'%'
+				OR EMAIL like '%'||#{keyword}||'%'
+				OR PHONE like '%'||#{keyword}||'%'
+			</when>
+			<otherwise>
+				WHERE ${searchOption} like '%'||#{keyword}||'%'
+			</otherwise>
+		</choose>
+	</select>
 	<select id="selectLevelDesc" resultType="string">
 		SELECT LEVEL_DESC FROM MEMBER_LEVEL WHERE LEVEL_NO = #{levelNo}
 	</select>
@@ -54,5 +68,7 @@
 	<update id="insertMemberProfileUrl" parameterType="snsInfo">
 		UPDATE MEMBER SET PROFILE_URL = #{snsProfilePic} WHERE MEMBER_KEY = #{memberKey}
 	</update>
+	
+	
 	
 </mapper>

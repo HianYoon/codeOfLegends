@@ -1,5 +1,6 @@
 package com.col.domein.member.model.dao;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -49,6 +50,13 @@ public class MemberDao {
 	
 	public List<Map> selectMemberList(SqlSession session, int cPage, int numperPage){
 		return session.selectList("member.selectMemberList",null,new RowBounds(((cPage-1)*numperPage),numperPage));
+	}
+	
+	public List<Map> searchUser(SqlSession session, String keyword, String searchOption){
+		Map<String,String> map = new HashMap();
+		map.put("keyword",keyword);
+		map.put("searchOption",searchOption);
+		return session.selectList("member.searchUser",map);
 	}
 	
 	public boolean updateMemberToConfirmed(SqlSession session, int memberKey) {

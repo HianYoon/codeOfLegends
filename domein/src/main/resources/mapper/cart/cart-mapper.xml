@@ -1,17 +1,35 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="cart">
-	<!--cart 로그인햇을경우가 잇을경우  -->
-	<insert id="insertProductCart" parameterType="cart">
-		insert into cart values(#{memberKey},#{pNo},#{count})
-	</insert>
-	
 	<!-- 비회원 장바구니 상품 불러오기 -->
-	<select id="selectProductList" resultType="_int">
-		select * from Product_all where PRODUCT_NO = #{productNo}
-	</select>
-	
 	<select id="selectCartOne" resultType="map">
 		select * from product_all where PRODUCT_NO = #{productNo}
 	</select>
+	<!-- member Cart -->
+	<insert id="insertMemberCart" parameterType="cart">
+		insert into cart values(#{memberKey},#{productNo},#{amount})
+	</insert>
+	<!-- member Cart 불러오기-->
+	<select id="selectProductCart" resultType="map">
+		select * from product_all where Product_no=#{productNo}
+	</select>
+	<!--  기존상품이 있는지 체크-->
+	<select id="checkProductNo" resultType="_int">
+		select count(*) from cart where member_key=#{memberKey} and product_no=#{productNo}
+	</select>
+	<!-- 상품이 있으면 amount만 업데이트 -->
+	<update id="updateCartProductAmount" parameterType="cart">
+		update cart set amount= amount+#{amount} where member_key=#{memberKey}
+		and product_no=#{productNo}
+	</update>
+	
+	<!-- cartList불러오기 -->
+	<select id="selectCartList" resultType="map">
+		select * from cart where member_key=#{memberKey}
+		
+	</select>
+		<!-- cartList삭제 -->
+		<delete id="deleteCartList" parameterType="cart">
+			delete from cart where member_key=#{memberKey}
+		</delete>
 </mapper>
