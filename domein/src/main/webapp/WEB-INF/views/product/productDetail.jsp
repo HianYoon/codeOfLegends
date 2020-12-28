@@ -35,7 +35,7 @@ window.addEventListener('load',function(){
 	                <ul>
 	                    <li><img src="" alt="이미지1"></li>
 	                </ul>
-	
+
 	            </div>
 	            
 	                
@@ -217,6 +217,8 @@ window.addEventListener('load',function(){
  </c:if>
  <c:if test="${product.get(0).PRODUCT_STATUS_NO == 8}">
  	해당 글은 블라인드 처리 되었습니다.
+ 	<button onclick="window.history.back()">뒤로가기</button>
+ 	
  </c:if>
 </section>
 <jsp:include page="/WEB-INF/views/common/footer.jsp"/>
