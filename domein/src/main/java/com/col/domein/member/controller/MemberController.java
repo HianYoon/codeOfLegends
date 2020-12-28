@@ -390,7 +390,15 @@ public class MemberController {
 		return "member/myPage/account/accountMenu";
 	}
 	
+	@RequestMapping("/myPage/account")
+	public String myPageAccount() {
+		return "member/myPage/account/accountMenu";
+	}
 	
+	@RequestMapping("/myPage/account/delete.do")
+	public String deleteAccount() {
+		return "member/myPage/account/deleteAccount";
+	}
 	
 	
 	

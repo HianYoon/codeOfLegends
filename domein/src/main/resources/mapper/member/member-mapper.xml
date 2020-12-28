@@ -40,6 +40,7 @@
 			</otherwise>
 		</choose>
 	</select>
+	
 	<select id="selectLevelDesc" resultType="string">
 		SELECT LEVEL_DESC FROM MEMBER_LEVEL WHERE LEVEL_NO = #{levelNo}
 	</select>
@@ -58,7 +59,7 @@
 	</select>
 	
 	<select id="selectMemberByEmail" parameterType="string" resultType="member" resultMap="memberMap">
-		SELECT * FROM MEMBER WHERE EMAIL = #{email}
+		SELECT * FROM MEMBER WHERE EMAIL = #{email} 
 	</select>
 	
 	<select id="selectMemberById" parameterType="map" resultMap="memberMap" resultType="member">
