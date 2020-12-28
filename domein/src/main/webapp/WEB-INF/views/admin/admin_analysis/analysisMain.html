@@ -25,21 +25,23 @@ function drawChart() {
     ['12월',  55,  39,  16]
   ]);
 
-  var options = {
-    chart: {
-      title: '월 별 입찰 경과',
-      subtitle: '단위: 건 당(n건)'      
-    },
+  var options = {    
+    title: '월 별 입찰 경과(단위: 건 당(n건)',    
     width: 800,
-    height: 400,    
+    height: 400,
+    animation:{
+        startup:true,
+        duration:3000,
+        easing:'out'
+    },    
     axes: {
       x: {
         0: {side: 'bottom'}
       }
-    }
+    },    
   };
 
-  var chart = new google.charts.Line(document.getElementById('div_auction'));
+  var chart = new google.visualization.LineChart(document.getElementById('div_auction'));
 
   chart.draw(data, google.charts.Line.convertOptions(options));
 }
@@ -64,7 +66,12 @@ function drawChart() {
         hAxis: {title: '월 별',  titleTextStyle: {color: '#333'}},
         vAxis: {minValue: 0},
         width: 800,
-        height: 400
+        height: 400,
+        animation:{
+            startup:true,
+            duration:4000,
+            easing:'out'
+        }
       };
 
       var chart = new google.visualization.AreaChart(document.getElementById('div_directSales'));
@@ -90,15 +97,19 @@ function drawChart() {
         chart: {
           title: '월 별 회원수 추이',
           subtitle: '단위: 명',
-        },
-        bars: 'vertical', // Required for Material Bar Charts.
+        },        
         width: 800,
-        height: 400
+        height: 400,
+        animation:{
+            startup:true,
+            duration:4000,
+            easing:'out'
+        }
       };
 
-      var chart = new google.charts.Bar(document.getElementById('div_member'));
+      var chart = new google.visualization.ColumnChart(document.getElementById('div_member'));
 
-      chart.draw(data, google.charts.Bar.convertOptions(options));
+      chart.draw(data, options);
     }
   </script>
 
