@@ -22,6 +22,13 @@
 		<div class="search-result">
 			<div class="area-top">
 				<form action="${path }/admin/searchUser.do">
+					<div class="search-option">
+						<select name="searchOption">
+							<option value="allSearch" <c:out value="${option=='all'?'selected':'' }"/>>통합검색</option>
+							<option value="nickname" <c:out value="${option=='nickname'?'selected':'' }"/>>닉네임으로 검색</option>
+							<option value="email" <c:out value="${option=='email'?'selected':'' }"/>>이메일로 검색</option>
+						</select>
+					</div>
 					<div class="box-form">
 						<div class="wrap-data">
 							<label for="userInfo">

@@ -28,7 +28,7 @@ public class AdminController {
 		
 		List<Map> list = ms.selectMemberList(cPage,numPerpage);
 		m.addAttribute("list",list);
-		return "admin/userList";
+		return "admin/searchUser";
 	}
 	
 	@RequestMapping("admin/userInfo.do")
@@ -43,12 +43,14 @@ public class AdminController {
 		return "admin/userInfo";
 	}
 	@RequestMapping("admin/searchUser.do")
-	public String searchUser(Model m, int memberKey, int businessKey, String keyword) {
+	public String searchUser(Model m, String keyword, String searchOption) {
 		
 		
-		List<Map> list = ms.searchUser(keyword);
+		List<Map> list = ms.searchUser(keyword,searchOption);
+		String option = searchOption;
 		m.addAttribute("list",list);
-		return "admin/userList";
+		m.addAttribute("option",option);
+		return "admin/searchUser";
 		
 	}
 }

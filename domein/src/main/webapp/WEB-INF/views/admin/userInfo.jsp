@@ -130,6 +130,5 @@
 
 	
 </style>
-<%-- <jsp:include page="/WEB-INF/views/common/footer.jsp"/> --%>
 </section>
 <jsp:include page="/WEB-INF/views/common/footer.jsp"/>

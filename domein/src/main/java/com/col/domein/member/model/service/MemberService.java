@@ -121,8 +121,8 @@ public class MemberService {
 	
 
 	
-	public List<Map> searchUser(String keyword){
-		return md.searchUser(session,keyword);
+	public List<Map> searchUser(String keyword,String searchOption){
+		return md.searchUser(session,keyword,searchOption);
 	}
 
 	public String createConfirmationKey() {
