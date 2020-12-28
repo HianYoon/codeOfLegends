@@ -1,16 +1,12 @@
-package com.col.domein.cart.controller;
+ package com.col.domein.cart.controller;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.servlet.http.HttpSession;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
@@ -19,7 +15,6 @@ import com.col.domein.cart.model.service.CartService;
 import com.col.domein.cart.model.vo.Cart;
 import com.col.domein.member.model.vo.Member;
 import com.col.domein.product.model.vo.ProductAll;
-import com.google.common.collect.ArrayListMultimap;
 @Controller
 @SessionAttributes({"cart","list"})//cart 키로 attribute는 세션객체에 저장됨.
 
