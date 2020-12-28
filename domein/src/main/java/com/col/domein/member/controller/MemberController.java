@@ -384,4 +384,14 @@ public class MemberController {
 		return "redirect: " + request.getContextPath();
 	}
 //////////////////////////////////////////////////////////////
+	
+	@RequestMapping("/myPage.do")
+	public String myPageMain() {
+		return "member/myPage/account/accountMenu";
+	}
+	
+	
+	
+	
+	
 }
