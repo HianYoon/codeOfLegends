@@ -14,6 +14,7 @@
 
 <jsp:include page="/WEB-INF/views/member/myPage/common/myPageHeader.jsp"/>
 
+<!-- section-content 안에 내용을 기술해 주세요! -->
 	<div class="section-content">
 		
 		<div class="account-nav-list">
