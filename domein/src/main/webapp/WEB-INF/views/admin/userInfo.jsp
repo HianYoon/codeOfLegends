@@ -109,7 +109,7 @@
 										<div class="box-text">
 											<p class="labeling blue">거래중</p>
 											<p class="list-title">
-												<a href="" ><c:out value="${proList.TITLE }"/></a>
+												<a href="${path }/product/productDetail.do?articleNo=${proList.ARTICLE_NO}" ><c:out value="${proList.TITLE }"/></a>
 											</p>
 											<p class="date"><c:out value="${proList.WRITTEN_DATE }"/></p>	
 										</div>
@@ -130,6 +130,5 @@
 
 	
 </style>
-<%-- <jsp:include page="/WEB-INF/views/common/footer.jsp"/> --%>
 </section>
 <jsp:include page="/WEB-INF/views/common/footer.jsp"/>

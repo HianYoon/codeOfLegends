@@ -3,6 +3,7 @@ package com.col.domein.cart.model.dao;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.TreeMap;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
@@ -29,6 +30,40 @@ public class CartDaoImpl implements CartDao{
 	public int insertMemberCart(SqlSession session, Cart c) {
 		// TODO Auto-generated method stub
 		return session.insert("cart.insertMemberCart",c);
+	}
+	//멤버cart 상품 불러오기
+	@Override
+	public List<Map> selectProductCart(SqlSession session, int productNo) {
+		// TODO Auto-generated method stub
+		return session.selectList("cart.selectProductCart",productNo);
+	}
+	//중복상품 체크
+	@Override
+	public int checkProductNo(SqlSession session, int pNo, int mNo) {
+		Map<String, Object> map=new TreeMap<String, Object>();
+		map.put("productNo",pNo);//pNo키와 value값을 넣어준다.
+		map.put("memberKey",mNo );
+		
+		return session.selectOne("cart.checkProductNo",map);
+	}
+	
+	//기존상품이 있으면 갯수만 업데이트
+	@Override
+	public int updateCartProductAmount(SqlSession session, Cart c) {
+		// TODO Auto-generated method stub
+		return session.update("cart.updateCartProductAmount",c) ;
+	}
+	//member cartList불러오기
+	@Override
+	public List<Map> selectCartList(SqlSession session, int memberKey) {
+		// TODO Auto-generated method stub
+		return session.selectList("cart.selectCartList",memberKey);
+	}
+	//cart 상품 삭제
+	@Override
+	public int deleteCartList(SqlSession session, int memberKey) {
+		// TODO Auto-generated method stub
+		return session.delete("cart.deleteCartList",memberKey);
 	}
 
 }

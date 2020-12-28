@@ -46,10 +46,18 @@
 					<li><a href="#"> <img class="top-buttons"
 							src="${path }/resources/images/profile/comment.png" alt="" />
 					</a></li>
-					<li><a href="#"> <img class="top-buttons"
-							src="${path }/resources/images/profile/add-to-basket.png"
-							alt="장바구니" />
-					</a></li>
+					<c:if test="${signedInMember == null }">
+						<li><a href="${path }/cart/cart.do"> <img class="top-buttons"
+								src="${path }/resources/images/profile/add-to-basket.png"
+								alt="장바구니" />
+						</a></li>
+					</c:if>
+					<c:if test="${signedInMember != null }">
+						<li><a href="${path }/cart/cart.do?memberKey=${signedInMember.memberKey}"> <img class="top-buttons"
+								src="${path }/resources/images/profile/add-to-basket.png"
+								alt="장바구니" />
+						</a></li>
+					</c:if>
 					<c:if test="${signedInMember == null }">
 						<li><a href="${path }/member/memberLogin.do">로그인</a></li>
 						<li><a href="${path }/member/signUp/signUp.do">회원가입</a></li>
