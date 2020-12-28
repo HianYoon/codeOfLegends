@@ -12,3 +12,11 @@
   margin: 10px;
   font-size: 26px;
 }
+
+@media screen and (max-width: 768px) {
+  .myPageHeader{
+    flex-direction: row;
+    width: 100%;
+    height: 75px;
+  }
+}
