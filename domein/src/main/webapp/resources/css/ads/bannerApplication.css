@@ -1,0 +1,66 @@
+#wholeback{
+    display:flex;
+    flex-flow:row wrap;
+}
+.tab_menu{
+    width:18%;
+    min-width: 240px;    
+    background-color: #ffca28;
+    font-size:18px;
+}
+.tab_menu h2{
+    margin-left:-15px;
+}
+#container{
+    width:55%;    
+    margin-left:20px;
+}
+#container hr{
+    margin-left:-20px;
+}
+#container>form>div{
+    margin-top:18px;
+}
+.div_intro{
+    border: 1px rgb(54, 54, 54) solid;
+    color: rgb(88, 83, 83); 
+    font-size:14px;   
+    width:84%;
+}
+.div_intro>ul{
+    padding-right:5px;
+}
+#ads_title{
+    width:50%;
+}
+.div_description>textarea{
+    width:84%;
+}
+.div_attached>span{
+    color: rgb(119, 119, 119);    
+}
+.div_attached>div{    
+    width:580px;
+    min-width: 580px;
+    /* width:580px; */
+    height:190px;        
+    border:1px rgb(119, 119, 119) solid;
+    text-align: center; 
+    margin-bottom:10px;           
+}
+.div_attached>div>p{    
+    margin-top:15%;
+    color:rgb(119, 119, 119);
+    text-decoration: underline;    
+}
+.div_url>input{
+    width:50%;
+}
+.div_period>input[type=text]{
+    width:18%;
+    text-align: right;
+    margin-top:10px;
+}
+.div_submit{
+    margin-left:33%;
+}
