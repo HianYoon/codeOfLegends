@@ -146,6 +146,12 @@ public class ProductServiceImpl implements ProductService {
 	public int searchListCount(SearchCriteria scri)throws Exception {
 		// TODO Auto-generated method stub
 		return dao.searchListCount(session,scri);
+	}
+
+	@Override
+	public int blindProduct(int productNo,int status) {
+		// TODO Auto-generated method stub
+		return dao.blindProduct(session,productNo,status);
 	}	
 	
 	

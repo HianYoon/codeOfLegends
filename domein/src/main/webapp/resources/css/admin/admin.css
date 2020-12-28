@@ -60,6 +60,9 @@
 .page-admin .labeling.blue{
 	background-color: royalblue;
 }
+.page-admin .labeling.gray{
+	background-color: gray;
+}
 .page-admin .box-img .labeling {
 	position: absolute;
 	right: 0;

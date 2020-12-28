@@ -25,6 +25,7 @@ window.addEventListener('load',function(){
 
    
 <section id="content">
+	<c:if test="${product.get(0).PRODUCT_STATUS_NO != 8}">
 	 <div class="productDetailPage">
         <div class="product-text-group">
         <c:forEach items="${product }" var="p">
@@ -213,5 +214,9 @@ window.addEventListener('load',function(){
 		</script>
 
  <script src="${path }/resources/js/productDetail/productDetail.js" defer></script>
+ </c:if>
+ <c:if test="${product.get(0).PRODUCT_STATUS_NO == 8}">
+ 	해당 글은 블라인드 처리 되었습니다.
+ </c:if>
 </section>
 <jsp:include page="/WEB-INF/views/common/footer.jsp"/>
