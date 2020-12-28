@@ -121,7 +121,9 @@
 				<if test="searchType == 'all',toString()">AND (TITLE LIKE '%'||#{keyword}||'%') or (SALE_CONTENT LIKE '%'||#{keyword}||'%')</if>
 			</if>
 		</sql>
-			
+		<update id="blindProduct" parameterType="map">
+				UPDATE DIRECT_SALE_PRODUCT SET PRODUCT_STATUS_NO=${status} WHERE PRODUCT_NO = ${productNo}
+		</update>
 		
 		
 </mapper>

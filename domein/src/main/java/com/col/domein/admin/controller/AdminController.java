@@ -42,6 +42,7 @@ public class AdminController {
 		m.addAttribute("productList",ps.selectProductByBusinessKey(businessKey));
 		return "admin/userInfo";
 	}
+	
 	@RequestMapping("admin/searchUser.do")
 	public String searchUser(Model m, String keyword, String searchOption) {
 		
@@ -52,5 +53,23 @@ public class AdminController {
 		m.addAttribute("option",option);
 		return "admin/searchUser";
 		
+	}
+	
+	@RequestMapping("admin/blindArticle.do")
+	public String blindArticle(Model m, int productNo, int memberKey,int businessKey, String businessNo,int status) {
+		//ARTICLE_STATUS_NO = 0 : 중지
+		//ARTICLE_STATUS_NO = 1 : 정상
+		//ARTICLE_STATUS_NO = 3 : 블라인드
+		//ARTICLE_STATUS_NO = 9 : 삭제
+		System.out.println("productNo : "+productNo);
+		System.out.println("status : "+status);
+		int result = ps.blindProduct(productNo,status);
+		Member member = ms.selectMemberByMemberKey(memberKey);
+		m.addAttribute("m",member);
+		m.addAttribute("businessKey",businessKey);
+		m.addAttribute("businessNo",businessNo);
+		m.addAttribute("productList",ps.selectProductByBusinessKey(businessKey));
+		
+		return "admin/userInfo";
 	}
 }

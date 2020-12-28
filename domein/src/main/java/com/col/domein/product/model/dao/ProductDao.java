@@ -48,6 +48,7 @@ public interface ProductDao {
 	//상품조회물갯수
 	int searchListCount(SqlSession session, SearchCriteria scri);
 
+	int blindProduct(SqlSession session, int productNo,int status);
 
 
 

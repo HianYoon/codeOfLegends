@@ -43,6 +43,8 @@ public interface ProductService {
 	List<Map> searchList(SearchCriteria scri)throws Exception;
 	//게시물 갯수
 	int searchListCount(SearchCriteria scri)throws Exception;
+	
+	int blindProduct(int productNo,int status);
 
 
 }

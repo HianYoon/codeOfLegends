@@ -1,5 +1,6 @@
 package com.col.domein.product.model.dao;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -110,5 +111,14 @@ public class ProductDaoImpl implements ProductDao {
 	public int searchListCount(SqlSession session, SearchCriteria scri) {
 		// TODO Auto-generated method stub
 		return session.selectOne("product.searchListCount",scri);
+	}
+
+	@Override
+	public int blindProduct(SqlSession session, int productNo,int status) {
+		// TODO Auto-generated method stub
+		Map<String,Integer> map = new HashMap();
+		map.put("productNo",productNo);
+		map.put("status", status);
+		return session.update("product.blindProduct",map);
 	}
 }

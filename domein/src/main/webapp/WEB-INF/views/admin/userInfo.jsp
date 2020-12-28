@@ -52,17 +52,6 @@
 									<dt>닉네임</dt>
 									<dd><c:out value="${m.nickname}"/></dd>
 								</div>
-								<div>
-									<dt>사업자번호</dt>
-									<dd>
-										<c:if test="${businessKey != -1 }">
-											<c:out value="${businessNo}"/>
-										</c:if>
-										<c:if test="${businessKey == -1 }">
-											미등록
-										</c:if>
-									</dd>
-								</div>
 							</dl>
 						</div>
 						<form action="">
@@ -107,14 +96,27 @@
 								<c:forEach items="${productList }" var="proList">
 									<li class="item-user-activity">
 										<div class="box-text">
-											<p class="labeling blue">거래중</p>
+											<c:if test="${proList.PRODUCT_STATUS_NO==1 }">
+												<p class="labeling blue">거래중</p>
+											</c:if>
+											<c:if test="${proList.PRODUCT_STATUS_NO==8 }">
+												<p class="labeling red">블라인드</p>
+											</c:if>
 											<p class="list-title">
+											<c:if test="${proList.PRODUCT_STATUS_NO==9 }">
+												<p class="labeling gray">삭제됨</p>
+											</c:if>
 												<a href="${path }/product/productDetail.do?articleNo=${proList.ARTICLE_NO}" ><c:out value="${proList.TITLE }"/></a>
 											</p>
 											<p class="date"><c:out value="${proList.WRITTEN_DATE }"/></p>	
 										</div>
 										<div class="box-button">
-											<button class="button-type-1" >블라인드</button>
+											<c:if test="${proList.PRODUCT_STATUS_NO != 8 }">
+												<button class="button-type-1" onclick="location.replace('${path}/admin/blindArticle.do?productNo=${proList.PRODUCT_NO }&memberKey=${m.memberKey }&businessKey=${businessKey }&status=8')">블라인드</button>
+											</c:if>
+											<c:if test="${proList.PRODUCT_STATUS_NO == 8 }">
+												<button class="button-type-1" onclick="location.replace('${path}/admin/blindArticle.do?productNo=${proList.PRODUCT_NO }&memberKey=${m.memberKey }&businessKey=${businessKey }&status=1')">블라인드 해제</button>
+											</c:if>
 											<button class="button-type-1" >삭제</button>
 										</div>
 									</li>
