@@ -13,10 +13,20 @@
   font-size: 26px;
 }
 
+#context{
+	display:flex;
+	flex-direction: row;
+	justify-content: space-between;
+}
+
 @media screen and (max-width: 768px) {
   .myPageHeader{
     flex-direction: row;
     width: 100%;
     height: 75px;
+  }
+  
+  #context{
+  flex-direction: column; 
   }
 }

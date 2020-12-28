@@ -7,5 +7,5 @@
 <link rel="stylesheet" href="${path}/resources/css/member/myPage/common/myPageHeader.css">
 
 <div class="myPageHeader">
-	<a href="#">입찰/구매내역</a> <a href="#">계정</a> <a href="#">고객센터</a>
+	<a href="#">입찰/구매내역</a> <a href="#">계정</a> <a href="#">고객센터</a> <a href="#">광고 신청</a>
 </div>

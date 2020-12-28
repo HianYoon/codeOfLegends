@@ -11,6 +11,7 @@
 </jsp:include>
 <section id="context">
 <script src="https://kit.fontawesome.com/8f9d453cdc.js" crossorigin="anonymous"></script>
+
 <jsp:include page="/WEB-INF/views/member/myPage/common/myPageHeader.jsp"/>
 
 	<div class="section-content">
@@ -51,8 +52,8 @@
 	</div>
 
 
-
-
+<!-- 아래 div는 비워두세요!  space-between을 위한 빈 아이임-->
+	<div></div>
 
 </section>
 <jsp:include page="/WEB-INF/views/common/footer.jsp"/>
