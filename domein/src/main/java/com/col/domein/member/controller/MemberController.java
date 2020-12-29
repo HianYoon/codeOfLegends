@@ -423,4 +423,24 @@ public class MemberController {
 	public String accountDeleted() {
 		return "member/accountDeleted";
 	}
+	
+	@RequestMapping("/myPage/account/changePw.do")
+	public String changePw() {
+		return "member/myPage/account/changePw";
+	}
+	
+	@RequestMapping("/myPage/account/changePwEnd.do")
+	public String changePwEnd(HttpSession session, HttpServletRequest request, String oldPassword, String newPassword) {
+		Member m = (Member) session.getAttribute("signedInMember");
+		boolean result = pwEncoder.matches(oldPassword, m.getPassword());
+		if(!result) return "redirect: "+request.getContextPath()+"/error.do";
+		
+		m.setPassword(pwEncoder.encode(newPassword));
+		
+		result = ms.updateMemberPassword(m);
+		if(!result) return "redirect: "+request.getContextPath()+"/error.do";
+		
+		return "redirect: "+request.getContextPath()+"/member/myPage.do";
+	}
+	
 }

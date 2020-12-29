@@ -21,7 +21,7 @@
             </ul>
         </div>
         <div id="container">
-            <form action="" enctype="multipart/form-data" method="post">
+            <form action="${path }/ads/slideBannerApplication.do" enctype="multipart/form-data" method="post">
                 <h2>배너 광고 신청</h2>
                 <hr>
                 <div class="div_intro">
@@ -37,12 +37,13 @@
                 </div>
 
                 <div class="div_title">
-                    <label for="ads_title"><span><u>제목</u></span></label>&nbsp;&nbsp;<input type="text" name="ads_title" id="ads_title" required>
+                	<input type="hidden" name="applicantKey" value="${signedInMember.memberKey }"/>
+                    <label for="adsTitle"><span><u>제목</u></span></label>&nbsp;&nbsp;<input type="text" name="adsTitle" id="adsTitle" required>
                 </div>
 
                 <div class="div_description">
                     <span><u>요청메시지</u></span><br>
-                    <textarea name="ads_description" rows="12" cols="150" style="resize:none" placeholder="내용을 입력해주세요" required></textarea>
+                    <textarea name="adsDescription" rows="12" cols="150" style="resize:none" placeholder="내용을 입력해주세요" required></textarea>
                 </div>
                 <br>
                 <div class="div_attached">
@@ -52,26 +53,26 @@
                         <p>미리보기가 표시됩니다.</p>
                         <!-- <img src="C:\Users\Sungbin\Desktop\images\img_preview.png" alt="미리보기가 표시됩니다." id="preImage" width="100%" height="100%"><br> -->
                     </div>
-                    <input type="file" id="upload" name="upload" accept="image/*" onchange="fn_readImage(event);" required>
-                    <input type="button" class=".btn.btn--primary" name="deleteFile" value="삭제" onclick="fn_deleteFile();">                
+                    <input type="file" class=".btn.btn--primary" name="upload" accept="image/*" onchange="fn_readImage(event);" required>
+                    <input type="button" class=".btn.btn--primary2" name="deleteFile" value="삭제" onclick="fn_deleteFile();">                
                 </div>
                 <br>
                 <div class="div_url">
                     <span id="msg_url"></span><br>
-                    <label for="ads_url"><span><u>url</u></span></label>&nbsp;&nbsp;<input type="text" name="ads_url" id="ads_url" placeholder="이미지 클릭 시, 이동할 주소입력" required>                      
+                    <label for="urlLink"><span><u>url</u></span></label>&nbsp;&nbsp;<input type="text" name="urlLink" id="urlLink" placeholder="이미지 클릭 시, 이동할 주소입력" required>                      
                 </div>
                 <br>
                 <div class="div_period">
                     <p><u>기간 및 가격</u></p>
-                    개시일&nbsp;&nbsp;<input type="date" name="ads_start_date" min="" required>&nbsp;&nbsp;                        
-                    종료일&nbsp;&nbsp;<input type="date" name="ads_end_date" min="" required><br>
+                    개시일&nbsp;&nbsp;<input type="date" name="startDate" min="" required>&nbsp;&nbsp;                        
+                    종료일&nbsp;&nbsp;<input type="date" name="endDate" min="" required><br>
                     <!-- 기타 선택 시, return false로 체크 -->
-                    결제금액&nbsp;&nbsp;<input type="text" value="0" name="ads_price" readonly>&nbsp;원
+                    결제금액&nbsp;&nbsp;<input type="text" value="0" name="adsPrice" readonly>&nbsp;원
                 </div>
                 <br><br>
                 <div class="div_submit">
-                    <input type="submit" value="결제화면으로 이동">&nbsp;
-                    <input type="reset" value="취소">
+                    <input type="submit" class=".btn.btn--primary" value="결제화면으로 이동">&nbsp;
+                    <input type="reset" class=".btn.btn--primary2" value="취소">
                     <br><br><br><br>
                 </div>
             </form>
@@ -80,10 +81,10 @@
 </section>
 <script>
     $(function(){
-        $("#ads_url").focus(e=>{
+        $("#urlLink").focus(e=>{
             $("#msg_url").html("[이미지 클릭 시, 이동할 주소를 입력해주세요. 요청주소가 없을 시, -입력]").css("color","green");
         });
-        $("#ads_url").blur(e=>{
+        $("#urlLink").blur(e=>{
             $("#msg_url").html("");
         });
     })

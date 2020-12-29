@@ -600,6 +600,8 @@ public class MemberService {
 		return result == 1;
 	}
 	
-	
+	public boolean updateMemberPassword(Member m) {
+		return md.updateMemberPassword(session, m);
+	}
 	
 }

@@ -108,7 +108,9 @@ public class MemberDao {
 	
 	public int deleteMemberFromSnsLogin(SqlSession session, int memberKey) {
 		return session.delete("member.deleteMemberFromSnsLogin", memberKey);
-				
-				
+	}
+	
+	public boolean updateMemberPassword(SqlSession session, Member m) {
+		return session.update("member.updateMemberPassword", m) == 1;
 	}
 }
