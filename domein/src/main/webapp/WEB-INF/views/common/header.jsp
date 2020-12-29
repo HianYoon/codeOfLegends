@@ -30,7 +30,7 @@
 		<div class="group">
 			<div id="mainNav">
 				<div class="logo">
-					<a href="#"> <img
+					<a href="${path }/"> <img
 						src="${path }/resources/images/logo/signature.png" alt="" />
 					</a>
 				</div>
@@ -46,10 +46,18 @@
 					<li><a href="#"> <img class="top-buttons"
 							src="${path }/resources/images/profile/comment.png" alt="" />
 					</a></li>
-					<li><a href="#"> <img class="top-buttons"
-							src="${path }/resources/images/profile/add-to-basket.png"
-							alt="장바구니" />
-					</a></li>
+					<c:if test="${signedInMember == null }">
+						<li><a href="${path }/cart/cart.do"> <img class="top-buttons"
+								src="${path }/resources/images/profile/add-to-basket.png"
+								alt="장바구니" />
+						</a></li>
+					</c:if>
+					<c:if test="${signedInMember != null }">
+						<li><a href="${path }/cart/cart.do?memberKey=${signedInMember.memberKey}"> <img class="top-buttons"
+								src="${path }/resources/images/profile/add-to-basket.png"
+								alt="장바구니" />
+						</a></li>
+					</c:if>
 					<c:if test="${signedInMember == null }">
 						<li><a href="${path }/member/memberLogin.do">로그인</a></li>
 						<li><a href="${path }/member/signUp/signUp.do">회원가입</a></li>
@@ -116,7 +124,8 @@
 							</div>
 
 					</a></li>
-					<li><a href="#">
+					<c:if test="${signedInMember != null }">
+					<li><a href="${path }/member/myPage.do">
 							<div>
 								<div>
 									<img src="${path }/resources/images/profile/home.png" alt="" />
@@ -124,6 +133,7 @@
 								<p>마이 페이지</p>
 							</div>
 					</a></li>
+					</c:if>
 				</ul>
 			</div>
 		</div>
@@ -133,7 +143,7 @@
 					src="${path }/resources/images/profile/left.png" />
 				<p></p>
 			</div>
-			<a href="#">
+			<a href="${path }">
 				<div class="mobile-logo-cont">
 					<img src="${path }/resources/images/logo/signature.png" alt="" />
 
@@ -229,29 +239,7 @@
 			</ul>
 
 		</div>
-		<script>
-			let width = $(window).width();
-			$(".one2").hide();
-			$('#categoryTap').mouseenter(function() {
-				let width = $(window).width();
-				if (width > 768)
-					$(".one2").show();
-			});
-			$(".one2").mouseleave(function() {
-				if (width > 768)
-					$(".one2").hide();
-			});
-			
-			$("#logout *").click(e=>{
-				signOut();
-				location.href = path+"/member/logout.do";
-			})
-			
-			function signOut(){
-				const auth2 = gapi.auth2.getAuthInstance();
-				auth2.signOut();
-			}
-		</script>
+
 	</header>
 
 

@@ -92,6 +92,16 @@
 		
 	}
 	
+	$("#btn-kakao").click(e=>{
+		$.ajax({
+			url: path+"/rest/member/oauth/kakao",
+			method: "POST",
+			success: result =>{
+				location.href = result;
+			}
+		})
+	})
+	
 	$("#btn-naver").click(e=>{
 		$.ajax({
 			url: path+"/rest/member/oauth/naver",

@@ -3,12 +3,12 @@
     <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
     <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
     <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
-    
+     <c:set var="path" value="${pageContext.request.contextPath }"/>
+
   <link rel="stylesheet"
 	href="${path }/resources/css/cart/cart.css" />
   <link rel="stylesheet" href="${path }/resources/css/jihunTab/TabMedia.css"/>
     
-     <c:set var="path" value="${pageContext.request.contextPath }"/>
 <jsp:include page="/WEB-INF/views/common/header.jsp">
 	<jsp:param name="title" value=""/>
 </jsp:include>
@@ -55,43 +55,62 @@
                     <div id="tab1" class="tab_content">
                         <!--Content-->
                         <h2>장바구니</h2>
-                      <form action="" method="POST">
+              <c:choose>
+                  <c:when test="${map.count }== 0">
+                        		장바구니가 비어있습니다.
+                     </c:when>
+                  <c:otherwise>
+                        	
+                      
+                      <form action="${path }" method="POST">
+                        
                         <div class="cart-container">
                             <hr/>
+                       <c:if test="${signedInMember !=null }" var="productList">
+                         <c:forEach items="${map.list}" var="list" varStatus="status">
+                            <c:set value="${cart}" var="cart"/>
                                 <div class="product-cart">
+                                
                                     <input type="radio" name="cart" value="">
                                   
 
-                                        <img src="" alt="이미지">
+                                        <img src="${path }/resources/upload/product/${list.P_RENAMED_FILE_NAME}" alt="이미지">
                                         <div class="cartContent">
 
-                                            <p>상품명:</p>
+                                            <p>상품명:<c:out value="${list.TITLE }"/></p>
                                             
-                                            <input type="number"  name="cartQuantity" value="0" maxlength=""/>
+                                            <input type="button" id="minus" name="minus" value="-" maxlength=""/>
+                                            <input type="text" id="amount" name="amount" value="" maxlength="" readonly/>
+                                            <input type="button" id="plus" name="plus" value="+" maxlength=""/>
                                               
-                                            <p>가격:</p>
+                                            <p>가격:<c:out value="${list.PRICE }"/>원</p>
             
                                         </div>
                                  
+                   
                                  </div>
-
+						</c:forEach>
+                     </c:if>
+                     
                                 </div>
                                 <hr/>
                                 <div class="cart-total-price">
-                                    <p>총가격:&nbsp;&nbsp;&nbsp;2000원</p>
+                                	<p>배송비: 100,000원 이하 5000원</p>
+                                    <p>총가격:<span class="totlaPrice"></span>원</p>
 
                                 </div>
                                 <div class="cart-btn-group">
-                                    <button type="button" id="" class="btn btn-primary2">전체선택</button>
-                                    <button type="button" id=""  class="btn btn-primary2">삭제</button>
-                                    <button type="button" id=""  class="btn btn-primary2">쇼핑계속하기</button>
+                                    <button type="button" id="allKeyUp" onclick="allKeyUp();" class="btn btn-primary2">전체선택</button>
+                                    <button type="button" id="" onclick="location.href='${path}/cart/delete.do?memberKey=${member.memberKey}" class="btn btn-primary2">삭제</button>
+                                    <button type="button" id="" onclick="location.href='${path}/index'" class="btn btn-primary2">쇼핑계속하기</button>
                                     <button type="submit" id=""  class="btn btn-primary2">결제하기</button>
                                 </div>
                             </div>
                         </form>
-                        
+               	</c:otherwise>
+             </c:choose>
                  </div>
-
+					
 
             <!-- 입찰 등록 form -->
                 <div id="tab2" class="tab_content">

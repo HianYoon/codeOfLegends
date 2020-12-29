@@ -3,6 +3,7 @@ package com.col.domein.product.model.service;
 import java.util.List;
 import java.util.Map;
 
+import com.col.domein.common.crteria.SearchCriteria;
 import com.col.domein.product.model.vo.Attachement;
 import com.col.domein.product.model.vo.BoardProductSaleContent;
 import com.col.domein.product.model.vo.Product;
@@ -37,6 +38,19 @@ public interface ProductService {
 	int updatePDS(ProductAll p, List<Attachement> files);
 	//비즈니스키로 상품목록 조회
 	List<Map> selectProductByBusinessKey(int businessKey);
+	
+	//검색기능
+	List<Map> searchList(SearchCriteria scri)throws Exception;
+	//게시물 갯수
+	int searchListCount(SearchCriteria scri)throws Exception;
+	
+	int blindProduct(int productNo,int status);
 
-
-}
+	int updateProductStatusToStoppedByArticleNo(int articleNo);
+	
+	int updateSaleStatusToStoppedByBusinessKey(int businessKey);
+	
+	int updateBidStatusToStoppedByBusinessKey(int businessKey);
+	
+	int updateAuctionStatusToStoppedByBusinessKey(int businessKey);
+}	

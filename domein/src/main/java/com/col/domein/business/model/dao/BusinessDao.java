@@ -25,4 +25,8 @@ public class BusinessDao {
 	public boolean insertBusinessCategory(SqlSession session, Map<String,Integer> keys) {
 		return session.insert("category.insertBusinessCategory",keys)==1;
 	}
+	
+	public int updateBusinessToStoppedByMemberKey(SqlSession session, int memberKey) {
+		return session.update("business.updateBusinessToStoppedByMemberKey", memberKey);
+	}
 }

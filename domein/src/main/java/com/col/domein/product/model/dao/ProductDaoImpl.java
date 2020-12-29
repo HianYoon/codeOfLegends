@@ -1,5 +1,6 @@
 package com.col.domein.product.model.dao;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -7,6 +8,7 @@ import org.apache.ibatis.session.RowBounds;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
+import com.col.domein.common.crteria.SearchCriteria;
 import com.col.domein.product.model.vo.Attachement;
 import com.col.domein.product.model.vo.BoardProductSaleContent;
 import com.col.domein.product.model.vo.Product;
@@ -97,4 +99,53 @@ public class ProductDaoImpl implements ProductDao {
 		// TODO Auto-generated method stub
 		return session.selectList("product.selectProductByBusinessKey",businessKey);
 	}
+	//검색기능
+
+	@Override
+	public List<Map> searchListAll(SqlSession session, SearchCriteria scri) throws Exception {
+		// TODO Auto-generated method stub
+		return session.selectList("product.searchListAll",scri);
+	}
+	//조회게시물 갯수
+	@Override
+	public int searchListCount(SqlSession session, SearchCriteria scri) {
+		// TODO Auto-generated method stub
+		return session.selectOne("product.searchListCount",scri);
+	}
+
+	@Override
+	public int blindProduct(SqlSession session, int productNo,int status) {
+		// TODO Auto-generated method stub
+		Map<String,Integer> map = new HashMap();
+		map.put("productNo",productNo);
+		map.put("status", status);
+		return session.update("product.blindProduct",map);
+	}
+
+	@Override
+	public int updateProductStatusToStoppedByArticleNo(SqlSession session, int articleNo) {
+		// TODO Auto-generated method stub
+		return session.update("product.updateProductStatusToStoppedByArticleNo", articleNo);
+	}
+
+	@Override
+	public int updateSaleStatusToStoppedByBusinessKey(SqlSession session, int businessKey) {
+		// TODO Auto-generated method stub
+		return session.update("product.updateSaleStatusToStoppedByBusinessKey", businessKey);
+	}
+
+	@Override
+	public int updateBidStatusToStoppedByBusinessKey(SqlSession session, int businessKey) {
+		// TODO Auto-generated method stub
+		return session.update("product.updateBidStatusToStoppedByBusinessKey", businessKey);
+	}
+
+	@Override
+	public int updateAuctionStatusToStoppedByBusinessKey(SqlSession session, int businessKey) {
+		// TODO Auto-generated method stub
+		return session.update("product.updateAuctionStatusToStoppedByBusinessKey",businessKey);
+	}
+	
+	
+	
 }

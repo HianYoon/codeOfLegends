@@ -20,12 +20,12 @@
   function drawVisualization() {
         // Some raw data (not necessarily accurate)
         var data = google.visualization.arrayToDataTable([
-          ['Month', '승인', '반려', '대기', '총 요청건', '광고수 추이'],
-          ['8월',9,2,0,11,9],
-          ['9월',5,1,0,6,5],
-          ['10월',13,9,0,22,13],
-          ['11월',18,13,0,31,18],
-          ['12월',8,3,1,12,8]
+          ['월 별', '승인', '반려', '대기', '총 요청건'],
+          ['8월',9,2,0,11],
+          ['9월',5,1,0,6],
+          ['10월',13,9,0,22],
+          ['11월',18,13,0,31],
+          ['12월',8,3,1,12]
         ]);
 
         var options = {
@@ -33,10 +33,11 @@
           vAxis: {title: '광고 처리수'},
           hAxis: {title: '월(month)'},
           seriesType: 'bars',
-          series: {4: {type: 'line'}},
+          series: {3: {type: 'line'}},
           chartArea: {
-              width:'68%',
-              height: '180'},
+              width:'68%'
+            //   height:180
+            },
           animation: {
               startup: true,
               duration: 3000,
@@ -98,9 +99,9 @@
                 <hr>
                 <div class="div_stat">
                     <h4><u>광고통계(총 광고 요청수 / 승인 / 반려 / 검토대기)</u></h4>
+                    <p>지난 달에 대기 상태의 광고가 없다면 해당 월은 표시되지 않습니다.</p>
                     <br>
-                    <div id="div_gChart"></div>
-                    <br><br><br><br>
+                    <div id="div_gChart"></div>                    
                 </div>
             </div>
         </div>

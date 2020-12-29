@@ -64,5 +64,5 @@ public class BusinessController {
 		
 		return "redirect: "+contextPath+"/member/signUp/confirmEmail.do";
 	}
-
+	
 }

@@ -12,12 +12,17 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.col.domein.business.model.vo.Business;
+import com.col.domein.common.crteria.PageMaker;
+import com.col.domein.common.crteria.SearchCriteria;
 import com.col.domein.common.pageBar.PageBarFactory;
 import com.col.domein.member.model.vo.Member;
 import com.col.domein.product.model.service.ProductService;
@@ -37,8 +42,26 @@ public class ProductController {
 	private ProductService service;
 	@Autowired
 	private Member m;
+	//화면 전환용메소드
 	@RequestMapping("/product/into.do")
 	public String product() {
+		return "product/product";
+	}
+	
+	//검색기능
+	@RequestMapping(value="/product/searchTitle.do",method=RequestMethod.GET)
+	public String searchProduct
+			(Model m,
+					@ModelAttribute("scri") SearchCriteria scri
+			) throws Exception{
+
+		m.addAttribute("list",service.searchList(scri));
+		
+		PageMaker pageMaker=new PageMaker();//page
+		pageMaker.setCri(scri);
+		//조회게시물 갯수
+		pageMaker.setTotalCount(service.searchListCount(scri));
+		m.addAttribute("pageMaker",pageMaker);
 		return "product/product";
 	}
 	

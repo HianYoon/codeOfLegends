@@ -7,6 +7,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.col.domein.common.crteria.SearchCriteria;
 import com.col.domein.product.model.dao.ProductDao;
 import com.col.domein.product.model.vo.Attachement;
 import com.col.domein.product.model.vo.BoardProductSaleContent;
@@ -133,7 +134,51 @@ public class ProductServiceImpl implements ProductService {
 	public List<Map> selectProductByBusinessKey(int businessKey) {
 		// TODO Auto-generated method stub
 		return dao.selectProductByBusinessKey(session,businessKey);
-	}	
+	}
+	//검색 기능
+	@Override
+	public List<Map> searchList(SearchCriteria scri)throws Exception {
+		// TODO Auto-generated method stub
+		return dao.searchListAll(session,scri);
+	}
+	//조회 게시물총갯수
+	@Override
+	public int searchListCount(SearchCriteria scri)throws Exception {
+		// TODO Auto-generated method stub
+		return dao.searchListCount(session,scri);
+	}
+
+	@Override
+	public int blindProduct(int productNo,int status) {
+		// TODO Auto-generated method stub
+		return dao.blindProduct(session,productNo,status);
+	}
+
+	@Override
+	public int updateProductStatusToStoppedByArticleNo(int articleNo) {
+		// TODO Auto-generated method stub
+		return dao.updateProductStatusToStoppedByArticleNo(session, articleNo);
+	}
+
+	@Override
+	public int updateSaleStatusToStoppedByBusinessKey(int businessKey) {
+		// TODO Auto-generated method stub
+		return dao.updateSaleStatusToStoppedByBusinessKey(session, businessKey);
+	}
+
+	@Override
+	public int updateBidStatusToStoppedByBusinessKey(int businessKey) {
+		// TODO Auto-generated method stub
+		return dao.updateBidStatusToStoppedByBusinessKey(session,businessKey);
+	}
+
+	@Override
+	public int updateAuctionStatusToStoppedByBusinessKey(int businessKey) {
+		// TODO Auto-generated method stub
+		return dao.updateAuctionStatusToStoppedByBusinessKey(session, businessKey);
+	}
+	
+	
 	
 	
 }

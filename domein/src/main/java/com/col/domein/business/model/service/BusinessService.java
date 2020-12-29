@@ -51,4 +51,9 @@ public class BusinessService {
 		}
 		return categoryFlag;
 	}
+	
+	public int updateBusinessToStoppedByMemberKey(int memberKey) {
+		return bd.updateBusinessToStoppedByMemberKey(session, memberKey);
+	};
+	
 }

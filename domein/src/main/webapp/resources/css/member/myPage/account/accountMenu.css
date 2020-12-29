@@ -1,0 +1,40 @@
+.account-nav-list{
+	display: flex;
+	font-size: 2.5em;
+	margin-left: 10%;
+	width: 90%;
+}
+
+.account-nav-list>a{
+	width: 100%;
+}
+.account-nav-list>a>i{
+	margin: 5px;
+	width: 1em;
+	height: 1em;
+	margin-right: 5%;
+}
+
+#account-user-icon{
+	color: var(--main-yellow);
+}
+
+#account-sns-icon{
+	color: var(--second-grey);
+}
+
+#account-business-icon{
+	color: var(--third-yellow);
+}
+
+#account-password-icon{
+	color: var(--main-grey);
+}
+
+#account-delete-icon{
+	color: red;
+}
+
+#account-logout-icon{
+	color: black;
+}
