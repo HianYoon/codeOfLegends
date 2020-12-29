@@ -26,6 +26,7 @@ import com.col.domein.member.oauth.model.vo.KakaoToken;
 import com.col.domein.member.oauth.model.vo.NaverAccessTokenRequest;
 import com.col.domein.member.oauth.model.vo.NaverOauthResult;
 import com.col.domein.member.oauth.model.vo.NaverProfile;
+import com.col.domein.member.oauth.model.vo.OauthKey;
 import com.col.domein.member.oauth.model.vo.SnsInfo;
 
 @Controller
@@ -253,9 +254,12 @@ public class MemberController {
 			session.removeAttribute("kakaoState");
 			return "redirect: " + request.getContextPath() + "/error.do";
 		}
-		String clientId = "6a88db9a5a494eb2b45b1226ad76d34a";
-		String clientSecret = "aGCaAJV2nuVTenmFpDeMF1zZ2TDWfqga";
-		String redirectUri = "http://mightymosses.hopto.org:9090/domein/member/oauth/kakao.do";
+		
+		OauthKey keys = new OauthKey(request);
+		
+		String clientId = keys.getKakaoClientId();
+		String clientSecret = keys.getKakaoClientSecret();
+		String redirectUri = keys.getKakaoCallbackUri();
 		
 		RestTemplate rest = new RestTemplate();
 		MultiValueMap<String, String> parameters = new LinkedMultiValueMap<String,String>();
@@ -314,8 +318,11 @@ public class MemberController {
 			session.removeAttribute("naverState");
 			return "redirect: " + request.getContextPath() + "/error.do";
 		}
-		String clientId = "SRI621amFGMTUu3kZVHJ";
-		String clientSecret = "sWGzb7TzkW";
+		
+		OauthKey keys = new OauthKey(request);
+		
+		String clientId = keys.getNaverClientId();
+		String clientSecret = keys.getNaverClientSecret();
 		String requestUrl = "https://nid.naver.com/oauth2.0/token?client_id=" + clientId + "&client_secret="
 				+ clientSecret + "&grant_type=authorization_code&state=" + naverState + "&code=" + code;
 
@@ -390,7 +397,7 @@ public class MemberController {
 		return "member/myPage/account/accountMenu";
 	}
 	
-	@RequestMapping("/myPage/account")
+	@RequestMapping("/myPage/account.do")
 	public String myPageAccount() {
 		return "member/myPage/account/accountMenu";
 	}
@@ -400,6 +407,14 @@ public class MemberController {
 		return "member/myPage/account/deleteAccount";
 	}
 	
-	
+	@RequestMapping("/myPage/account/deleteEnd.do")
+	public String deleteAccountEnd(HttpSession session, HttpServletRequest request) {
+		Member m = (Member) session.getAttribute("signedInMember");
+		boolean flag = ms.deleteMember(m);
+		
+		if(!flag) return "redirect: "+request.getContextPath()+"/error.do";
+		
+		return "redirect: "+request.getContextPath()+"/accountDeleted.do";
+	}
 	
 }

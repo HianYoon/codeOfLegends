@@ -70,6 +70,8 @@
 		UPDATE MEMBER SET PROFILE_URL = #{snsProfilePic} WHERE MEMBER_KEY = #{memberKey}
 	</update>
 	
-	
+	<delete id="deleteMemberFromTarget" parameterType="map">
+		DELETE FROM ${target} WHERE MEMBER_KEY = #{memberKey}
+	</delete>
 	
 </mapper>

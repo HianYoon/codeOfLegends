@@ -96,4 +96,8 @@ public class MemberDao {
 	public Member selectMemberById(SqlSession session, Map<String, String> values) {
 		return session.selectOne("member.selectMemberById", values);
 	}
+	
+	public int deleteMemberFromTarget(SqlSession session, Map<String, String> values) {
+		return session.delete("member.deleteMemberFromTarget", values);
+	}
 }

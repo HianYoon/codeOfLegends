@@ -12,6 +12,7 @@ import javax.servlet.http.HttpSession;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -511,4 +512,56 @@ public class MemberService {
 		MemberLog log= new MemberLog(m.getMemberKey(), null, 9, null, loginSource, null);
 		return md.insertMemberLog(session, log);
 	}
+	
+	//////////////////////////////////////////////////
+//	멤버 삭제
+	
+	public boolean deleteMember(Member m) {
+		
+		int memberKey = m.getMemberKey();
+//		1. sns 연결 모두 삭제
+		
+		Map<String, String> values = new HashMap<String, String>();
+		values.put("memberKey", ""+memberKey);
+		values.put("target","SNS_LOGIN");
+		int result = md.deleteMemberFromTarget(session, values);
+		
+//		2. 멤버의 라이크 모두 삭제
+		
+		
+		values.put("target","AUCTION_COMMENT_LIKE");
+		md.deleteMemberFromTarget(session, values);
+		values.put("target","BCM_ARTICLE_LIKE");
+		md.deleteMemberFromTarget(session, values);
+		values.put("target","BCM_LIKE");
+		md.deleteMemberFromTarget(session, values);
+		values.put("target","BDI_ARTICLE_LIKE");
+		md.deleteMemberFromTarget(session, values);
+		values.put("target","BDI_LIKE");
+		md.deleteMemberFromTarget(session, values);
+		values.put("target","BDS_REVIEW_LIKE");
+		md.deleteMemberFromTarget(session, values);
+		values.put("target","BKB_ARTICLE_LIKE");
+		md.deleteMemberFromTarget(session, values);
+		values.put("target","BKB_LIKE");
+		md.deleteMemberFromTarget(session, values);
+		values.put("target","BUSINESS_LIKE");
+		md.deleteMemberFromTarget(session, values);
+		values.put("target","MEMBER_LIKE");
+		md.deleteMemberFromTarget(session, values);
+		
+//		3. business에 연결된 product 및 auction 모두 비활성화
+		
+//		4. business 비활성화
+		
+//		5. 멤버 account_status_no 9로 변경 & email의 앞자리에 deleted: 삽입 하여 업데이트
+		
+		
+		
+		
+		return false;
+	}
+	
+	
+	
 }
