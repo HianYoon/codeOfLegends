@@ -9,12 +9,14 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.col.domein.member.model.service.MemberService;
+import com.col.domein.member.model.vo.Member;
 import com.col.domein.member.oauth.model.vo.OauthKey;
 
 @RestController
@@ -23,7 +25,10 @@ public class MemberRestController {
 
 	@Autowired
 	private MemberService ms;
-
+	@Autowired
+	private BCryptPasswordEncoder pwEncoder;
+	
+	
 	@PostMapping("/signup/id")
 	public boolean isEmptyIdName(@RequestParam String data) {
 		Map<String, String> map = new HashMap<String, String>();
@@ -107,4 +112,12 @@ public class MemberRestController {
 		return new BigInteger(130, random).toString(32);
 	}
 	
+	
+//	/////////////////////////////////////////////////////////////
+	
+	@PostMapping("/mypage/account/password")
+	public boolean passwordChecker(HttpSession session, String password) {
+		Member m = (Member)session.getAttribute("signedInMember");
+		return pwEncoder.matches(password, m.getPassword());
+	}
 }

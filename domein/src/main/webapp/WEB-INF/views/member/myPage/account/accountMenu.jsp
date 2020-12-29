@@ -39,7 +39,7 @@
 			</a>
 		</div>
 		<div class="account-nav-list">
-			<a href="#"> <i class="fas fa-key" id="account-password-icon"></i>
+			<a href="${path }/member/myPage/account/changePw.do"> <i class="fas fa-key" id="account-password-icon"></i>
 				비밀번호 변경
 			</a>
 		</div>

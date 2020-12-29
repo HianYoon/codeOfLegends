@@ -7,11 +7,14 @@
 
 
 <jsp:include page="/WEB-INF/views/common/header.jsp">
-	<jsp:param name="title" value=" "/>
+	<jsp:param name="title" value=" " />
 </jsp:include>
+<link rel="stylesheet"
+	href="${path }/resources\css\signUp\registrationForm.css" />
+<link rel="stylesheet"
+	href="${path }/resources/css/member/myPage/account/changePw.css" />
+
 <section id="context">
-<script src="https://kit.fontawesome.com/8f9d453cdc.js"
-		crossorigin="anonymous"></script>
 
 	<jsp:include
 		page="/WEB-INF/views/member/myPage/common/myPageHeader.jsp" />
@@ -19,26 +22,60 @@
 	<!-- section-content 안에 내용을 기술해 주세요! -->
 
 	<div class="section-content">
-<form action="" method="post">
-		<table>
-			<tr>
-				<td> <h4>현재 비밀번호</h4></td>
-				<td> <input type="password" name="currentPassword" class="input--text"> </td>
-			</tr>
-			
-			<tr>
-				<td> <h4>새로운 비밀번호</h4></td>
-				<td> <input type="password" name="newPassword" id="newPassword" class="input--text"> </td>
-			</tr>
-			
-			<tr>
-				<td> <h4>비밀번호 확인</h4></td>
-				<td> <input type="password" name="newPasswordConfirm" id="newPasswordConfirm" class="input--text"> </td>
-			</tr>
-		
-		</table>
-		button
-</form>
+		<form action="${path }/member/myPage/account/changePwEnd.do" method="post">
+			<table>
+				<tr class="form-row">
+					<td>
+						<div class="icons">
+							<img src="${path }/resources/images/signUp/padlock (3).png"
+								alt="" />
+						</div>
+					</td>
+					<td><input type="password" class="input--text reg-form"
+						placeholder="기존 비밀번호" name="oldPassword" id="old-password"/></td>
+				</tr>
+				<tr class="message-row">
+					<td></td>
+					<td class="message-cont" id="old-pw-message">예전 비밀번호를 적어주세요</td>
+				</tr>
+				<tr class="form-row">
+					<td>
+						<div class="icons">
+							<img src="${path }/resources/images/signUp/padlock (3).png"
+								alt="" />
+						</div>
+					</td>
+					<td><input type="password" class="input--text reg-form"
+						placeholder="새로운 비밀번호" name="newPassword" /></td>
+				</tr>
+				<tr class="message-row">
+					<td></td>
+					<td class="message-cont">숫자,특문 각 1회 이상, 영문 2+ 사용, 8자리 이상</td>
+				</tr>
+				<tr class="form-row">
+					<td>
+						<div class="icons">
+							<img src="${path }/resources/images/signUp/padlock (2).png"
+								alt="" />
+						</div>
+					</td>
+					<td><input type="password" class="input--text reg-form"
+						placeholder="비밀번호 확인" /></td>
+					<td></td>
+				</tr>
+
+				<tr class="message-row">
+					<td></td>
+					<td class="message-cont">일치하지 않습니다</td>
+				</tr>
+
+			</table>
+			<div>
+				<button type="submit" class="btn btn-primary2" id="submit-btn"
+					disabled>제출</button>
+				<button type="reset" class="btn btn-primary2" id="cancel-btn">취소</button>
+			</div>
+		</form>
 	</div>
 
 
@@ -46,4 +83,6 @@
 	<div></div>
 
 </section>
-<jsp:include page="/WEB-INF/views/common/footer.jsp"/>
+<script src="${path }/resources/js/member/myPage/changePw.js"></script>
+
+<jsp:include page="/WEB-INF/views/common/footer.jsp" />

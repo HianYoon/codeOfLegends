@@ -90,7 +90,7 @@
 	<delete id="deleteMemberFromSnsLogin">
 		DELETE FROM SNS_LOGIN WHERE MEMBER_KEY = #{memberKey}
 	</delete>
-	
+
 	<delete id="deleteMemberFromTarget" parameterType="map">
 		DELETE FROM
 		${target} WHERE ACTOR_KEY = ${memberKey}
@@ -100,6 +100,11 @@
 		UPDATE MEMBER
 		SET EMAIL = #{email}, ACCOUNT_STATUS_NO = 9 WHERE MEMBER_KEY =
 		#{memberKey}
+	</update>
+
+	<update id="updateMemberPassword" parameterType="member">
+		UPDATE MEMBER
+		SET PASSWORD = #{password} WHERE MEMBER_KEY = #{memberKey}
 	</update>
 
 </mapper>

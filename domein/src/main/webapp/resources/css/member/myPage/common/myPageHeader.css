@@ -26,6 +26,8 @@
 	justify-content: center;
 	flex-direction: column;
 	align-content: center;
+	padding-top: 30px;
+	padding-bottom: 30px;
 }
 
 @media screen and (max-width: 768px) {
@@ -40,6 +42,8 @@
 	.section-content {
 		width: 100%;
 		height: calc(100% - 75px);
+		padding-top: 30px;
+		padding-bottom: 30px;
 	}
 	.myPageHeader>a {
 	
