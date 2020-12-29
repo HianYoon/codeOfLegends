@@ -1,10 +1,8 @@
  package com.col.domein.cart.controller;
 
-import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
-import java.util.stream.Stream;
 
 import javax.servlet.http.HttpSession;
 
@@ -59,15 +57,9 @@ public class CartController {
 			}
 			
 		 }else {
-				
+				mv.setViewName("Index");
 			}
-	//	}else if(mNo==0 && pNo!=0) {
-	//	TreeMap<String, Object> nonMemberCart=new TreeMap<String, Object>();
-		//	nonMemberCart.put("productNo",c.getProductNo());
-		//	nonMemberCart.put("amount",c.getAmount());
-		//	System.out.println(nonMemberCart);
-		//	mv.addObject("cart",nonMemberCart);
-			
+
 		
 		 mv.addObject("cart",c);
 		 mv.setViewName("redirect:/cart/list.do");
