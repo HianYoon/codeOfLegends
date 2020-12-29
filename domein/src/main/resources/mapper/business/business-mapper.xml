@@ -53,7 +53,7 @@
 	</insert>
 	
 	<update id="updateBusinessToStoppedByMemberKey">
-		UPDATE BUSINESS SET BUSINESS_STATUS_NO = 0 WHERE MEMBER_KEY = #{memberKey} AND BUSINESS_STATUS_NO = 1
+		UPDATE BUSINESS SET BUSINESS_STATUS_NO = 0, BUSINESS_NO = NULL WHERE MEMBER_KEY = #{memberKey} AND BUSINESS_STATUS_NO = 1
 	</update>
 
 

@@ -105,4 +105,10 @@ public class MemberDao {
 	public int updateMemberToDeleted(SqlSession session, Member m) {
 		return session.update("member.updateMemberToDeleted", m);
 	}
+	
+	public int deleteMemberFromSnsLogin(SqlSession session, int memberKey) {
+		return session.delete("member.deleteMemberFromSnsLogin", memberKey);
+				
+				
+	}
 }

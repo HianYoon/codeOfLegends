@@ -534,13 +534,13 @@ public class MemberService {
 		int memberKey = m.getMemberKey();
 //		1. sns 연결 모두 삭제
 		
-		Map<String, String> values = new HashMap<String, String>();
-		values.put("memberKey", ""+memberKey);
-		values.put("target","SNS_LOGIN");
-		md.deleteMemberFromTarget(session, values);
+		
+		md.deleteMemberFromSnsLogin(session, memberKey);
 		
 //		2. 멤버의 라이크 모두 삭제
 		
+		Map<String, String> values = new HashMap<String, String>();
+		values.put("memberKey", ""+memberKey);
 		
 		values.put("target","AUCTION_COMMENT_LIKE");
 		md.deleteMemberFromTarget(session, values);
