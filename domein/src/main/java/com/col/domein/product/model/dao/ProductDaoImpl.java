@@ -121,4 +121,31 @@ public class ProductDaoImpl implements ProductDao {
 		map.put("status", status);
 		return session.update("product.blindProduct",map);
 	}
+
+	@Override
+	public int updateProductStatusToStoppedByArticleNo(SqlSession session, int articleNo) {
+		// TODO Auto-generated method stub
+		return session.update("product.updateProductStatusToStoppedByArticleNo", articleNo);
+	}
+
+	@Override
+	public int updateSaleStatusToStoppedByBusinessKey(SqlSession session, int businessKey) {
+		// TODO Auto-generated method stub
+		return session.update("product.updateSaleStatusToStoppedByBusinessKey", businessKey);
+	}
+
+	@Override
+	public int updateBidStatusToStoppedByBusinessKey(SqlSession session, int businessKey) {
+		// TODO Auto-generated method stub
+		return session.update("product.updateBidStatusToStoppedByBusinessKey", businessKey);
+	}
+
+	@Override
+	public int updateAuctionStatusToStoppedByBusinessKey(SqlSession session, int businessKey) {
+		// TODO Auto-generated method stub
+		return session.update("product.updateAuctionStatusToStoppedByBusinessKey",businessKey);
+	}
+	
+	
+	
 }

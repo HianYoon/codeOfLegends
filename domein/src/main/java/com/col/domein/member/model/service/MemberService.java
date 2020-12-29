@@ -3,20 +3,25 @@ package com.col.domein.member.model.service;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import javax.mail.internet.MimeMessage;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.apache.ibatis.session.SqlSession;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import com.col.domein.business.model.service.BusinessService;
 import com.col.domein.business.model.vo.Business;
 import com.col.domein.mail.model.vo.EmailCheck;
 import com.col.domein.mail.model.vo.SignUpVerificationEmail;
@@ -28,6 +33,7 @@ import com.col.domein.member.oauth.model.vo.KakaoAccountProfile;
 import com.col.domein.member.oauth.model.vo.KakaoOauthResult;
 import com.col.domein.member.oauth.model.vo.NaverProfile;
 import com.col.domein.member.oauth.model.vo.SnsInfo;
+import com.col.domein.product.model.service.ProductService;
 import com.google.api.client.googleapis.auth.oauth2.GoogleIdToken;
 import com.google.api.client.googleapis.auth.oauth2.GoogleIdToken.Payload;
 import com.google.api.client.googleapis.auth.oauth2.GoogleIdTokenVerifier;
@@ -36,7 +42,9 @@ import com.google.api.client.json.jackson2.JacksonFactory;
 
 @Service
 public class MemberService {
-
+	
+	private static final Logger logger = LoggerFactory.getLogger(MemberService.class);
+	
 	@Autowired
 	private MemberDao md;
 	@Autowired
@@ -45,6 +53,10 @@ public class MemberService {
 	private JavaMailSender mailSender;
 	@Autowired
 	private BCryptPasswordEncoder pwEncoder;
+	@Autowired
+	private ProductService ps;
+	@Autowired
+	private BusinessService bs;
 	
 	private String googleClientId = "1048798785374-akhqjnf6p4g1fdo3mkf2pudg9ffh5ger.apps.googleusercontent.com";
 
@@ -516,6 +528,7 @@ public class MemberService {
 	//////////////////////////////////////////////////
 //	멤버 삭제
 	
+	@SuppressWarnings("rawtypes")
 	public boolean deleteMember(Member m) {
 		
 		int memberKey = m.getMemberKey();
@@ -524,7 +537,7 @@ public class MemberService {
 		Map<String, String> values = new HashMap<String, String>();
 		values.put("memberKey", ""+memberKey);
 		values.put("target","SNS_LOGIN");
-		int result = md.deleteMemberFromTarget(session, values);
+		md.deleteMemberFromTarget(session, values);
 		
 //		2. 멤버의 라이크 모두 삭제
 		
@@ -552,19 +565,31 @@ public class MemberService {
 		
 //		3. business에 연결된 product 및 auction 모두 비활성화
 		for(Business b : m.getBusinesses()) {
-//			1) 비지니스에 연결된 모든 BDS아티클 가져오기 + 그 안의 프로덕트 collection으로 가져오기
-			
 //			1-1) 모든 프로덕트 중지 처리
+			int businessKey =b.getBusinessKey();
+			Set<Integer> articleNumbers = new HashSet<Integer>(); 
+			List<Map> productList = ps.selectProductByBusinessKey(businessKey);
+			for(Map map : productList) {
+				articleNumbers.add((int)map.get("ARTICLE_NO"));
+			}
 			
+			for(int articleNo : articleNumbers) {
+				ps.updateProductStatusToStoppedByArticleNo(articleNo);
+			}
 //			1-2) 모든 아티클 중지 처리
+			ps.updateSaleStatusToStoppedByBusinessKey(businessKey);
 			
 //			2) auction 모두 종료 상태로 처리 코드 3
-			
-			
+//			2-1)참여 bid 중단
+			ps.updateBidStatusToStoppedByBusinessKey(businessKey);
+//			2-2)auction 중단
+			ps.updateAuctionStatusToStoppedByBusinessKey(businessKey);
 		}
 		
 		
 //		4. business 비활성화
+		
+		bs.updateBusinessToStoppedByMemberKey(memberKey);
 		
 //		5. 멤버 account_status_no 9로 변경 & email의 앞자리에 deleted: 삽입 하여 업데이트
 		

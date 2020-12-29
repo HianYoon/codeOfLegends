@@ -46,5 +46,11 @@ public interface ProductService {
 	
 	int blindProduct(int productNo,int status);
 
-
-}
+	int updateProductStatusToStoppedByArticleNo(int articleNo);
+	
+	int updateSaleStatusToStoppedByBusinessKey(int businessKey);
+	
+	int updateBidStatusToStoppedByBusinessKey(int businessKey);
+	
+	int updateAuctionStatusToStoppedByBusinessKey(int businessKey);
+}	

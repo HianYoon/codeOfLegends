@@ -125,5 +125,19 @@
 				UPDATE DIRECT_SALE_PRODUCT SET PRODUCT_STATUS_NO=${status} WHERE PRODUCT_NO = ${productNo}
 		</update>
 		
+		<update id="updateProductStatusToStoppedByArticleNo">
+			UPDATE DIRECT_SALE_PRODUCT SET PRODUCT_STATUS_NO = 0 WHERE ARTICLE_NO = #{articleNo} AND PRODUCT_STATUS = 1
+		</update>
 		
+		<update id="updateSaleStatusToStoppedByBusinessKey">
+			UPDATE BOARD_DIRECT_SALE SET SALE_STATUS_NO = 0 WHERE BUSINESS_KEY = #{businessKey} AND SALE_STATUS_NO = 1
+		</update>
+		
+		<update id="updateBidStatusToStoppedByBusinessKey">
+			UPDATE AUCTION_BID SET BID_STATUS_NO = 0 WHERE WRITER_KEY = #{businessKey} AND BID_STATUS_NO = 1
+		</update>
+		
+		<update id="updateAuctionStatusToStoppedByBusinessKey">
+			UPDATE BOARD_AUCTION SET AUCTION_STATUS_NO = 0 WHERE WRITER_KEY = #{businessKey} AND AUCTION_STATUS_NO = 1
+		</update>
 </mapper>
