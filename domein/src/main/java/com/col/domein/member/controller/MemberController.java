@@ -369,18 +369,20 @@ public class MemberController {
 ////////////일반 로그인 & 로그오프////////////////////
 //////////////////////////////////////////////////////
 	@RequestMapping("/loginVerify.do")
-	public String loginVerify(HttpSession session, HttpServletRequest request, String id, String password,
-			Model model) {
+	public String loginVerify(HttpSession session, HttpServletRequest request, String id, String password) {
+		System.out.println("초기 테스트");
 		Member m = ms.selectMemberById(id);
+		System.out.println(m);
 		if (m == null) {
-			model.addAttribute("loginFlag", true);
+			request.setAttribute("loginFlag", true);
 			return "member/memberLogin";
 		}
 		boolean pwFlag = pwEncoder.matches(password, m.getPassword());
 		if (!pwFlag) {
-			model.addAttribute("loginFlag", true);
+			request.setAttribute("loginFlag", true);
 			return "member/memberLogin";
 		}
+
 		ms.signInSuccess(session, 0, m);
 		return "redirect: " + request.getContextPath();
 	}

@@ -22,7 +22,7 @@ public class Business implements Comparable<Business> {
 	private String businessNickname;
 	private String businessAddress;
 	private int businessStatusNo;
-	private int businessStatusDesc;
+	private String businessStatusDesc;
 	private TreeSet<BusinessCategory> businessCategories;
 	
 	public Business() {
@@ -37,7 +37,7 @@ public class Business implements Comparable<Business> {
 
 	public Business(int businessKey, int memberKey, String businessNo, String businessName, String businessTel,
 			int bankCode, String bankName, String bankAccountNo, String bankAccountName, int isVerified, Date regDate,
-			String businessNickname, String businessAddress, int businessStatusNo, int businessStatusDesc,
+			String businessNickname, String businessAddress, int businessStatusNo, String businessStatusDesc,
 			TreeSet<BusinessCategory> businessCategories) {
 		super();
 		this.businessKey = businessKey;
@@ -170,11 +170,11 @@ public class Business implements Comparable<Business> {
 		this.businessStatusNo = businessStatusNo;
 	}
 
-	public int getBusinessStatusDesc() {
+	public String getBusinessStatusDesc() {
 		return businessStatusDesc;
 	}
 
-	public void setBusinessStatusDesc(int businessStatusDesc) {
+	public void setBusinessStatusDesc(String businessStatusDesc) {
 		this.businessStatusDesc = businessStatusDesc;
 	}
 
@@ -210,7 +210,7 @@ public class Business implements Comparable<Business> {
 		result = prime * result + ((businessName == null) ? 0 : businessName.hashCode());
 		result = prime * result + ((businessNickname == null) ? 0 : businessNickname.hashCode());
 		result = prime * result + ((businessNo == null) ? 0 : businessNo.hashCode());
-		result = prime * result + businessStatusDesc;
+		result = prime * result + ((businessStatusDesc == null) ? 0 : businessStatusDesc.hashCode());
 		result = prime * result + businessStatusNo;
 		result = prime * result + ((businessTel == null) ? 0 : businessTel.hashCode());
 		result = prime * result + isVerified;
@@ -272,7 +272,10 @@ public class Business implements Comparable<Business> {
 				return false;
 		} else if (!businessNo.equals(other.businessNo))
 			return false;
-		if (businessStatusDesc != other.businessStatusDesc)
+		if (businessStatusDesc == null) {
+			if (other.businessStatusDesc != null)
+				return false;
+		} else if (!businessStatusDesc.equals(other.businessStatusDesc))
 			return false;
 		if (businessStatusNo != other.businessStatusNo)
 			return false;
@@ -292,7 +295,6 @@ public class Business implements Comparable<Business> {
 			return false;
 		return true;
 	}
-	
-	
+
 	
 }
