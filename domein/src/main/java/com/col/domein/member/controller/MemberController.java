@@ -411,10 +411,14 @@ public class MemberController {
 	public String deleteAccountEnd(HttpSession session, HttpServletRequest request) {
 		Member m = (Member) session.getAttribute("signedInMember");
 		boolean flag = ms.deleteMember(m);
-		
 		if(!flag) return "redirect: "+request.getContextPath()+"/error.do";
 		
-		return "redirect: "+request.getContextPath()+"/accountDeleted.do";
+		session.invalidate();
+		return "redirect: "+request.getContextPath()+"/member/accountDeleted.do";
 	}
 	
+	@RequestMapping("/accountDeleted.do")
+	public String accountDeleted() {
+		return "member/accountDeleted";
+	}
 }

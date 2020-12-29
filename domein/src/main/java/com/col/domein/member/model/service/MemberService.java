@@ -592,11 +592,12 @@ public class MemberService {
 		bs.updateBusinessToStoppedByMemberKey(memberKey);
 		
 //		5. 멤버 account_status_no 9로 변경 & email의 앞자리에 deleted: 삽입 하여 업데이트
+		m.setEmail("deleted: "+m.getEmail());
+		m.setAccountStatusNo(9);
+		int result = md.updateMemberToDeleted(session, m);
 		
 		
-		
-		
-		return false;
+		return result == 1;
 	}
 	
 	
