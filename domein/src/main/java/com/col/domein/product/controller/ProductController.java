@@ -188,13 +188,11 @@ public class ProductController {
 		
 		TreeSet<Business> businessses=m.getBusinesses();//트리셋으로 비지니스키 가져오기
 		
-		if(m.getBusinesses().equals("businesses")) {		
+		
 			List<Map> product=service.selectProductOne(articleNo);
 			mv.addObject("product",product);
 			mv.setViewName("product/productUpdate");
-		}else {
-			mv.setViewName("index");
-		}
+		
 		return mv;
 		
 	}

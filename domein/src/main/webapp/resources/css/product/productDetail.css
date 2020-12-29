@@ -25,6 +25,7 @@
     padding: 10px;
     display: block;
     margin-right: 30px;
+    box-sizing: borderbox;
 }
 .product-text-group {
     display: flex;

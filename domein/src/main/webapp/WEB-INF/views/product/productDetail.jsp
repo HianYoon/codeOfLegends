@@ -14,16 +14,6 @@
 	<jsp:param name="title" value=""/>
 </jsp:include>
 
-<script type="text/javascript">
-	
-window.addEventListener('load',function(){
-		var pNo=document.querySelector("#pN").value;
-		console.log(pNo);
-		alert(pNo);
-	});
-</script>
-
-   
 <section id="content">
 	<c:if test="${product.get(0).PRODUCT_STATUS_NO != 8}">
 	 <div class="productDetailPage">
@@ -31,14 +21,6 @@ window.addEventListener('load',function(){
         <c:forEach items="${product }" var="p">
         	<div class="product-container">
        
-	            <div class="product-small-group">
-	                <ul>
-	                    <li><img src="" alt="이미지1"></li>
-	                </ul>
-
-	            </div>
-	            
-	                
 	            <div class="product-img">
 	                <img src="${path}/resources/upload/product/${p.P_RENAMED_FILE_NAME}" alt="빅이미지">
 	            </div>
@@ -46,7 +28,7 @@ window.addEventListener('load',function(){
 	            <div class="product-textgroup">
 	                <form name="form" action="${path}/cart/cart.do" method="post" >
 	                    <h2>카테고리명<input type="hidden" id="pNo" name="productNo" value="${p.PRODUCT_NO}"></h2>
-	                 <input type="hidden" id="pN" name="memberKey" value="${member.memberKey}">
+	                 <input type="hidden" id="mNo" name="memberKey" value="${member.memberKey}">
 	                  
 	                    <ul class="star">
 	                        <li><span>☆</span><span>☆</span><span>☆</span><span>☆</span><span>☆</span>리뷰수:</li>
@@ -74,7 +56,7 @@ window.addEventListener('load',function(){
 		                        <select name="productNames"  class="productNames" id="product-select-List" >
 			                        <c:forEach var="pName" items="${product}" varStatus="status">
 			                            <option value="">선택하세요</option>
-			                            <option value="${pName.PRODUCT_NAME}"><c:out value="${pName.PRODUCT_NAME}"/></option>
+			                            <option value="${pName.PRODUCT_NAME}"><c:out value="${pName.PRODUCT_NAME}"/><c:out value="${pName.MEASURE_UNIT}"/></option>
 			                            
 			                        </c:forEach>
 		                        </select>
@@ -95,7 +77,7 @@ window.addEventListener('load',function(){
 		                        <h4 class="orderText"></h4>
 		                        <div class="product-price">
 		                            <input type="button" class="minus" value="-"/>
-		                            <input type="number" name="amount" class="number" value="1" readonly>
+		                            <input type="number" id="amount" name="amount" class="number" value="1" readonly>
 		                            <input type="button" class="plus" value="+"/>
 		                       </div>
 		                      <div class="price-text">
@@ -108,12 +90,12 @@ window.addEventListener('load',function(){
 	                    </div>
 	                    <div class="button-order">
 	                   <c:if test="${signedInMember !=null }">
-	                        <button type="submit" id="cart"  class="btn btn--primary1">장바구니</button>
+	                        <button type="button" id="cartBtn"  class="btn btn--primary1">장바구니</button>
 	                
 	                   </c:if>
 	                  
 	                    <c:if test="${signedInMember ==null }">
-	                        <button type="submit" id="cart" class="btn btn--primary1">장바구니</button>
+	                        <button type="button" id="nonCartBtn" class="btn btn--primary1">장바구니</button>
 	              		</c:if>
 	                      
 	                  <c:if test="">
@@ -133,11 +115,10 @@ window.addEventListener('load',function(){
                 <li><a href="#product-Explanation">상품설명</a></li>
                 <li><a href="#reviews">리뷰</a></li>
                 <li><a href="#">문의</a></li>
-                <li><a href="#">좋아요<img src="" alt="따봉"></a></li>
-                <c:if test="${member.memberKey }!=null">
+                <li id="productLike">좋아요</li>
                 
                		 <li class="ProductComment">댓글쓰기</li>
-                </c:if>
+                
             </ul>
         </div>
         <hr/>
@@ -213,7 +194,61 @@ window.addEventListener('load',function(){
 	
 		</script>
 
+  <script type="text/javascript">
+	 const pNo=$("#pNo");
+	 const mNo=$("#mNo");
+	 const amo=$("#amount");
+	//멤버가존재하면
+	 $(function (){
+		 $("#cartBtn").click(function(){
+			const productNo= pNo.val();
+			const memberKey= mNo.val();
+			const amount= amo.val();
+			$.ajax({
+				url:"${path}/cart/cart.do",
+				type:"POST",
+				data:{
+					"productNo":productNo,
+					"memberKey":memberKey,
+					"amount":amount
+				},
+				dataType:"html",
+				success:function(data){
+					alert("장바구니에 담겼습니다.");
+				}
+			});
+		 });
+		 //멤버가 없을때 
+		 $("#nonCartBtn").click(function(){
+			 const productNo= pNo.val();
+			 console.log(productNo);
+				const amount= amo.val();
+			$.ajax({
+				url:"${path}/cart/cart.do",
+				type:"POST",
+				data:{
+					"productNo":productNo,
+					"amount":amount
+				},
+				dataType:"html",
+				success:function(data){
+					alert("장바구니에 담겼습니다.");
+				}
+			});
+		 });
+
+	 });
+	 const likeNumber=0;
+	 const likeNo=0;
+	$(".productLike").click(function(){
+		likeNo= likeNumber+1;
+	 		console.log(likeNo);
+	})
+	
+ </script>
+ 
  <script src="${path }/resources/js/productDetail/productDetail.js" defer></script>
+ 
  </c:if>
  <c:if test="${product.get(0).PRODUCT_STATUS_NO == 8}">
  	해당 글은 블라인드 처리 되었습니다.
