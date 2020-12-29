@@ -10,7 +10,7 @@
 
 .myPageHeader>a {
 	margin: 10px;
-	font-size: 26px;
+	font-size: 27px;
 }
 
 #context {
@@ -40,5 +40,9 @@
 	.section-content {
 		width: 100%;
 		height: calc(100% - 75px);
+	}
+	.myPageHeader>a {
+	
+		font-size: 1em;
 	}
 }
