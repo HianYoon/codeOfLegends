@@ -152,7 +152,33 @@ public class ProductServiceImpl implements ProductService {
 	public int blindProduct(int productNo,int status) {
 		// TODO Auto-generated method stub
 		return dao.blindProduct(session,productNo,status);
-	}	
+	}
+
+	@Override
+	public int updateProductStatusToStoppedByArticleNo(int articleNo) {
+		// TODO Auto-generated method stub
+		return dao.updateProductStatusToStoppedByArticleNo(session, articleNo);
+	}
+
+	@Override
+	public int updateSaleStatusToStoppedByBusinessKey(int businessKey) {
+		// TODO Auto-generated method stub
+		return dao.updateSaleStatusToStoppedByBusinessKey(session, businessKey);
+	}
+
+	@Override
+	public int updateBidStatusToStoppedByBusinessKey(int businessKey) {
+		// TODO Auto-generated method stub
+		return dao.updateBidStatusToStoppedByBusinessKey(session,businessKey);
+	}
+
+	@Override
+	public int updateAuctionStatusToStoppedByBusinessKey(int businessKey) {
+		// TODO Auto-generated method stub
+		return dao.updateAuctionStatusToStoppedByBusinessKey(session, businessKey);
+	}
+	
+	
 	
 	
 }

@@ -1,0 +1,28 @@
+.account-deleted-cont{
+  width:100%;
+  display:flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.sadness-img-cont{
+  width: 30%;
+}
+
+.sadness-img-cont>img{
+  width: 100%;
+  height: auto;
+  border-radius: 80%;
+  border: 3px solid var(--main-grey);
+  overflow: hidden;
+}
+
+.section-btn-cont{
+  display: flex;
+  justify-content: space-around;
+}
+
+.section-btn-cont>button{
+  margin: 20px;
+}

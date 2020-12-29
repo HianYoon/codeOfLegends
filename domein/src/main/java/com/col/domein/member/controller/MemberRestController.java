@@ -5,15 +5,19 @@ import java.security.SecureRandom;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.col.domein.member.model.service.MemberService;
+import com.col.domein.member.model.vo.Member;
+import com.col.domein.member.oauth.model.vo.OauthKey;
 
 @RestController
 @RequestMapping("/rest/member")
@@ -21,7 +25,10 @@ public class MemberRestController {
 
 	@Autowired
 	private MemberService ms;
-
+	@Autowired
+	private BCryptPasswordEncoder pwEncoder;
+	
+	
 	@PostMapping("/signup/id")
 	public boolean isEmptyIdName(@RequestParam String data) {
 		Map<String, String> map = new HashMap<String, String>();
@@ -65,11 +72,15 @@ public class MemberRestController {
 // 	2. Kakao
 
 	@PostMapping("/oauth/kakao")
-	public String kakaoSignIn(HttpSession session) {
+	public String kakaoSignIn(HttpSession session, HttpServletRequest request) {
 		String state = generateState();
 		session.setAttribute("kakaoState", state);
-		String clientId = "6a88db9a5a494eb2b45b1226ad76d34a";
-		String url = "https://kauth.kakao.com/oauth/authorize?client_id="+clientId+"&response_type=code&redirect_uri=http://mightymosses.hopto.org:9090/domein/member/oauth/kakao.do&state="
+		
+		OauthKey keys = new OauthKey(request);
+		
+		String clientId = keys.getKakaoClientId();
+		String redirectUrl = keys.getKakaoCallbackUri();
+		String url = "https://kauth.kakao.com/oauth/authorize?client_id="+clientId+"&response_type=code&redirect_uri="+redirectUrl+"&state="
 				+ state;
 
 		return url;
@@ -84,11 +95,13 @@ public class MemberRestController {
 	
 // 	3. Naver
 	@PostMapping("/oauth/naver")
-	public String naverSignIn(HttpSession session) {
+	public String naverSignIn(HttpSession session, HttpServletRequest request) {
 		String state = generateState();
 		session.setAttribute("naverState", state);
-		String clientId = "SRI621amFGMTUu3kZVHJ";
-		String url = "https://nid.naver.com/oauth2.0/authorize?client_id="+clientId+"&response_type=code&redirect_uri=http://mightymosses.hopto.org:9090/domein/member/oauth/naver.do&state="
+		OauthKey keys = new OauthKey(request);
+		String clientId = keys.getNaverClientId();
+		String redirectUrl = keys.getNaverCallbackUri();
+		String url = "https://nid.naver.com/oauth2.0/authorize?client_id="+clientId+"&response_type=code&redirect_uri="+redirectUrl+"&state="
 				+ state;
 		return url;
 	}
@@ -99,4 +112,12 @@ public class MemberRestController {
 		return new BigInteger(130, random).toString(32);
 	}
 	
+	
+//	/////////////////////////////////////////////////////////////
+	
+	@PostMapping("/mypage/account/password")
+	public boolean passwordChecker(HttpSession session, String password) {
+		Member m = (Member)session.getAttribute("signedInMember");
+		return pwEncoder.matches(password, m.getPassword());
+	}
 }

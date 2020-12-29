@@ -15,7 +15,9 @@
 		<result column="REG_DATE" property="regDate" />
 		<result column="BUSINESS_NICKNAME" property="businessNickname" />
 		<result column="BUSINESS_ADDRESS" property="businessAddress" />
+		<result column="BUSINESS_STATUS_NO" property="businessStatusNo"/>
 		<association property="bankName" column="BANK_CODE" javaType="String" select="business.selectBankName"></association>
+		<association property="businessStatusDesc" column="BUSINESS_STATUS_NO" javaType="String" select="business.selectBusinessStatusDesc"></association>
 		<collection property="businessCategories" javaType="java.util.TreeSet" column="BUSINESS_KEY" select="category.selectCategoriesByBusinessKey"></collection>
 	</resultMap>
 	
@@ -26,6 +28,10 @@
 	
 	<select id="selectBusinessByMemberKey" resultType="business" resultMap="businessMap">
 		SELECT * FROM BUSINESS WHERE MEMBER_KEY = #{memberKey}
+	</select>
+	
+	<select id="selectBusinessStatusDesc" resultType="string">
+		SELECT STATUS_DESC FROM ACCOUNT_STATUS WHERE ACCOUNT_STATUS_NO = #{businessStatusNo}
 	</select>
 	
 	<!-- 맵 세팅 끝 -->
@@ -45,7 +51,10 @@
 		VALUES(
 		#{businessKey},#{memberKey},#{businessNo},#{businessName},#{businessTel},#{isVerified},#{businessNickname},#{businessAddress})
 	</insert>
-
+	
+	<update id="updateBusinessToStoppedByMemberKey">
+		UPDATE BUSINESS SET BUSINESS_STATUS_NO = 9, BUSINESS_NO = 'deleted' WHERE MEMBER_KEY = #{memberKey} AND BUSINESS_STATUS_NO = 1
+	</update>
 
 
 </mapper>

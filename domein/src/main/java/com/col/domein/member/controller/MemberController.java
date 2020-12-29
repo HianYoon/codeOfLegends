@@ -26,6 +26,7 @@ import com.col.domein.member.oauth.model.vo.KakaoToken;
 import com.col.domein.member.oauth.model.vo.NaverAccessTokenRequest;
 import com.col.domein.member.oauth.model.vo.NaverOauthResult;
 import com.col.domein.member.oauth.model.vo.NaverProfile;
+import com.col.domein.member.oauth.model.vo.OauthKey;
 import com.col.domein.member.oauth.model.vo.SnsInfo;
 
 @Controller
@@ -253,9 +254,12 @@ public class MemberController {
 			session.removeAttribute("kakaoState");
 			return "redirect: " + request.getContextPath() + "/error.do";
 		}
-		String clientId = "6a88db9a5a494eb2b45b1226ad76d34a";
-		String clientSecret = "aGCaAJV2nuVTenmFpDeMF1zZ2TDWfqga";
-		String redirectUri = "http://mightymosses.hopto.org:9090/domein/member/oauth/kakao.do";
+		
+		OauthKey keys = new OauthKey(request);
+		
+		String clientId = keys.getKakaoClientId();
+		String clientSecret = keys.getKakaoClientSecret();
+		String redirectUri = keys.getKakaoCallbackUri();
 		
 		RestTemplate rest = new RestTemplate();
 		MultiValueMap<String, String> parameters = new LinkedMultiValueMap<String,String>();
@@ -314,8 +318,11 @@ public class MemberController {
 			session.removeAttribute("naverState");
 			return "redirect: " + request.getContextPath() + "/error.do";
 		}
-		String clientId = "SRI621amFGMTUu3kZVHJ";
-		String clientSecret = "sWGzb7TzkW";
+		
+		OauthKey keys = new OauthKey(request);
+		
+		String clientId = keys.getNaverClientId();
+		String clientSecret = keys.getNaverClientSecret();
 		String requestUrl = "https://nid.naver.com/oauth2.0/token?client_id=" + clientId + "&client_secret="
 				+ clientSecret + "&grant_type=authorization_code&state=" + naverState + "&code=" + code;
 
@@ -362,18 +369,20 @@ public class MemberController {
 ////////////일반 로그인 & 로그오프////////////////////
 //////////////////////////////////////////////////////
 	@RequestMapping("/loginVerify.do")
-	public String loginVerify(HttpSession session, HttpServletRequest request, String id, String password,
-			Model model) {
+	public String loginVerify(HttpSession session, HttpServletRequest request, String id, String password) {
+		System.out.println("초기 테스트");
 		Member m = ms.selectMemberById(id);
+		System.out.println(m);
 		if (m == null) {
-			model.addAttribute("loginFlag", true);
+			request.setAttribute("loginFlag", true);
 			return "member/memberLogin";
 		}
 		boolean pwFlag = pwEncoder.matches(password, m.getPassword());
 		if (!pwFlag) {
-			model.addAttribute("loginFlag", true);
+			request.setAttribute("loginFlag", true);
 			return "member/memberLogin";
 		}
+
 		ms.signInSuccess(session, 0, m);
 		return "redirect: " + request.getContextPath();
 	}
@@ -390,8 +399,48 @@ public class MemberController {
 		return "member/myPage/account/accountMenu";
 	}
 	
+	@RequestMapping("/myPage/account.do")
+	public String myPageAccount() {
+		return "member/myPage/account/accountMenu";
+	}
 	
+	@RequestMapping("/myPage/account/delete.do")
+	public String deleteAccount() {
+		return "member/myPage/account/deleteAccount";
+	}
 	
+	@RequestMapping("/myPage/account/deleteEnd.do")
+	public String deleteAccountEnd(HttpSession session, HttpServletRequest request) {
+		Member m = (Member) session.getAttribute("signedInMember");
+		boolean flag = ms.deleteMember(m);
+		if(!flag) return "redirect: "+request.getContextPath()+"/error.do";
+		
+		session.invalidate();
+		return "redirect: "+request.getContextPath()+"/member/accountDeleted.do";
+	}
 	
+	@RequestMapping("/accountDeleted.do")
+	public String accountDeleted() {
+		return "member/accountDeleted";
+	}
+	
+	@RequestMapping("/myPage/account/changePw.do")
+	public String changePw() {
+		return "member/myPage/account/changePw";
+	}
+	
+	@RequestMapping("/myPage/account/changePwEnd.do")
+	public String changePwEnd(HttpSession session, HttpServletRequest request, String oldPassword, String newPassword) {
+		Member m = (Member) session.getAttribute("signedInMember");
+		boolean result = pwEncoder.matches(oldPassword, m.getPassword());
+		if(!result) return "redirect: "+request.getContextPath()+"/error.do";
+		
+		m.setPassword(pwEncoder.encode(newPassword));
+		
+		result = ms.updateMemberPassword(m);
+		if(!result) return "redirect: "+request.getContextPath()+"/error.do";
+		
+		return "redirect: "+request.getContextPath()+"/member/myPage.do";
+	}
 	
 }

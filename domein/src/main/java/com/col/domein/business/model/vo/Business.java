@@ -21,15 +21,24 @@ public class Business implements Comparable<Business> {
 	private Date regDate;
 	private String businessNickname;
 	private String businessAddress;
+	private int businessStatusNo;
+	private String businessStatusDesc;
 	private TreeSet<BusinessCategory> businessCategories;
 	
 	public Business() {
 		// TODO Auto-generated constructor stub
 	}
 
+	@Override
+	public int compareTo(Business o) {
+		// TODO Auto-generated method stub
+		return this.businessKey - o.getBusinessKey();
+	}
+
 	public Business(int businessKey, int memberKey, String businessNo, String businessName, String businessTel,
 			int bankCode, String bankName, String bankAccountNo, String bankAccountName, int isVerified, Date regDate,
-			String businessNickname, String businessAddress, TreeSet<BusinessCategory> businessCategories) {
+			String businessNickname, String businessAddress, int businessStatusNo, String businessStatusDesc,
+			TreeSet<BusinessCategory> businessCategories) {
 		super();
 		this.businessKey = businessKey;
 		this.memberKey = memberKey;
@@ -44,6 +53,8 @@ public class Business implements Comparable<Business> {
 		this.regDate = regDate;
 		this.businessNickname = businessNickname;
 		this.businessAddress = businessAddress;
+		this.businessStatusNo = businessStatusNo;
+		this.businessStatusDesc = businessStatusDesc;
 		this.businessCategories = businessCategories;
 	}
 
@@ -151,6 +162,22 @@ public class Business implements Comparable<Business> {
 		this.businessAddress = businessAddress;
 	}
 
+	public int getBusinessStatusNo() {
+		return businessStatusNo;
+	}
+
+	public void setBusinessStatusNo(int businessStatusNo) {
+		this.businessStatusNo = businessStatusNo;
+	}
+
+	public String getBusinessStatusDesc() {
+		return businessStatusDesc;
+	}
+
+	public void setBusinessStatusDesc(String businessStatusDesc) {
+		this.businessStatusDesc = businessStatusDesc;
+	}
+
 	public TreeSet<BusinessCategory> getBusinessCategories() {
 		return businessCategories;
 	}
@@ -165,7 +192,8 @@ public class Business implements Comparable<Business> {
 				+ ", businessName=" + businessName + ", businessTel=" + businessTel + ", bankCode=" + bankCode
 				+ ", bankName=" + bankName + ", bankAccountNo=" + bankAccountNo + ", bankAccountName=" + bankAccountName
 				+ ", isVerified=" + isVerified + ", regDate=" + regDate + ", businessNickname=" + businessNickname
-				+ ", businessAddress=" + businessAddress + ", businessCategories=" + businessCategories + "]";
+				+ ", businessAddress=" + businessAddress + ", businessStatusNo=" + businessStatusNo
+				+ ", businessStatusDesc=" + businessStatusDesc + ", businessCategories=" + businessCategories + "]";
 	}
 
 	@Override
@@ -182,6 +210,8 @@ public class Business implements Comparable<Business> {
 		result = prime * result + ((businessName == null) ? 0 : businessName.hashCode());
 		result = prime * result + ((businessNickname == null) ? 0 : businessNickname.hashCode());
 		result = prime * result + ((businessNo == null) ? 0 : businessNo.hashCode());
+		result = prime * result + ((businessStatusDesc == null) ? 0 : businessStatusDesc.hashCode());
+		result = prime * result + businessStatusNo;
 		result = prime * result + ((businessTel == null) ? 0 : businessTel.hashCode());
 		result = prime * result + isVerified;
 		result = prime * result + memberKey;
@@ -242,6 +272,13 @@ public class Business implements Comparable<Business> {
 				return false;
 		} else if (!businessNo.equals(other.businessNo))
 			return false;
+		if (businessStatusDesc == null) {
+			if (other.businessStatusDesc != null)
+				return false;
+		} else if (!businessStatusDesc.equals(other.businessStatusDesc))
+			return false;
+		if (businessStatusNo != other.businessStatusNo)
+			return false;
 		if (businessTel == null) {
 			if (other.businessTel != null)
 				return false;
@@ -259,12 +296,5 @@ public class Business implements Comparable<Business> {
 		return true;
 	}
 
-	@Override
-	public int compareTo(Business o) {
-		// TODO Auto-generated method stub
-		return this.businessKey - o.getBusinessKey();
-	}
-	
-	
 	
 }

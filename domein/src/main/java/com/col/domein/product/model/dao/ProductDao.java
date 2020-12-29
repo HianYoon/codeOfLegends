@@ -50,9 +50,12 @@ public interface ProductDao {
 
 	int blindProduct(SqlSession session, int productNo,int status);
 
-
-
+	int updateProductStatusToStoppedByArticleNo(SqlSession session, int articleNo);
 	
-
+	int updateSaleStatusToStoppedByBusinessKey(SqlSession session, int businessKey);
+	
+	int updateBidStatusToStoppedByBusinessKey(SqlSession session, int businessKey);
+	
+	int updateAuctionStatusToStoppedByBusinessKey(SqlSession session, int businessKey);
 
 }
