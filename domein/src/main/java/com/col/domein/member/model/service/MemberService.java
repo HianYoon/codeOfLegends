@@ -12,12 +12,12 @@ import javax.servlet.http.HttpSession;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpHeaders;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import com.col.domein.business.model.vo.Business;
 import com.col.domein.mail.model.vo.EmailCheck;
 import com.col.domein.mail.model.vo.SignUpVerificationEmail;
 import com.col.domein.member.model.dao.MemberDao;
@@ -551,6 +551,18 @@ public class MemberService {
 		md.deleteMemberFromTarget(session, values);
 		
 //		3. business에 연결된 product 및 auction 모두 비활성화
+		for(Business b : m.getBusinesses()) {
+//			1) 비지니스에 연결된 모든 BDS아티클 가져오기 + 그 안의 프로덕트 collection으로 가져오기
+			
+//			1-1) 모든 프로덕트 중지 처리
+			
+//			1-2) 모든 아티클 중지 처리
+			
+//			2) auction 모두 종료 상태로 처리 코드 3
+			
+			
+		}
+		
 		
 //		4. business 비활성화
 		
