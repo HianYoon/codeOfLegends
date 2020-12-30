@@ -11,6 +11,23 @@ public class AdsDaoImpl implements AdsDao {
 	@Override
 	public int bannerApply(SqlSession session, BannerAds bannerAds) {
 		return session.insert("bannerAds.insertBannerAds",bannerAds);
+	}	
+
+	@Override
+	public int bannerHoldCount(SqlSession session) {		
+		return session.selectOne("bannerAds.selectBannerHoldCount");
 	}
+
+	@Override
+	public int bannerAcceptCount(SqlSession session) {		
+		return session.selectOne("bannerAds.selectBannerAcceptCount");
+	}
+
+	@Override
+	public int bannerRejectCount(SqlSession session) {		
+		return session.selectOne("bannerAds.selectBannerRejectCount");
+	}
+	
+	
 
 }

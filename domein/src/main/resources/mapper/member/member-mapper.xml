@@ -99,6 +99,9 @@
 		#{memberKey}
 	</update>
 	
+	<select id="selectMemberCount" resultType="_int">
+		SELECT COUNT(*) FROM MEMBER
+	</select>
 	<update id="updateMemberPassword" parameterType="member">
 		UPDATE MEMBER
 		SET PASSWORD = #{password} WHERE MEMBER_KEY = #{memberKey}

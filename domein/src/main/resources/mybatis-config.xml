@@ -15,5 +15,7 @@
 		<typeAlias type="com.col.domein.member.model.vo.MemberLog" alias="memberLog"/>
 		<typeAlias type="com.col.domein.cart.model.vo.Cart" alias="cart"/>
 		<typeAlias type="com.col.domein.common.crteria.SearchCriteria" alias="searchCriteria"/>
+		<typeAlias type="com.col.domein.ads.model.vo.BannerAds" alias="bannerAds"/>
+		<typeAlias type="com.col.domein.ads.model.vo.DirectSalesAds" alias="directSalesAds"/>
 	</typeAliases>
 </configuration>
