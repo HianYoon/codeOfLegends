@@ -69,6 +69,8 @@
 		UPDATE MEMBER SET PROFILE_URL = #{snsProfilePic} WHERE MEMBER_KEY = #{memberKey}
 	</update>
 	
-	
+	<select id="selectMemberCount" resultType="_int">
+		SELECT COUNT(*) FROM MEMBER
+	</select>
 	
 </mapper>

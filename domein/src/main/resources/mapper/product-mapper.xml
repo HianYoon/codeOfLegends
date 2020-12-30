@@ -42,7 +42,7 @@
 		<!--  상품 aticle_no,title,product_no,price,p_renamed_file_name 3개테이블조인후 조회 -->
 		 <select id="selectProductList" resultType="map">
 				
-				select p.*,(select count(*) from product_all WHERE P.PRODUCT_NO=PRODUCT_NO)as ATTAC from product_all p order by p.article_no desc
+				select p.*,(select count(*) from product_all WHERE P.PRODUCT_NO=PRODUCT_NO)as ATTAC,M.NICKNAME from product_all p LEFT JOIN MEMBER M ON p.member_key = m.member_key order by p.article_no desc
 				<!-- select b.article_no,b.title,d.product_no,d.price,a.p_renamed_file_name,
 				(select count(*) from DIRECT_SALE_PRODUCT WHERE d.product_no=a.product_no)
 				as ATTCOUNT from BOARD_DIRECT_SALE b

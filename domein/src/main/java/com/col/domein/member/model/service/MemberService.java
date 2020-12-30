@@ -511,4 +511,8 @@ public class MemberService {
 		MemberLog log= new MemberLog(m.getMemberKey(), null, 9, null, loginSource, null);
 		return md.insertMemberLog(session, log);
 	}
+	
+	public int selectMemberCount() {
+		return md.selectMemberCount(session);
+	}
 }
