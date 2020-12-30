@@ -23,10 +23,11 @@
 	                <a href="">노하우</a>
 	            </div>
 	            <div class="community-bottom-right">
-	            	<form action="${path }/board/community.do" method="post">
+	            	<form action="${path }/community/community.do" method="post">
 		                <table class="board_list">
 		                    <thead>
 		                        <tr>
+		                        	<!-- <th>번호</th> -->
 		                            <th>제목</th>
 		                            <th>글쓴이</th>
 		                            <th>추천수</th>
@@ -34,33 +35,37 @@
 		                            <th>날짜</th>
 		                        </tr>
 		                    </thead>
-	<%-- 	                    <c:forEach items="${boardlist }" var="b">
+	 	                    <c:forEach items="${list }" var="b">
+<%-- 		                    	<tr>
+		                    		<td class="tit">
+		                    			<a href="#">
+		                    				<c:out value="${b.THREAD_KEY}"/>
+		                    			</a>
+		                    		</td>
+		                    	</tr> --%>
 		                    	<tr>
 		                    		<td class="tit">
-		                    			<a href="#">
-		                    				<c:out value="${b.BOARDTITLE }"/>
+		                    			<a href="${path }/community/forum.do">
+		                    				<c:out value="${b.threadTitle}"/>
 		                    			</a>
 		                    		</td>
 		                    		<td class="tit">
-		                    			<a href="#">
-		                    				<c:out value="${b.BOARDWRITER }"/>
+		                    			<a href="${path }/community/profile.do">
+		                    				<c:out value="${b.writerKey}"/>
 		                    			</a>
 		                    		</td>
 		                    		<td class="tit">
-		                    				<c:out value="${b.BOARDCOUNT }"/>
+		                    				<c:out value="${b.READ_COUNT}"/>
 		                    		</td>
 		                    		<td class="tit">
-		                    				<c:out value="${b.BOARDREADCOUNT }"/>
+		                    				<c:out value="${b.threadStatusNo}"/>
 		                    		</td>
 		                    		<td class="tit">
-		                    				<c:out value="${b.BOARDREADCOUNT }"/>
-		                    		</td>
-		                    		<td class="tit">
-		                    				<c:out value="${b.BOARDWRITTENDATE }"/>
+		                    				<c:out value="${b.writtenDate}"/>
 		                    		</td>
 		                    	</tr>
-		                    </c:forEach> --%>
-	 	                    <tbody>
+		                    </c:forEach>
+<!-- 	 	                    <tbody>
 		                        <tr>
 		                            <td class="tit">
 		                                <a href='#'>밥은 국밥이지 밥은 국밥인가</a>
@@ -123,7 +128,7 @@
 		                            <td>5</td>
 		                            <td>12-10</td>
 		                        </tr>
-		                    </tbody>
+		                    </tbody> -->
 		                </table>
 	                	<div class="community-bottom-right-button">
 	                    <img src="${path }/resources/images/profile/search.png" alt="" width="20px">
