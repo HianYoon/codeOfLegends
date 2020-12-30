@@ -11,5 +11,14 @@
 </jsp:include>
 <section id="context">
  <h1>버그다 버그!</h1>
+ <br>
+ <h5>${msg }</h5>
+ <br>
+ <c:if test="${loc !=null }">
+ <button class="btn btn--primary" onclick="location.href='${path}${loc}';">${locDesc} </button>
+ </c:if>
+ <c:if test="${loc ==null }">
+ <button class="btn btn--primary" onclick="location.href='${path}';">${locDesc}</button>
+ </c:if>
 </section>
 <jsp:include page="/WEB-INF/views/common/footer.jsp"/>
