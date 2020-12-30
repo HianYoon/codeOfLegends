@@ -107,7 +107,7 @@ public class MemberDao {
 	}
 	
 	public int deleteMemberFromSnsLogin(SqlSession session, int memberKey) {
-		return session.delete("member.deleteMemberFromSnsLogin", memberKey);
+		return session.delete("oauth.deleteMemberFromSnsLogin", memberKey);
 	}
 	
 	public boolean updateMemberPassword(SqlSession session, Member m) {
@@ -116,5 +116,9 @@ public class MemberDao {
 	
 	public List<SnsInfo> selectSnsInfoByMemberKey(SqlSession session, int memberKey){
 		return session.selectList("oauth.selectSnsInfoByMemberKey", memberKey);
+	}
+	
+	public boolean deleteSelectedOauthFromMember(SqlSession session, SnsInfo sns) {
+		return session.delete("oauth.deleteSelectedOauthFromMember", sns)==1;
 	}
 }

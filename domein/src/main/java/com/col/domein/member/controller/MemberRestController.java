@@ -68,7 +68,14 @@ public class MemberRestController {
 		int result = ms.googleSignIn(session, idToken);
 		return result;
 	}
-
+	
+	@PostMapping("/oauth/google/addition")
+	public int addGoogleSignIn(HttpSession session, String idToken) {
+		Member m = (Member)session.getAttribute("signedInMember");
+		int result = ms.addGoogleSignIn(session, m.getMemberKey(), idToken);
+		return result;
+	}
+	
 // 	2. Kakao
 
 	@PostMapping("/oauth/kakao")
