@@ -1,12 +1,12 @@
 .account-nav-list{
 	display: flex;
 	font-size: 2.5em;
-	margin-left: 10%;
-	width: 90%;
+	width: 100%;
+	justify-content: center;
 }
 
 .account-nav-list>a{
-	width: 100%;
+	min-width: 300px;
 }
 .account-nav-list>a>i{
 	margin: 5px;

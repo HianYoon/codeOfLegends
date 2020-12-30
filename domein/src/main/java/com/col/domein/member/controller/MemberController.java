@@ -370,9 +370,8 @@ public class MemberController {
 //////////////////////////////////////////////////////
 	@RequestMapping("/loginVerify.do")
 	public String loginVerify(HttpSession session, HttpServletRequest request, String id, String password) {
-		System.out.println("초기 테스트");
+		
 		Member m = ms.selectMemberById(id);
-		System.out.println(m);
 		if (m == null) {
 			request.setAttribute("loginFlag", true);
 			return "member/memberLogin";
@@ -439,6 +438,7 @@ public class MemberController {
 		
 		result = ms.updateMemberPassword(m);
 		if(!result) return "redirect: "+request.getContextPath()+"/error.do";
+		else session.setAttribute("signedInMember", m);
 		
 		return "redirect: "+request.getContextPath()+"/member/myPage.do";
 	}

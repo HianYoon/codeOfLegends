@@ -282,7 +282,7 @@ public class MemberService {
 			if (memberKey > 0) {
 				m = md.selectMemberByMemberKey(session, memberKey);
 				signInSuccess(httpSession, loginSourceNo, m);
-				System.out.println(m);
+
 				return 1;
 			}
 /////////////////////////////////////////////////////////////////////////
