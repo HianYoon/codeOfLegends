@@ -33,8 +33,14 @@
 		<delete id="deleteCartList" parameterType="cart">
 			delete from cart where member_key=#{memberKey} and product_no=${productNo}
 		</delete>
-		<update id="addToAmount" parameterType="map">
+	<!--상품 수량 더하기  -->
+		<update id="addToAmount" parameterType="cart">
 		update cart set amount= amount+#{amount} where member_key=#{memberKey}
+		and product_no=#{productNo}
+		</update>
+	<!--상품 수량 빼기  -->
+	<update id="minusToAmount" parameterType="cart">
+		update cart set amount= amount-#{amount} where member_key=#{memberKey}
 		and product_no=#{productNo}
 		</update>
 </mapper>

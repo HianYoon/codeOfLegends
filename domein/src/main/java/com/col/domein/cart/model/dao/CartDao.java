@@ -24,8 +24,11 @@ public interface CartDao {
 	//member cartList
 	List<Map> selectCartList(SqlSession session, int memberKey);
 	//cart 상품 삭제
-	int deleteCartList(SqlSession session, int memberKey);
+	int deleteCartList(SqlSession session, int memberKey,int productNo);
 	//상품 수량 업데이트
-	int addToAmount(SqlSession session, int productNo,int amount);
+	int addToAmount(SqlSession session, int productNo,int amount, int memberKey);
+	//상품 수량 minus업데이트 
+	int minusToAmount(SqlSession session, int productNo, int amount, int memberKey);
+	
 
 }
