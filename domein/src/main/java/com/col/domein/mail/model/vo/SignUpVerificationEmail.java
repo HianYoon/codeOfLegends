@@ -122,7 +122,7 @@ public class SignUpVerificationEmail {
 				"		<div class='signup-email-boundary'>\r\n" + 
 				"			<div class='signup-logo-container'>\r\n" + 
 				"				<img\r\n" + 
-				"					src='http://mightymosses.hopto.org:9090/domein/resources/images/logo/signature.png'\r\n" + 
+				"					src='http://"+request.getServerName()+":"+request.getServerPort()+request.getContextPath()+"/resources/images/logo/signature.png'\r\n" + 
 				"					alt='로고'\r\n" + 
 				"				/>\r\n" + 
 				"			</div>\r\n" + 
@@ -142,7 +142,7 @@ public class SignUpVerificationEmail {
 				"				<br />\r\n" + 
 				"				<a\r\n" + 
 				"					href='"
-				+ request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+"/"+request.getContextPath()
+				+ request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+request.getContextPath()
 				+ "/member/signUp/accountVerify.do?memberKey="
 				+ newMember.getMemberKey()
 				
@@ -157,7 +157,7 @@ public class SignUpVerificationEmail {
 				"				<br />\r\n" + 
 				"				<a\r\n" + 
 				"					href='"
-				+ request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+"/"+request.getContextPath()
+				+ request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+request.getContextPath()
 				+"/member/signUp/accountVerify.do?memberKey="
 				+ newMember.getMemberKey()
 				
@@ -181,7 +181,7 @@ public class SignUpVerificationEmail {
 				"		$('#verificationBtn').click((e) => {\r\n" + 
 				"			location.href =\r\n" + 
 				"				'"
-				+ request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+"/"+request.getContextPath()
+				+ request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+request.getContextPath()
 				+ "/member/signUp/accountVerify.do?memberKey="
 				
 				+ newMember.getMemberKey()

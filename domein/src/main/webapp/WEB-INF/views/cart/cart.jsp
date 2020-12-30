@@ -29,6 +29,25 @@
             $(activeTab).fadeIn();//Fade in the active ID content
             return false;
         });
+        	const cartbox=document.querySelector("#cart--btnbox");
+        	const plus=cartbox.querySelector("#plus");
+        	const amount=cartbox.querySelector("#amount").value;
+        	const minus=cartbox.querySelector("#minus");
+        	const ss=parseInt(amount);
+        	console.log("양이냐"+amount);
+        	
+        	plus.onclick=(e)=>{
+        		amount.innerText=ss+1;
+        		console.log('1증가!');
+        	}
+        	minus.onclick=()=>{
+        		amount.innerText=ss-1;
+        		console.log('1감소!!');
+        	}
+     
+        
+        	minus.onclick=(e)=> amount-1;
+        	
     });
 
 </script>
@@ -70,18 +89,20 @@
                          <c:forEach items="${map.list}" var="list" varStatus="status">
                             <c:set value="${cart}" var="cart"/>
                                 <div class="product-cart">
-                                
-                                    <input type="radio" name="cart" value="">
+                                	<input type="hidden" value="${signedInMember.memberKey}" name="memberKey"/>
+                                	<input type="hidden" value="${list.PRODUCT_NO}" name="productNo"/>
+                                    <input type="checkbox" name="cart" value="">
                                   
 
                                         <img src="${path }/resources/upload/product/${list.P_RENAMED_FILE_NAME}" alt="이미지">
                                         <div class="cartContent">
 
                                             <p>상품명:<c:out value="${list.TITLE }"/></p>
-                                            
-                                            <input type="button" id="minus" name="minus" value="-" maxlength=""/>
-                                            <input type="text" id="amount" name="amount" value="" maxlength="" readonly/>
-                                            <input type="button" id="plus" name="plus" value="+" maxlength=""/>
+                                            <div id="cart--btnbox">
+	                                            <input type="button" id="minus" name="minus" value="-" />
+	                                            <input type="text" id="amount" name="amount" value="${cart.amount}" maxlength="" readonly/>
+	                                            <input type="button" id="plus" name="plus" value="+" maxlength=""/>
+                                            </div>
                                               
                                             <p>가격:<c:out value="${list.PRICE }"/>원</p>
             

@@ -271,7 +271,7 @@
             <div class="oction--header">
                 <form role="form" method="get">
                     <div class="oction-searchbox">
-                    <select name="searchType">
+                    <select name="searchType" style="display:none">
 		                    <option value="null"
 		                    <c:out value="${scri.searchType == null? 'selected':''}"/>>
 		                    ---없음---</option>
@@ -343,7 +343,7 @@
                       			</c:if>
                       			<c:forEach begin="${pageMaker.startPage }" end="${pageMaker.endPage}" var="idx">
                       			
-	                      			<li><a href="list${pageMaker.makeSearch(idx)}">${idx}</a></li>
+	                      			<li><a href="list${pageMaker.makeSearch(idx)}"></a></li>
                       			</c:forEach>
                       			<c:if test="${pageMaker.next&&pageMaker.endPage > 0 }">
                       			
