@@ -16,10 +16,13 @@ public class OauthKey {
 	private String kakaoClientId = "6a88db9a5a494eb2b45b1226ad76d34a";
 	private String kakaoClientSecret = "aGCaAJV2nuVTenmFpDeMF1zZ2TDWfqga";
 	private String kakaoCallbackUri = "/member/oauth/kakao.do";
+	private String kakaoMyPageCallbackUri = "/member/oauth/kakao/addition.do";
+	
 	
 	private String naverClientId = "SRI621amFGMTUu3kZVHJ";
 	private String naverClientSecret = "sWGzb7TzkW";
 	private String naverCallbackUri = "/member/oauth/naver.do";
+	private String naverMyPageCallbackUri = "/member/oauth/naver/addition.do";
 	
 	public OauthKey(HttpServletRequest request) {
 		// TODO Auto-generated constructor stub
@@ -27,6 +30,8 @@ public class OauthKey {
 		googleCallbackUri = serverUrl + googleCallbackUri;
 		kakaoCallbackUri = serverUrl + kakaoCallbackUri;
 		naverCallbackUri = serverUrl + naverCallbackUri;
+		kakaoMyPageCallbackUri = serverUrl + kakaoMyPageCallbackUri;
+		naverMyPageCallbackUri = serverUrl + naverMyPageCallbackUri;
 	}
 
 	public String getGoogleClientId() {
@@ -72,6 +77,15 @@ public class OauthKey {
 	public String getServerUrl() {
 		return serverUrl;
 	}
+
+	public String getKakaoMyPageCallbackUri() {
+		return kakaoMyPageCallbackUri;
+	}
+
+	public String getNaverMyPageCallbackUri() {
+		return naverMyPageCallbackUri;
+	}
+	
 	
 	
 }

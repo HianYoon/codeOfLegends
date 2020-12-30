@@ -23,6 +23,18 @@ public class AdsController {
 	@Autowired
 	AdsService service;
 	
+	
+	//회원 광고 신청 메인페이지 화면 전환
+	@RequestMapping("/ads/adsMainApply.do")
+	public ModelAndView viewAdsMainApply(ModelAndView mv) {				
+		mv.addObject("holdCount",service.bannerHoldCount());
+		mv.addObject("acceptCount",service.bannerAcceptCount());
+		mv.addObject("rejectCount",service.bannerRejectCount());
+		mv.setViewName("/ads/adsMainApply");
+		return mv;
+	}
+	
+	//slideBanner광고 신청 Form 작성(파일업로드 포함)
 	@RequestMapping("/ads/slideBannerApplication.do")
 	public ModelAndView bannerApply(BannerAds bannerAds, Date startDate, Date endDate, ModelAndView mv, 
 			@RequestParam(value="upFile")MultipartFile upFile, HttpSession session) {

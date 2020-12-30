@@ -389,12 +389,12 @@ public class MemberService {
 ///////////////////////////////////////////////////////
 //		Code 1
 		if(memberKey>0) {
-			if(memberKey>0) {
+
 				m = md.selectMemberByMemberKey(session, memberKey);
 				signInSuccess(httpSession, loginSourceNo, m);
 
 				return 1;
-			}
+
 		}
 		
 //////////////////////////////////////////////////////////////
@@ -431,6 +431,36 @@ public class MemberService {
 		httpSession.setAttribute("snsForNewSnsMember", sns);
 		return 3;
 	
+	}
+	
+//	/////////////////////
+//	마이페이지 카카오 추가
+	
+	public int addKakaoSignIn(HttpSession httpSession, int memberKey, KakaoOauthResult result) {
+		int loginSourceNo = 2;
+		
+		int mKey = checkMemberThroughSnsId(loginSourceNo, result.getId());
+		
+		if(mKey>0) return 6;
+		
+		KakaoAccount account = result.getKakao_account();
+		KakaoAccountProfile profile = account.getProfile();
+		
+		String pictureURL = profile.getProfile_image_url();
+		String name = profile.getNickname();
+		String id = result.getId();
+		
+		SnsInfo sns = new SnsInfo();
+		sns.setMemberKey(memberKey);
+		sns.setLoginSourceNo(loginSourceNo);
+		sns.setSnsId(id);
+		sns.setSnsName(name);
+		sns.setSnsProfilePic(pictureURL);
+		
+		boolean flag = md.insertSnsInfo(session, sns);
+		if(!flag) return 9;
+		
+		return 5;
 	}
 	
 	
