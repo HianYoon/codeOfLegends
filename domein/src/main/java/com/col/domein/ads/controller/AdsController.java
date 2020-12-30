@@ -24,12 +24,16 @@ public class AdsController {
 	AdsService service;
 	
 	
-	//회원 광고 신청 메인페이지 화면 전환
+	//회원 광고 신청 메인페이지 화면 전환(광고현황 가져오기)
 	@RequestMapping("/ads/adsMainApply.do")
 	public ModelAndView viewAdsMainApply(ModelAndView mv) {				
-		mv.addObject("holdCount",service.bannerHoldCount());
-		mv.addObject("acceptCount",service.bannerAcceptCount());
-		mv.addObject("rejectCount",service.bannerRejectCount());
+		mv.addObject("bannerHoldCount",service.bannerHoldCount());
+		mv.addObject("bannerAcceptCount",service.bannerAcceptCount());
+		mv.addObject("bannerRejectCount",service.bannerRejectCount());
+		mv.addObject("directHoldCount",service.directHoldCount());
+		mv.addObject("directAcceptCount",service.directAcceptCount());
+		mv.addObject("directRejectCount",service.directRejectCount());
+		
 		mv.setViewName("/ads/adsMainApply");
 		return mv;
 	}

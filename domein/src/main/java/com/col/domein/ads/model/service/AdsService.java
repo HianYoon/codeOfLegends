@@ -12,4 +12,10 @@ public interface AdsService {
 	
 	int bannerRejectCount();
 	
+	int directHoldCount();
+	
+	int directAcceptCount();
+	
+	int directRejectCount();
+	
 }

@@ -14,4 +14,10 @@ public interface AdsDao {
 	
 	int bannerRejectCount(SqlSession session);
 	
+	int directHoldCount(SqlSession session);
+	
+	int directAcceptCount(SqlSession session);
+	
+	int directRejectCount(SqlSession session);
+	
 }
