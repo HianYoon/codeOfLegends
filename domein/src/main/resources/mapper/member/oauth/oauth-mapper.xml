@@ -1,6 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="oauth">
+
+	<resultMap type="snsInfo" id="snsInfoMap">
+		<result column="MEMBER_KEY" property="memberKey"/>
+		<result column="LOGIN_SOURCE_NO" property="loginSourceNo"/>
+		<result column="SNS_ID" property="snsId"/>
+		<result column="SNS_NAME" property="snsName"/>
+		<result column="SNS_PROFILE_PIC" property="snsProfilePic"/>
+		<result column="SNS_CONNECT_DATE" property="snsConnectDate"/>
+		<association property="sourceDesc" javaType="String" column="LOGIN_SOURCE_NO" select="selectSourceDesc"></association>
+	
+	</resultMap>
+<!-- 리절트맵 세팅 -->
+	<select id="selectSourceDesc" resultType="string">
+		SELECT SOURCE_DESC FROM LOGIN_SOURCE WHERE LOGIN_SOURCE_NO = #{loginSourceNo}
+	</select>
+
+<!-- 세팅 끝 -->
 	<select id="checkMemberThroughSnsId" parameterType="snsInfo"
 		resultType="_int">
 		SELECT MEMBER_KEY FROM SNS_LOGIN WHERE LOGIN_SOURCE_NO =
@@ -12,4 +29,8 @@
 		SNS_LOGIN(MEMBER_KEY,LOGIN_SOURCE_NO,SNS_ID,SNS_NAME,SNS_PROFILE_PIC)
 		VALUES(#{memberKey},#{loginSourceNo},#{snsId},#{snsName},#{snsProfilePic})
 	</insert>
+	
+	<select id="selectSnsInfoByMemberKey" parameterType="_int" resultMap="snsInfoMap" resultType="snsInfo">
+		SELECT * FROM SNS_INFO WHERE MEMBER_KEY = #{memberKey}
+	</select>
 </mapper>

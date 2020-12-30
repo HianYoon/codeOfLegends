@@ -604,4 +604,8 @@ public class MemberService {
 		return md.updateMemberPassword(session, m);
 	}
 	
+	public List<SnsInfo> selectSnsInfoByMemberKey(int memberKey){
+		return md.selectSnsInfoByMemberKey(session, memberKey);
+	}
+	
 }

@@ -113,4 +113,8 @@ public class MemberDao {
 	public boolean updateMemberPassword(SqlSession session, Member m) {
 		return session.update("member.updateMemberPassword", m) == 1;
 	}
+	
+	public List<SnsInfo> selectSnsInfoByMemberKey(SqlSession session, int memberKey){
+		return session.selectList("oauth.selectSnsInfoByMemberKey", memberKey);
+	}
 }

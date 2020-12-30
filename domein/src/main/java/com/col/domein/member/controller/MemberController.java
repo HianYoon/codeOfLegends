@@ -1,6 +1,8 @@
 package com.col.domein.member.controller;
 
 import java.util.Collections;
+import java.util.List;
+import java.util.TreeSet;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -441,6 +443,21 @@ public class MemberController {
 		else session.setAttribute("signedInMember", m);
 		
 		return "redirect: "+request.getContextPath()+"/member/myPage.do";
+	}
+	
+	@RequestMapping("/myPage/account/oauth.do")
+	public String oauthAccount(HttpSession session, HttpServletRequest request, Model model) {
+		Member m = (Member) session.getAttribute("signedInMember");
+		List<SnsInfo> oauths = ms.selectSnsInfoByMemberKey(m.getMemberKey());
+		TreeSet<Integer> sources = new TreeSet<Integer>();
+		
+		for(SnsInfo s : oauths) {
+			sources.add(s.getLoginSourceNo());
+		}
+		
+		model.addAttribute("sources",sources);
+		
+		return "member/myPage/account/oauth";
 	}
 	
 }
