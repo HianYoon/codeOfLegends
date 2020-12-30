@@ -79,4 +79,11 @@ public class CartServiceImpl implements CartService {
 		return dao.deleteCartList(session,memberKey);
 	}
 
+	//상품 수량 업데이트
+	@Override
+	public int addToAmount(int amount, int productNo) {
+		// TODO Auto-generated method stub
+		return dao.addToAmount(session,productNo, amount);
+	}
+
 }

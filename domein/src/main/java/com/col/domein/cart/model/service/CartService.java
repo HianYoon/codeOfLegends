@@ -24,5 +24,7 @@ public interface CartService {
 	List<Map> selectCartList(int memberKey);
 
 	int deleteCartOne(int memberKey);
+	//상품 수량 업데이트
+	int addToAmount(int amount, int productNo);
 
 }

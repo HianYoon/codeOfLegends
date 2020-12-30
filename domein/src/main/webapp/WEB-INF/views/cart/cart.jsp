@@ -4,7 +4,7 @@
     <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
     <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
      <c:set var="path" value="${pageContext.request.contextPath }"/>
-
+	<c:set var="signedInMember" value="${signedInMember}"/>
   <link rel="stylesheet"
 	href="${path }/resources/css/cart/cart.css" />
   <link rel="stylesheet" href="${path }/resources/css/jihunTab/TabMedia.css"/>
@@ -12,45 +12,7 @@
 <jsp:include page="/WEB-INF/views/common/header.jsp">
 	<jsp:param name="title" value=""/>
 </jsp:include>
-	<script>
-    $(document).ready(function(){
-        //로드될때
-        $(".tab_content").hide();//모든탭을 숨겨~~
-        $('ul.tabs li:first').addClass("active").show();//액티브된 처음탭보여줘
-        $('.tab_content:first').show();//show first tab content
 
-        //On Click Event
-        $("ul.tabs li").click(function(){
-            $('ul.tabs li').removeClass('active');//Remove any 'active' class
-            $(this).addClass('active').attr('color','blue');//셀렉트된탭을 active해라
-            $('.tab_content').hide();//Hide all tab content
-
-            var activeTab=$(this).find('a').attr('href');
-            $(activeTab).fadeIn();//Fade in the active ID content
-            return false;
-        });
-        	const cartbox=document.querySelector("#cart--btnbox");
-        	const plus=cartbox.querySelector("#plus");
-        	const amount=cartbox.querySelector("#amount").value;
-        	const minus=cartbox.querySelector("#minus");
-        	const ss=parseInt(amount);
-        	console.log("양이냐"+amount);
-        	
-        	plus.onclick=(e)=>{
-        		amount.innerText=ss+1;
-        		console.log('1증가!');
-        	}
-        	minus.onclick=()=>{
-        		amount.innerText=ss-1;
-        		console.log('1감소!!');
-        	}
-     
-        
-        	minus.onclick=(e)=> amount-1;
-        	
-    });
-
-</script>
 <section id="content">
  <div id="octionPage">
 
@@ -87,11 +49,11 @@
                             <hr/>
                        <c:if test="${signedInMember !=null }" var="productList">
                          <c:forEach items="${map.list}" var="list" varStatus="status">
-                            <c:set value="${cart}" var="cart"/>
+                           
                                 <div class="product-cart">
-                                	<input type="hidden" value="${signedInMember.memberKey}" name="memberKey"/>
-                                	<input type="hidden" value="${list.PRODUCT_NO}" name="productNo"/>
-                                    <input type="checkbox" name="cart" value="">
+                                	<input type="hidden" value="${signedInMember.memberKey}" name="memberKey" id="memberKey"/>
+                                	<input type="hidden" value="${list.PRODUCT_NO}" name="productNo" id="productNo"/>
+                                    <input type="checkbox" name="cartCheck" value="" class="checkbox">
                                   
 
                                         <img src="${path }/resources/upload/product/${list.P_RENAMED_FILE_NAME}" alt="이미지">
@@ -99,13 +61,17 @@
 
                                             <p>상품명:<c:out value="${list.TITLE }"/></p>
                                             <div id="cart--btnbox">
-	                                            <input type="button" id="minus" name="minus" value="-" />
-	                                            <input type="text" id="amount" name="amount" value="${cart.amount}" maxlength="" readonly/>
-	                                            <input type="button" id="plus" name="plus" value="+" maxlength=""/>
+	                                            <input type="button" id="minus" onclick="minusDown(event);" name="minus" value="-" />
+	                                        	
+		                                            <input type="text" id="amount" name="amount" value="${list.AMOUNT}" maxlength="" readonly/>
+	                                   
+	                                            <input type="button" id="plus" onclick="plusUp(event);" name="plus" value="+" />
                                             </div>
                                               
-                                            <p>가격:<c:out value="${list.PRICE }"/>원</p>
-            
+                                            <div>가격
+	                                            <input type="text" id="product-price" value="${list.PRICE }"/>원
+                                            </div>
+            								<button type="button" onclick="gg();" id="cart--deleteBtn" class="btn btn-primary2">삭제</button>
                                         </div>
                                  
                    
@@ -117,13 +83,14 @@
                                 <hr/>
                                 <div class="cart-total-price">
                                 	<p>배송비: 100,000원 이하 5000원</p>
-                                    <p>총가격:<span class="totlaPrice"></span>원</p>
+                                	<p id="All-qty"></p>
+                                    <p >총가격:<span class="totlaPrice" id="total-price"></span>원</p>
 
                                 </div>
                                 <div class="cart-btn-group">
-                                    <button type="button" id="allKeyUp" onclick="allKeyUp();" class="btn btn-primary2">전체선택</button>
-                                    <button type="button" id="" onclick="location.href='${path}/cart/delete.do?memberKey=${member.memberKey}" class="btn btn-primary2">삭제</button>
-                                    <button type="button" id="" onclick="location.href='${path}/index'" class="btn btn-primary2">쇼핑계속하기</button>
+                                    <button type="button" id="checkbox"  class="btn btn-primary2">전체선택</button>
+                                    <button type="button" id="cartToOrder"  class="btn btn-primary2">삭제</button>
+                                    <button type="button" id="" onclick="location.href='${path}/cart/cartIndex.do'" class="btn btn-primary2">쇼핑계속하기</button>
                                     <button type="submit" id=""  class="btn btn-primary2">결제하기</button>
                                 </div>
                             </div>
@@ -131,7 +98,19 @@
                	</c:otherwise>
              </c:choose>
                  </div>
-					
+		<!--모달 박스  -->	
+		
+	 <div class="modal-wrapper" style="display: none;">
+        <div class="modal">
+            <div class="modal-title"><c:out value="${signedInMember.nickname }"/>님,진심입니까?</div>
+            <p>당신의 선택은~~~~두구두구둥</p>
+            <div class="close-wrapper1">
+                <button id="modalSend" class="btn btn-primary2">구매하기</button>
+                <button id="modalClose" class="btn btn-primary2">취소</button>
+            </div>
+        </div>
+    </div>		
+		<!--모달 박스  -->			
 
             <!-- 입찰 등록 form -->
                 <div id="tab2" class="tab_content">
@@ -139,7 +118,7 @@
 
                     <form action="" method="POST">
                         <div class="cart-container">
-                            <hr/>
+                
                                 <div class="product-cart">
                                      <input type="radio" name="cart-Oction" value="">
                                     <img src="" alt="이미지">
@@ -157,7 +136,7 @@
                                  </div>
 
                                 </div>
-                                <hr/>
+                         
                                 <div class="cart-total-price">
                                     <p>총가격:&nbsp;&nbsp;&nbsp;2000원</p>
 
@@ -260,7 +239,7 @@
                                                <li>2</li>
                                                <li>채</li>
                                                <li>500000원</li>
-                                               <li><input type="checkbox" name="orderEndUpdate" class="cart-checkbox"></li>
+                                               <li><input type="checkbox" name="orderEndUpdate"  class="cart-checkbox"></li>
                                            </ul>
    
                                        </div>
@@ -282,4 +261,128 @@
     </div>
        
 </section>
+
+<script type="text/javascript" defer>
+ 
+$(document).ready(function(){
+    //로드될때
+    $(".tab_content").hide();//모든탭을 숨겨~~
+    $('ul.tabs li:first').addClass("active").show();//액티브된 처음탭보여줘
+    $('.tab_content:first').show();//show first tab content
+
+    //On Click Event
+    $("ul.tabs li").click(function(){
+        $('ul.tabs li').removeClass('active');//Remove any 'active' class
+        $(this).addClass('active').attr('color','blue');//셀렉트된탭을 active해라
+        $('.tab_content').hide();//Hide all tab content
+
+        var activeTab=$(this).find('a').attr('href');
+        $(activeTab).fadeIn();//Fade in the active ID content
+        return false;
+    });
+
+ //플러스 수량더하기  
+
+function plusUp(){
+let amount=$("#amount").val();// 양
+console.log(amount);
+$("#amount"+productNo).val(Number(amount)+1);
+ $.ajax({
+	url:"${path}/cart/addToAmount",
+	type:"POST",
+	data:{
+		"productNo":productNo,
+		"amount": 1,
+	},
+	success:(data)=>{
+		successRoutine(data);
+		cartSuccessRoutine(data,productNo,$("#amount"+productNo).val());
+	},
+	fail: error =>{
+		console.log(error);
+	}
+}); 
+};
+//minus클릭시
+function minusDown(e,poductNo){
+	let amount=$("#amount").val();// 양
+	$("#amount"+productNo).val(Number(amount)+1);
+	$.ajax({
+		url:"${path}/cart/minusToAmount",
+		type:"POST",
+		data:{
+			"productNo":productNo,
+			"amount": -1,
+		},
+		success:(data)=>{
+			successRoutine(data);
+			cartSuccessRoutine(data,productNo,$("#amount"+productNo).val());
+		},
+		fail: error =>{
+			console.log(error);
+		}
+	});
+	}
+	//총합계 cart
+/* 	function cartSuccessRoutine(data, productNo, amount){
+		$("#All-qty").html(data);
+		$("#total-price"+productNo).html(Number($("#amount"+productNo).val())* Number($("#total-price"+productNo).attr("name")));
+		let totalAmount;//수량
+		$(".total-price").each((i.v)=>{
+			totlaAmount+=Number($(v).html());
+		})
+		$("#total-price").html(totlaAmount+"원입니다.");
+	} */
+     
+    //자바스크립트  체크박스선택
+    const cartContainer=document.querySelector(".cart-container");//장바구니 감싸는 container
+    const productCart=cartContainer.querySelector(".product-cart");//상품
+    const allCheckInBox=document.querySelector("#checkbox");//체크박스버튼
+    const delBtn=cartContainer.querySelector("cart--deleteBtn");//삭제버튼
+    const checkbox=cartContainer.querySelector(".checkbox");//input checkbox
+    
+    allCheckInBox.onclick=function(){
+    	const inputs=cartContainer.querySelectorAll("input[type='checkbox']");
+    			
+    			for (let i=0; i<inputs.length;i++)
+	        		inputs[i].checked=allCheckInBox;//boolean값을 쓰기위해서 checked속성을 이용
+    			console.log("true");
+    };      
+	              const open1=document.getElementById("modalOpen");
+                  const close1=document.getElementById("modalClose");
+                  const send=document.getElementById("modalSend");
+                  const modal1=document.querySelector(".modal-wrapper");
+  //ajax 개별상품 삭제
+	  const productNo=$("#productNo").val();
+	  const memberKey=$("#memberKey").val();
+	  $(".cart--deleteBtn").click=function(){
+	  };
+  
+  $("#cartToOrder").click(function(){
+	  //삭제시클라이언트 화면에서도 삭제
+		$.ajax({
+			url:"${path}/cart/delete.do",
+			type:"POST",
+			data:{
+				"productNo":productNo,
+				"memberKey":memberKey
+			},
+			dataType:"html",
+			success:function(){
+
+                  open1.onclick = () =>{
+                      modal1.style.display="flex";
+                  }
+                  close1.onclick= () =>{
+                      modal1.style.display="none";
+                  }
+			}
+		});
+  });
+ 
+  
+  
+});
+
+</script>
 <jsp:include page="/WEB-INF/views/common/footer.jsp"/>

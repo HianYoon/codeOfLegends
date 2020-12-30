@@ -4,18 +4,26 @@
     margin-bottom: 50px;
 }
 .cart-container{
-    display: block;
+   display: block;
     width: 1000px;
-    width: auto;
+    height: auto;
     position: relative;
+    border-top: 2px black solid;
+    border-bottom: 2px black solid;
+}
+input#product-price {
+    border: none;
+}
+hr{
+	width:100%;
 }
 div.product-cart {
-    width:auto;
+    width: auto;
     height: 50px;
     display: flex;
     justify-content: space-around;
     align-items: center;
-    margin-bottom: 10px;
+    margin: 30px;
     position: relative;
 }
 .cartContent {
@@ -31,7 +39,7 @@ div.product-cart input{
     text-align: center;
     width: 60px;
     height:auto;
-    outline-style: none;
+    border: none;
 }
 .cart-total-price p{
     text-align: end;
@@ -95,7 +103,7 @@ div.product-cart input{
 
 
 
-@media (max-width: 700px){
+@media (max-width: 768px){
   #octionPage{
       width: 700px;
       position: relative;
@@ -163,7 +171,10 @@ div.product-cart input{
     .cart-total-price p{
         display: flex;
     }
-
+    /* plus minus */
+    #plus,#minus,#amount{
+    	border:none;
+    }
     /* #구매품목 && 주문한 물품*/
     h3 {
         width: 100%;
@@ -332,7 +343,7 @@ div.product-cart input{
 }
 
 
-@media (max-width:700px){
+@media (max-width:768px){
 
     .oction--header {
         display: contents !important;
@@ -373,4 +384,7 @@ div.product-cart input{
             width:33%;
             height:150px;
         }
+        input#product-price {
+    border: none;
+}
 }

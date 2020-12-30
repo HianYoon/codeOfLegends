@@ -99,6 +99,21 @@ public class CartController {
 	@RequestMapping("/cart/delete.do")
 	public ModelAndView deleteCart(ModelAndView mv,int memberKey) {
 		int result=service.deleteCartOne(memberKey);
+		mv.addObject("msg",result>0?"상품삭제성공":"삭제실패");
+		mv.setViewName("cart/cart");
 		return mv;
+	}
+	
+	//매인화면으로 돌리기
+	@RequestMapping("/cart/cartIndex.do")
+	public String cartToIndex() {
+		return "index";
+	}
+	//상품 수량 업데이트
+	@RequestMapping("/cart/addToAmount")
+	public String addToAmount(int productNo, int amount) {
+		
+		 int result=service.addToAmount(amount,productNo);
+		return "cart/cart";
 	}
 }

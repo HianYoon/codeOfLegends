@@ -1,13 +1,11 @@
 package com.col.domein.cart.model.dao;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 
 import com.col.domein.cart.model.vo.Cart;
-import com.col.domein.product.model.vo.ProductAll;
 
 public interface CartDao {
 
@@ -27,5 +25,7 @@ public interface CartDao {
 	List<Map> selectCartList(SqlSession session, int memberKey);
 	//cart 상품 삭제
 	int deleteCartList(SqlSession session, int memberKey);
+	//상품 수량 업데이트
+	int addToAmount(SqlSession session, int productNo,int amount);
 
 }
