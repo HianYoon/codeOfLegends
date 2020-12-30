@@ -1,6 +1,9 @@
 .row{
     padding-top: 20px;
 }
+.form{
+	padding-top: 120px;
+}
 .row table th{
     padding-left: 10px;
     padding-right: 20px;

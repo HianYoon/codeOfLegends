@@ -125,5 +125,19 @@
 				UPDATE DIRECT_SALE_PRODUCT SET PRODUCT_STATUS_NO=${status} WHERE PRODUCT_NO = ${productNo}
 		</update>
 		
+		<select id="searchArticle" parameterType="map" resultType="map">
+		select p.*,M.NICKNAME from product_all p LEFT JOIN MEMBER M ON p.member_key = m.member_key
+		<choose>
+			<when test="searchOption=='allSearch'">
+				WHERE SALE_CONTENT like '%'||#{keyword}||'%'
+				OR TITLE like '%'||#{keyword}||'%'
+				OR NICKNAME like '%'||#{keyword}||'%'
+			</when>
+			<otherwise>
+				WHERE ${searchOption} like '%'||#{keyword}||'%'
+			</otherwise>
+		</choose>
+	</select>
+		
 		
 </mapper>

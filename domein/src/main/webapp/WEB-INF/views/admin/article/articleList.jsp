@@ -27,8 +27,8 @@
 							<option value="email" <c:out value="${option=='email'?'selected':'' }"/>>이메일로 검색</option>
 						</select> --%>
 						<label><input type="radio" name="searchOption" value="allSearch" checked <c:out value="${option=='allSearch'?'checked':'' }"/>>통합검색</label>
-						<label><input type="radio" name="searchOption" value="nickname" <c:out value="${option=='nickname'?'checked':'' }"/>>제목으로 검색</label>
-						<label><input type="radio" name="searchOption" value="email" <c:out value="${option=='email'?'checked':'' }"/>>작성자로 검색</label>
+						<label><input type="radio" name="searchOption" value="nickname" <c:out value="${option=='nickname'?'checked':'' }"/>>작성자로 검색</label>
+						<label><input type="radio" name="searchOption" value="title" <c:out value="${option=='title'?'checked':'' }"/>>제목으로 검색</label>
 					</div>
 					<div class="box-form">
 						<div class="wrap-data">
