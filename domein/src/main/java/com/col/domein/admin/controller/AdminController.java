@@ -115,4 +115,20 @@ public class AdminController {
 		m.addAttribute("pageBar",PageBarFactory.getPageBar(totalData, cPage, numPerpage, "articleList.do"));
 		return "admin/article/articleList";
 	}
+	
+	@RequestMapping("admin/searchArticle.do")
+	public String searchArticle(Model m, String keyword, String searchOption,@RequestParam(value="cPage",defaultValue="1")int cPage,
+			@RequestParam(value="numPerpage",defaultValue="10")int numPerpage) {
+		
+		System.out.println("키워드 : "+keyword);
+		System.out.println("searchOption : "+searchOption);
+		int totalData = ps.selectCount();
+		List<Map> productList = ps.searchArticle(keyword,searchOption);
+		
+		m.addAttribute("productList",productList);
+		m.addAttribute("option",searchOption);
+		m.addAttribute("pageBar",PageBarFactory.getPageBar(totalData, cPage, numPerpage, "articleList.do"));
+		return "admin/article/articleList";
+		
+	}
 }
