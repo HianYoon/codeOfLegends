@@ -6,16 +6,16 @@ public interface AdsService {
 
 	int bannerApply(BannerAds bannerAds);	
 	
-	int bannerHoldCount();
+	int bannerHoldCount(int applicantKey);
 	
-	int bannerAcceptCount();
+	int bannerAcceptCount(int applicantKey);
 	
-	int bannerRejectCount();
+	int bannerRejectCount(int applicantKey);
 	
-	int directHoldCount();
+	int directHoldCount(int applicantKey);
 	
-	int directAcceptCount();
+	int directAcceptCount(int applicantKey);
 	
-	int directRejectCount();
+	int directRejectCount(int applicantKey);
 	
 }

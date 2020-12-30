@@ -23,17 +23,17 @@
 			#{urlLink},#{adsDescription},DEFAULT,DEFAULT,#{adsTitle},#{adsPrice})
 	</insert>
 	
-	<select id="selectBannerHoldCount" resultType="int">
+	<select id="selectBannerHoldCount" parameterType="int" resultType="int">
 		SELECT COUNT(ADS_KEY) FROM BANNER_ADS_APPLICATION WHERE 
 		APPLICANT_KEY=#{applicantKey} AND ADS_STATUS_NO=0
 	</select>
 	
-	<select id="selectBannerAcceptCount" resultType="int">
+	<select id="selectBannerAcceptCount" parameterType="int" resultType="int">
 		SELECT COUNT(ADS_KEY) FROM BANNER_ADS_APPLICATION WHERE 
 		APPLICANT_KEY=#{applicantKey} AND ADS_STATUS_NO=1
 	</select>
 	
-	<select id="selectBannerRejectCount" resultType="int">
+	<select id="selectBannerRejectCount" parameterType="int" resultType="int">
 		SELECT COUNT(ADS_KEY) FROM BANNER_ADS_APPLICATION WHERE 
 		APPLICANT_KEY=#{applicantKey} AND ADS_STATUS_NO=6
 	</select>

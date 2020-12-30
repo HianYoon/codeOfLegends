@@ -22,33 +22,33 @@ public class AdsServiceImpl implements AdsService {
 	}
 
 	@Override
-	public int bannerHoldCount() {		
-		return dao.bannerHoldCount(session);
+	public int bannerHoldCount(int applicantKey) {		
+		return dao.bannerHoldCount(session,applicantKey);
 	}
 
 	@Override
-	public int bannerAcceptCount() {		
-		return dao.bannerAcceptCount(session);
+	public int bannerAcceptCount(int applicantKey) {		
+		return dao.bannerAcceptCount(session,applicantKey);
 	}
 
 	@Override
-	public int bannerRejectCount() {		
-		return dao.bannerRejectCount(session);
+	public int bannerRejectCount(int applicantKey) {		
+		return dao.bannerRejectCount(session,applicantKey);
 	}
 
 	@Override
-	public int directHoldCount() {		
-		return dao.directHoldCount(session);
+	public int directHoldCount(int applicantKey) {		
+		return dao.directHoldCount(session,applicantKey);
 	}
 
 	@Override
-	public int directAcceptCount() {		
-		return dao.directAcceptCount(session);
+	public int directAcceptCount(int applicantKey) {		
+		return dao.directAcceptCount(session,applicantKey);
 	}
 
 	@Override
-	public int directRejectCount() {		
-		return dao.directRejectCount(session);
+	public int directRejectCount(int applicantKey) {		
+		return dao.directRejectCount(session,applicantKey);
 	}
 	
 	

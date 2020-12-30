@@ -14,33 +14,33 @@ public class AdsDaoImpl implements AdsDao {
 	}	
 
 	@Override
-	public int bannerHoldCount(SqlSession session) {		
-		return session.selectOne("bannerAds.selectBannerHoldCount");
+	public int bannerHoldCount(SqlSession session,int applicantKey) {		
+		return session.selectOne("bannerAds.selectBannerHoldCount",applicantKey);
 	}
 
 	@Override
-	public int bannerAcceptCount(SqlSession session) {		
-		return session.selectOne("bannerAds.selectBannerAcceptCount");
+	public int bannerAcceptCount(SqlSession session,int applicantKey) {		
+		return session.selectOne("bannerAds.selectBannerAcceptCount",applicantKey);
 	}
 
 	@Override
-	public int bannerRejectCount(SqlSession session) {		
-		return session.selectOne("bannerAds.selectBannerRejectCount");
+	public int bannerRejectCount(SqlSession session,int applicantKey) {		
+		return session.selectOne("bannerAds.selectBannerRejectCount",applicantKey);
 	}
 
 	@Override
-	public int directHoldCount(SqlSession session) {		
-		return session.selectOne("directAds.selectDirectHoldCount");
+	public int directHoldCount(SqlSession session,int applicantKey) {		
+		return session.selectOne("directAds.selectDirectHoldCount",applicantKey);
 	}
 
 	@Override
-	public int directAcceptCount(SqlSession session) {	
-		return session.selectOne("directAds.selectDirectAcceptCount");
+	public int directAcceptCount(SqlSession session,int applicantKey) {	
+		return session.selectOne("directAds.selectDirectAcceptCount",applicantKey);
 	}
 
 	@Override
-	public int directRejectCount(SqlSession session) {	
-		return session.selectOne("directAds.selectDirectRejectCount");
+	public int directRejectCount(SqlSession session,int applicantKey) {	
+		return session.selectOne("directAds.selectDirectRejectCount",applicantKey);
 	}
 	
 	

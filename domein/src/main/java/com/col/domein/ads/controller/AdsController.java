@@ -26,20 +26,27 @@ public class AdsController {
 	
 	//회원 광고 신청 메인페이지 화면 전환(광고현황 가져오기)
 	@RequestMapping("/ads/adsMainApply.do")
-	public ModelAndView viewAdsMainApply(ModelAndView mv) {				
-		mv.addObject("bannerHoldCount",service.bannerHoldCount());
-		mv.addObject("bannerAcceptCount",service.bannerAcceptCount());
-		mv.addObject("bannerRejectCount",service.bannerRejectCount());
-		mv.addObject("directHoldCount",service.directHoldCount());
-		mv.addObject("directAcceptCount",service.directAcceptCount());
-		mv.addObject("directRejectCount",service.directRejectCount());
+	public ModelAndView viewAdsMainApply(int applicantKey,ModelAndView mv) {				
+		mv.addObject("bannerHoldCount",service.bannerHoldCount(applicantKey));
+		mv.addObject("bannerAcceptCount",service.bannerAcceptCount(applicantKey));
+		mv.addObject("bannerRejectCount",service.bannerRejectCount(applicantKey));
+		mv.addObject("directHoldCount",service.directHoldCount(applicantKey));
+		mv.addObject("directAcceptCount",service.directAcceptCount(applicantKey));
+		mv.addObject("directRejectCount",service.directRejectCount(applicantKey));
 		
-		mv.setViewName("/ads/adsMainApply");
+		mv.setViewName("ads/adsMainApply");
 		return mv;
 	}
 	
+	
+	@RequestMapping("ads/slideBannerApplication.do")
+	public String viewBannerApply() {
+		return "ads/slideBannerApplication";
+	}
+	
+	
 	//slideBanner광고 신청 Form 작성(파일업로드 포함)
-	@RequestMapping("/ads/slideBannerApplication.do")
+	@RequestMapping("/ads/slideBannerApplicationEnd.do")
 	public ModelAndView bannerApply(BannerAds bannerAds, Date startDate, Date endDate, ModelAndView mv, 
 			@RequestParam(value="upFile")MultipartFile upFile, HttpSession session) {
 		
@@ -78,5 +85,12 @@ public class AdsController {
 		mv.setViewName("/common/msg");
 		return mv;
 	}
+	
+	
+	@RequestMapping("/ads/directAdsApplication.do")
+	public String viewDirectAdsApply() {
+		return "ads/directAdsApplication";
+	}
+	
 	
 }
