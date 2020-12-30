@@ -21,12 +21,12 @@
 		<result column="ACCOUNT_STATUS_NO" property="accountStatusNo" />
 		<result column="IS_SUBSCRIBED" property="isSubscribed" />
 		<association property="levelDesc" javaType="String"
-			column="LEVEL_NO" select="member.selectLevelDesc"></association>
+			column="levelNo" select="member.selectLevelDesc"></association>
 		<association property="statusDesc"
 			column="ACCOUNT_STATUS_NO" javaType="String"
 			select="member.selectStatusDesc"></association>
 		<association property="totalPoint" javaType="int"
-			column="MEMBER_KEY" select="point.seletTotalPoint"></association>
+			column="MEMBER_KEY" select="point.selectTotalPoint"></association>
 		<collection property="businesses"
 			javaType="java.util.TreeSet" column="MEMBER_KEY"
 			select="business.selectBusinessByMemberKey"></collection>
