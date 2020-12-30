@@ -61,9 +61,32 @@ public class CartDaoImpl implements CartDao{
 	}
 	//cart 상품 삭제
 	@Override
-	public int deleteCartList(SqlSession session, int memberKey) {
+	public int deleteCartList(SqlSession session, int memberKey,int productNo) {
 		// TODO Auto-generated method stub
-		return session.delete("cart.deleteCartList",memberKey);
+		Map<String, Object> map=new TreeMap<String, Object>();
+		map.put("memberKey",memberKey);
+		map.put("productNo",productNo);
+		return session.delete("cart.deleteCartList",map);
+	}
+	//상품 수량 더하기
+	@Override
+	public int addToAmount(SqlSession session, int productNo,int amount,int memberKey) {
+		// TODO Auto-generated method stub
+		Map<String, Object> map=new TreeMap<String, Object>();
+		map.put("productNo",productNo);
+		map.put("amount",amount);
+		map.put("memberKey", memberKey);
+		return session.update("cart.addToAmount",map);
+	}
+	//상품 수량 빼기
+	@Override
+	public int minusToAmount(SqlSession session, int productNo, int amount, int memberKey) {
+		// TODO Auto-generated method stub
+		Map<String, Object> map=new TreeMap<String, Object>();
+		map.put("productNo",productNo);
+		map.put("amount",amount);
+		map.put("memberKey", memberKey);
+		return session.update("cart.minusToAmount",map);
 	}
 
 }

@@ -18,5 +18,7 @@
 <div class="myPageHeader">
 	<a href="#">입찰/구매내역</a> <a href="${path }/member/myPage/account.do">계정</a>
 	<a href="#">고객센터</a> <a href="${path }/ads/adsMainApply.do?applicantKey=${signedInMember.memberKey }">광고 신청</a>
+	<a href="${path }/auction/auctionjoin.do">옥션등록</a>
+	<a href="${path }/auction/auctionIn.do">옥션참여</a>
 	<c:if test="${signedInMember.levelNo == 99 }"> <a href="#">관리자</a></c:if>
 </div>

@@ -145,6 +145,15 @@ public class ProductDaoImpl implements ProductDao {
 		// TODO Auto-generated method stub
 		return session.update("product.updateAuctionStatusToStoppedByBusinessKey",businessKey);
 	}
+
+	@Override
+	public List<Map> searchArticle(SqlSession session, String keyword, String searchOption) {
+		// TODO Auto-generated method stub
+		Map<String,String> map = new HashMap();
+		map.put("keyword",keyword);
+		map.put("searchOption",searchOption);
+		return session.selectList("product.searchArticle",map);
+	}
 	
 	
 	
