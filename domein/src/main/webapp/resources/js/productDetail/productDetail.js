@@ -1,10 +1,10 @@
      					//물건 count
                             window.addEventListener("load",function(){
-                                var minus=document.querySelector(".minus");
-                                var plus=document.querySelector(".plus");
-                                var number=document.querySelector(".number");
-								var price=document.querySelector("#pprice");
-								var tagPrice=document.querySelector("#pprice1").value;
+                                const minus=document.querySelector(".minus");
+                                const plus=document.querySelector(".plus");
+                                const number=document.querySelector(".number");
+								const price=document.querySelector("#pprice");
+								const tagPrice=document.querySelector("#pprice1").value;
 								pchange=parseInt(tagPrice);
 								
 								//콤마 정규표현식
@@ -67,16 +67,16 @@
 				
 									}
 									//신고기능 토글
-									var Declaration=document.querySelector("#Declaration");
-									var hamburger=document.querySelector(".hamburger");
+									const Declaration=document.querySelector("#Declaration");
+									const hamburger=document.querySelector(".hamburger");
 									
 									hamburger.onclick=function(){
 									if(Declaration.style.display=='none')
 										Declaration.style.display="block";
 									}	
 										//reviewSingo form보여주기
-									var singoForm=document.querySelector(".singoForm");
-									var singo=document.querySelector(".singo");
+									const singoForm=document.querySelector(".singoForm");
+									const singo=document.querySelector(".singo");
 									
 									singo.onclick=function(){
 									if(singoForm.style.display=='none')
@@ -103,9 +103,9 @@
                                   };
                                   //title orderbox에 출력하기
                                   $("#product-select-List").change(function(){
-                                  	var OptionVal=$(this).val();
+                                  	const OptionVal=$(this).val();
                                   	$(".orderText").text(OptionVal);
-                                  var ff= $(".orderText").text=OptionVal;
+                                  const ff= $(".orderText").text=OptionVal;
                                   	console.log(ff);
                                   });
                                   

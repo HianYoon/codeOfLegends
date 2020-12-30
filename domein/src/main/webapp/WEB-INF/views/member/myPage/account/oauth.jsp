@@ -64,9 +64,9 @@
 
 		</table>
 		<c:if test="${google == false}">
-		<div class="oauth-hidden-btn-cont">
-			<div class="g-signin2" id="googleSignIn" data-onsuccess="onSignIn"></div>
-		</div>
+			<div class="oauth-hidden-btn-cont">
+				<div class="g-signin2" id="googleSignIn" data-onsuccess="onSignIn"></div>
+			</div>
 		</c:if>
 	</div>
 
@@ -107,9 +107,9 @@
 		
 	}
 	
-	$("#btn-kakao").click(e=>{
+	$("#btn-kakao-connect").click(e=>{
 		$.ajax({
-			url: path+"/rest/member/oauth/kakao",
+			url: path+"/rest/member/oauth/kakao/addition",
 			method: "POST",
 			success: result =>{
 				location.href = result;
@@ -117,9 +117,9 @@
 		})
 	})
 	
-	$("#btn-naver").click(e=>{
+	$("#btn-naver-connect").click(e=>{
 		$.ajax({
-			url: path+"/rest/member/oauth/naver",
+			url: path+"/rest/member/oauth/naver/addition",
 			method: "POST",
 			success: result =>{
 				location.href = result;

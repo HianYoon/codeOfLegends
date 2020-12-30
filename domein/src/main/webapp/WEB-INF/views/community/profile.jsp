@@ -9,10 +9,10 @@
 <jsp:include page="/WEB-INF/views/common/header.jsp">
 	<jsp:param name="title" value=""/>
 </jsp:include>
-    <section>
+    <section class="container">
         <div class="top">
             <div class="top-logo">
-                <img src="frog.jpg" alt="">
+            	<img src="${path }/resources/images/profile/forg.png" alt="">
             </div>
             <div class="top-nickname">
                 <h4>개구리</h4>

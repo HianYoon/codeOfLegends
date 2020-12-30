@@ -21,4 +21,21 @@ public class AdsServiceImpl implements AdsService {
 		return dao.bannerApply(session,bannerAds);
 	}
 
+	@Override
+	public int bannerHoldCount() {		
+		return dao.bannerHoldCount(session);
+	}
+
+	@Override
+	public int bannerAcceptCount() {		
+		return dao.bannerAcceptCount(session);
+	}
+
+	@Override
+	public int bannerRejectCount() {		
+		return dao.bannerRejectCount(session);
+	}
+	
+	
+
 }

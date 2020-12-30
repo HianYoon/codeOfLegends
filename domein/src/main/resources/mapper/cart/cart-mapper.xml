@@ -31,6 +31,10 @@
 	</select>
 		<!-- cartList삭제 -->
 		<delete id="deleteCartList" parameterType="cart">
-			delete from cart where member_key=#{memberKey}
+			delete from cart where member_key=#{memberKey} and product_no=${productNo}
 		</delete>
+		<update id="addToAmount" parameterType="map">
+		update cart set amount= amount+#{amount} where member_key=#{memberKey}
+		and product_no=#{productNo}
+		</update>
 </mapper>
