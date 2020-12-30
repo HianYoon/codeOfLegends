@@ -6,10 +6,9 @@
 <c:set var="path" value="${pageContext.request.contextPath }"/>
 
 <jsp:include page="/WEB-INF/views/common/header.jsp">
-	<jsp:param name="title" value=""/>
+	<jsp:param name="title" value="슬라이드 배너 신청"/>
 </jsp:include>
 
-<link rel="stylesheet" href="${path }/resources/css/sharedStyle.css" />
 <link rel="stylesheet" href="${path }/resources/css/ads/bannerApplication.css" />
 
 <section id="content">

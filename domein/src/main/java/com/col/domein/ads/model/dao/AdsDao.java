@@ -8,4 +8,10 @@ public interface AdsDao {
 
 	int bannerApply(SqlSession session, BannerAds bannerAds);
 	
+	int bannerHoldCount(SqlSession session);
+	
+	int bannerAcceptCount(SqlSession session);
+	
+	int bannerRejectCount(SqlSession session);
+	
 }
