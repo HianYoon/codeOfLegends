@@ -20,7 +20,7 @@
 	<a href="${path }/auction/auctionJoin.do">옥션참여</a>
 	<a href="${path }/auction/auctionJoinUpdate.do">옥션참여수정</a>
 	<a href="${path }/auction/auctionUpdate.do">옥션List/수정/삭제</a>
-	<a href="${path }/product/productEnllo.do">판매등록</a>
+	<a href="${path }/product/insert.do">판매등록</a>
 	<a href="${path }/product/productUpdate.do">판매수정</a>
 	
 	<c:if test="${signedInMember.levelNo == 99 }"> <a href="#">관리자</a></c:if>

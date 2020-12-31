@@ -9,12 +9,12 @@ public class AuctionController {
 	//옥션등록
 	@RequestMapping("/auction/auctionEnllo.do")
 	public String auctionEnllo() {
-		return "auction/autionEnllo";
+		return "auction/auctionEnllo";
 	}
 	//옥션등록 수정
 	@RequestMapping("/auction/auctionEnlloUpdate.do")
 	public String auctionEnlloUpdate() {
-		return "auction/autionUpdate";
+		return "auction/auctionUpdate";
 	}
 	//옥션 참여
 	@RequestMapping("/auction/auctionJoin.do")
@@ -32,7 +32,7 @@ public class AuctionController {
 		return "auction/myAuction";
 	}
 	//옥션 view페이지
-	@RequestMapping("/auction/auction.do")
+	@RequestMapping("/auction/auctionView.do")
 	public String auctionView() {
 		return "auction/auctionView";
 	}
