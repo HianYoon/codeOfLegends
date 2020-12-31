@@ -34,6 +34,7 @@
 	.myPageHeader {
 		flex-direction: row;
 		width: 100%;
+		flex-wrap: wrap;
 		height: 75px;
 	}
 	#context {
@@ -48,5 +49,7 @@
 	.myPageHeader>a {
 	
 		font-size: 1em;
+		min-width: 2.5em;
 	}
+
 }
