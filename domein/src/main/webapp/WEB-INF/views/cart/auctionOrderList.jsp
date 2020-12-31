@@ -19,10 +19,10 @@
         <div id="wrapper">    
             <!--탭 메뉴 영역 -->
             <ul class="tabs">
-                <li><a href="#tab1">장바구니</a></li>
-                <li><a href="#tab2">Action<br/>장바구니</a></li>
-                <li><a href="#tab3">구매품목</a></li>
-                <li><a href="#tab4">주문품목</a></li>
+                <li><a href="${path }/auction/autionEllo.do">옥션등록</a></li>
+                <li><a href="${path }/auction/autionEllo.do${path }/auction/autionEllo.do">Action<br/>장바구니</a></li>
+                <li><a href="${path }/auction/autionEllo.do">구매품목</a></li>
+                <li><a href="${path }/auction/autionEllo.do">주문품목</a></li>
             
             </ul>
         </div>

@@ -96,7 +96,7 @@
 								<div>
 									<img src="${path }/resources/images/profile/blind.png" alt="" />
 								</div>
-								<p>블라인드 입찰</p>
+								<p>Auction</p>
 							</div>
 					</a></li>
 					<li><a href="${path }/product/productList.do">

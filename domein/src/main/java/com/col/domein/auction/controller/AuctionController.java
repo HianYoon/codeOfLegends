@@ -7,13 +7,34 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class AuctionController {
 	
 	//옥션등록
-	@RequestMapping("/auction/auctionjoin.do")
-	public String auctionJoin() {
-		return "auction/auction";
+	@RequestMapping("/auction/auctionEnllo.do")
+	public String auctionEnllo() {
+		return "auction/autionEnllo";
+	}
+	//옥션등록 수정
+	@RequestMapping("/auction/auctionEnlloUpdate.do")
+	public String auctionEnlloUpdate() {
+		return "auction/autionUpdate";
 	}
 	//옥션 참여
-	@RequestMapping("/auction/auctionIn.do")
-	public String auctionIn() {
-		return "auction/auction";
+	@RequestMapping("/auction/auctionJoin.do")
+	public String auctionJoin() {
+		return "auction/auctionJoinEnllo";
 	}
+	//옥션 참여수정
+	@RequestMapping("/auction/auctionJoinUpdate.do")
+	public String auctionJoinUpdate() {
+		return "auction/auctionJoinUpdate";
+	}
+	//옥션 my페이지
+	@RequestMapping("/auction/auction.do")
+	public String myAuction() {
+		return "auction/myAuction";
+	}
+	//옥션 view페이지
+	@RequestMapping("/auction/auction.do")
+	public String auctionView() {
+		return "auction/auctionView";
+	}
+
 }
