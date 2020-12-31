@@ -17,5 +17,7 @@
 		<typeAlias type="com.col.domein.common.crteria.SearchCriteria" alias="searchCriteria"/>
 		<typeAlias type="com.col.domein.ads.model.vo.BannerAds" alias="bannerAds"/>
 		<typeAlias type="com.col.domein.ads.model.vo.DirectAds" alias="directAds"/>
+		<typeAlias type="com.col.domein.board.model.vo.BoardKnowBattle" alias="boardKnowBattle"/>
+		<typeAlias type="com.col.domein.board.model.vo.Attachement" alias="attachment"/>
 	</typeAliases>
 </configuration>

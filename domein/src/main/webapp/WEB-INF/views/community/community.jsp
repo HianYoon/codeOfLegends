@@ -23,7 +23,7 @@
 	                <a href="">노하우</a>
 	            </div>
 	            <div class="community-bottom-right">
-	            	<form action="${path }/community/community.do" method="post">
+	            	<form action="${path }/community/communityList.do" method="post">
 		                <table class="board_list">
 		                    <thead>
 		                        <tr>
@@ -129,6 +129,9 @@
 		                            <td>12-10</td>
 		                        </tr>
 		                    </tbody> -->
+				        <div class="pageBar">
+						${pageBar }
+				        </div>
 		                </table>
 	                	<div class="community-bottom-right-button">
 	                    <img src="${path }/resources/images/profile/search.png" alt="" width="20px">
@@ -137,21 +140,6 @@
 	                	</div>
 	                </form>
 	            </div>
-	        </div>
-	        <div class="paging">
-	            <a href='#'>
-	                <i class="fas fa-chevron-circle-left"></i>
-	            </a>
-	            <a href='#'>1</a>
-	            <a href='#'>2</a>
-	            <a href='#'>3</a>
-	            <a href='#'>4</a>
-	            <a href='#'>5</a>
-	            <a href='#'>6</a>
-	            <a href='#'>7</a>
-	            <a href='#'>
-	                <i class="fas fa-chevron-circle-right"></i>
-	            </a>
 	        </div>
     </section>
     <script>
