@@ -22,9 +22,11 @@ public interface CartService {
 	int updateCartProductAmount(Cart c);
 	//member cartList
 	List<Map> selectCartList(int memberKey);
-
-	int deleteCartOne(int memberKey);
+	//개별상품 삭제
+	int deleteCartOne(int memberKey, int productNo);
 	//상품 수량 업데이트
-	int addToAmount(int amount, int productNo);
+	int addToAmount(int amount, int productNo, int memberKey);
+	//상품수량 minus 업데이트 
+	int downToAmount(int productNo, int amount, int memberKey);
 
 }

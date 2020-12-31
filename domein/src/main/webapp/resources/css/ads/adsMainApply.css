@@ -9,9 +9,9 @@
     background-color: #ffca28;
     font-size:18px;
 }
-.tab_menu h2{
+/* .tab_menu h2{
     margin-left:-15px;
-}
+} */
 #container{
     width:55%;    
     margin-left:20px;
@@ -22,3 +22,11 @@
 .div_info{
     padding-bottom: 20px;
 }
+.div_stat>h3{
+	text-decoration:underline;
+}
+
+@media (max-width:768px){
+    	.tab_menu{
+    		display:none;
+    	}

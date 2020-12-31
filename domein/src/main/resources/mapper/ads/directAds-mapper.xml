@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="directAds">
+
+	<select id="selectDirectHoldCount" parameterType="int" resultType="int">
+		SELECT COUNT(ADS_KEY) FROM DIRECT_SALES_ADS WHERE 
+		APPLICANT_KEY=#{applicantKey} AND ADS_STATUS_NO=0
+	</select>
+	
+	<select id="selectDirectAcceptCount" parameterType="int" resultType="int">
+		SELECT COUNT(ADS_KEY) FROM DIRECT_SALES_ADS WHERE 
+		APPLICANT_KEY=#{applicantKey} AND ADS_STATUS_NO=1
+	</select>
+	
+	<select id="selectDirectRejectCount" parameterType="int" resultType="int">
+		SELECT COUNT(ADS_KEY) FROM DIRECT_SALES_ADS WHERE 
+		APPLICANT_KEY=#{applicantKey} AND ADS_STATUS_NO=6
+	</select>
+	
+</mapper>

@@ -9,52 +9,16 @@
 	<jsp:param name="title" value="광고신청 페이지"/>
 </jsp:include>
 
-<!--Load the AJAX API-->
-<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-<script type="text/javascript">
-
-  // Load the Visualization API and the corechart package.
-  google.charts.load('current', {'packages':['corechart']});
-
-  // Set a callback to run when the Google Visualization API is loaded.
-  google.charts.setOnLoadCallback(drawVisualization);
-
-  // Callback that creates and populates a data table,
-  // instantiates the pie chart, passes in the data and
-  // draws it.
-  function drawVisualization() {
-        // Some raw data (not necessarily accurate)
-        var data = google.visualization.arrayToDataTable([
-          ['월 별', '승인', '반려', '대기', '총 요청건'],
-          ['8월',9,2,0,11],
-          ['9월',5,1,0,6],
-          ['10월',13,9,0,22],
-          ['11월',18,13,0,31],
-          ['12월',8,3,1,12]
-        ]);
-
-        var options = {
-          title : '월 별 광고통계(2020년)',
-          vAxis: {title: '광고 처리수'},
-          hAxis: {title: '월(month)'},
-          seriesType: 'bars',
-          series: {3: {type: 'line'}},
-          chartArea: {
-              width:'68%'
-            //   height:180
-            },
-          animation: {
-              startup: true,
-              duration: 3000,
-              easing: 'out'
-            }
-        };
-
-        var chart = new google.visualization.ComboChart(document.getElementById('div_gChart'));
-        chart.draw(data, options);
-    }
+<script>
+	<%
+	if(session.getAttribute("signedInMember") == null){ %>
+		location.href = path;
+	<%
+	}
+	%>
 </script>
 
+<!-- css파일 소환 -->
 <link rel="stylesheet" href="${path }/resources/css/ads/adsMainApply.css" />
 
 <section id="content">
@@ -71,19 +35,61 @@
 	        <div class="div_info">
 	            <h3><u>알림메시지</u></h3>
 	            <p>
-	                <c:out value="<h4>${signedInMember.nickname}</h4>"/>님, 안녕하세요!<br>
-	                현재 검토 대기중인 광고 요청이 총 <c:out value="${holdCount }"/> 건 있습니다.
+	                <c:out value="<b>${signedInMember.nickname}</b>" escapeXml="false"/> 님, 안녕하세요!<br>
+	                현재 검토 대기중인 광고 요청이 총 <c:out value="${bannerHoldCount }"/> 건 있습니다.
 	            </p>
 	        </div>
 	        <hr>
 	        <div class="div_stat">
-	            <h4><u>광고통계(총 광고 요청수 / 승인 / 반려 / 검토대기)</u></h4>
-	            <p>지난 달에 대기 상태의 광고가 없다면 해당 월은 표시되지 않습니다.</p>
+	            <h3><c:out value="<${signedInMember.nickname}>" /> 님의 광고신청 진행현황(대기 / 승인 / 반려 / 총 합계)</h3>	            
 	            <br>
 	            <div id="div_gChart"></div>                    
 	        </div>
 	    </div>
 	</div>
 </section>
+
+<!-- Google ChartApi 시작 -->
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+<script type="text/javascript">
+	let hold=${bannerHoldCount}+${directHoldCount};
+	let accept=${bannerAcceptCount}+${directAcceptCount};
+	let reject=${bannerRejectCount}+${directRejectCount};
+	let total=hold+accept+reject;
+
+	if(total==0){
+		document.getElementById('div_gChart').innerHTML="<h2>현재 신청하신 광고가 없습니다.</h2>";
+	}else{
+	
+	    google.charts.load('current', {'packages':['corechart']});
+	    google.charts.setOnLoadCallback(drawChart);
+	
+	    function drawChart() {
+	      var data = google.visualization.arrayToDataTable([
+	        ['월 별', '대기중', '승인', '반려','총 합계'],
+	        ['진행현황', hold, accept, reject, total]        
+	      ]);
+	
+	      var options = {
+	        chart: {
+	          title: '월 별 회원수 추이',
+	          subtitle: '단위: 명',
+	        },        
+	        width: 800,
+	        height: 400,
+	        animation:{
+	            startup:true,
+	            duration:3000,
+	            easing:'out'
+	        }
+	      };
+	
+	      var chart = new google.visualization.BarChart(document.getElementById('div_gChart'));
+	
+	      chart.draw(data, options);
+	    }
+	}
+</script>
+
 <jsp:include page="/WEB-INF/views/common/footer.jsp"/>
 

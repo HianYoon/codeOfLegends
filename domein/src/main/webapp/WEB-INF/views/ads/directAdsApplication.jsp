@@ -9,15 +9,24 @@
 	<jsp:param name="title" value=""/>
 </jsp:include>
 
-<link rel="stylesheet" href="${path }/resources/css/sharedStyle.css" />
+<script>
+	<%
+	if(session.getAttribute("signedInMember") == null){ %>
+		location.href = path;
+	<%
+	}
+	%>
+</script>
+
+<!-- css파일 소환 -->
 <link rel="stylesheet" href="${path }/resources/css/ads/directAdsApplication.css" />
 
 <section id="content">
     <div id="wholeback">
         <div class="tab_menu">
             <ul><h2>광고신청 페이지</h2>
-                <li><a href=""><h5>슬라이드 배너 신청</h5></a></li>
-                <li><a href=""><h5>(판매)추천 게시글 신청</h5></a></li>
+                <li><a href="${path }/ads/slideBannerApplication.do"><h5>슬라이드 배너 신청</h5></a></li>
+                <li><a href="${path }/ads/directAdsApplication.do"><h5>(판매)추천 게시글 신청</h5></a></li>
             </ul>
         </div>
         <div id="container">
@@ -47,13 +56,13 @@
                                </tr>
                            </thead>                    
                            <tbody>                    
-                           <c:forEach items="" var="">                        
+                           <%-- <c:forEach items="" var="">  --%>                       
                                <tr>
                                    <td><input type="radio" id="myArticle" name="myArticle" value="article_no">&nbsp;입찰게시판</td>
                                    <td>안녕하세요 울랄라에서 올라올라 오랑우탄 쌀람마리꿈</td>
                                    <td>2020.12.31</td>
                                </tr>
-                           </c:forEach>
+                           <%-- </c:forEach> --%>
                            </tbody>
                        </table>
                        <div class="div_pageBar">
