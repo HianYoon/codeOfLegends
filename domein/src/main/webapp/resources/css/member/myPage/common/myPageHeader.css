@@ -49,7 +49,7 @@
 	.myPageHeader>a {
 	
 		font-size: 1em;
-		min-width: 2.5em;
+		width: fit-content;
 	}
 
 }

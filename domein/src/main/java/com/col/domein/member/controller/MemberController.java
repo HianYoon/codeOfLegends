@@ -38,13 +38,12 @@ public class MemberController {
 	@Autowired
 	private MemberService ms;
 	@Autowired
-	private BCryptPasswordEncoder pwEncoder; 
-	
+	private BCryptPasswordEncoder pwEncoder;
+
 	@RequestMapping("/memberLogin.do")
 	public String memberLogin() {
 		return "member/memberLogin";
 	}
-	
 
 /////////////////////////////////////////////////////////
 ////////////회원가입 로직 ///////////////////////////////	
@@ -316,10 +315,10 @@ public class MemberController {
 	public String addKakaoSignIn(HttpSession session, HttpServletRequest request, String state, String code,
 			@RequestParam(required = false) String error) {
 		Member m = (Member) session.getAttribute("signedInMember");
-		int signInResult = 0;
+
 		String path = request.getContextPath();
 		String url = "";
-		
+
 		if ((error != null && error.equals("access_denied")) || (state == null || code == null))
 			return "redirect: " + request.getContextPath() + "/error.do";
 
@@ -329,13 +328,13 @@ public class MemberController {
 			session.removeAttribute("kakaoState");
 			return "redirect: " + request.getContextPath() + "/error.do";
 		}
-		
+
 		OauthKey keys = new OauthKey(request);
 
 		String clientId = keys.getKakaoClientId();
 		String clientSecret = keys.getKakaoClientSecret();
 		String redirectUri = keys.getKakaoMyPageCallbackUri();
-		
+
 		RestTemplate rest = new RestTemplate();
 		MultiValueMap<String, String> parameters = new LinkedMultiValueMap<String, String>();
 
@@ -359,25 +358,27 @@ public class MemberController {
 		HttpEntity<String> authEntity = new HttpEntity<String>("", headers);
 		KakaoOauthResult result = rest.postForObject("https://kapi.kakao.com/v2/user/me", authEntity,
 				KakaoOauthResult.class);
-		
-		int flag = ms.addKakaoSignIn(session,m.getMemberKey(),result);
-		
+
+		int flag = ms.addKakaoSignIn(session, m.getMemberKey(), result);
+
 		switch (flag) {
 		case 5:
-			url = "redirect: " + path+"/member/myPage/account/oauth.do";
+			url = "redirect: " + path + "/member/myPage/account/oauth.do";
 			break;
 		case 6:
-			url = new ErrorUriMaker(request, "해당 간편 인증 아이디가 이미 다른 계정에 존재합니다!", "/member/myPage/account/oauth.do", null).getRedirectErrorUri();
+			url = new ErrorUriMaker(request, "해당 간편 인증 아이디가 이미 다른 계정에 존재합니다!", "/member/myPage/account/oauth.do", null)
+					.getRedirectErrorUri();
 			break;
 		default:
-			url = new ErrorUriMaker(request, "무언가 잘못 되었네요..","/member/myPage/account/oauth.do" , null).getRedirectErrorUri();
+			url = new ErrorUriMaker(request, "무언가 잘못 되었네요..", "/member/myPage/account/oauth.do", null)
+					.getRedirectErrorUri();
 		}
 
 		session.removeAttribute("kakaoState");
-		
-		
+
 		return url;
 	}
+
 //	Naver
 	@RequestMapping("/oauth/naver.do")
 	public String naverSignIn(HttpSession session, HttpServletRequest request, String state, String code) {
@@ -433,6 +434,64 @@ public class MemberController {
 		}
 		session.removeAttribute("naverState");
 		return url;
+	}
+
+	@RequestMapping("/oauth/naver/addition.do")
+	public String addNaverSignIn(HttpSession session, HttpServletRequest request, String state, String code) {
+		Member m = (Member) session.getAttribute("signedInMember");
+		String path = request.getContextPath();
+		String url = "";
+
+		if (state == null || code == null)
+			return "redirect: " + request.getContextPath() + "/error.do";
+		String naverState = (String) session.getAttribute("naverState");
+//		상태 토큰 불일치 시!
+		if (!naverState.equals(state)) {
+			session.removeAttribute("naverState");
+			return "redirect: " + request.getContextPath() + "/error.do";
+		}
+
+		OauthKey keys = new OauthKey(request);
+
+		String clientId = keys.getNaverClientId();
+		String clientSecret = keys.getNaverClientSecret();
+		String requestUrl = "https://nid.naver.com/oauth2.0/token?client_id=" + clientId + "&client_secret="
+				+ clientSecret + "&grant_type=authorization_code&state=" + naverState + "&code=" + code;
+
+		RestTemplate rest = new RestTemplate();
+//		토큰 받아옴
+		NaverAccessTokenRequest token = rest.getForObject(requestUrl, NaverAccessTokenRequest.class);
+
+//		프로필 받아오기
+		rest = new RestTemplate();
+		HttpHeaders headers = new HttpHeaders();
+		headers.add("Authorization", "Bearer " + token.getAccess_token());
+		HttpEntity<String> profileRequest = new HttpEntity<String>("", headers);
+		NaverOauthResult result = rest.postForObject("https://openapi.naver.com/v1/nid/me", profileRequest,
+				NaverOauthResult.class);
+		session.removeAttribute("naverState");
+		if (result.getMessage().equals("success")) {
+			NaverProfile profile = result.getResponse();
+			int flag = ms.addNaverSignIn(session, m.getMemberKey(), profile);
+			switch (flag) {
+			case 5:
+				url = "redirect: " + path + "/member/myPage/account/oauth.do";
+				break;
+			case 6:
+				url = new ErrorUriMaker(request, "해당 간편 인증 아이디가 이미 다른 계정에 존재합니다!", "/member/myPage/account/oauth.do",
+						null).getRedirectErrorUri();
+				break;
+			default:
+				url = new ErrorUriMaker(request, "무언가 잘못 되었네요..", "/member/myPage/account/oauth.do", null)
+						.getRedirectErrorUri();
+			}
+
+		} else {
+			url = new ErrorUriMaker(request, "무언가 잘못 되었네요..", "/member/myPage/account/oauth.do", null)
+					.getRedirectErrorUri();
+		}
+		return url;
+
 	}
 
 /////////////////////////////////////////////////////////

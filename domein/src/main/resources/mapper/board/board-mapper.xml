@@ -2,9 +2,32 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="boardknowbattle">
 
-<!-- 	<select id="selectBoardList" resultType="map">
+
+	<insert parameterType="boardKnowBattle" id="insertBoard">
+		INSERT INTO BOARD_KNOW_BATTLE VALUES(SEQ_THREAD_KEY.NEXTVAL,
+			#{threadTitle},
+			#{writerKey},
+			#{writtenDate},
+			#{modifiedDate},
+			#{readCount},
+			#{threadStatusNo}
+			)
+	</insert>
+	
+	<insert parameterType="attachment" id="insertAttachment">
+		INSERT INTO BKB_ATTACHED_IMAGE VALUES(
+		#{fileKey},
+		#{articleNo},
+		#{originalFileName},
+		#{renamedFileName},
+		)
+	</insert>
+	<select id="selectBoardList" resultType="map">
+
+	</select>
+	<select id="selectCount" resultType="_int">
 		
-	</select> -->
+	</select>
 <!-- 	<resultMap type="map" id="maplist">
 		<result column="thread_key" property="threadKey"/>
 		<result column="thread_title" property="threadTitle"/>

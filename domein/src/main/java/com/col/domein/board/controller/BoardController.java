@@ -8,10 +8,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,32 +20,30 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.col.domein.board.model.service.BoardService;
+import com.col.domein.common.pageBar.PageBarFactory;
 
 @Controller
 public class BoardController {
 
-	/*
-	 * @Resource(name = "service") private BoardService bs; //이부분
-	 * 
-	 * @RequestMapping("/community/list.do") public ModelAndView
-	 * boardList(ModelAndView mv,
-	 * 
-	 * @RequestParam(value="cPage", defaultValue="1") int cPage,
-	 * 
-	 * @RequestParam(value="numPerpage", defaultValue="10") int numPerpage) {
-	 * 
-	 * mv.addObject("list",service.selectBoardList(cPage,numPerpage)); int
-	 * totalData=service.selectCount();
-	 * mv.addObject("pageBar",PageBarFactory.getPageBar(totalData, cPage,
-	 * numPerpage, "list.do")); mv.addObject("totalData",totalData);
-	 * mv.setViewName("community/list.do"); return mv; }
-	 * 
-	 * @RequestMapping("list") public String list(Map<String, Object> map, Model m)
-	 * {
-	 * 
-	 * List<Map<String, Object>> list = new ArrayList<Map<String,Object>>(); list =
-	 * bs.list(map); m.addAttribute("list", list); return "community/list"; }
-	 */
+	@Autowired
+	private BoardService service;
+	
+	@RequestMapping("/community/communityList.do")
+	public ModelAndView boardList(ModelAndView mv,
+			@RequestParam(value="cPage", defaultValue="1") int cPage, 
+			@RequestParam(value="numPerpage", defaultValue="10") int numPerpage) {
+			
+		mv.addObject("list",service.selectBoardList(cPage,numPerpage));
+		int totalData=service.selectCount();
+			
+		
+		mv.addObject("pageBar",PageBarFactory.getPageBar(totalData, cPage, numPerpage, "communityList.do"));
+		mv.addObject("totalData",totalData);
+		mv.setViewName("community/communityList");
+		
+		return mv;
+	}
+	  
 	/*
 	 * @RequestMapping("/community/list.do") public ModelAndView list(Map<String,
 	 * Object> commandMap) throws Exception{ ModelAndView mv = new
