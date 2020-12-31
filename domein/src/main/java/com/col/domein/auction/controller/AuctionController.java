@@ -12,7 +12,7 @@ public class AuctionController {
 		return "auction/auction";
 	}
 	//옥션 참여
-	@RequestMapping("/auction/auctionjoin.do")
+	@RequestMapping("/auction/auctionIn.do")
 	public String auctionIn() {
 		return "auction/auction";
 	}
