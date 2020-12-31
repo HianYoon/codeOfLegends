@@ -248,6 +248,8 @@ public class MemberService {
 //		코드 1: 정상 로그인, 
 //		코드 2: 이미 가입되어있는 이메일/연결 여부 묻기,
 //		코드 3: 미가입 -> 자동 가입(이메일 인증 X)
+//		코드 5: 정상 추가 완료.
+//		코드 6: 이미 다른 계정에서 가입된 oauthId
 //		코드 9: 커넥션 에러 등
 
 //////////////////////////////////////////////////////////////////////
@@ -282,7 +284,7 @@ public class MemberService {
 			if (memberKey > 0) {
 				m = md.selectMemberByMemberKey(session, memberKey);
 				signInSuccess(httpSession, loginSourceNo, m);
-				System.out.println(m);
+
 				return 1;
 			}
 /////////////////////////////////////////////////////////////////////////
@@ -297,6 +299,11 @@ public class MemberService {
 			String familyName = (String) payload.get("family_name");
 			String givenName = (String) payload.get("given_name");
 			String name = familyName + " " + givenName;
+
+			if(email==null) email="";
+			if(pictureURL == null) pictureURL = "";
+			if(name == null) name ="";
+			if(id == null) id = "";
 
 			SnsInfo sns = new SnsInfo();
 			sns.setLoginSourceNo(loginSourceNo);
@@ -326,7 +333,60 @@ public class MemberService {
 
 		return 9;
 	}
+/////////////////////////////////////////////////////
+//	마이페이지에서 구글 add
+	public int addGoogleSignIn(HttpSession httpSession,int memberKey, String idToken) {
+		GoogleIdTokenVerifier verifier = new GoogleIdTokenVerifier.Builder(new NetHttpTransport(), new JacksonFactory())
+				.setAudience(Collections.singletonList(googleClientId)).build();
+		GoogleIdToken token = null;
+		Payload payload = null;
 
+		try {
+			token = verifier.verify(idToken);
+		} catch (Exception e) {
+			// TODO: handle exception
+//			커넥션 와중 에러 9
+			return 9;
+		}
+		
+		if(token != null) {
+			payload = token.getPayload();
+			String id = payload.getSubject();
+			
+			int loginSourceNo = 1;
+//			코드4
+//			이 id가 sns_login에 이미 등록되어있는지 체크
+			int mKey = checkMemberThroughSnsId(loginSourceNo, id); 
+			if(mKey > 0) {
+				return 6;
+			}
+			
+			String pictureURL = (String) payload.get("picture");
+			String familyName = (String) payload.get("family_name");
+			String givenName = (String) payload.get("given_name");
+			String name = familyName + " " + givenName;
+			
+		
+			if(pictureURL == null) pictureURL = "";
+			if(id == null) id = "";
+
+			SnsInfo sns = new SnsInfo();
+			sns.setMemberKey(memberKey);
+			sns.setLoginSourceNo(loginSourceNo);
+			sns.setSnsId(id);
+			sns.setSnsName(name);
+			sns.setSnsProfilePic(pictureURL);
+			
+			boolean result = md.insertSnsInfo(session, sns);
+			if(!result) return 9;
+			
+			return 5;
+		}
+		
+		return 9;
+	}
+	
+	
 //	2.Kakao
 	
 	public int kakaoSignIn(HttpSession httpSession, KakaoOauthResult result) {
@@ -338,12 +398,12 @@ public class MemberService {
 ///////////////////////////////////////////////////////
 //		Code 1
 		if(memberKey>0) {
-			if(memberKey>0) {
+
 				m = md.selectMemberByMemberKey(session, memberKey);
 				signInSuccess(httpSession, loginSourceNo, m);
 
 				return 1;
-			}
+
 		}
 		
 //////////////////////////////////////////////////////////////
@@ -356,6 +416,11 @@ public class MemberService {
 		String name = profile.getNickname();
 		String id = result.getId();
 		
+		if(email==null) email="";
+		if(pictureURL == null) pictureURL = "";
+		if(name == null) name ="";
+		if(id == null) id = "";
+
 		SnsInfo sns = new SnsInfo();
 		sns.setLoginSourceNo(loginSourceNo);
 		sns.setSnsId(id);
@@ -380,6 +445,36 @@ public class MemberService {
 		httpSession.setAttribute("snsForNewSnsMember", sns);
 		return 3;
 	
+	}
+	
+//	/////////////////////
+//	마이페이지 카카오 추가
+	
+	public int addKakaoSignIn(HttpSession httpSession, int memberKey, KakaoOauthResult result) {
+		int loginSourceNo = 2;
+		
+		int mKey = checkMemberThroughSnsId(loginSourceNo, result.getId());
+		
+		if(mKey>0) return 6;
+		
+		KakaoAccount account = result.getKakao_account();
+		KakaoAccountProfile profile = account.getProfile();
+		
+		String pictureURL = profile.getProfile_image_url();
+		String name = profile.getNickname();
+		String id = result.getId();
+		
+		SnsInfo sns = new SnsInfo();
+		sns.setMemberKey(memberKey);
+		sns.setLoginSourceNo(loginSourceNo);
+		sns.setSnsId(id);
+		sns.setSnsName(name);
+		sns.setSnsProfilePic(pictureURL);
+		
+		boolean flag = md.insertSnsInfo(session, sns);
+		if(!flag) return 9;
+		
+		return 5;
 	}
 	
 	
@@ -438,7 +533,33 @@ public class MemberService {
 	}
 	
 	
-	
+	public int addNaverSignIn(HttpSession httpSession, int memberKey, NaverProfile profile) {
+		int loginSourceNo = 3;
+		
+		int mKey = checkMemberThroughSnsId(loginSourceNo, profile.getId());
+		
+		if(mKey>0) return 6;
+		
+		String pictureURL = profile.getProfile_image();
+		String name = profile.getName();
+		String id = profile.getId();
+		
+		if(pictureURL == null) pictureURL = "";
+		if(name == null) name ="";
+		if(id == null) id = "";
+		
+		SnsInfo sns = new SnsInfo();
+		sns.setMemberKey(memberKey);
+		sns.setLoginSourceNo(loginSourceNo);
+		sns.setSnsId(id);
+		sns.setSnsName(name);
+		sns.setSnsProfilePic(pictureURL);
+		
+		boolean flag = md.insertSnsInfo(session, sns);
+		if(!flag) return 9;
+		
+		return 5;
+	}
 	
 	
 	
@@ -525,6 +646,9 @@ public class MemberService {
 		return md.insertMemberLog(session, log);
 	}
 	
+	public int selectMemberCount() {
+		return md.selectMemberCount(session);
+	}
 	//////////////////////////////////////////////////
 //	멤버 삭제
 	
@@ -602,6 +726,14 @@ public class MemberService {
 	
 	public boolean updateMemberPassword(Member m) {
 		return md.updateMemberPassword(session, m);
+	}
+	
+	public List<SnsInfo> selectSnsInfoByMemberKey(int memberKey){
+		return md.selectSnsInfoByMemberKey(session, memberKey);
+	}
+	
+	public boolean deleteSelectedOauthFromMember(SnsInfo sns) {
+		return md.deleteSelectedOauthFromMember(session, sns);
 	}
 	
 }

@@ -1,160 +1,143 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="product">
-
-	<insert parameterType="boardProductSaleContent"
-		id="insertBoardSContent">
-		insert into BOARD_DIRECT_SALE values(SEQ_article_No.nextval,
-		#{title},
-		#{businessKey},
-		SYSDATE,
-		SYSDATE,
-		#{saleContent},
-		default,
-		'1'
-		)
-	</insert>
-
-	<insert parameterType="product" id="insertProduct">
-		INSERT INTO DIRECT_SALE_PRODUCT VALUES(SEQ_PRODUCT_NO.NEXTVAL,
-		#{productName},
-		#{productQuality},
-		#{origin},
-		#{productQuantity},
-		#{measureUnit},
-		#{price},
-		#{remaningQuantity},
-		#{articleNo},
-		${productStatusNo}
-		)
-		<!-- 시작전에 artcleno를 가져오기위한 outjoin문 -->
-		<selectKey order="AFTER" resultType="_int"
-			keyProperty="productNo">
-			SELECT SEQ_PRODUCT_NO.CURRVAL FROM DUAL
-		</selectKey>
-	</insert>
-
-	<insert parameterType="attachement" id="insertAttachement">
-		INSERT INTO BDS_ATTACHED_IMAGE VALUES(#{productNo},
-		${productImageNo},
-		#{originFileName},
-		#{renamedFileName}
-		)
-	</insert>
-	<!-- 상품 aticle_no,title,product_no,price,p_renamed_file_name 3개테이블조인후 조회 -->
-	<select id="selectProductList" resultType="map">
-
-		select p.*,(select count(*) from product_all WHERE
-		P.PRODUCT_NO=PRODUCT_NO)as ATTAC from product_all p order by
-		p.article_no desc
-		<!-- select b.article_no,b.title,d.product_no,d.price,a.p_renamed_file_name, 
-			(select count(*) from DIRECT_SALE_PRODUCT WHERE d.product_no=a.product_no) 
-			as ATTCOUNT from BOARD_DIRECT_SALE b inner join DIRECT_SALE_PRODUCT d on 
-			b.article_no=d.article_no inner join BDS_ATTACHED_IMAGE a on d.product_no=a.product_no -->
-
+		
+		<insert parameterType="boardProductSaleContent" id="insertBoardSContent">
+			insert into BOARD_DIRECT_SALE values(SEQ_article_No.nextval,
+			#{title},
+			#{businessKey},
+			SYSDATE,
+			SYSDATE,
+			#{saleContent},
+			default,
+			'1'	
+			)
+		</insert>
+		
+		<insert parameterType="product" id="insertProduct">
+			INSERT INTO DIRECT_SALE_PRODUCT VALUES(SEQ_PRODUCT_NO.NEXTVAL,
+			#{productName},
+			#{productQuality},
+			#{origin},
+			#{productQuantity},
+			#{measureUnit},
+			#{price},
+			#{remaningQuantity},
+			#{articleNo},
+			${productStatusNo} 
+			) 
+				<!-- 시작전에 artcleno를 가져오기위한 outjoin문 -->
+				<selectKey order="AFTER" resultType="_int" keyProperty="productNo">
+					SELECT SEQ_PRODUCT_NO.CURRVAL FROM DUAL
+				</selectKey>
+		</insert> 
+		
+		<insert parameterType="attachement" id="insertAttachement">
+			INSERT INTO BDS_ATTACHED_IMAGE VALUES(#{productNo},
+			${productImageNo},
+			#{originFileName},
+			#{renamedFileName}
+			)
+		 </insert> 
+		<!--  상품 aticle_no,title,product_no,price,p_renamed_file_name 3개테이블조인후 조회 -->
+		 <select id="selectProductList" resultType="map">
+				
+				select p.*,(select count(*) from product_all WHERE P.PRODUCT_NO=PRODUCT_NO)as ATTAC,M.NICKNAME from product_all p LEFT JOIN MEMBER M ON p.member_key = m.member_key order by p.article_no desc
+				<!-- select b.article_no,b.title,d.product_no,d.price,a.p_renamed_file_name,
+				(select count(*) from DIRECT_SALE_PRODUCT WHERE d.product_no=a.product_no)
+				as ATTCOUNT from BOARD_DIRECT_SALE b
+				inner join DIRECT_SALE_PRODUCT d on b.article_no=d.article_no
+				inner join BDS_ATTACHED_IMAGE a 
+				on d.product_no=a.product_no -->
+		 
+		 </select>
+		<!--   상품목록카운트-->
+		 <select id="selectCount" resultType="_int">
+		 	select count(*) from BOARD_DIRECT_SALE
+		 </select>
+		 
+		 <select id="selectProductDetail" parameterType="_int" resultType="map">
+		 	select * from product_all WHERE ARTICLE_NO=#{ARTICLE_NO}
+		 </select>
+		 <!-- 내상품조회 -->
+		<select id="selectProductMylist" parameterType="_int" resultType="map">
+			select * from product_all where business_key=#{businessKey}
+		</select>
+		<!-- BUSINESS_KEY로 상품목록 불러오기 -->
+		<select id="selectProductByBusinessKey" parameterType="_int" resultType="map">
+			SELECT * FROM PRODUCT_ALL WHERE BUSINESS_KEY = #{businessKey}
+		</select>
+			<!-- 상품수정을위한 상품하나불러오기쿼리-->
+			<select id="selectProductOne" parameterType="_int" resultType="map">
+				select * from product_all where ARTICLE_NO=#{articleNo}
+			</select> 
+			<!-- 상품수정BDS-->
+			<update id="updateBDS" parameterType="boardProductSaleContent">
+				update BOARD_DIRECT_SALE SET 
+				ARTICLE_NO=#{articleNo},TITLE=#{title},BUSINESS_KEY=#{businessKey},
+				WRITTEN_DATE=SYSDATE,MODIFIED_DATE=SYSDATE,SALE_CONTENT=#{saleContent}
+				WHERE ARTICLE_NO=#{articleNo}
+			</update>
+			<!--상품수정PDS  -->
+			<update id="updatePDS" parameterType="product">
+				update DIRECT_SALE_PRODUCT set PRODUCT_NAME=#{productName},
+				PRODUCT_QUALITY=#{productQuality},PRODUCT_ORIGIN=#{origin},PRODUCT_QUANTITY=#{productQuantity},
+				MEASURE_UNIT=#{measureUnit},PRICE=#{price},REMAINING_QUANTITY=#{productQuantity},
+				PRODUCT_STATUS_NO=#{productStatusNo} where PRODUCT_NO=#{productNo}
+			
+			</update>
+			<update id="updateFiles" parameterType="attachement">
+				update BDS_ATTACHED_IMAGE set P_ORIGINAL_FILE_NAME=#{originFileName},
+				P_RENAMED_FILE_NAME=#{renamedFileName}
+				where PRODUCT_NO=#{productNo}
+				
+			</update>
+			
+				<!-- 상품삭제 -->
+		<delete id="deleteProductOne" parameterType="productAll">
+			delete from product_all where article_no=#{p.articleNo}
+			
+		</delete>
+		
+		<!-- 검색기능 -->
+		<select id="searchListAll" resultType="map" parameterType="searchCriteria">
+			SELECT TITLE,PRODUCT_NO,PRICE,P_RENAMED_FILE_NAME from (select TITLE,PRODUCT_NO,PRICE,P_RENAMED_FILE_NAME,ROW_NUMBER() over(order by PRODUCT_NO DESC) as RNUM from
+			product_all where 1=1<include refid="search"></include>
+			 ) MP where RNUM between #{rowStart} and #{rowEnd}
+			 order by PRODUCT_NO DESC
+			
+		</select>
+			<!--  조회물 갯수-->
+		<select id="searchListCount" parameterType="searchCriteria" resultType="_int">
+			select count(PRODUCT_NO) from product_all where 1=1
+			<include refid="search"></include>
+			AND PRODUCT_NO > 0
+		</select>
+		
+		<sql id="search">
+			<if test="searchType != null">
+				<if test="searchType == 'title',toString()">AND TITLE LIKE '%'||#{keyword}||'%'</if>
+				<if test="searchType == 'content',toString()">AND SALE_CONTENT LIKE '%'||#{keyword}||'%'</if>
+				<if test="searchType == 'all',toString()">AND (TITLE LIKE '%'||#{keyword}||'%') or (SALE_CONTENT LIKE '%'||#{keyword}||'%')</if>
+			</if>
+		</sql>
+		<update id="blindProduct" parameterType="map">
+				UPDATE DIRECT_SALE_PRODUCT SET PRODUCT_STATUS_NO=${status} WHERE PRODUCT_NO = ${productNo}
+		</update>
+		
+		<select id="searchArticle" parameterType="map" resultType="map">
+		select p.*,M.NICKNAME from product_all p LEFT JOIN MEMBER M ON p.member_key = m.member_key
+		<choose>
+			<when test="searchOption=='allSearch'">
+				WHERE SALE_CONTENT like '%'||#{keyword}||'%'
+				OR TITLE like '%'||#{keyword}||'%'
+				OR NICKNAME like '%'||#{keyword}||'%'
+			</when>
+			<otherwise>
+				WHERE ${searchOption} like '%'||#{keyword}||'%'
+			</otherwise>
+		</choose>
 	</select>
-	<!-- 상품목록카운트 -->
-	<select id="selectCount" resultType="_int">
-		select count(*) from BOARD_DIRECT_SALE
-	</select>
-
-	<select id="selectProductDetail" parameterType="_int"
-		resultType="map">
-		select * from product_all WHERE ARTICLE_NO=#{ARTICLE_NO}
-	</select>
-	<!-- 내상품조회 -->
-	<select id="selectProductMylist" parameterType="_int"
-		resultType="map">
-		select * from product_all where business_key=#{businessKey}
-	</select>
-	<!-- BUSINESS_KEY로 상품목록 불러오기 -->
-	<select id="selectProductByBusinessKey" parameterType="_int"
-		resultType="map">
-		SELECT * FROM PRODUCT_ALL WHERE BUSINESS_KEY = #{businessKey}
-	</select>
-	<!-- 상품수정을위한 상품하나불러오기쿼리 -->
-	<select id="selectProductOne" parameterType="_int"
-		resultType="map">
-		select * from product_all where ARTICLE_NO=#{articleNo}
-	</select>
-	<!-- 상품수정BDS -->
-	<update id="updateBDS" parameterType="boardProductSaleContent">
-		update BOARD_DIRECT_SALE SET
-		ARTICLE_NO=#{articleNo},TITLE=#{title},BUSINESS_KEY=#{businessKey},
-		WRITTEN_DATE=SYSDATE,MODIFIED_DATE=SYSDATE,SALE_CONTENT=#{saleContent}
-		WHERE ARTICLE_NO=#{articleNo}
-	</update>
-	<!--상품수정PDS -->
-	<update id="updatePDS" parameterType="product">
-		update DIRECT_SALE_PRODUCT set PRODUCT_NAME=#{productName},
-		PRODUCT_QUALITY=#{productQuality},PRODUCT_ORIGIN=#{origin},PRODUCT_QUANTITY=#{productQuantity},
-		MEASURE_UNIT=#{measureUnit},PRICE=#{price},REMAINING_QUANTITY=#{productQuantity},
-		PRODUCT_STATUS_NO=#{productStatusNo} where PRODUCT_NO=#{productNo}
-
-	</update>
-	<update id="updateFiles" parameterType="attachement">
-		update BDS_ATTACHED_IMAGE set P_ORIGINAL_FILE_NAME=#{originFileName},
-		P_RENAMED_FILE_NAME=#{renamedFileName}
-		where PRODUCT_NO=#{productNo}
-
-	</update>
-
-	<!-- 상품삭제 -->
-	<delete id="deleteProductOne" parameterType="productAll">
-		delete from product_all where article_no=#{p.articleNo}
-
-	</delete>
-
-	<!-- 검색기능 -->
-	<select id="searchListAll" resultType="map"
-		parameterType="searchCriteria">
-		SELECT TITLE,PRODUCT_NO,PRICE,P_RENAMED_FILE_NAME from (select
-		TITLE,PRODUCT_NO,PRICE,P_RENAMED_FILE_NAME,ROW_NUMBER() over(order by
-		PRODUCT_NO DESC) as RNUM from
-		product_all where 1=1
-		<include refid="search"></include>
-		) MP where RNUM between #{rowStart} and #{rowEnd}
-		order by PRODUCT_NO DESC
-
-	</select>
-	<!-- 조회물 갯수 -->
-	<select id="searchListCount" parameterType="searchCriteria"
-		resultType="_int">
-		select count(PRODUCT_NO) from product_all where 1=1
-		<include refid="search"></include>
-		AND PRODUCT_NO > 0
-	</select>
-
-	<sql id="search">
-		<if test="searchType != null">
-			<if test="searchType == 'title',toString()">AND TITLE LIKE '%'||#{keyword}||'%'</if>
-			<if test="searchType == 'content',toString()">AND SALE_CONTENT LIKE '%'||#{keyword}||'%'</if>
-			<if test="searchType == 'all',toString()">AND (TITLE LIKE '%'||#{keyword}||'%') or (SALE_CONTENT
-				LIKE '%'||#{keyword}||'%')</if>
-		</if>
-	</sql>
-	<update id="blindProduct" parameterType="map">
-		UPDATE DIRECT_SALE_PRODUCT SET PRODUCT_STATUS_NO=${status} WHERE PRODUCT_NO
-		= ${productNo}
-	</update>
-
-	<update id="updateProductStatusToStoppedByArticleNo">
-		UPDATE DIRECT_SALE_PRODUCT SET PRODUCT_STATUS_NO = 0 WHERE ARTICLE_NO =
-		#{articleNo} AND PRODUCT_STATUS = 1
-	</update>
-
-	<update id="updateSaleStatusToStoppedByBusinessKey">
-		UPDATE BOARD_DIRECT_SALE SET SALE_STATUS_NO = 0 WHERE BUSINESS_KEY =
-		#{businessKey} AND SALE_STATUS_NO = 1
-	</update>
-
-	<update id="updateBidStatusToStoppedByBusinessKey">
-		UPDATE AUCTION_BID SET BID_STATUS_NO = 0 WHERE WRITER_KEY = #{businessKey}
-		AND BID_STATUS_NO = 1
-	</update>
-
-	<update id="updateAuctionStatusToStoppedByBusinessKey">
-		UPDATE BOARD_AUCTION SET AUCTION_STATUS_NO = 0 WHERE WRITER_KEY =
-		#{businessKey} AND AUCTION_STATUS_NO = 1
-	</update>
+		
+		
 </mapper>

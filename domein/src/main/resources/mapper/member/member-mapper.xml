@@ -21,12 +21,12 @@
 		<result column="ACCOUNT_STATUS_NO" property="accountStatusNo" />
 		<result column="IS_SUBSCRIBED" property="isSubscribed" />
 		<association property="levelDesc" javaType="String"
-			column="LEVEL_NO" select="member.selectLevelDesc"></association>
+			column="levelNo" select="member.selectLevelDesc"></association>
 		<association property="statusDesc"
 			column="ACCOUNT_STATUS_NO" javaType="String"
 			select="member.selectStatusDesc"></association>
 		<association property="totalPoint" javaType="int"
-			column="MEMBER_KEY" select="point.seletTotalPoint"></association>
+			column="MEMBER_KEY" select="point.selectTotalPoint"></association>
 		<collection property="businesses"
 			javaType="java.util.TreeSet" column="MEMBER_KEY"
 			select="business.selectBusinessByMemberKey"></collection>
@@ -68,18 +68,18 @@
 	<select id="selectMemberByMemberKey" parameterType="_int"
 		resultType="member" resultMap="memberMap">
 		SELECT * FROM MEMBER WHERE MEMBER_KEY =
-		#{memberKey}
+		#{memberKey} AND ACCOUNT_STATUS_NO != 9
 	</select>
 
 	<select id="selectMemberByEmail" parameterType="string"
 		resultType="member" resultMap="memberMap">
 		SELECT * FROM MEMBER WHERE EMAIL =
-		#{email}
+		#{email} AND ACCOUNT_STATUS_NO != 9
 	</select>
 
 	<select id="selectMemberById" parameterType="map"
 		resultMap="memberMap" resultType="member">
-		SELECT * FROM MEMBER WHERE ID = #{id}
+		SELECT * FROM MEMBER WHERE ID = #{id} AND ACCOUNT_STATUS_NO != 9
 	</select>
 
 	<update id="insertMemberProfileUrl" parameterType="snsInfo">
@@ -87,9 +87,6 @@
 		SET PROFILE_URL = #{snsProfilePic} WHERE MEMBER_KEY = #{memberKey}
 	</update>
 
-	<delete id="deleteMemberFromSnsLogin">
-		DELETE FROM SNS_LOGIN WHERE MEMBER_KEY = #{memberKey}
-	</delete>
 
 	<delete id="deleteMemberFromTarget" parameterType="map">
 		DELETE FROM
@@ -101,10 +98,13 @@
 		SET EMAIL = #{email}, ACCOUNT_STATUS_NO = 9 WHERE MEMBER_KEY =
 		#{memberKey}
 	</update>
-
+	
+	<select id="selectMemberCount" resultType="_int">
+		SELECT COUNT(*) FROM MEMBER
+	</select>
 	<update id="updateMemberPassword" parameterType="member">
 		UPDATE MEMBER
 		SET PASSWORD = #{password} WHERE MEMBER_KEY = #{memberKey}
 	</update>
-
+	
 </mapper>

@@ -29,7 +29,7 @@
 			</a>
 		</div>
 		<div class="account-nav-list">
-			<a href="#"> <i class="fas fa-users" id="account-sns-icon"></i>
+			<a href="${path }/member/myPage/account/oauth.do"> <i class="fas fa-users" id="account-sns-icon"></i>
 				간편인증 관리
 			</a>
 		</div>

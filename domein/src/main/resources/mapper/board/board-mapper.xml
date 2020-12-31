@@ -1,11 +1,46 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="board">
-	<select id="selectBoard" resultType="map">
+<mapper namespace="boardknowbattle">
 
+<!-- 	<select id="selectBoardList" resultType="map">
+		
+	</select> -->
+<!-- 	<resultMap type="map" id="maplist">
+		<result column="thread_key" property="threadKey"/>
+		<result column="thread_title" property="threadTitle"/>
+		<result column="writer_key" property="writerKey"/>
+		<result column="written_date" property="writtenDate"/>
+		<result column="modified_date" property="modifiedDate"/>
+		<result column="read_count" property="readCount"/>
+		<result column="thread_status_no" property="threadStatusNo"/>
+	</resultMap>
+
+	<select id="list" parameterType="map" resultMap="maplist">
+		select
+			thread_key
+			,thread_title
+			,writer_key
+			,written_date
+			,modified_date
+			,read_count
+			,thread_status_no
+		from board_know_battle
+	</select> -->
+<!-- 	<insert parameterType="insertboard" id="board">
+		insert into BOARD_KNOW_BATTLE values(SEQ_THREAD_KEY.nextval,
+		#{threadTitle},
+		#{writerKey},
+		#{readCount},
+		SYSDATE)
+	</insert> -->
+<!-- 	<select id="list" resultType="map">
+	
+	</select>
+	<select id= "listAll" resultType="">
+		
 	</select>
 	
-	<select id= "selectCount" resultType="_int">
-		select count(*) from board
-	</select>
+	<insert id="insert">
+		
+	</insert> -->
 </mapper>

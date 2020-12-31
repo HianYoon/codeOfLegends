@@ -11,7 +11,8 @@
 	</insert>
 	<!-- member Cart 불러오기-->
 	<select id="selectProductCart" resultType="map">
-		select * from product_all where Product_no=#{productNo}
+		select * from cart c join product_all p on c.product_no=p.product_No
+			where c.member_key=#{memberKey}
 	</select>
 	<!--  기존상품이 있는지 체크-->
 	<select id="checkProductNo" resultType="_int">
@@ -30,6 +31,16 @@
 	</select>
 		<!-- cartList삭제 -->
 		<delete id="deleteCartList" parameterType="cart">
-			delete from cart where member_key=#{memberKey}
+			delete from cart where member_key=#{memberKey} and product_no=${productNo}
 		</delete>
+	<!--상품 수량 더하기  -->
+		<update id="addToAmount" parameterType="cart">
+		update cart set amount= amount+#{amount} where member_key=#{memberKey}
+		and product_no=#{productNo}
+		</update>
+	<!--상품 수량 빼기  -->
+	<update id="minusToAmount" parameterType="cart">
+		update cart set amount= amount-#{amount} where member_key=#{memberKey}
+		and product_no=#{productNo}
+		</update>
 </mapper>

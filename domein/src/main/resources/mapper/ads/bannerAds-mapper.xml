@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="bannerAds">	
+	<resultMap type="bannerAds" id="bannerAdsMap">
+		<id column="ADS_KEY" property="adsKey"/>
+		<result column="APPLICANT_KEY" property="applicantKey"/>
+		<result column="ADS_ORIGINAL_FILE_NAME" property="adsOriginalFileName"/>
+		<result column="ADS_RENAMED_FILE_NAME" property="adsRenamedFileName"/>
+		<result column="START_DATE" property="startDate"/>
+		<result column="END_DATE" property="endDate"/>
+		<result column="APPLY_DATE" property="applyDate"/>
+		<result column="URL_LINK" property="urlLink"/>
+		<result column="ADS_DESCRIPTION" property="adsDescription"/>
+		<result column="ADS_MEMO" property="adsMemo"/>
+		<result column="ADS_STATUS_NO" property="adsStatusNo"/>
+		<result column="ADS_TITLE" property="adsTitle"/>
+		<result column="ADS_PRICE" property="adsPrice"/>		
+	</resultMap>
+
+	<insert id="insertBannerAds" parameterType="bannerAds">
+		INSERT INTO BANNER_ADS_APPLICATION VALUES(SEQ_ADS_KEY.NEXTVAL,#{applicantKey},
+			#{adsOriginalFileName},#{adsRenamedFileName},#{startDate},#{endDate},SYSDATE,
+			#{urlLink},#{adsDescription},DEFAULT,DEFAULT,#{adsTitle},#{adsPrice})
+	</insert>
+	
+	<select id="selectBannerHoldCount" parameterType="int" resultType="int">
+		SELECT COUNT(ADS_KEY) FROM BANNER_ADS_APPLICATION WHERE 
+		APPLICANT_KEY=#{applicantKey} AND ADS_STATUS_NO=0
+	</select>
+	
+	<select id="selectBannerAcceptCount" parameterType="int" resultType="int">
+		SELECT COUNT(ADS_KEY) FROM BANNER_ADS_APPLICATION WHERE 
+		APPLICANT_KEY=#{applicantKey} AND ADS_STATUS_NO=1
+	</select>
+	
+	<select id="selectBannerRejectCount" parameterType="int" resultType="int">
+		SELECT COUNT(ADS_KEY) FROM BANNER_ADS_APPLICATION WHERE 
+		APPLICANT_KEY=#{applicantKey} AND ADS_STATUS_NO=6
+	</select>
+	
+</mapper>

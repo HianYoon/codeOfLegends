@@ -14,9 +14,8 @@
 	<div class="container">
 		<div class="menu-side">
 			<ul>
-				<li><a href="#">사용자 관리</a></li>
-				<li><a href="#">게시글 제재</a></li>
-				<li><a href="#">${path }</a></li>
+				<li><a href="${path }/admin/userList.do">사용자 관리</a></li>
+				<li><a href="${path }/admin/articleList.do">게시글 조회</a></li>
 			</ul>
 		</div>
 		<div class="search-result">
@@ -45,7 +44,7 @@
 			</div>
 			<div class="wrap-result">
 				<div class="wrap-title">
-					<h2 class="page-title">검색결과: ${list.size() }명</h2>
+					<h2 class="page-title">총 회원수: ${totalData }명</h2>
 				</div>
 				<div class="wrap-contents">
 					<div class="wrap-inner">
@@ -53,10 +52,10 @@
 							<c:forEach items="${list }" var="l">
 							<li>
 								<c:if test="${l.BUSINESS_KEY != null }">
-								<a class="wrap-user-profile" href="${path}/admin/userInfo.do?memberKey=${l.MEMBER_KEY}&businessKey=${l.BUSINESS_KEY}&businessNo=${l.BUSINESS_NO}">
+									<a class="wrap-user-profile" href="${path}/admin/userInfo.do?memberKey=${l.MEMBER_KEY}&businessKey=${l.BUSINESS_KEY}&businessNo=${l.BUSINESS_NO}">
 								</c:if>
 								<c:if test="${l.BUSINESS_KEY == null }">
-								<a class="wrap-user-profile" href="${path}/admin/userInfo.do?memberKey=${l.MEMBER_KEY}&businessKey=-1">
+									<a class="wrap-user-profile" href="${path}/admin/userInfo.do?memberKey=${l.MEMBER_KEY}&businessKey=-1">
 								</c:if>
 									<div class="box-img">								
 										<c:choose>
@@ -67,12 +66,16 @@
 											<img src="${l.PROFILE_URL}" width="120">
 											</c:otherwise>
 										</c:choose>
-										<c:if test="${l.BUSINESS_KEY == NULL }">
+										<c:if test="${l.ACCOUNT_STATUS_NO == 9 }">
+										<span class="labeling gray">탈퇴</span>
+										</c:if>
+										<c:if test="${l.BUSINESS_KEY == NULL && l.ACCOUNT_STATUS_NO != 9 }">
 										<span class="labeling red">미등록</span>
 										</c:if>
-										<c:if test="${l.BUSINESS_KEY != NULL }">
+										<c:if test="${l.BUSINESS_KEY != NULL && l.ACCOUNT_STATUS_NO != 9 }">
 										<span class="labeling green">사업자</span>
 										</c:if>
+										
 									</div>
 									<div class="box-text">
 										<dl class="list-user-profile">
@@ -99,6 +102,7 @@
 							</c:forEach>
 						</ul>
 					</div>
+					${pageBar }
 				</div>
 			</div>
 		</div>

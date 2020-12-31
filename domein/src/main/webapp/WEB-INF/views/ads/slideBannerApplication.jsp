@@ -6,22 +6,30 @@
 <c:set var="path" value="${pageContext.request.contextPath }"/>
 
 <jsp:include page="/WEB-INF/views/common/header.jsp">
-	<jsp:param name="title" value=""/>
+	<jsp:param name="title" value="슬라이드 배너 신청"/>
 </jsp:include>
 
-<link rel="stylesheet" href="${path }/resources/css/sharedStyle.css" />
+<script>
+	<%
+	if(session.getAttribute("signedInMember") == null){ %>
+		location.href = path;
+	<%
+	}
+	%>
+</script>
+
 <link rel="stylesheet" href="${path }/resources/css/ads/bannerApplication.css" />
 
 <section id="content">
     <div id="wholeback">
         <div class="tab_menu">
             <ul><h2>광고신청 페이지</h2>
-                <li><a href=""><h5>슬라이드 배너 신청</h5></a></li>
-                <li><a href=""><h5>(판매)추천 게시글 신청</h5></a></li>
+                <li><a href="${path }/ads/slideBannerApplication.do"><h5>슬라이드 배너 신청</h5></a></li>
+                <li><a href="${path }/ads/directAdsApplication.do"><h5>(판매)추천 게시글 신청</h5></a></li>
             </ul>
         </div>
         <div id="container">
-            <form action="${path }/ads/slideBannerApplication.do" enctype="multipart/form-data" method="post">
+            <form action="${path }/ads/slideBannerApplicationEnd.do" enctype="multipart/form-data" method="post">
                 <h2>배너 광고 신청</h2>
                 <hr>
                 <div class="div_intro">

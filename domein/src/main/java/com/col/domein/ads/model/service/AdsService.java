@@ -4,6 +4,18 @@ import com.col.domein.ads.model.vo.BannerAds;
 
 public interface AdsService {
 
-	int bannerApply(BannerAds bannerAds);
+	int bannerApply(BannerAds bannerAds);	
+	
+	int bannerHoldCount(int applicantKey);
+	
+	int bannerAcceptCount(int applicantKey);
+	
+	int bannerRejectCount(int applicantKey);
+	
+	int directHoldCount(int applicantKey);
+	
+	int directAcceptCount(int applicantKey);
+	
+	int directRejectCount(int applicantKey);
 	
 }

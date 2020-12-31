@@ -27,8 +27,7 @@ public class MemberRestController {
 	private MemberService ms;
 	@Autowired
 	private BCryptPasswordEncoder pwEncoder;
-	
-	
+
 	@PostMapping("/signup/id")
 	public boolean isEmptyIdName(@RequestParam String data) {
 		Map<String, String> map = new HashMap<String, String>();
@@ -60,6 +59,7 @@ public class MemberRestController {
 		map.put("data", data);
 		return ms.isEmptyData(map);
 	}
+
 ////////////////////////////////////////
 //	oauth 2.0
 //	1. Google
@@ -69,27 +69,51 @@ public class MemberRestController {
 		return result;
 	}
 
+	@PostMapping("/oauth/google/addition")
+	public int addGoogleSignIn(HttpSession session, String idToken) {
+		Member m = (Member) session.getAttribute("signedInMember");
+		int result = ms.addGoogleSignIn(session, m.getMemberKey(), idToken);
+		return result;
+	}
+
 // 	2. Kakao
 
 	@PostMapping("/oauth/kakao")
 	public String kakaoSignIn(HttpSession session, HttpServletRequest request) {
 		String state = generateState();
 		session.setAttribute("kakaoState", state);
-		
+
 		OauthKey keys = new OauthKey(request);
-		
+
 		String clientId = keys.getKakaoClientId();
 		String redirectUrl = keys.getKakaoCallbackUri();
-		String url = "https://kauth.kakao.com/oauth/authorize?client_id="+clientId+"&response_type=code&redirect_uri="+redirectUrl+"&state="
-				+ state;
+		String url = "https://kauth.kakao.com/oauth/authorize?client_id=" + clientId
+				+ "&response_type=code&redirect_uri=" + redirectUrl + "&state=" + state;
 
 		return url;
 	}
-	
+
+//	카카오 연결 끊을 때 - 미구현
 	@PostMapping("/oauth/kakao/leave")
 	public String kakaoLeave(HttpSession session) {
 
 		return "";
+	}
+	
+	@PostMapping("/oauth/kakao/addition")
+	public String addKakaoSignIn(HttpSession session, HttpServletRequest request) {
+		String state = generateState();
+		session.setAttribute("kakaoState", state);
+		
+		OauthKey keys = new OauthKey(request);
+
+		String clientId = keys.getKakaoClientId();
+		String redirectUrl = keys.getKakaoMyPageCallbackUri();
+		String url = "https://kauth.kakao.com/oauth/authorize?client_id=" + clientId
+				+ "&response_type=code&redirect_uri=" + redirectUrl + "&state=" + state;
+
+		return url;
+		
 	}
 	
 	
@@ -101,23 +125,37 @@ public class MemberRestController {
 		OauthKey keys = new OauthKey(request);
 		String clientId = keys.getNaverClientId();
 		String redirectUrl = keys.getNaverCallbackUri();
-		String url = "https://nid.naver.com/oauth2.0/authorize?client_id="+clientId+"&response_type=code&redirect_uri="+redirectUrl+"&state="
-				+ state;
+		String url = "https://nid.naver.com/oauth2.0/authorize?client_id=" + clientId
+				+ "&response_type=code&redirect_uri=" + redirectUrl + "&state=" + state;
 		return url;
 	}
 
-//	네이버용 상태 토큰
+	@PostMapping("/oauth/naver/addition")
+	public String addNaverSignIn(HttpSession session, HttpServletRequest request) {
+		String state = generateState();
+		session.setAttribute("naverState", state);
+		
+		OauthKey keys = new OauthKey(request);
+		
+		String clientId = keys.getNaverClientId();
+		String redirectUrl = keys.getNaverMyPageCallbackUri();
+		String url = "https://nid.naver.com/oauth2.0/authorize?client_id=" + clientId
+				+ "&response_type=code&redirect_uri=" + redirectUrl + "&state=" + state;
+		return url;
+	}
+	
+	/////////////////////////////////////////////////////
+//	상태 토큰
 	public String generateState() {
 		SecureRandom random = new SecureRandom();
 		return new BigInteger(130, random).toString(32);
 	}
-	
-	
+
 //	/////////////////////////////////////////////////////////////
-	
+
 	@PostMapping("/mypage/account/password")
 	public boolean passwordChecker(HttpSession session, String password) {
-		Member m = (Member)session.getAttribute("signedInMember");
+		Member m = (Member) session.getAttribute("signedInMember");
 		return pwEncoder.matches(password, m.getPassword());
 	}
 }

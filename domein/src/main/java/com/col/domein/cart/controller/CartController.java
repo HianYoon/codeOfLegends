@@ -57,61 +57,29 @@ public class CartController {
 			}
 			
 		 }else {
-				
+				mv.setViewName("Index");
 			}
-	//	}else if(mNo==0 && pNo!=0) {
-	//	TreeMap<String, Object> nonMemberCart=new TreeMap<String, Object>();
-		//	nonMemberCart.put("productNo",c.getProductNo());
-		//	nonMemberCart.put("amount",c.getAmount());
-		//	System.out.println(nonMemberCart);
-		//	mv.addObject("cart",nonMemberCart);
-			
+
 		
 		 mv.addObject("cart",c);
 		 mv.setViewName("redirect:/cart/list.do");
 		 return mv;
 	}
-	/*	TreeMap<Integer,Integer> cartValue=new TreeMap<Integer,Integer>();
-		//boolean containsKey(Object key) : 해당 맵이 전달된 키를 포함하고 있는지를 확인함.
-		if(cartValue!=null && cartValue.containsKey(pNo)) {
-			cartValue.put(pNo,cartValue.get(pNo)+amount);
-			
-		}else if(cartValue!=null && !cartValue.containsKey(pNo)) {
-				cartValue.put(pNo, amount);
-				
-		}
-		else {
-			cartValue=new TreeMap<Integer, Integer>();
-			cartValue.put(pNo,amount);
-		}
-		
-		int sum =0;
-		ArrayList<Integer> removingKey=new ArrayList<Integer>();
-		//key순으로 정렬을 하려면 TreeMap을 이용해야한다.
-		for(int v : cartValue.keySet()) {//keyset 은 정렬된 상태로 가져온다.
-			sum+=cartValue.get(v);
-			if(cartValue.get(v)==0) {
-				removingKey.add(v);
-			}
-		}
-		for(int key:removingKey) {
-			cartValue.remove(key);
-		}*/
-        //@ModelAttribute는 sumit된 form의 내용을 저장해서 전달받거나, 다시 뷰로 넘겨서 출력하기 위해 사용되는 오브젝트 이다.
 
-        //도메인 오브젝트나 DTO의 프로퍼티에 요청 파라미터를 바인딩해서 한번에 받으면 @ModelAttribute 라고 볼 수 있다.
-
-        //@ModelAttribute는 컨트롤러가 리턴하는 모델에 파라미터로 전달한 오브젝트를 자동으로 추가해준다.
-
+	//cart목록
 	@RequestMapping("/cart/list.do")
 	public ModelAndView productInsertCart(ModelAndView mv,HttpSession session,Cart c) {
-		System.out.println("memberKey"+c.getMemberKey());
+		System.out.println("list: memberKey"+c.getMemberKey());
 		int memberKey=c.getMemberKey();
 		TreeMap<String,Object> map=new TreeMap<String,Object>();
 		int productNo=c.getProductNo();
-		System.out.println(""+productNo);
-		List<Map> list=service.selectProductCart(productNo);
+		System.out.println("list:"+productNo);
 		List<Map> cart=service.selectCartList(memberKey);
+	
+	
+		
+		System.out.println("cart"+cart);
+		List<Map> list=service.selectProductCart(memberKey);
 		//Treemap은 map<key,value>로 이뤄져잇고
 		//key값은 중복이 불가능하고 value는 중복이 가능하다.
 		//value에 null값도 사용이 가능하다.
@@ -129,8 +97,28 @@ public class CartController {
 	}
 	//선택상품지우기
 	@RequestMapping("/cart/delete.do")
-	public ModelAndView deleteCart(ModelAndView mv,int memberKey) {
-		int result=service.deleteCartOne(memberKey);
+	public ModelAndView deleteCart(ModelAndView mv,int memberKey,int productNo) {
+		int result=service.deleteCartOne(memberKey,productNo);
+		mv.addObject("msg",result>0?"상품삭제성공":"삭제실패");
+		mv.setViewName("cart/cart");
 		return mv;
+	}
+	
+	//매인화면으로 돌리기
+	@RequestMapping("/cart/cartIndex.do")
+	public String cartToIndex() {
+		return "index";
+	}
+	//상품 수량 업데이트
+	@RequestMapping("/cart/addToAmount")
+	public String addToAmount(int productNo, int amount,int memberKey) {
+		
+		 int result=service.addToAmount(amount,productNo,memberKey);
+		return "redirect:/cart/list.do";
+	}
+	@RequestMapping("/cart/minusToAmount")
+	public String downToAmount(int productNo, int amount, int memberKey) {
+		int result=service.downToAmount(productNo,amount,memberKey);
+		return "redirect:/cart/list.do";
 	}
 }

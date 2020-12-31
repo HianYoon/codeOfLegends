@@ -45,7 +45,7 @@ public class ProductController {
 	//화면 전환용메소드
 	@RequestMapping("/product/into.do")
 	public String product() {
-		return "product/product";
+		return "product/productList";
 	}
 	
 	//검색기능
@@ -62,7 +62,7 @@ public class ProductController {
 		//조회게시물 갯수
 		pageMaker.setTotalCount(service.searchListCount(scri));
 		m.addAttribute("pageMaker",pageMaker);
-		return "product/product";
+		return "product/productList";
 	}
 	
 	//BoardSaleContent등록
@@ -155,7 +155,7 @@ public class ProductController {
 		int totalData=service.selectCount();
 		mv.addObject("pageBar",PageBarFactory.getPageBar(totalData, cPage, numPerpage, "productList.do"));
 		mv.addObject("totalData",totalData);
-		mv.setViewName("product/product");
+		mv.setViewName("product/productList");
 		return mv;
 		
 	}
@@ -177,7 +177,7 @@ public class ProductController {
 			System.out.println("businessKey"+businessKey);
 			
 			mv.addObject("product",service.selectProductUpdate(businessKey));
-			mv.setViewName("product/product");
+			mv.setViewName("product/myProductList");
 			return mv;
 		
 	}
@@ -188,13 +188,11 @@ public class ProductController {
 		
 		TreeSet<Business> businessses=m.getBusinesses();//트리셋으로 비지니스키 가져오기
 		
-		if(m.getBusinesses().equals("businesses")) {		
+		
 			List<Map> product=service.selectProductOne(articleNo);
 			mv.addObject("product",product);
 			mv.setViewName("product/productUpdate");
-		}else {
-			mv.setViewName("index");
-		}
+		
 		return mv;
 		
 	}
@@ -210,7 +208,7 @@ public class ProductController {
 	
 	  		int result=service.updateBDS(p);
 	  	mv.addObject("msg",result>0?"입력성공":"입력실패");
-	  	mv.setViewName("product/product"); 
+	  	mv.setViewName("product/productUpdate"); 
 	  	return mv;
 	  	}
 	 
@@ -261,7 +259,7 @@ public class ProductController {
 	public ModelAndView productDelete(ModelAndView mv,int articleNo) {
 		int result=service.productDelete(articleNo);
 		mv.addObject("msg",result>0?"삭제성공":"삭제실패");
-		mv.setViewName("product/product");
+		mv.setViewName("product/MyProductList");
 		return mv;
 		
 	}

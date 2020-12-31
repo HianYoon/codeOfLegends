@@ -57,5 +57,7 @@ public interface ProductDao {
 	int updateBidStatusToStoppedByBusinessKey(SqlSession session, int businessKey);
 	
 	int updateAuctionStatusToStoppedByBusinessKey(SqlSession session, int businessKey);
+	
+	List<Map> searchArticle(SqlSession session, String keyword, String searchOption);
 
 }

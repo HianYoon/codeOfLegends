@@ -41,6 +41,9 @@ public interface ProductService {
 	
 	//검색기능
 	List<Map> searchList(SearchCriteria scri)throws Exception;
+	
+	//검색옵션별 상품검색
+	List<Map> searchArticle(String keyword, String searchOption);
 	//게시물 갯수
 	int searchListCount(SearchCriteria scri)throws Exception;
 	

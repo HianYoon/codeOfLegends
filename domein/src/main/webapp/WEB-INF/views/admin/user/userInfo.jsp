@@ -10,7 +10,6 @@
 	<jsp:param name="title" value=""/>
 </jsp:include>
 <section id="content" class="page-admin">
-<c:set var="path" value="${pageContext.request.contextPath }"/>
 	<div class="container">
 		<div class="search-result">
 			<div class="area-top">
@@ -128,9 +127,5 @@
 			</div>
 		</div>
 	</div>
-<style>
-
-	
-</style>
 </section>
 <jsp:include page="/WEB-INF/views/common/footer.jsp"/>

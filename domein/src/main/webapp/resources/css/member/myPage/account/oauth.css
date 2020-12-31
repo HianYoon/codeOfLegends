@@ -1,0 +1,22 @@
+.oauth-icon>img{
+  width: 45px;
+  height: 45px;
+  margin: 10px;
+}
+
+.oauth-hidden-btn-cont{
+	display:none;
+}
+
+
+.section-content>table div{
+  display: flex;
+  justify-content: center;
+}
+
+.section-content{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+}

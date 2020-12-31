@@ -74,9 +74,23 @@ public class CartServiceImpl implements CartService {
 
 	//cart 상품삭제
 	@Override
-	public int deleteCartOne(int memberKey) {
+	public int deleteCartOne(int memberKey,int productNo) {
 		// TODO Auto-generated method stub
-		return dao.deleteCartList(session,memberKey);
+		return dao.deleteCartList(session,memberKey,productNo);
+	}
+
+	//상품 수량 업데이트
+	@Override
+	public int addToAmount(int amount, int productNo,int memberKey) {
+		// TODO Auto-generated method stub
+		return dao.addToAmount(session,productNo, amount,memberKey);
+	}
+
+	//상품 수량 minus업데이트 
+	@Override
+	public int downToAmount(int productNo, int amount, int memberKey) {
+		// TODO Auto-generated method stub
+		return dao.minusToAmount(session,productNo,amount,memberKey);
 	}
 
 }

@@ -5,7 +5,7 @@ import java.sql.Date;
 import org.springframework.stereotype.Component;
 
 @Component
-public class DirectSalesAds {
+public class DirectAds {
 	
 	private int adsKey;
 	private int applicantKey;
@@ -17,12 +17,12 @@ public class DirectSalesAds {
 	private int articleNo;
 	
 	
-	public DirectSalesAds() {
+	public DirectAds() {
 		// TODO Auto-generated constructor stub
 	}
 
 
-	public DirectSalesAds(int adsKey, int applicantKey, Date startDate, Date endDate, Date applyDate, String adsMemo,
+	public DirectAds(int adsKey, int applicantKey, Date startDate, Date endDate, Date applyDate, String adsMemo,
 			int adsStatusNo, int articleNo) {
 		super();
 		this.adsKey = adsKey;

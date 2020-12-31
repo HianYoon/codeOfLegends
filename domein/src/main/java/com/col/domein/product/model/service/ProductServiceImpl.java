@@ -177,6 +177,12 @@ public class ProductServiceImpl implements ProductService {
 		// TODO Auto-generated method stub
 		return dao.updateAuctionStatusToStoppedByBusinessKey(session, businessKey);
 	}
+
+	@Override
+	public List<Map> searchArticle(String keyword, String searchOption) {
+		// TODO Auto-generated method stub
+		return dao.searchArticle(session, keyword, searchOption);
+	}
 	
 	
 	
