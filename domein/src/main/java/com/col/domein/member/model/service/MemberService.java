@@ -300,6 +300,11 @@ public class MemberService {
 			String givenName = (String) payload.get("given_name");
 			String name = familyName + " " + givenName;
 
+			if(email==null) email="";
+			if(pictureURL == null) pictureURL = "";
+			if(name == null) name ="";
+			if(id == null) id = "";
+
 			SnsInfo sns = new SnsInfo();
 			sns.setLoginSourceNo(loginSourceNo);
 			sns.setSnsId(id);
@@ -361,6 +366,10 @@ public class MemberService {
 			String givenName = (String) payload.get("given_name");
 			String name = familyName + " " + givenName;
 			
+		
+			if(pictureURL == null) pictureURL = "";
+			if(id == null) id = "";
+
 			SnsInfo sns = new SnsInfo();
 			sns.setMemberKey(memberKey);
 			sns.setLoginSourceNo(loginSourceNo);
@@ -407,6 +416,11 @@ public class MemberService {
 		String name = profile.getNickname();
 		String id = result.getId();
 		
+		if(email==null) email="";
+		if(pictureURL == null) pictureURL = "";
+		if(name == null) name ="";
+		if(id == null) id = "";
+
 		SnsInfo sns = new SnsInfo();
 		sns.setLoginSourceNo(loginSourceNo);
 		sns.setSnsId(id);
@@ -519,7 +533,33 @@ public class MemberService {
 	}
 	
 	
-	
+	public int addNaverSignIn(HttpSession httpSession, int memberKey, NaverProfile profile) {
+		int loginSourceNo = 3;
+		
+		int mKey = checkMemberThroughSnsId(loginSourceNo, profile.getId());
+		
+		if(mKey>0) return 6;
+		
+		String pictureURL = profile.getProfile_image();
+		String name = profile.getName();
+		String id = profile.getId();
+		
+		if(pictureURL == null) pictureURL = "";
+		if(name == null) name ="";
+		if(id == null) id = "";
+		
+		SnsInfo sns = new SnsInfo();
+		sns.setMemberKey(memberKey);
+		sns.setLoginSourceNo(loginSourceNo);
+		sns.setSnsId(id);
+		sns.setSnsName(name);
+		sns.setSnsProfilePic(pictureURL);
+		
+		boolean flag = md.insertSnsInfo(session, sns);
+		if(!flag) return 9;
+		
+		return 5;
+	}
 	
 	
 	
