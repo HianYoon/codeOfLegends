@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="bdsReview">
+
+
+	<insert id="insertComment" parameterType="bdsReview">
+	<choose>
+		<when test="#{rOriginalFileName} == null">
+			insert into BDS_REVIEW set(REVIEW_NO,REVIEW_CONTENT,WRITER_KEY,
+			WRITTEN_DATE,MODIFIED_DATE,REVIEW_STATUS_NO,REF_ARTICLE,REF_REVIEW) 
+			values(SEQ_REVIEW_NO.NEXTVAL,
+			#{reviewContent},
+			#{writerKey},
+			SYSDATE,
+			SYSDATE,
+			'0',
+			#{refArtecle},
+			#{refReview}
+			)
+		</when>
+		<otherwise>
+			insert into BDS_REVIEW values(SEQ_REVIEW_NO.NEXTVAL,
+			#{reviewContent},
+			#{writerKey},
+			SYSDATE,
+			SYSDATE,
+			'0',
+			#{refArtecle},
+			#{refReview},
+			#{rOriginalFileName},
+			#{rRenamedFileName}
+			)
+		</otherwise>
+	</choose>
+	</insert>
+	
+	<select id="selectBDScomment" resultType="map">
+		SELECT * FROM BDS_REVIEW WHERE REF_ARTICLE=#{refArtecle} 
+		START WITH REF_REVIEW=1 
+		CONNECT BY PRIOR REVIEW_NO=#{reviewStatusNo}
+	</select>
+
+		
+</mapper>

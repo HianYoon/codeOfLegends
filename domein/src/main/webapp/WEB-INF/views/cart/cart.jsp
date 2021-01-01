@@ -42,7 +42,7 @@
                   <c:otherwise>
                         	
                       
-                      <form action="${path }" method="POST">
+                      <form action="${path}/cart/orderToPay.do" method="POST">
                         
                         <div class="cart-container">
                             <hr/>
@@ -55,7 +55,7 @@
                                     <input type="checkbox" name="cartCheck" value="${sumPriceAmount}" class="checkbox">
                                   
 
-                                        <img src="${path }/resources/upload/product/${list.P_RENAMED_FILE_NAME}" alt="이미지">
+                                     <a  href="${path }/product/productDetail.do?productNo=${list.PRODUCT_NO}" ></a><img src="${path }/resources/upload/product/${list.P_RENAMED_FILE_NAME}" alt="이미지"></a>
                                         <div class="cartContent">
 
                                             <p>상품명:<c:out value="${list.TITLE }"/></p>
@@ -90,7 +90,12 @@
                                 <div class="cart-btn-group">
                                     <button type="button" id="checkbox"  class="btn btn-primary2">전체선택</button>
                                     <button type="button" id="" onclick="location.href='${path}/cart/cartIndex.do'" class="btn btn-primary2">쇼핑계속하기</button>
+                               
+                                    <button type="button" id="orderToPay" onclick="location.href='${path}/memberLogin.do'" class="btn btn-primary2">결제하기</button>
+                                 
+                                <c:if test="${signedInMember == null} " >
                                     <button type="submit" id="orderToPay"  class="btn btn-primary2">결제하기</button>
+                                </c:if> 
                                 </div>
                             </div>
                         </form>
@@ -330,6 +335,27 @@ function minusDown(e,poductNo){
 	    				$(".totlaPrice").text(sum);	
 	    });
     };      
+    $(".checkbox").click(function(){
+    	if($("input:checkbox[name=cartCheck]").is(":checked") ==true){
+    		alert("체크됨");
+    	    let sum=0;//담을 값을 선언해준다.
+    	    $("input[name=cartCheck]:checked").each(function(i){
+    	    				sum +=Number($(this).val());
+    	    				console.log(sum);
+    	    				$(".totlaPrice").text(sum);	
+    	    });
+    	}else if($("input:checkbox[name=cartCheck]").is(":checked") ==false){
+    		alert("안 체크됨");
+    		   let sum=0;//담을 값을 선언해준다.
+       	    $("input[name=cartCheck]:checked").each(function(i){
+       	    				sum -=Number($(this).val());
+       	    				console.log(sum);
+       	    				$(".totlaPrice").text(sum);	
+       	    });
+    	}else{
+    		$(".totlaPrice").text(0);	
+    	}
+    })
 	              const open1=document.getElementById("modalOpen");
                   const close1=document.getElementById("modalClose");
                   const send=document.getElementById("modalSend");

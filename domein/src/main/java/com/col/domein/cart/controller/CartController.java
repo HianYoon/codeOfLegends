@@ -1,5 +1,7 @@
  package com.col.domein.cart.controller;
 
+import java.text.DecimalFormat;
+import java.util.Calendar;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
@@ -31,6 +33,33 @@ public class CartController {
 	
 	@Autowired
 	private CartService service;
+	
+	
+	//구매하기 
+	@RequestMapping("/cart/orderToPay.do")
+	public ModelAndView orderToPay(ModelAndView mv , Cart c,ProductAll p) {
+		
+		int pNo=c.getProductNo();//상품번호
+		int mNo=c.getMemberKey();//멤버키
+		int ok;
+		 if(mNo!=0 && pNo!=0) {
+			int result=service.checkProductNo(pNo,mNo);//상품이 잇는지 없는지 확인
+			if(result != 0) {
+				//기존상품이 있으면 상품에 갯수만 더하기
+				//update시에는 amount만 넣으면 안되고정보를 담은 객체를 담아보내야한다.
+				 ok=service.updateCartProductAmount(c);
+				 mv.addObject("msg",ok>0?"수정성공":"수정실패");
+				mv.setViewName("redirect:/cart/list.do");
+			}else {	
+				//기존상품이 없으면
+				ok=service.insertMemberCart(c);
+				mv.addObject("msg",ok>0?"등록성공":"등록실패");
+			}
+		 }
+		List<Map> list=	service.selectProductCart(c.getMemberKey());
+		mv.setViewName("Index");
+		return mv;
+	}
 	//장바구니 추가
 	@RequestMapping("/cart/cart.do")
 	public ModelAndView cart( Cart c,ProductAll p,Member member,ModelAndView mv
@@ -109,6 +138,7 @@ public class CartController {
 	public String cartToIndex() {
 		return "index";
 	}
+
 	//상품 수량 업데이트
 	@RequestMapping("/cart/addToAmount")
 	public String addToAmount(int productNo, int amount,int memberKey) {

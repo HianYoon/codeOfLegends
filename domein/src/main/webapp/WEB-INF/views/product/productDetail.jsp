@@ -129,10 +129,10 @@
         </div>
          </c:forEach>
         <div id="reviews">
-            <form action="" method="POST"  enctype="multipart/form-data" >
+            <form action="${path}/product/reviews" method="POST"  enctype="multipart/form-data" >
                 <div class="review-container" style="display:none">
                          <!-- //점 이미지 -->
-                    <div class="top-comment"><span><input type="text" id="userNickName" name="userNickName" value="${member.nickname}"/>닉네임</span>
+                    <div class="top-comment"><span><input type="text" id="userNickName" name="userNickName" value="${member.nickname}"/></span>
 	                    <span class="hamburger" style="padding: 15px;">
 	                    	<div id="Declaration" href="${path}/resources/images/profile/12.jpg">♡
 	                    	</div>											
@@ -141,15 +141,16 @@
 	                    	</div>
 	                    </span>
 	                    <input type="hidden" name="writerKey" value="${member.memberKey }"/>
-	                    <input type="hidden" name="reviewStatus" value="${ARTICLE_NO }"/>
-	                    <input type="hidden" name="articleStatus" value="${articlestatus.article_status_no }"/>
+	                    <input type="hidden" name="refReview" value="1"/>
+	                    <input type="hidden" name="refArtecle" value="${p.ARTICLE_NO }"/>
+	                    <input type="hidden" name="reviewStatusNo" value="0"/>
 	                    
                     </div>
-                    <textarea name="" id="reviewComment" cols="30" rows="10" placeholder="문의사항을 남겨보세요!"></textarea>
+                    <textarea name="reviewContent" id="reviewComment" cols="30" rows="10" placeholder="문의사항을 남겨보세요!"><c:if test="${empty member.memberKey }">로그인이 필요합니다.!</c:if></textarea>
                     <div class="comment-group">
                         <div >
                             <span><img src="" alt="" class="comment-img"></span>
-                            <span><input type="file" name="reviewFile" id="reFile"/></span>
+                            <span><input type="file" name="rOriginalFileName" id="reFile"/></span>
                         </div>
                         <div>
                            <button type="submit" id="PcommentGo" class="btn btn-primary">등록</button>
