@@ -36,4 +36,10 @@ public class BoardServiceImpl implements BoardService{
 		// TODO Auto-generated method stub
 		return 0;
 	}
+
+	@Override
+	public BoardKnowBattle selectBoardOne(int boardNo) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

@@ -7,6 +7,8 @@ import org.apache.ibatis.session.RowBounds;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
+import com.col.domein.board.model.vo.BoardKnowBattle;
+
 
 @Repository
 public class BoardDaoImpl implements BoardDao{
@@ -22,6 +24,12 @@ public class BoardDaoImpl implements BoardDao{
 	public int selectCount(SqlSession session) {
 		// TODO Auto-generated method stub
 		return session.selectOne("board.selectCount");
+	}
+
+	@Override
+	public BoardKnowBattle selectBoardOne(SqlSession session, int boardNo) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 	
 	/*

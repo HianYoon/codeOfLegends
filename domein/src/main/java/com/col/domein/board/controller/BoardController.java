@@ -1,19 +1,25 @@
 package com.col.domein.board.controller;
 
+import java.io.BufferedInputStream;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.OutputStream;
 import java.io.PrintWriter;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
@@ -34,51 +40,58 @@ public class BoardController {
 			@RequestParam(value="numPerpage", defaultValue="10") int numPerpage) {
 			
 		mv.addObject("list",service.selectBoardList(cPage,numPerpage));
-		int totalData=service.selectCount();
-			
 		
+		int totalData=service.selectCount();
 		mv.addObject("pageBar",PageBarFactory.getPageBar(totalData, cPage, numPerpage, "communityList.do"));
 		mv.addObject("totalData",totalData);
 		mv.setViewName("community/communityList");
 		
 		return mv;
 	}
-	  
-	/*
-	 * @RequestMapping("/community/list.do") public ModelAndView list(Map<String,
-	 * Object> commandMap) throws Exception{ ModelAndView mv = new
-	 * ModelAndView("community/community");
-	 * 
-	 * 
-	 * List<Map<String,Object>> list = BoardService.selectBoardList(commandMap);
-	 * mv.addAllObjects("list", list);
-	 * 
-	 * 
-	 * return mv; }
-	 */
-	/*
-	 * @Autowired private BoardService boardService;
-	 * 
-	 * @RequestMapping("/community/community.do") public ModelAndView
-	 * BoardList(Map<String, Object> commandMap) {
-	 * 
-	 * ModelAndView mv = new ModelAndView("/community/list"); List<Map<String,
-	 * Object>> list = boardService.selectBoardList(commandMap);
-	 * mv.addObject("list", list); return mv; }
-	 */
-	/*
-	 * @RequestMapping("community/community.do") public ModelAndView community() {
-	 * List result = boardService.getBoardList(); ModelAndView mv = new
-	 * ModelAndView();
-	 * 
-	 * mv.addObject("result", result);
-	 * 
-	 * return mv; }
-	 */
-	/*
-	 * @RequestMapping("/community/list.do.") public String list(Model model, int
-	 * no) { model.addAttribute("list",boardService.service()); return "list"; }
-	 */
+	
+	@RequestMapping("/community/write.do")
+	public void fileDownload(String oriname, String rename,
+			@RequestHeader(value="user-agent") String header,
+			HttpServletRequest request,HttpServletResponse response) {
+		
+		//파일 디렉토리 가져오기
+		String path=request.getServletContext().getRealPath("/resources/upload/community");
+		File saveFile=new File(path+"/"+rename);
+		
+		//입출력스트림
+		BufferedInputStream bis=null;
+		ServletOutputStream sos=null;
+		
+		try {
+			bis=new BufferedInputStream(new FileInputStream(saveFile));
+			sos=response.getOutputStream();
+			boolean isMS=header.indexOf("Trident")!=-1||header.indexOf("MSIE")!=-1;
+			String encodeStr="";
+			if(isMS) {
+				encodeStr=URLEncoder.encode(oriname,"UTF-8");
+				encodeStr=encodeStr.replaceAll("\\+","%20");
+			}else {
+				encodeStr=new String(oriname.getBytes("UTF-8"),"ISO-8859-1");
+			}
+			response.setContentType("application/octet-stream;charset=utf-8");
+			response.setHeader("Content-Disposition","attachment;filename=\""+encodeStr+"\"");
+			
+			int read=-1;
+			while((read=bis.read())!=-1) {
+				sos.write(read);
+			}
+			
+		}catch(IOException e) {
+			e.printStackTrace();
+		}finally {
+			try {
+				sos.close();
+				bis.close();
+			}catch(IOException e) {
+				e.printStackTrace();
+			}
+		}
+	}
 	@RequestMapping("/imageUpload.do")
 	public void imageUpload(HttpServletRequest request, HttpServletResponse response,
 			@RequestParam MultipartFile upload) throws Exception {
@@ -113,10 +126,10 @@ public class BoardController {
 		return "community/community";
 	}
 	
-	@RequestMapping("/community/write.do")
-	public String write() {
-		return "community/write";
-	}
+	/*
+	 * @RequestMapping("/community/write.do") public String write() { return
+	 * "community/write"; }
+	 */
 	/*
 	 * @RequestMapping("/board/write.do") public ModelAndView insertBoard(Board
 	 * board, ModelAndView mv,

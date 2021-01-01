@@ -36,13 +36,13 @@
 		                        </tr>
 		                    </thead>
 	 	                    <c:forEach items="${list }" var="b">
-<%-- 		                    	<tr>
+		                    	<tr>
 		                    		<td class="tit">
 		                    			<a href="#">
 		                    				<c:out value="${b.THREAD_KEY}"/>
 		                    			</a>
 		                    		</td>
-		                    	</tr> --%>
+		                    	</tr>
 		                    	<tr>
 		                    		<td class="tit">
 		                    			<a href="${path }/community/forum.do">
@@ -58,7 +58,7 @@
 		                    				<c:out value="${b.READ_COUNT}"/>
 		                    		</td>
 		                    		<td class="tit">
-		                    				<c:out value="${b.threadStatusNo}"/>
+		                    				<c:out value="${b.READ_COUNT}"/>
 		                    		</td>
 		                    		<td class="tit">
 		                    				<c:out value="${b.writtenDate}"/>

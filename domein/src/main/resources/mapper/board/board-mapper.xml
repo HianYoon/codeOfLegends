@@ -23,47 +23,11 @@
 		)
 	</insert>
 	<select id="selectBoardList" resultType="map">
-
+<!-- 		select b.*, (select count(*) from ATTACHMENT WHERE B.ARTICLENO=ARTICLENO) AS ATTCOUNT
+		from BOARD_KNOW_BATTLE B order by writtenDate desc -->
 	</select>
 	<select id="selectCount" resultType="_int">
-		
+		select count(*) from BOARD_KNOW_BATTLE	
 	</select>
-<!-- 	<resultMap type="map" id="maplist">
-		<result column="thread_key" property="threadKey"/>
-		<result column="thread_title" property="threadTitle"/>
-		<result column="writer_key" property="writerKey"/>
-		<result column="written_date" property="writtenDate"/>
-		<result column="modified_date" property="modifiedDate"/>
-		<result column="read_count" property="readCount"/>
-		<result column="thread_status_no" property="threadStatusNo"/>
-	</resultMap>
 
-	<select id="list" parameterType="map" resultMap="maplist">
-		select
-			thread_key
-			,thread_title
-			,writer_key
-			,written_date
-			,modified_date
-			,read_count
-			,thread_status_no
-		from board_know_battle
-	</select> -->
-<!-- 	<insert parameterType="insertboard" id="board">
-		insert into BOARD_KNOW_BATTLE values(SEQ_THREAD_KEY.nextval,
-		#{threadTitle},
-		#{writerKey},
-		#{readCount},
-		SYSDATE)
-	</insert> -->
-<!-- 	<select id="list" resultType="map">
-	
-	</select>
-	<select id= "listAll" resultType="">
-		
-	</select>
-	
-	<insert id="insert">
-		
-	</insert> -->
 </mapper>

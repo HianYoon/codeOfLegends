@@ -14,7 +14,7 @@ public interface BoardService {
 	List<Map> selectBoardList(int cPage, int numPerpage);
 	
 	int selectCount();
-	
+	BoardKnowBattle selectBoardOne(int boardNo);
 	int insertBoard(BoardKnowBattle board,List<Attachment> files);
 
 }
