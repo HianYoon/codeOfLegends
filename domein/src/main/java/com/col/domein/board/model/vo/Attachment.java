@@ -1,7 +1,5 @@
 package com.col.domein.board.model.vo;
 
-import java.sql.Date;
-
 import org.springframework.stereotype.Component;
 
 
