@@ -42,6 +42,12 @@ public class AdsDaoImpl implements AdsDao {
 	public int directRejectCount(SqlSession session,int applicantKey) {	
 		return session.selectOne("directAds.selectDirectRejectCount",applicantKey);
 	}
+
+	@Override
+	public int showMeRate(SqlSession session) {
+		return session.selectOne("bannerAds.selectAdsRate");
+	}
+	
 	
 	
 	

@@ -14,7 +14,7 @@
 		<result column="ADS_MEMO" property="adsMemo"/>
 		<result column="ADS_STATUS_NO" property="adsStatusNo"/>
 		<result column="ADS_TITLE" property="adsTitle"/>
-		<result column="ADS_PRICE" property="adsPrice"/>		
+		<result column="ADS_PRICE" property="adsPrice"/>				
 	</resultMap>
 
 	<insert id="insertBannerAds" parameterType="bannerAds">
@@ -36,6 +36,10 @@
 	<select id="selectBannerRejectCount" parameterType="int" resultType="int">
 		SELECT COUNT(ADS_KEY) FROM BANNER_ADS_APPLICATION WHERE 
 		APPLICANT_KEY=#{applicantKey} AND ADS_STATUS_NO=6
+	</select>
+	
+	<select id="selectAdsRate" resultType="int">
+		SELECT ADS_RATE FROM (SELECT * FROM ADS_RATING ORDER BY SET_DATE DESC) WHERE ROWNUM=1
 	</select>
 	
 </mapper>

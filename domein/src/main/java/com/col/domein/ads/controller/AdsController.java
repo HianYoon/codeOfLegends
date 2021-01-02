@@ -5,10 +5,12 @@ import java.io.IOException;
 import java.sql.Date;
 import java.text.SimpleDateFormat;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
@@ -16,6 +18,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.col.domein.ads.model.service.AdsService;
 import com.col.domein.ads.model.vo.BannerAds;
+import com.col.domein.member.model.vo.Member;
 
 @Controller
 public class AdsController {
@@ -26,28 +29,39 @@ public class AdsController {
 	
 	//회원 광고 신청 메인페이지 화면 전환(광고현황 가져오기)
 	@RequestMapping("/ads/adsMainApply.do")
-	public ModelAndView viewAdsMainApply(int applicantKey,ModelAndView mv) {				
-		mv.addObject("bannerHoldCount",service.bannerHoldCount(applicantKey));
-		mv.addObject("bannerAcceptCount",service.bannerAcceptCount(applicantKey));
-		mv.addObject("bannerRejectCount",service.bannerRejectCount(applicantKey));
-		mv.addObject("directHoldCount",service.directHoldCount(applicantKey));
-		mv.addObject("directAcceptCount",service.directAcceptCount(applicantKey));
-		mv.addObject("directRejectCount",service.directRejectCount(applicantKey));
-		
-		mv.setViewName("ads/adsMainApply");
-		return mv;
+	public ModelAndView viewAdsMainApply(HttpServletRequest request,ModelAndView mv) {	
+		HttpSession session=request.getSession(false);	
+		Member m=(Member) session.getAttribute("signedInMember");
+		if(m!=null) {
+			System.out.println("광고페이지 applicantKey: "+m.getMemberKey());
+			int applicantKey=m.getMemberKey();
+			mv.addObject("bannerHoldCount",service.bannerHoldCount(applicantKey));
+			mv.addObject("bannerAcceptCount",service.bannerAcceptCount(applicantKey));
+			mv.addObject("bannerRejectCount",service.bannerRejectCount(applicantKey));
+			mv.addObject("directHoldCount",service.directHoldCount(applicantKey));
+			mv.addObject("directAcceptCount",service.directAcceptCount(applicantKey));
+			mv.addObject("directRejectCount",service.directRejectCount(applicantKey));
+			mv.setViewName("ads/adsMainApply");
+			return mv;		
+		}else {			
+			mv.setViewName("redirect:/");
+			return mv;
+		}
 	}
 	
 	
-	@RequestMapping("ads/slideBannerApplication.do")
-	public String viewBannerApply() {
-		return "ads/slideBannerApplication";
+	//slideBanner로 화면전환(adsRate 또한 배달)
+	@RequestMapping("/ads/slideBannerApplication.do")
+	public ModelAndView viewBannerApply(ModelAndView mv) {
+		mv.addObject("adsRate",service.showMeRate());
+		mv.setViewName("ads/slideBannerApplication");
+		return mv;
 	}
 	
 	
 	//slideBanner광고 신청 Form 작성(파일업로드 포함)
 	@RequestMapping("/ads/slideBannerApplicationEnd.do")
-	public ModelAndView bannerApply(BannerAds bannerAds, Date startDate, Date endDate, ModelAndView mv, 
+	public ModelAndView bannerApplyEnd(BannerAds bannerAds, Date startDate, Date endDate, ModelAndView mv, 
 			@RequestParam(value="upFile")MultipartFile upFile, HttpSession session) {
 		
 		String path=session.getServletContext().getRealPath("/resources/upload/bannerAds");
@@ -80,13 +94,15 @@ public class AdsController {
 		bannerAds.setEndDate(endDate);
 		
 		int result=service.bannerApply(bannerAds);
+		System.out.println("이게 1이되야하는데: "+result);
 		mv.addObject("msg",result>0?"입력성공":"입력실패");
-		mv.addObject("loc","/board/board.do");
+		mv.addObject("loc","/ads/adsMainApply.do");
 		mv.setViewName("/common/msg");
 		return mv;
 	}
 	
 	
+	//directAdsApplication으로 화면 전환
 	@RequestMapping("/ads/directAdsApplication.do")
 	public String viewDirectAdsApply() {
 		return "ads/directAdsApplication";

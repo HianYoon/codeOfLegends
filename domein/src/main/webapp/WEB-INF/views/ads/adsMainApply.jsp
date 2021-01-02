@@ -24,16 +24,17 @@
 <section id="content">
 	<div id="wholeback">
 	    <div class="tab_menu">
-	        <ul><h2>광고신청 페이지</h2>
+	        <ul><h2><a href="${path }/ads/adsMainApply.do">광고신청</a></h2>
 	            <li><a href="${path }/ads/slideBannerApplication.do"><h5>슬라이드 배너 신청</h5></a></li>
 	            <li><a href="${path }/ads/directAdsApplication.do"><h5>추천 판매게시글 신청</h5></a></li>	            
 	        </ul>
 	    </div>
 	    <div id="container">
-	        <h2>광고신청</h2>
+	        <h2>광고신청 페이지</h2>
 	        <hr>
 	        <div class="div_info">
 	            <h3><u>알림메시지</u></h3>
+	            <br>
 	            <p>
 	                <c:out value="<b>${signedInMember.nickname}</b>" escapeXml="false"/> 님, 안녕하세요!<br>
 	                현재 검토 대기중인 광고 요청이 총 <c:out value="${bannerHoldCount }"/> 건 있습니다.
