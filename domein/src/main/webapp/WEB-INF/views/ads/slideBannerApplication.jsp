@@ -18,6 +18,13 @@
 	%>
 </script>
 
+<!-- jQuery UI CSS파일  -->
+<link rel="stylesheet" href="http://code.jquery.com/ui/1.8.18/themes/base/jquery-ui.css" type="text/css" />  
+<!-- jQuery 기본 js파일 -->
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>  
+<!-- jQuery UI 라이브러리 js파일 -->
+<script src="http://code.jquery.com/ui/1.8.18/jquery-ui.min.js"></script> 
+
 <link rel="stylesheet" href="${path }/resources/css/ads/bannerApplication.css" />
 
 <section id="content">
@@ -72,8 +79,8 @@
                 <br>
                 <div class="div_period">
                     <p><u>기간 및 가격</u></p>
-                    개시일&nbsp;&nbsp;<input type="date" name="startDate" min="" required>&nbsp;&nbsp;                        
-                    종료일&nbsp;&nbsp;<input type="date" name="endDate" min="" required><br>
+                    개시일&nbsp;&nbsp;<input type="text" id="startDate" name="startDate" placeholder="개시일 선택" onchange="fn_triggerEnd(event)" required>&nbsp;&nbsp;                        
+                    종료일&nbsp;&nbsp;<input type="text" id="endDate" name="endDate" placeholder="종료일 선택" disabled required><br>
                     <!-- 기타 선택 시, return false로 체크 -->
                     결제금액&nbsp;&nbsp;<input type="text" value="0" name="adsPrice" readonly>&nbsp;원
                 </div>
@@ -89,16 +96,53 @@
 </section>
 <script>
     $(function(){
+		/* url위 안내메시지 출력 */
         $("#urlLink").focus(e=>{
             $("#msg_url").html("[이미지 클릭 시, 이동할 주소를 입력해주세요. 요청주소가 없을 시, -입력]").css("color","green");
         });
         $("#urlLink").blur(e=>{
             $("#msg_url").html("");
         });
+        /* datepicker 개시일에 생성 */
+        $("#startDate").datepicker({
+            dateFormat: 'yy-mm-dd',
+            prevText:'이전 달',
+            nextText:'다음 달',
+            currentText:'오늘',
+            monthNames:['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'],
+            monthNamesShort:['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'],
+            dayNames:['일','월','화','수','목','금','토'],
+            dayNamesShort:['일','월','화','수','목','금','토'],
+            showMonthAfteryear:true,
+            yearSuffix:'년',
+            defaultDate: new Date(),
+            minDate:0                
+        });              
     })
+    /* 개시일 값이 onchange될 시, destroy 후 종료일 datepicker 생성 */
+    function fn_triggerEnd(e){
+	    $(e.target).next().attr('disabled',false);
+	    $(e.target).next().datepicker("destroy");
+	    $(e.target).next().datepicker({
+	        dateFormat: 'yy-mm-dd',
+	        prevText:'이전 달',
+	        nextText:'다음 달',
+	        currentText:'오늘',
+	        monthNames:['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'],
+	        monthNamesShort:['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'],
+	        dayNames:['일','월','화','수','목','금','토'],
+	        dayNamesShort:['일','월','화','수','목','금','토'],
+	        showMonthAfteryear:true,
+	        yearSuffix:'년',
+	        // defaultDate: new Date($("#startDate").val()),
+	        minDate: new Date($("#startDate").val())
+	    });
+	}
+    /* div눌러도 file Upload 실행 */
     function fn_activateUpload(e){
     	$(e.target).next().click();
     }
+    /* image 확장자로만 업로드 파일 제한 */
     function fn_readImage(e){
         var reader=new FileReader();                
         let extensionName=e.target.value.substring(e.target.value.lastIndexOf('.')+1,e.target.value.length);
@@ -123,6 +167,7 @@
         }
         reader.readAsDataURL(e.target.files[0]);
     }
+    /* 삭제 버튼 클릭시, 업로드된 파일 및 이미지 삭제 */
     function fn_deleteFile(){            
         $("#div_preImage").empty();
         let p=document.createElement("p");            
