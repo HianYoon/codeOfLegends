@@ -23,7 +23,7 @@
 <section id="content">
     <div id="wholeback">
         <div class="tab_menu">
-            <ul><h2>광고신청 페이지</h2>
+            <ul><h2><a href="${path }/ads/adsMainApply.do">광고신청</a></h2>
                 <li><a href="${path }/ads/slideBannerApplication.do"><h5>슬라이드 배너 신청</h5></a></li>
                 <li><a href="${path }/ads/directAdsApplication.do"><h5>(판매)추천 게시글 신청</h5></a></li>
             </ul>

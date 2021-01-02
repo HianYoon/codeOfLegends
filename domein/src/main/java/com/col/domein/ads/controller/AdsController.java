@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.sql.Date;
 import java.text.SimpleDateFormat;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +17,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.col.domein.ads.model.service.AdsService;
 import com.col.domein.ads.model.vo.BannerAds;
+import com.col.domein.member.model.vo.Member;
 
 @Controller
 public class AdsController {
@@ -26,7 +28,11 @@ public class AdsController {
 	
 	//회원 광고 신청 메인페이지 화면 전환(광고현황 가져오기)
 	@RequestMapping("/ads/adsMainApply.do")
-	public ModelAndView viewAdsMainApply(int applicantKey,ModelAndView mv) {				
+	public ModelAndView viewAdsMainApply(HttpServletRequest request,ModelAndView mv) {	
+		HttpSession session=request.getSession(false);	
+		Member m=(Member) session.getAttribute("signedInMember");
+		System.out.println("광고페이지 applicantKey: "+m.getMemberKey());
+		int applicantKey=m.getMemberKey();
 		mv.addObject("bannerHoldCount",service.bannerHoldCount(applicantKey));
 		mv.addObject("bannerAcceptCount",service.bannerAcceptCount(applicantKey));
 		mv.addObject("bannerRejectCount",service.bannerRejectCount(applicantKey));
