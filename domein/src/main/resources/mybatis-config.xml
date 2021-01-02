@@ -20,5 +20,6 @@
 		<typeAlias type="com.col.domein.board.model.vo.BoardKnowBattle" alias="boardKnowBattle"/>
 		<typeAlias type="com.col.domein.board.model.vo.Attachment" alias="attachment"/>
 		<typeAlias type="com.col.domein.productcomment.model.vo.BDSreview" alias="bdsReview"/>
+		<typeAlias type="com.col.domein.productcomment.model.vo.BDSreviewLike" alias="reviewLike"/>
 	</typeAliases>
 </configuration>

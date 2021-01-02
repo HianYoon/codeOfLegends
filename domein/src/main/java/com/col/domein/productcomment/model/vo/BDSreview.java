@@ -6,6 +6,7 @@ import org.springframework.stereotype.Component;
 
 import lombok.Builder;
 
+
 @Builder
 @Component
 public class BDSreview {
@@ -16,16 +17,18 @@ public class BDSreview {
 	private Date writerDate;
 	private Date modifiedDate;
 	private int reviewStatusNo;//상태 번호
-	private int refArtecle;//상품번호
+	private int refArticle;//상품번호
 	private int refReview;//댓글 레벨 구분인자
-	private int rOriginalFileName;
-	private int rRenamedFileName;
+	private String rOriginalFileName;
+	private String rRenamedFileName;
+	private int BDSreviewLevel;//레벨 1은 부모 레벨 2는 자식 
 	public BDSreview() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 	public BDSreview(int reviewNo, String reviewContent, int writerKey, Date writerDate, Date modifiedDate,
-			int reviewStatusNo, int refArtecle, int refReview, int rOriginalFileName, int rRenamedFileName) {
+			int reviewStatusNo, int refArticle, int refReview, String rOriginalFileName, String rRenamedFileName,
+			int bDSreviewLevel) {
 		super();
 		this.reviewNo = reviewNo;
 		this.reviewContent = reviewContent;
@@ -33,10 +36,11 @@ public class BDSreview {
 		this.writerDate = writerDate;
 		this.modifiedDate = modifiedDate;
 		this.reviewStatusNo = reviewStatusNo;
-		this.refArtecle = refArtecle;
+		this.refArticle = refArticle;
 		this.refReview = refReview;
 		this.rOriginalFileName = rOriginalFileName;
 		this.rRenamedFileName = rRenamedFileName;
+		BDSreviewLevel = bDSreviewLevel;
 	}
 	public int getReviewNo() {
 		return reviewNo;
@@ -74,11 +78,11 @@ public class BDSreview {
 	public void setReviewStatusNo(int reviewStatusNo) {
 		this.reviewStatusNo = reviewStatusNo;
 	}
-	public int getRefArtecle() {
-		return refArtecle;
+	public int getRefArticle() {
+		return refArticle;
 	}
-	public void setRefArtecle(int refArtecle) {
-		this.refArtecle = refArtecle;
+	public void setRefArticle(int refArticle) {
+		this.refArticle = refArticle;
 	}
 	public int getRefReview() {
 		return refReview;
@@ -86,33 +90,33 @@ public class BDSreview {
 	public void setRefReview(int refReview) {
 		this.refReview = refReview;
 	}
-	public int getrOriginalFileName() {
+	public String getrOriginalFileName() {
 		return rOriginalFileName;
 	}
-	public void setrOriginalFileName(int rOriginalFileName) {
+	public void setrOriginalFileName(String rOriginalFileName) {
 		this.rOriginalFileName = rOriginalFileName;
 	}
-	public int getrRenamedFileName() {
+	public String getrRenamedFileName() {
 		return rRenamedFileName;
 	}
-	public void setrRenamedFileName(int rRenamedFileName) {
+	public void setrRenamedFileName(String rRenamedFileName) {
 		this.rRenamedFileName = rRenamedFileName;
 	}
-	@Override
-	public String toString() {
-		return "BDSreview [reviewNo=" + reviewNo + ", reviewContent=" + reviewContent + ", writerKey=" + writerKey
-				+ ", writerDate=" + writerDate + ", modifiedDate=" + modifiedDate + ", reviewStatusNo=" + reviewStatusNo
-				+ ", refArtecle=" + refArtecle + ", refReview=" + refReview + ", rOriginalFileName=" + rOriginalFileName
-				+ ", rRenamedFileName=" + rRenamedFileName + "]";
+	public int getBDSreviewLevel() {
+		return BDSreviewLevel;
+	}
+	public void setBDSreviewLevel(int bDSreviewLevel) {
+		BDSreviewLevel = bDSreviewLevel;
 	}
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
+		result = prime * result + BDSreviewLevel;
 		result = prime * result + ((modifiedDate == null) ? 0 : modifiedDate.hashCode());
-		result = prime * result + rOriginalFileName;
-		result = prime * result + rRenamedFileName;
-		result = prime * result + refArtecle;
+		result = prime * result + ((rOriginalFileName == null) ? 0 : rOriginalFileName.hashCode());
+		result = prime * result + ((rRenamedFileName == null) ? 0 : rRenamedFileName.hashCode());
+		result = prime * result + refArticle;
 		result = prime * result + refReview;
 		result = prime * result + ((reviewContent == null) ? 0 : reviewContent.hashCode());
 		result = prime * result + reviewNo;
@@ -130,16 +134,24 @@ public class BDSreview {
 		if (getClass() != obj.getClass())
 			return false;
 		BDSreview other = (BDSreview) obj;
+		if (BDSreviewLevel != other.BDSreviewLevel)
+			return false;
 		if (modifiedDate == null) {
 			if (other.modifiedDate != null)
 				return false;
 		} else if (!modifiedDate.equals(other.modifiedDate))
 			return false;
-		if (rOriginalFileName != other.rOriginalFileName)
+		if (rOriginalFileName == null) {
+			if (other.rOriginalFileName != null)
+				return false;
+		} else if (!rOriginalFileName.equals(other.rOriginalFileName))
 			return false;
-		if (rRenamedFileName != other.rRenamedFileName)
+		if (rRenamedFileName == null) {
+			if (other.rRenamedFileName != null)
+				return false;
+		} else if (!rRenamedFileName.equals(other.rRenamedFileName))
 			return false;
-		if (refArtecle != other.refArtecle)
+		if (refArticle != other.refArticle)
 			return false;
 		if (refReview != other.refReview)
 			return false;
@@ -161,5 +173,12 @@ public class BDSreview {
 			return false;
 		return true;
 	}
-	
+	@Override
+	public String toString() {
+		return "BDSreview [reviewNo=" + reviewNo + ", reviewContent=" + reviewContent + ", writerKey=" + writerKey
+				+ ", writerDate=" + writerDate + ", modifiedDate=" + modifiedDate + ", reviewStatusNo=" + reviewStatusNo
+				+ ", refArticle=" + refArticle + ", refReview=" + refReview + ", rOriginalFileName=" + rOriginalFileName
+				+ ", rRenamedFileName=" + rRenamedFileName + ", BDSreviewLevel=" + BDSreviewLevel + "]";
+	}
+
 }

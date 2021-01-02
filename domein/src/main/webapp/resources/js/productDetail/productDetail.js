@@ -53,14 +53,18 @@
 								};
                                 })
                                 //coment 댓글 토글 보여주기 /감추기
-                                	var ProductComment=document.querySelector(".ProductComment");
-									var reviewContainer=document.querySelector(".review-container");
+                                	const ProductComment=document.querySelector(".ProductComment");
+									const reviewContainer=document.querySelector(".review-container");
 									
 									
 									ProductComment.onclick=function(){
 										if(reviewContainer.style.display=='none'){
 											
 											reviewContainer.style.display="block";
+											const comment1=document.querySelector("#refArticle");
+											let comment=comment1.value;
+											console.log("암것도 없니?"+comment1);
+											console.log(""+comment);
 										}else{
 											reviewContainer.style.display='none';
 										}

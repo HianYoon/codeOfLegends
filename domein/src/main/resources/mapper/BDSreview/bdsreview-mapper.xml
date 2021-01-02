@@ -4,41 +4,29 @@
 
 
 	<insert id="insertComment" parameterType="bdsReview">
-	<choose>
-		<when test="#{rOriginalFileName} == null">
-			insert into BDS_REVIEW set(REVIEW_NO,REVIEW_CONTENT,WRITER_KEY,
-			WRITTEN_DATE,MODIFIED_DATE,REVIEW_STATUS_NO,REF_ARTICLE,REF_REVIEW) 
+	
+			insert into BDS_REVIEW (REVIEW_NO,REVIEW_CONTENT,WRITER_KEY,
+			WRITTEN_DATE,MODIFIED_DATE,REVIEW_STATUS_NO,REF_ARTICLE,
+			R_ORIGINAL_FILE_NAME,R_RENAMED_FILE_NAME,REVIEW_LEVEL) 
 			values(SEQ_REVIEW_NO.NEXTVAL,
 			#{reviewContent},
 			#{writerKey},
 			SYSDATE,
 			SYSDATE,
-			'0',
-			#{refArtecle},
-			#{refReview}
-			)
-		</when>
-		<otherwise>
-			insert into BDS_REVIEW values(SEQ_REVIEW_NO.NEXTVAL,
-			#{reviewContent},
-			#{writerKey},
-			SYSDATE,
-			SYSDATE,
-			'0',
-			#{refArtecle},
-			#{refReview},
+			#{reviewStatusNo},
+			#{refArticle},
 			#{rOriginalFileName},
-			#{rRenamedFileName}
+			#{rRenamedFileName},
+			#{BDSreviewLevel}
 			)
-		</otherwise>
-	</choose>
 	</insert>
 	
 	<select id="selectBDScomment" resultType="map">
-		SELECT * FROM BDS_REVIEW WHERE REF_ARTICLE=#{refArtecle} 
-		START WITH REF_REVIEW=1 
-		CONNECT BY PRIOR REVIEW_NO=#{reviewStatusNo}
+		SELECT * FROM BDS_REVIEW 
 	</select>
-
-		
+	
+	<insert id="insertLike" parameterType="reviewLike">
+		insert into BDS_REVIEW_LIKE values(#{reviewNo},#{actorKey},SYSDATE)
+	</insert>
+	
 </mapper>

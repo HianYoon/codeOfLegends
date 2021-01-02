@@ -128,6 +128,7 @@
             <p><c:out value="${p.SALE_CONTENT }"/></p>
         </div>
          </c:forEach>
+         
         <div id="reviews">
             <form action="${path}/product/reviews" method="POST"  enctype="multipart/form-data" >
                 <div class="review-container" style="display:none">
@@ -141,16 +142,18 @@
 	                    	</div>
 	                    </span>
 	                    <input type="hidden" name="writerKey" value="${member.memberKey }"/>
-	                    <input type="hidden" name="refReview" value="1"/>
-	                    <input type="hidden" name="refArtecle" value="${p.ARTICLE_NO }"/>
-	                    <input type="hidden" name="reviewStatusNo" value="0"/>
+	                    <input type="hidden" name="reviewStatusNo" value="1"/>
+	                    <c:forEach items="${product }" var="productARTICLENO">
+	                  	 <input type="hidden" name="refArticle" id="refArticle" value="${productARTICLENO.ARTICLE_NO}"/>
+	                    </c:forEach>
+	                    <input type="hidden" name="BDSreviewLevel" value="1"/>
 	                    
                     </div>
-                    <textarea name="reviewContent" id="reviewComment" cols="30" rows="10" placeholder="문의사항을 남겨보세요!"><c:if test="${empty member.memberKey }">로그인이 필요합니다.!</c:if></textarea>
+                    <textarea name="reviewContent" id="reviewComment" cols="30" rows="10" placeholder="댓글을 남겨보세요!"><c:if test="${empty member.memberKey }">로그인이 필요합니다.!</c:if></textarea>
                     <div class="comment-group">
                         <div >
-                            <span><img src="" alt="" class="comment-img"></span>
-                            <span><input type="file" name="rOriginalFileName" id="reFile"/></span>
+                            <span id="like">like</span>
+                            <span><input type="file" name="file" id="reFile" required/></span>
                         </div>
                         <div>
                            <button type="submit" id="PcommentGo" class="btn btn-primary">등록</button>
@@ -160,12 +163,57 @@
 
              </form>
         </div>
+        	 <c:forEach items="${comment }" var="comment">
+        		<c:set var="writer" value="${signedInMember}"/> 
+        	 	<c:if test="${comment.REVIEW_LEVEL == 1 }">
+        	 	<div class="re-comment">
+        	 		<ul id="product-re-comment-box">
+        	 			<li>
+        	 			<input type="hidden" id="reviewNo" value="${comment.REVIEW_NO}"/>
+        	 			<input type="hidden" id="actorKey" name="actorKey" value="${writer.memberKey}"/>
+        	 			
+        	 		
+        	 				<span class="membernick"><c:out value="${writer.nickname}"/></span>
+        	 			<c:if test="${comment.WRITER_KEY == writer.memberKey} ">
+        	 				<span><fmt:formatDate value="${comment.WRITTEN_DATE }" pattern="yyyy.MM.dd HH:mm:ss"/></span>
+        	 				<span class="re-comment-span-update">수정</span><span class="re-comment-span-delete">삭제</span>
+        	 			</c:if>
+        	 			</li>
+        	 			<li><c:out value="${comment.REVIEW_CONTENT }"/></li>
+        	 			<li><span><img id="product-re-comment" src="${path }/resources//upload/product/comment/${comment.R_RENAMED_FILE_NAME}"/></span><span id="pro-comment-like">like</span><span><button type="button" id="product-recomment-btn">답글쓰기</button></span>  </li>
+        	 		</ul>
+        	 	</div>
+         
+        	</c:if>
+        	<c:if test="${comment.REVIEW_LEVEL == 2 }">
+        			 	<div class="re-comment">
+        	 		<ul id="product-re-comment-box">
+        	 			<li>
+        	 			<input type="hidden" id="reviewNo" value="${comment.REVIEW_NO}"/>
+        	 			<input type="hidden" id="actorKey" name="actorKey" value="${writer.memberKey}"/>
+        	 				<span><c:out value="${writer.nickname}"/><input type="hidden" id="actorKey" name="actorKey" value="${writer.memberKey}"></span>
+        	 			<c:if test="${comment.WRITER_KEY == member.memberKey} ">
+        	 			<span class="re-comment-span-update">수정</span><span class="re-comment-span-delete">삭제</span><span><fmt:formatDate value="${comment.WRITTEN_DATE }" pattern="yyyy.MM.dd HH:mm:ss"/></span>
+        	 			</c:if>
+        	 			
+        	 			</li>
+        	 			<li><c:out value="${comment.REVIEW_CONTENT }"/></li>
+        	 			<li><span id="pro-comment-like">like</span></span><span><img id="product-re-comment" src="${path }/resources//upload/product/comment/${comment.R_RENAMED_FILE_NAME}"/></span><span id="pro-comment-like">like</span>
+        	 			<span><button type="button" id="product-recomment-btn">답글쓰기</button></span> 
+        	 			</li>
+        	 		</ul>
+        	 	</div>
+         
+        	
+        	
+        	</c:if>
+        </c:forEach>
 	</div>
 								<div class="singoForm" style="display:none;">
 	                    			<form id="modal" action="${path }" method="post"  enctype="multipart/form-data">
 	                    			<div class="modal-title">
 	                    			
-	                    				<input type="hidden" name="writerKey" value="${member.memberKey }" readonly/>
+	                    				<input type="hidden"  name="writerKey" value="${member.memberKey }" readonly/>
 	                    				<input type="text" name="nickName" value="${member.nickname }" readonly/>
 	                    				<input type="text" name="reviewContent" value="${bds_review.REVIEW_CONTENT }" readonly/>
 	                    			</div>
@@ -239,12 +287,37 @@
 		 });
 
 	 });
-	 const likeNumber=0;
-	 const likeNo=0;
-	$(".productLike").click(function(){
-		likeNo= likeNumber+1;
-	 		console.log(likeNo);
-	})
+	//like 기능 클릭하면
+$(document.body).on("click","#pro-comment-like",function(){
+	
+	const review=$("#reviews");
+	const actorNum1=review.find("#actorKey");
+	const actorKey=actorNum1.val();
+	console.log("actorNum:"+actorKey);
+	 const reviewNum1=review.find("#reviewNo");
+	 const reviewNo=reviewNum1.val();
+	 console.log("reviewNum:"+reviewNo);
+				console.log("1증가");
+				$("#pro-comment-like").attr("background","red");
+				$.ajax({
+					url:"${path}/BDSreview/like.do",
+					type:"POST",
+					data:{
+						"reviewNo":reviewNo,
+						"actorKey":actorKey
+					},
+					dataType:"html",
+					success:function(data){
+					console.log("입력성공");
+					alert("좋아요!");
+					}
+				});
+});
+
+			
+	
+		
+		
 	
  </script>
  
