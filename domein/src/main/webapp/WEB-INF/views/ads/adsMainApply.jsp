@@ -34,6 +34,7 @@
 	        <hr>
 	        <div class="div_info">
 	            <h3><u>알림메시지</u></h3>
+	            <br>
 	            <p>
 	                <c:out value="<b>${signedInMember.nickname}</b>" escapeXml="false"/> 님, 안녕하세요!<br>
 	                현재 검토 대기중인 광고 요청이 총 <c:out value="${bannerHoldCount }"/> 건 있습니다.

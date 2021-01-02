@@ -57,11 +57,11 @@
                 <div class="div_attached">
                     <p><u>첨부파일 (메인배너에 삽입될 이미지를 580x190 사이즈로 업로드)</u></p>
                     <span><u>Preview(미리보기)</u></span>
-                    <div id="div_preImage">
+                    <div id="div_preImage" onclick="fn_activateUpload(event);">
                         <p>미리보기가 표시됩니다.</p>
                         <!-- <img src="C:\Users\Sungbin\Desktop\images\img_preview.png" alt="미리보기가 표시됩니다." id="preImage" width="100%" height="100%"><br> -->
                     </div>
-                    <input type="file" class=".btn.btn--primary" name="upload" accept="image/*" onchange="fn_readImage(event);" required>
+                    <input type="file" class=".btn.btn--primary" name="upFile" accept="image/*" onchange="fn_readImage(event);" required>
                     <input type="button" class=".btn.btn--primary2" name="deleteFile" value="삭제" onclick="fn_deleteFile();">                
                 </div>
                 <br>
@@ -96,12 +96,11 @@
             $("#msg_url").html("");
         });
     })
+    function fn_activateUpload(e){
+    	$(e.target).next().click();
+    }
     function fn_readImage(e){
-        var reader=new FileReader();
-        // if(!e.target.files[0].match("image.*")){
-        //     alert("이미지 파일만 업로드 가능합니다.");
-        //     return;
-        // }            
+        var reader=new FileReader();                
         let extensionName=e.target.value.substring(e.target.value.lastIndexOf('.')+1,e.target.value.length);
         console.log(extensionName);
         if(extensionName=='jpg'||extensionName=='jpeg'||extensionName=='png'||extensionName=='gif'){
