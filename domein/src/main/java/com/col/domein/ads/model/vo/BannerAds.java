@@ -19,7 +19,7 @@ public class BannerAds {
 	private String adsMemo;
 	private int adsStatusNo;
 	private String adsTitle;
-	private int adsPrice;
+	private int adsPrice;	
 	
 	
 	public BannerAds() {
@@ -187,9 +187,8 @@ public class BannerAds {
 	}
 
 
+
 	
-	
-	
-	
+		
 	
 }

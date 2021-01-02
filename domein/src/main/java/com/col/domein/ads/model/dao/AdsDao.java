@@ -20,4 +20,6 @@ public interface AdsDao {
 	
 	int directRejectCount(SqlSession session,int applicantKey);
 	
+	int showMeRate(SqlSession session);
+	
 }

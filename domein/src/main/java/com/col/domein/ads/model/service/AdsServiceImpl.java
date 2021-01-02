@@ -50,6 +50,12 @@ public class AdsServiceImpl implements AdsService {
 	public int directRejectCount(int applicantKey) {		
 		return dao.directRejectCount(session,applicantKey);
 	}
+
+	@Override
+	public int showMeRate() {		
+		return dao.showMeRate(session);
+	}
+	
 	
 	
 

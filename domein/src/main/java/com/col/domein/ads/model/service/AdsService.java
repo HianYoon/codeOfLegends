@@ -18,4 +18,6 @@ public interface AdsService {
 	
 	int directRejectCount(int applicantKey);
 	
+	int showMeRate();
+	
 }

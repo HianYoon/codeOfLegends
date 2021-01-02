@@ -80,7 +80,7 @@
                 <div class="div_period">
                     <p><u>기간 및 가격</u></p>
                     개시일&nbsp;&nbsp;<input type="text" id="startDate" name="startDate" placeholder="개시일 선택" onchange="fn_triggerEnd(event)" required>&nbsp;&nbsp;                        
-                    종료일&nbsp;&nbsp;<input type="text" id="endDate" name="endDate" placeholder="종료일 선택" disabled required><br>
+                    종료일&nbsp;&nbsp;<input type="text" id="endDate" name="endDate" placeholder="종료일 선택" onchange="fn_triggerPrice(event)" disabled required><br>
                     <!-- 기타 선택 시, return false로 체크 -->
                     결제금액&nbsp;&nbsp;<input type="text" value="0" name="adsPrice" readonly>&nbsp;원
                 </div>
@@ -119,6 +119,16 @@
             minDate:0                
         });              
     })
+    /* DB에서 adsRate를 가져와 날짜 선택 시 계산하여 측정 */
+    function fn_triggerPrice(e){    	
+	    let ratePerDay=<%=request.getAttribute("adsRate") %>;
+	    console.log(ratePerDay);
+	    /* 여기 수정해야함  - 날짜차이 일 수 계산 */
+	    let totalPrice=(new Date($("#endDate"))-new Date($("#startDate")))*ratePerDay;
+	    console.log(new Date($("#endDate"))-new Date($("#startDate")));
+	    console.log(totalPrice);
+	    $(e.target).next().val(totalPrice);        
+    }
     /* 개시일 값이 onchange될 시, destroy 후 종료일 datepicker 생성 */
     function fn_triggerEnd(e){
 	    $(e.target).next().attr('disabled',false);

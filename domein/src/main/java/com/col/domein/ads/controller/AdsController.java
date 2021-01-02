@@ -10,6 +10,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
@@ -49,10 +50,12 @@ public class AdsController {
 	}
 	
 	
-	//slideBanner로 화면전환
+	//slideBanner로 화면전환(adsRate 또한 배달)
 	@RequestMapping("/ads/slideBannerApplication.do")
-	public String viewBannerApply() {
-		return "ads/slideBannerApplication";
+	public ModelAndView viewBannerApply(ModelAndView mv) {
+		mv.addObject("adsRate",service.showMeRate());
+		mv.setViewName("ads/slideBannerApplication");
+		return mv;
 	}
 	
 	
