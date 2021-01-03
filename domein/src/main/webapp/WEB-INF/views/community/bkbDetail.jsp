@@ -13,11 +13,11 @@
 			<div class="wrap-inner">
 			<c:forEach items="${list }" var="l" varStatus="status">
 				<div class="article">
-					<div class="wrap-title">
-						<c:if test="${status.first }">
-							<h2 class="page-title"><c:out value="${l.THREAD_TITLE }"/></h2>
-						</c:if>
-					</div>
+					<c:if test="${status.first }">
+						<div class="wrap-title">
+								<h2 class="page-title"><c:out value="${l.THREAD_TITLE }"/></h2>
+						</div>
+					</c:if>
 					<div class="wrap-contents">
 						<div class="box-img">
 							<img src="./images/profile/profile.png" alt="">
@@ -26,7 +26,8 @@
 							<div class="box-text-top">
 								<div class="wrap-left">
 									<p class="nickname"><c:out value="${l.NICKNAME }"/></p>
-									<p class="date"><c:out value="${l.WRITTEN_DATE }"/></p>
+									<p class="date"><fmt:formatDate value="${l.WRITTEN_DATE }" pattern="yyyy년 MM월 DD일 HH시 mm분"/></p>
+									<p class="date" id="writtenDate" style="display:none"><fmt:formatDate value="${l.WRITTEN_DATE }" pattern="yyyy-MM-DD'T'HH:mm:ss"/></p>
 								</div>
 								<div class="box-button">
 									<button class="btn-type-1 edit">수정</button>
@@ -48,13 +49,16 @@
 							<c:if test="${status.first }">
 								<div class="box-text-bottom">
 									<dl class="info-article">
-										<div><dt>등록일</dt><dd>19일 전</dd></div>
-										<div><dt>마지막 댓글</dt><dd>오늘</dd></div>
-										<div><dt>댓글</dt><dd>4</dd></div>
+										<div><dt>등록일</dt><dd id="writeDateBefore"></dd></div>
+										<div><dt>마지막 댓글</dt><dd id="lastestWriteDate">오늘</dd></div>
+										<div><dt>댓글</dt><dd><c:out value="${list.size()-1 }"/></dd></div>
 										<div><dt>조회수</dt><dd>19</dd></div>
 										<div><dt>좋아요</dt><dd>6</dd></div>
 									</dl>				
 								</div>
+							</c:if>
+							<c:if test="${status.last }">
+								<p class="date" id="lastestWrittenDate" style="display:none"><fmt:formatDate value="${l.WRITTEN_DATE }" pattern="yyyy-MM-DD'T'HH:mm:ss"/></p>
 							</c:if>
 						</div>
 					</div>
@@ -94,4 +98,38 @@
 			</div>
 		</div>
 	</section>
+	<script>
+		function timeForToday(value){
+			const today = new Date();
+			const timeValue = new Date(value);
+	       
+			const betweenTime = Math.floor((today.getTime() - timeValue.getTime()) / 1000 / 60);
+			
+	        if (betweenTime < 1) return '방금 전';
+	        if (betweenTime < 60) {
+	        	
+	        	return betweenTime+'분 전';
+	        }
+
+	        const betweenTimeHour = Math.floor(betweenTime / 60);
+	        if (betweenTimeHour < 24) {
+	        	return betweenTimeHour+'시간 전';
+	        }
+
+	        const betweenTimeDay = Math.floor(betweenTime / 60 / 24);
+	        
+	        if (betweenTimeDay < 365) {
+	            return betweenTimeDay+'일 전';
+	        }
+
+	        return Math.floor(betweenTimeDay / 365)+'년전';
+		}
+		const writtenDate = document.getElementById('writtenDate').innerText;
+		const lastestWrittenDate = document.getElementById('lastestWrittenDate').innerText;
+		console.log(timeForToday(writtenDate));
+		document.getElementById('writeDateBefore').innerText = timeForToday(writtenDate);
+		document.getElementById('lastestWriteDate').innerText = timeForToday(lastestWrittenDate);
+		
+		/* 1995-12-17T03:24:00 */
+	</script>
 <jsp:include page="/WEB-INF/views/common/footer.jsp"/>
