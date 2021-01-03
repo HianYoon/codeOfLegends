@@ -82,7 +82,7 @@
                     개시일&nbsp;&nbsp;<input type="text" id="startDate" name="startDate" placeholder="개시일 선택" onchange="fn_triggerEnd(event)" required>&nbsp;&nbsp;                        
                     종료일&nbsp;&nbsp;<input type="text" id="endDate" name="endDate" placeholder="종료일 선택" onchange="fn_triggerPrice(event)" disabled required><br>
                     <!-- 기타 선택 시, return false로 체크 -->
-                    결제금액&nbsp;&nbsp;<input type="text" value="0" name="adsPrice" readonly>&nbsp;원
+                    결제금액&nbsp;&nbsp;<input type="text" id="totalPrice" value="0" name="adsPrice" readonly>&nbsp;원
                 </div>
                 <br><br>
                 <div class="div_submit">
@@ -122,12 +122,15 @@
     /* DB에서 adsRate를 가져와 날짜 선택 시 계산하여 측정 */
     function fn_triggerPrice(e){    	
 	    let ratePerDay=<%=request.getAttribute("adsRate") %>;
-	    console.log(ratePerDay);
+	    console.log("하루당 가격: "+ratePerDay);
 	    /* 여기 수정해야함  - 날짜차이 일 수 계산 */
-	    let totalPrice=(new Date($("#endDate"))-new Date($("#startDate")))*ratePerDay;
-	    console.log(new Date($("#endDate"))-new Date($("#startDate")));
-	    console.log(totalPrice);
-	    $(e.target).next().val(totalPrice);        
+	    let dayGap=((new Date($("#endDate").val())-new Date($("#startDate").val()))/1000/60/60/24)+1;
+	    console.log("몇일차이: "+dayGap);
+	    
+	    let totalPrice=dayGap*ratePerDay;
+	    console.log("결제할 금액: "+totalPrice);
+	    
+	    $("#totalPrice").val(totalPrice);        
     }
     /* 개시일 값이 onchange될 시, destroy 후 종료일 datepicker 생성 */
     function fn_triggerEnd(e){
