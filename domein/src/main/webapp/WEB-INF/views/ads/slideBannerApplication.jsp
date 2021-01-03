@@ -123,7 +123,7 @@
     function fn_triggerPrice(e){    	
 	    let ratePerDay=<%=request.getAttribute("adsRate") %>;
 	    console.log("하루당 가격: "+ratePerDay);
-	    /* 여기 수정해야함  - 날짜차이 일 수 계산 */
+	    
 	    let dayGap=((new Date($("#endDate").val())-new Date($("#startDate").val()))/1000/60/60/24)+1;
 	    console.log("몇일차이: "+dayGap);
 	    

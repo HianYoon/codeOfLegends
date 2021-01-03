@@ -1,9 +1,12 @@
 package com.col.domein.ads.model.dao;
 
+import java.util.List;
+
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
 import com.col.domein.ads.model.vo.BannerAds;
+import com.col.domein.product.model.vo.BoardProductSaleContent;
 
 @Repository
 public class AdsDaoImpl implements AdsDao {	
@@ -46,6 +49,16 @@ public class AdsDaoImpl implements AdsDao {
 	@Override
 	public int showMeRate(SqlSession session) {
 		return session.selectOne("bannerAds.selectAdsRate");
+	}
+
+	@Override
+	public int showMeDirectAdsRate(SqlSession session) {
+		return session.selectOne("directAds.selectDirectAdsRate");
+	}
+
+	@Override
+	public List<BoardProductSaleContent> selectBoardDirectSale(SqlSession session, List keys) {
+		return session.selectList("directAds.selectBoardDirectSale",keys);
 	}
 	
 	

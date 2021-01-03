@@ -4,13 +4,15 @@ import java.io.File;
 import java.io.IOException;
 import java.sql.Date;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.TreeSet;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
@@ -18,6 +20,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.col.domein.ads.model.service.AdsService;
 import com.col.domein.ads.model.vo.BannerAds;
+import com.col.domein.business.model.vo.Business;
 import com.col.domein.member.model.vo.Member;
 
 @Controller
@@ -104,9 +107,36 @@ public class AdsController {
 	
 	//directAdsApplication으로 화면 전환
 	@RequestMapping("/ads/directAdsApplication.do")
-	public String viewDirectAdsApply() {
-		return "ads/directAdsApplication";
+	public ModelAndView viewDirectAdsApply(HttpServletRequest request,ModelAndView mv) {
+		HttpSession session=request.getSession(false);	
+		Member m=(Member) session.getAttribute("signedInMember");
+		if(m!=null) {
+			TreeSet<Business> businesses=m.getBusinesses();
+			if(businesses.isEmpty()) {
+				mv.addObject("msg","아직 사업자 등록을 하지 않았습니다. 사업자 등록 후에 서비스를 이용해주세요.");
+				mv.addObject("loc","/member/myPage.do");
+				mv.setViewName("/common/msg");
+			}else {
+				List<Integer> keys = new ArrayList<Integer>();
+				for(Business b : businesses){
+				   keys.add(b.getBusinessKey());
+				}		
+				mv.addObject("adsRate",service.showMeDirectAdsRate());
+				mv.addObject("boardDirectSale",service.selectBoardDirectSale(keys));
+				mv.setViewName("ads/directAdsApplication");
+			}
+			return mv;
+		}else {
+			mv.setViewName("redirect:/");
+			return mv;
+		}
 	}
+	
+	
+//	@RequestMapping("/ads/directAdsApplicationEnd.do")
+//	public ModelAndView directAdsApplyEnd() {
+//		
+//	}
 	
 	
 }

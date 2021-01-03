@@ -17,4 +17,15 @@
 		APPLICANT_KEY=#{applicantKey} AND ADS_STATUS_NO=6
 	</select>
 	
+	<select id="selectDirectAdsRate" resultType="int">
+		SELECT ADS_RATE FROM (SELECT * FROM ADS_RATING ORDER BY SET_DATE DESC) WHERE ROWNUM=1 AND ADS_TYPE=2
+	</select>
+	
+	<select id="selectBoardDirectSale" parameterType="com.col.domein.product.model.vo.BoardProductSaleContent" resultType="list">
+		SELECT * FROM BOARD_DIRECT_SALE WHERE BUSINESS_KEY IN
+		<foreach collection="keys" item="k" index="i" open="(" separator="," close=")">
+			#{k}
+		</foreach>
+	</select>
+	
 </mapper>
