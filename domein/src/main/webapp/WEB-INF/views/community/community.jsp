@@ -40,30 +40,25 @@
 		                    </thead>
 	 	                    <c:forEach items="${list }" var="b">
 		                    	<tr>
-		                    		<td class="tit">
-		                    			<a href="#">
-		                    				<c:out value="${b.THREAD_KEY}"/>
-		                    			</a>
-		                    		</td>
-		                    		<td class="tit">
-		                    			<a href="${path }/community/forum.do">
-		                    				<c:out value="${b.THREAD_TITLE}"/>
-		                    			</a>
-		                    		</td>
-		                    		<td class="tit">
-		                    			<a href="${path }/community/profile.do">
-		                    				<c:out value="${b.WRITER_KEY}"/>
-		                    			</a>
-		                    		</td>
-		                    		<td class="tit">
-		                    				<c:out value="${b.READ_COUNT}"/>
-		                    		</td>
-		                    		<td class="tit">
-		                    				<c:out value="${b.READ_COUNT}"/>
-		                    		</td>
-		                    		<td class="tit">
-		                    				<c:out value="${b.WRITTEN_DATE}"/>
-		                    		</td>
+			                    		<td class="tit">
+			                    				<c:out value="${b.THREAD_KEY}"/>
+			                    		</td>
+			                    		<td class="tit">
+			                    				<a href="${path }/community/bkbDetail.do?threadKey=${b.THREAD_KEY}"><c:out value="${b.THREAD_TITLE}"/></a>
+			                    		</td>
+			                    		<td class="tit">
+			                    				<c:out value="${b.WRITER_KEY}"/>
+			                    			</a>
+			                    		</td>
+			                    		<td class="tit">
+			                    				<c:out value="${b.READ_COUNT}"/>
+			                    		</td>
+			                    		<td class="tit">
+			                    				<c:out value="${b.READ_COUNT}"/>
+			                    		</td>
+			                    		<td class="tit">
+			                    				<c:out value="${b.WRITTEN_DATE}"/>
+			                    		</td>
 		                    	</tr>
 		                    </c:forEach>
 		                    

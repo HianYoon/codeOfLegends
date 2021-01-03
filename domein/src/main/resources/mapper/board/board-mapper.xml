@@ -31,4 +31,8 @@
 		select count(*) from BOARD_KNOW_BATTLE	
 	</select>
 
+
+	<select id="selectBkbArticles" parameterType="_int" resultType="map">
+		SELECT BA.*,BKB.THREAD_TITLE,M.NICKNAME FROM BKB_ARTICLE BA LEFT JOIN BOARD_KNOW_BATTLE BKB ON BA.THREAD_KEY = BKB.THREAD_KEY LEFT JOIN MEMBER M ON BA.WRITER_KEY = M.MEMBER_KEY WHERE BA.THREAD_KEY = #{threadKey}
+	</select>
 </mapper>

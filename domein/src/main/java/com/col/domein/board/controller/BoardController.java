@@ -149,4 +149,12 @@ public class BoardController {
 	 * 
 	 * @RequestMapping("") public String () { return ""; }
 	 */
+	
+	@RequestMapping("/community/bkbDetail.do")
+	public String bkbDetail(Model m,int threadKey) {
+		
+		List<Map> list = service.selectBkbArticles(threadKey);
+		m.addAttribute("list",list);
+		return "community/bkbDetail";
+	}
 }

@@ -13,6 +13,6 @@ public interface BoardDao {
 
 	List<Map> selectBoardList(SqlSession session,int cpage, int numPerpage);
 	int selectCount(SqlSession session);
-	
+	List<Map> selectBkbArticles(SqlSession session,int threadKey);
 	BoardKnowBattle selectBoardOne(SqlSession session,int boardNo);
 }
