@@ -20,7 +20,7 @@
 					</c:if>
 					<div class="wrap-contents">
 						<div class="box-img">
-							<img src="./images/profile/profile.png" alt="">
+							<img src="${l.PROFILE_URL }" alt="">
 						</div>
 						<div class="box-text">
 							<div class="box-text-top">
