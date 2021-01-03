@@ -6,6 +6,9 @@
      <c:set var="path" value="${pageContext.request.contextPath }"/>
       <link rel="stylesheet" href="${path }/resources/css/community/community.css"/>
  <script src="https://kit.fontawesome.com/0185489875.js" crossorigin="anonymous"></script>
+ <link rel="stylesheet" href="http://lab.lepture.com/editor/editor.css" />
+<script type="text/javascript" src="http://lab.lepture.com/editor/editor.js"></script>
+<script type="text/javascript" src="http://lab.lepture.com/editor/marked.js"></script>
 <jsp:include page="/WEB-INF/views/common/header.jsp">
 	<jsp:param name="title" value=""/>
 </jsp:include>
@@ -42,16 +45,14 @@
 		                    				<c:out value="${b.THREAD_KEY}"/>
 		                    			</a>
 		                    		</td>
-		                    	</tr>
-		                    	<tr>
 		                    		<td class="tit">
 		                    			<a href="${path }/community/forum.do">
-		                    				<c:out value="${b.threadTitle}"/>
+		                    				<c:out value="${b.THREAD_TITLE}"/>
 		                    			</a>
 		                    		</td>
 		                    		<td class="tit">
 		                    			<a href="${path }/community/profile.do">
-		                    				<c:out value="${b.writerKey}"/>
+		                    				<c:out value="${b.WRITER_KEY}"/>
 		                    			</a>
 		                    		</td>
 		                    		<td class="tit">
@@ -61,10 +62,11 @@
 		                    				<c:out value="${b.READ_COUNT}"/>
 		                    		</td>
 		                    		<td class="tit">
-		                    				<c:out value="${b.writtenDate}"/>
+		                    				<c:out value="${b.WRITTEN_DATE}"/>
 		                    		</td>
 		                    	</tr>
 		                    </c:forEach>
+		                    
 <!-- 	 	                    <tbody>
 		                        <tr>
 		                            <td class="tit">
@@ -146,6 +148,14 @@
     $(".write").click(e => {
     	location.href = "${path}/community/write.do";
     })
+	var editor = new Editor({
+	element: document.getElementById("editor")
+	});
+	// editor 객체 생성
+	
+	editor.render();
+	// 랜더링!
+	post
     </script>
 <%--     <script src="${path }/resources/js/community/community.js"></script> --%>
 <jsp:include page="/WEB-INF/views/common/footer.jsp"/>

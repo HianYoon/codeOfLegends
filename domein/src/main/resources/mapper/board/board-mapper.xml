@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="boardknowbattle">
+<mapper namespace="board">
 
 
 	<insert parameterType="boardKnowBattle" id="insertBoard">
@@ -25,6 +25,7 @@
 	<select id="selectBoardList" resultType="map">
 <!-- 		select b.*, (select count(*) from ATTACHMENT WHERE B.ARTICLENO=ARTICLENO) AS ATTCOUNT
 		from BOARD_KNOW_BATTLE B order by writtenDate desc -->
+		SELECT * FROM BOARD_KNOW_BATTLE ORDER BY WRITTEN_DATE DESC
 	</select>
 	<select id="selectCount" resultType="_int">
 		select count(*) from BOARD_KNOW_BATTLE	

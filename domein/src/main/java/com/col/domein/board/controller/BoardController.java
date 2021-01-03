@@ -44,53 +44,57 @@ public class BoardController {
 		int totalData=service.selectCount();
 		mv.addObject("pageBar",PageBarFactory.getPageBar(totalData, cPage, numPerpage, "communityList.do"));
 		mv.addObject("totalData",totalData);
-		mv.setViewName("community/communityList");
+		mv.setViewName("community/community");
 		
 		return mv;
 	}
 	
-	@RequestMapping("/community/write.do")
-	public void fileDownload(String oriname, String rename,
-			@RequestHeader(value="user-agent") String header,
-			HttpServletRequest request,HttpServletResponse response) {
-		
-		//파일 디렉토리 가져오기
-		String path=request.getServletContext().getRealPath("/resources/upload/community");
-		File saveFile=new File(path+"/"+rename);
-		
-		//입출력스트림
-		BufferedInputStream bis=null;
-		ServletOutputStream sos=null;
-		
-		try {
-			bis=new BufferedInputStream(new FileInputStream(saveFile));
-			sos=response.getOutputStream();
-			boolean isMS=header.indexOf("Trident")!=-1||header.indexOf("MSIE")!=-1;
-			String encodeStr="";
-			if(isMS) {
-				encodeStr=URLEncoder.encode(oriname,"UTF-8");
-				encodeStr=encodeStr.replaceAll("\\+","%20");
-			}else {
-				encodeStr=new String(oriname.getBytes("UTF-8"),"ISO-8859-1");
-			}
-			response.setContentType("application/octet-stream;charset=utf-8");
-			response.setHeader("Content-Disposition","attachment;filename=\""+encodeStr+"\"");
-			
-			int read=-1;
-			while((read=bis.read())!=-1) {
-				sos.write(read);
-			}
-			
-		}catch(IOException e) {
-			e.printStackTrace();
-		}finally {
-			try {
-				sos.close();
-				bis.close();
-			}catch(IOException e) {
-				e.printStackTrace();
-			}
-		}
+//	@RequestMapping("/community/write.do")
+//	public void fileDownload(String oriname, String rename,
+//			@RequestHeader(value="user-agent") String header,
+//			HttpServletRequest request,HttpServletResponse response) {
+//		
+//		//파일 디렉토리 가져오기
+//		String path=request.getServletContext().getRealPath("/resources/upload/community");
+//		File saveFile=new File(path+"/"+rename);
+//		
+//		//입출력스트림
+//		BufferedInputStream bis=null;
+//		ServletOutputStream sos=null;
+//		
+//		try {
+//			bis=new BufferedInputStream(new FileInputStream(saveFile));
+//			sos=response.getOutputStream();
+//			boolean isMS=header.indexOf("Trident")!=-1||header.indexOf("MSIE")!=-1;
+//			String encodeStr="";
+//			if(isMS) {
+//				encodeStr=URLEncoder.encode(oriname,"UTF-8");
+//				encodeStr=encodeStr.replaceAll("\\+","%20");
+//			}else {
+//				encodeStr=new String(oriname.getBytes("UTF-8"),"ISO-8859-1");
+//			}
+//			response.setContentType("application/octet-stream;charset=utf-8");
+//			response.setHeader("Content-Disposition","attachment;filename=\""+encodeStr+"\"");
+//			
+//			int read=-1;
+//			while((read=bis.read())!=-1) {
+//				sos.write(read);
+//			}
+//			
+//		}catch(IOException e) {
+//			e.printStackTrace();
+//		}finally {
+//			try {
+//				sos.close();
+//				bis.close();
+//			}catch(IOException e) {
+//				e.printStackTrace();
+//			}
+//		}
+//	}
+	@RequestMapping("community/write.do")
+	public String wirte(Model m) {
+		return "community/write";
 	}
 	@RequestMapping("/imageUpload.do")
 	public void imageUpload(HttpServletRequest request, HttpServletResponse response,
