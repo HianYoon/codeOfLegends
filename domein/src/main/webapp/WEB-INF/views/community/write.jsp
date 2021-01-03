@@ -11,7 +11,7 @@
 	<jsp:param name="title" value=""/>
 </jsp:include>
 <section class="container">
-	<form action="${path }/community/write.do" class="form1" method = "post" enctype="multipart/form-data">
+	<form action="${path }/community/write.do" class="form1" method = "post" enctype="multipart/form-data" style="margin-top:127px;">
 	<table width=100%>
 		<tr>
 			<td>제목</td>
@@ -40,7 +40,7 @@
     	fileborwserUploadUrl : "${path}/imageUpload.do"
     });
     $(".btn").click(e => {
-    	location.href = "${path}/community/community.do";
+    	location.href = "${path}/community/communityList.do";
     })
 /*     $(document).on('click', #btnSave', function(e){
     	$("#form").submit();

@@ -1,11 +1,14 @@
 package com.col.domein.ads.model.service;
 
+import java.util.List;
+
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.col.domein.ads.model.dao.AdsDao;
 import com.col.domein.ads.model.vo.BannerAds;
+import com.col.domein.product.model.vo.BoardProductSaleContent;
 
 @Service
 public class AdsServiceImpl implements AdsService {
@@ -55,6 +58,18 @@ public class AdsServiceImpl implements AdsService {
 	public int showMeRate() {		
 		return dao.showMeRate(session);
 	}
+
+	@Override
+	public int showMeDirectAdsRate() {
+		return dao.showMeDirectAdsRate(session);
+	}
+
+	@Override
+	public List<BoardProductSaleContent> selectBoardDirectSale(List keys) {
+		return dao.selectBoardDirectSale(session,keys);
+	}
+
+	
 	
 	
 	

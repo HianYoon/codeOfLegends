@@ -16,8 +16,11 @@ public class BoardDaoImpl implements BoardDao{
 	@Override
 	public List<Map> selectBoardList(SqlSession session, int cPage, int numPerpage) {
 		// TODO Auto-generated method stub
-		return session.selectList("board.selectBoardList",null,
-				new RowBounds((cPage-1)*numPerpage,numPerpage));
+//		return session.selectList("board.selectBoardList",null,
+//				new RowBounds((cPage-1)*numPerpage,numPerpage));
+//		return session.selectList("board.selectBoardList", null,
+//				new RowBounds(((cPage - 1) * numPerpage), numPerpage));
+		return session.selectList("board.selectBoardList");
 	}
 
 	@Override
@@ -30,6 +33,12 @@ public class BoardDaoImpl implements BoardDao{
 	public BoardKnowBattle selectBoardOne(SqlSession session, int boardNo) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	public List<Map> selectBkbArticles(SqlSession session, int threadKey) {
+		// TODO Auto-generated method stub
+		return session.selectList("board.selectBkbArticles",threadKey);
 	}
 	
 	/*
