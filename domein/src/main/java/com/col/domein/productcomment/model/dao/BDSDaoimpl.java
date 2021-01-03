@@ -7,6 +7,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
 import com.col.domein.productcomment.model.vo.BDSreview;
+import com.col.domein.productcomment.model.vo.BDSreviewLike;
 
 @Repository
 public class BDSDaoimpl implements BDSDao {
@@ -22,6 +23,12 @@ public class BDSDaoimpl implements BDSDao {
 	public List<Map> selectBDScomment(SqlSession session, int reviewNo) {
 		// TODO Auto-generated method stub
 		return session.selectList("bdsReview.selectBDScomment",reviewNo);
+	}
+	//좋아요 
+	@Override
+	public int insertLike(SqlSession session, BDSreviewLike bds) {
+		// TODO Auto-generated method stub
+		return session.insert("bdsReview.insertLike",bds);
 	}
 
 }

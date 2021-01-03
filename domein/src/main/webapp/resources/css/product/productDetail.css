@@ -170,7 +170,6 @@ div#product-Explanation {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin: 15px;
 }
 .review-container:first-child img{
     width:20px;
@@ -243,6 +242,48 @@ input#userNickName:focus{
 	    border: none;
 	    outline: none;
 }
+/* 댓글list */
+
+element.style {
+}
+ul#product-re-comment-box {
+    width: 1000px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    border: 1px solid bule;
+    box-sizing: border-box;
+}
+#product-re-comment{
+	width: 20px;
+	height: 25px;
+	box-sizing:border-box;
+	
+}
+.re-comment {
+    border: 1px solid blue;
+    width: 1000px;
+    height: 30px;
+    margin-left: 7%;
+}
+#product-recomment-btn{
+	border:none;
+	margin: 0px 20px;
+	background-color:white;
+	
+}
+#pro-comment-like{
+	margin-left:15px;
+	cursor: pointer;
+}
+ul#product-re-comment-box {
+    width: 1000px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    box-sizing: border-box;
+}
+
 /* 댓글 신고기능 */
 
  body div.singoForm {

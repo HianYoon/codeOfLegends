@@ -17,7 +17,11 @@
 .slideshow-container{
     display: none;
 }
-
+div#octionPage #tab4 {
+    display: block;
+    width: 100%;
+    height: auto;
+}
 /* #octionPage {
   box-sizing: border-box;
   font-family: Verdana, sans-serif;}
@@ -137,7 +141,7 @@ On smaller screens, decrease text size
 /* 상품list/ */
 .oction--header {
     display: block;
-      width: 900px;
+      width: 100%;
       height: auto;
   }
   .oction-searchbox {
@@ -157,8 +161,10 @@ On smaller screens, decrease text size
       
   }
   img#big-target {
-    width: 150px;
+
+    width: 100% !important;
     height: 150px;
+
 }
 .grid2-container {
     display: grid;
@@ -180,7 +186,7 @@ On smaller screens, decrease text size
 
 @media (max-width: 768px){
     #oction-page{
-        width: 700px;
+        width: 768px;
         height: auto;
         margin: none;
         padding: none;
@@ -326,17 +332,13 @@ On smaller screens, decrease text size
     gap:50px;
    
 }
- #octionPage .tab-container-group{
-    width:900px;
-    height:auto;
-    margin:10px 30px;
-}
+
  #octionPage div#wrapper {
     width: 200px;
     background: #ffca28;
 }
  #octionPage .tab-container-group{
-    width:900px;
+    width:100%!important;
     height:auto;
     margin:10px 30px;
 }
@@ -510,14 +512,14 @@ ul.pagination.ustify-content-center.pagenation-sm {
 
 div#octionPage .tab_content{
     display:block;
-    width: 900px;
+    width: 100%;
     height: auto;
     
 
 }
 div#octionPage .direct-Product-container{
     display: block;
-    width: 800px;
+    width: 100%!important;
     height: auto;
     justify-content: center;
     align-content: center;
@@ -578,6 +580,7 @@ div#octionPage .direct-Product-container textarea {
     display: grid;
     grid-template-columns: auto auto auto auto auto;
     gap: 10px;
+    margin: 20px;
 }
 .oction--grid--container {
     width: 100%;
@@ -706,27 +709,6 @@ div#pageBar {
 }
 
  /* 전체 html display  flex*/
- #octionPage{
-    display:flex;
-    width: 1200px;
-    height: auto;
-    gap:50px;
-   
-}
-.tab-container-group{
-    width:900px;
-    height:auto;
-    margin:10px 30px;
-}
-div#wrapper {
-    width: 200px;
-    background: #ffca28;
-}
-div#wrapper .tab-container-group{
-    width:900px;
-    height:auto;
-    margin:10px 30px;
-}
 
 div#wrapper .tabs{
     margin-top: 80px;

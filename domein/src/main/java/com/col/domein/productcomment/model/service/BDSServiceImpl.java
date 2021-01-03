@@ -1,4 +1,4 @@
-package com.col.domein.productcomment.controller;
+package com.col.domein.productcomment.model.service;
 
 import java.util.List;
 import java.util.Map;
@@ -8,8 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.col.domein.productcomment.model.dao.BDSDao;
-import com.col.domein.productcomment.model.service.BDSService;
 import com.col.domein.productcomment.model.vo.BDSreview;
+import com.col.domein.productcomment.model.vo.BDSreviewLike;
 @Service
 public class BDSServiceImpl implements BDSService {
 	
@@ -28,5 +28,12 @@ public class BDSServiceImpl implements BDSService {
 		// TODO Auto-generated method stub
 		return dao.selectBDScomment(session,reviewNo);
 	}
+	//좋아요
+	@Override
+	public int insertLike(BDSreviewLike bds) {
+		// TODO Auto-generated method stub
+		return dao.insertLike(session, bds);
+	}
+
 
 }

@@ -42,4 +42,10 @@ public class BoardServiceImpl implements BoardService{
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+	@Override
+	public List<Map> selectBkbArticles(int threadKey) {
+		// TODO Auto-generated method stub
+		return dao.selectBkbArticles(session,threadKey);
+	}
 }
