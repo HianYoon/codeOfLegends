@@ -35,6 +35,7 @@
                     <div id="tab1" class="tab_content">
                         <!--Content-->
                         <h2>장바구니</h2>
+           <c:if test="${signedInMember != null}">             
               <c:choose>
                   <c:when test="${map.count }== 0">
                         		장바구니가 비어있습니다.
@@ -102,6 +103,74 @@
                	</c:otherwise>
              </c:choose>
                  </div>
+          </c:if>
+       <c:if test="${signedInMember == null}">
+              <c:choose>
+                  <c:when test="${map.count }== 0">
+                        		장바구니가 비어있습니다.
+                     </c:when>
+                  <c:otherwise>
+                        	
+                      
+                      <form action="${path}/cart/orderToPay.do" method="POST">
+                       
+                        <div class="cart-container">
+                            <hr/>
+                
+                         <c:forEach items="${nomlist}" var="nomlist" varStatus="status">
+                           	<c:set value="${nomlist.amount*nomlist.price }" var="sumPriceAmount" />
+                                <div data-tr_value="$" class="product-cart">
+                                	<input type="hidden" value="${signedInMember.memberKey}" name="memberKey" id="memberKey"/>
+                                	<input type="hidden" value="${nomlist.productNo}" name="productNo" id="productNo"/>
+                                    <input type="checkbox" name="cartCheck" value="${sumPriceAmount}" class="checkbox">
+                                  
+
+                                     <a  href="${path }/product/productDetail.do?productNo=${nomlist.productNo}" ></a><img src="${path }/resources/upload/product/${nomlist.renamedFileName}" alt="이미지"></a>
+                                        <div class="cartContent">
+
+                                            <p>상품명:<c:out value="${nomlist.title }"/></p>
+                                            <div id="cart--btnbox">
+	                                            <input type="button" id="minus"  name="minus" value="-" />
+	                                        	
+		                                            <input type="text" id="amount" name="amount" value="${nomlist.amount}" maxlength="" readonly/>
+	                                   
+	                                            <input type="button" id="plus"  name="plus" value="+" />
+                                            </div>
+                                             
+                                            <div>가격
+	                                            <input type="text" id="product-price" name="cartPrice" value="${sumPriceAmount}"readonly/>원
+	                                            <input type="hidden" id="product--price" name="price" value="${nomlist.price}"readonly/>
+                                            </div>
+            								<button type="button" id="cart--deleteBtn" onclick="location.replace='${path}/cart/nonDeleteBtn'" class="btn btn-primary2">삭제</button>
+                                        </div>
+                                 
+                   
+                                 </div>
+						</c:forEach>
+                   
+                     
+                                </div>
+                                <hr/>
+                                <div class="cart-total-price">
+                                	<p>배송비: 100,000원 이하 5000원</p>
+                                	<p id="All-qty"></p>
+                                    <p >총가격:<span class="totlaPrice" id="total-price">0</span>원</p>
+
+                                </div>
+                                <div class="cart-btn-group">
+                                    <button type="button" id="checkbox"  class="btn btn-primary2">전체선택</button>
+                                    <button type="button" id="" onclick="location.href='${path}/cart/cartIndex.do'" class="btn btn-primary2">쇼핑계속하기</button>
+                               
+                                    <button type="button" id="orderToPay" onclick="location.href='${path}/memberLogin.do'" class="btn btn-primary2">결제하기</button>
+                                 
+                                </div>
+                            </div>
+                      
+                        </form>
+               	</c:otherwise>
+             </c:choose>
+                 </div>
+       </c:if>
 		<!--모달 박스  -->	
 		
 	 <div class="modal-wrapper" style="display: none;">

@@ -14,4 +14,5 @@ public interface BDSService {
 	//좋아요
 	int insertLike(BDSreviewLike bds);
 
+
 }

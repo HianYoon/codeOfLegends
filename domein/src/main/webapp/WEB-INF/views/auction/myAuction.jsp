@@ -15,7 +15,7 @@
 	%>
 </script>
 <div class="myPageHeader">
-	<a href="${path }/auction/auctionEnllo.do">옥션등록</a>
+	<a href="${path }/auction/auctionEnllo.do?memberKey=${signedInMember.id}">옥션등록</a>
 	<a href="${path }/auction/auctionEnlloUpdate.do">옥션등록수정</a>
 	<a href="${path }/auction/auctionJoin.do">옥션참여</a>
 	<a href="${path }/auction/auctionJoinUpdate.do">옥션참여수정</a>

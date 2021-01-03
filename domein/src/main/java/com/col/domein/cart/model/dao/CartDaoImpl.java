@@ -1,6 +1,5 @@
 package com.col.domein.cart.model.dao;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
@@ -9,6 +8,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
 import com.col.domein.cart.model.vo.Cart;
+import com.col.domein.product.model.vo.ProductAll;
 @Repository
 public class CartDaoImpl implements CartDao{
 
@@ -88,5 +88,11 @@ public class CartDaoImpl implements CartDao{
 		map.put("memberKey", memberKey);
 		return session.update("cart.minusToAmount",map);
 	}
+	@Override
+	public ProductAll selectNonproductList(SqlSession session, int productNo) {
+		// TODO Auto-generated method stub
+		return session.selectOne("cart.selectNonproductList",productNo);
+	}
+	
 
 }

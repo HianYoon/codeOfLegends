@@ -9,6 +9,7 @@ public class AuctionController {
 	//옥션등록
 	@RequestMapping("/auction/auctionEnllo.do")
 	public String auctionEnllo() {
+		
 		return "auction/auctionEnllo";
 	}
 	//옥션등록 수정

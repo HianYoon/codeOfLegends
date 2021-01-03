@@ -1,5 +1,6 @@
 package com.col.domein.cart.model.service;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -9,9 +10,7 @@ import com.col.domein.product.model.vo.ProductAll;
 public interface CartService {
 	//상품 list
 	int insertProductCart(Cart c);
-	
-	//비회원 장바구니 상품 가져오기
-	List<Map> selectCartOne(int productNo);
+
 	//memberCart
 	int insertMemberCart(Cart c);
 	//memberCart상품 불러오기
@@ -28,5 +27,8 @@ public interface CartService {
 	int addToAmount(int amount, int productNo, int memberKey);
 	//상품수량 minus 업데이트 
 	int downToAmount(int productNo, int amount, int memberKey);
+	//비회원 상품 불러오기
+	ProductAll selectNonproductList(int productNo);
+
 
 }
