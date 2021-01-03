@@ -25,7 +25,7 @@
 	<select id="selectBoardList" resultType="map">
 <!-- 		select b.*, (select count(*) from ATTACHMENT WHERE B.ARTICLENO=ARTICLENO) AS ATTCOUNT
 		from BOARD_KNOW_BATTLE B order by writtenDate desc -->
-		SELECT * FROM BOARD_KNOW_BATTLE ORDER BY WRITTEN_DATE DESC
+		SELECT BKB.*,(SELECT COUNT(*) FROM BKB_ARTICLE WHERE THREAD_KEY = BKB.THREAD_KEY) AS ARTICLES FROM BOARD_KNOW_BATTLE BKB ORDER BY WRITTEN_DATE DESC
 	</select>
 	<select id="selectCount" resultType="_int">
 		select count(*) from BOARD_KNOW_BATTLE	

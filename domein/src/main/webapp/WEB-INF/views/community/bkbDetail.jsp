@@ -29,10 +29,12 @@
 									<p class="date"><fmt:formatDate value="${l.WRITTEN_DATE }" pattern="yyyy년 MM월 DD일 HH시 mm분"/></p>
 									<p class="date" id="writtenDate" style="display:none"><fmt:formatDate value="${l.WRITTEN_DATE }" pattern="yyyy-MM-DD'T'HH:mm:ss"/></p>
 								</div>
+								<c:if test="${signedInMember.nickname == l.NICKNAME }">
 								<div class="box-button">
 									<button class="btn-type-1 edit">수정</button>
 									<button class="btn-type-1 delete">삭제</button>
 								</div>		
+								</c:if>
 							</div>
 							<div class="box-text-main">
 								<p class="box-text-main-text">
@@ -53,7 +55,7 @@
 										<div><dt>마지막 댓글</dt><dd id="lastestWriteDate">오늘</dd></div>
 										<div><dt>댓글</dt><dd><c:out value="${list.size()-1 }"/></dd></div>
 										<div><dt>조회수</dt><dd>19</dd></div>
-										<div><dt>좋아요</dt><dd>6</dd></div>
+										<div><dt>좋아요</dt><dd>3</dd></div>
 									</dl>				
 								</div>
 							</c:if>
