@@ -673,4 +673,23 @@ public class MemberController {
 
 		return "redirect: "+request.getContextPath()+"/member/myPage/account/business/manageBusiness.do";
 	}
+	
+//	비지니스 삭제 버튼 클릭시
+	@RequestMapping("/myPage/account/business/deleteBusiness.do")
+	public String deleteBusiness(HttpSession session, HttpServletRequest request, String businessKey) {
+		Member m = (Member) session.getAttribute("signedInMember");
+		int bKey = Integer.parseInt(businessKey);
+		boolean containFlag = false;
+		for(Business b : m.getBusinesses()) {
+			if(b.getBusinessKey() == bKey) containFlag = true;
+		}
+		if(!containFlag) return new ErrorUriMaker(request, "잘못된 접근입니다!","/member/myPage/account/business/manageBusiness.do", "판매자 관리로...").getErrorUri();
+		
+		bs.updateBusinessToStoppedByBusinessKey(bKey);
+		
+		Member modifiedM = ms.selectMemberByMemberKey(m.getMemberKey());
+		session.setAttribute("signedInMember", modifiedM);
+		
+		return "redirect: "+request.getContextPath()+"/member/myPage/account/business/manageBusiness.do";
+	}
 }

@@ -29,4 +29,8 @@ public class BusinessDao {
 	public int updateBusinessToStoppedByMemberKey(SqlSession session, int memberKey) {
 		return session.update("business.updateBusinessToStoppedByMemberKey", memberKey);
 	}
+	
+	public boolean updateBusinessToStoppedByBusinessKey(SqlSession session, int businessKey) {
+		return session.update("business.updateBusinessToStoppedByBusinessKey", businessKey) == 1;
+	}
 }

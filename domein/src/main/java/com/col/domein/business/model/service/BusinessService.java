@@ -56,4 +56,8 @@ public class BusinessService {
 		return bd.updateBusinessToStoppedByMemberKey(session, memberKey);
 	};
 	
+	public boolean updateBusinessToStoppedByBusinessKey(int businessKey) {
+		return bd.updateBusinessToStoppedByBusinessKey(session, businessKey);
+	}
+	
 }
