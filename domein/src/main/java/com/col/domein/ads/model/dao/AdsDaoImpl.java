@@ -66,6 +66,37 @@ public class AdsDaoImpl implements AdsDao {
 	public int directAdsApply(SqlSession session, DirectAds directAds) {
 		return session.insert("directAds.insertDirectAds", directAds);
 	}
+
+	@Override
+	public int selectBannerAccept(SqlSession session) {
+		return session.selectOne("bannerAds.selectBannerAccept");
+	}
+
+	@Override
+	public int selectDirectAccept(SqlSession session) {
+		return session.selectOne("directAds.selectDirectAccept");
+	}
+
+	@Override
+	public int selectBannerDeny(SqlSession session) {
+		return session.selectOne("bannerAds.selectBannerDeny");
+	}
+
+	@Override
+	public int selectDirectDeny(SqlSession session) {
+		return session.selectOne("directAds.selectDirectDeny");
+				
+	}
+
+	@Override
+	public int selectBannerPending(SqlSession session) {
+		return session.selectOne("bannerAds.selectBannerPending");
+	}
+
+	@Override
+	public int selectDirectPending(SqlSession session) {
+		return session.selectOne("directAds.selectDirectPending");
+	}
 	
 	
 	

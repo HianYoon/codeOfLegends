@@ -30,4 +30,16 @@ public interface AdsService {
 	
 	int directAdsApply(DirectAds directAds);
 	
+	int selectBannerAccept();
+	
+	int selectDirectAccept();
+	
+	int selectBannerDeny();
+	
+	int selectDirectDeny();
+	
+	int selectBannerPending();
+	
+	int selectDirectPending();
+	
 }

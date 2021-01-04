@@ -75,6 +75,36 @@ public class AdsServiceImpl implements AdsService {
 		return dao.directAdsApply(session, directAds);
 	}
 
+	@Override
+	public int selectBannerAccept() {
+		return dao.selectBannerAccept(session);
+	}
+
+	@Override
+	public int selectDirectAccept() {
+		return dao.selectDirectAccept(session);
+	}
+
+	@Override
+	public int selectBannerDeny() {
+		return dao.selectBannerDeny(session);
+	}
+
+	@Override
+	public int selectDirectDeny() {
+		return dao.selectDirectDeny(session);
+	}
+
+	@Override
+	public int selectBannerPending() {
+		return dao.selectBannerPending(session);
+	}
+
+	@Override
+	public int selectDirectPending() {
+		return dao.selectDirectPending(session);
+	}
+
 	
 	
 	
