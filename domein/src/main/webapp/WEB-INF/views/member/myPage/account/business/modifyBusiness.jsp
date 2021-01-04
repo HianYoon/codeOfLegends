@@ -22,11 +22,11 @@
 
 
 		<form
-			action="${path }/member/myPage/account/business/addBusinessEnd.do"
+			action="${path }/member/myPage/account/business/modifyBusinessEnd.do"
 			method="post">
 			<div class="form-wrapper">
-				<input class="displayNone" value="${memberBusiness.businessNo }"
-					name="businessNo">
+				<input class="displayNone" value="${memberBusiness.businessKey }"
+					name="businessKey">
 				<table>
 					<th class="form-titles">사업자 등록번호 - 변경불가</th>
 					<tr>
@@ -219,8 +219,6 @@
 </section>
 <script src="${path }/resources/js/member/myPage/business/modifyBusiness.js"></script>
 
-<script>
-	console.log(${categoryFlag[7]});
-</script>
+
 
 <jsp:include page="/WEB-INF/views/common/footer.jsp" />

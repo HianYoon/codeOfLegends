@@ -33,4 +33,12 @@ public class BusinessDao {
 	public boolean updateBusinessToStoppedByBusinessKey(SqlSession session, int businessKey) {
 		return session.update("business.updateBusinessToStoppedByBusinessKey", businessKey) == 1;
 	}
+	
+	public boolean updateBusinessNicknameAndTel(SqlSession session, Business b) {
+		return session.update("business.updateBusinessNicknameAndTel", b) == 1;
+	}
+	
+	public boolean deleteCategories(SqlSession session, int businessKey) {
+		return session.delete("category.deleteCategories", businessKey) >= 1;
+	}
 }
