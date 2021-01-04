@@ -1,9 +1,35 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="boardknowbattle">
+<mapper namespace="board">
 
+<!-- 		<insert parameterType="board" id="insertBoard">
+			INSERT INTO BKB_ARTICLE VALUES(SEQ_ARTICLE_NO.NEXTVAL,
+			#{productName},
+			#{productQuality},
+			#{origin},
+			#{productQuantity},
+			#{measureUnit},
+			#{price},
+			#{remaningQuantity},
+			#{articleNo},
+			${productStatusNo} 
+			) 
+				시작전에 artcleno를 가져오기위한 outjoin문
+				<selectKey order="AFTER" resultType="_int" keyProperty="productNo">
+					SELECT SEQ_PRODUCT_NO.CURRVAL FROM DUAL
+				</selectKey>
+		</insert>  -->
+<!-- 	<resultMap type="board" id="boardMap">
+		<id column="THREAD_KEY" property="threadKey"/>
+		<result column="THREAD_TITLE" property="threadTitle"/>
+		<result column="WRITER_KEY" property="writerKey"/>
+		<result column="WRITTEN_DATE" property="writtenDate"/>
+		<result column="MODIFIED_DATE" property="modifiedDate"/>
+		<result column="READ_COUNT" property="readCount"/>
+		<result column="THREAD_STAUTS_NO" property="threadStatusNo"/>		
+	</resultMap> -->
 
-	<insert parameterType="boardKnowBattle" id="insertBoard">
+<!-- 	<insert parameterType="board" id="insertBoard">
 		INSERT INTO BOARD_KNOW_BATTLE VALUES(SEQ_THREAD_KEY.NEXTVAL,
 			#{threadTitle},
 			#{writerKey},
@@ -12,22 +38,28 @@
 			#{readCount},
 			#{threadStatusNo}
 			)
+				<selectKey order="AFTER" resultType="_int" keyProperty="articleNo">
+					SELECT SEQ_ARTICLE_NO.CURRVAL FROM DUAL
+				</selectKey>
 	</insert>
 	
 	<insert parameterType="attachment" id="insertAttachment">
 		INSERT INTO BKB_ATTACHED_IMAGE VALUES(
-		#{fileKey},
+		INSERT INTO ATTACHMENT VALUES(SEQ_FILEKEY.NEXTVAL,
 		#{articleNo},
 		#{originalFileName},
 		#{renamedFileName},
 		)
 	</insert>
 	<select id="selectBoardList" resultType="map">
-<!-- 		select b.*, (select count(*) from ATTACHMENT WHERE B.ARTICLENO=ARTICLENO) AS ATTCOUNT
-		from BOARD_KNOW_BATTLE B order by writtenDate desc -->
+ 		select b.*, (select count(*) from ATTACHMENT WHERE B.THREADKEY=THREADKEY) AS ATTCOUNT
+		from BOARD_KNOW_BATTLE B order by writtenDate desc
 	</select>
 	<select id="selectCount" resultType="_int">
-		select count(*) from BOARD_KNOW_BATTLE	
+		select count(*) from BOARD_KNOW_BATTLE
 	</select>
 
+  <select id="selectBoardOne" parameterType="_int" resultType="board">
+  	SELECT * FROM BOARD WHERE ARTICLENO=#{articleNo}
+  </select> -->
 </mapper>

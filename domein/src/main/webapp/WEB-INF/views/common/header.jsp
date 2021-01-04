@@ -107,7 +107,7 @@
 								<p>카테고리</p>
 							</div>
 					</a></li>
-					<li><a href="${path }/community/communitylist.do">
+					<li><a href="${path }/community/community.do">
 							<div>
 								<div>
 									<img src="${path }/resources/images/profile/talk.png" alt="" />

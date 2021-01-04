@@ -11,7 +11,7 @@
 	<jsp:param name="title" value=""/>
 </jsp:include>
 <section class="container">
-	<form action="${path }/community/write.do" class="form1" method = "post" enctype="multipart/form-data">
+	<form action="${path }/community/insertBoard.do" class="form1" method = "post" enctype="multipart/form-data">
 	<table width=100%>
 		<tr>
 			<td>제목</td>

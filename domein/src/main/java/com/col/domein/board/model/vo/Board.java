@@ -5,27 +5,29 @@ import java.sql.Date;
 import org.springframework.stereotype.Component;
 
 @Component
-public class BoardKnowBattle {
+public class Board {
 	
+	private int articleNo;
 	private int threadKey;
 	private String threadTitle;
+	private String articleContent;
 	private int writerKey;
 	private Date writtenDate;
 	private Date modifiedDate;
 	private int readCount;
 	private int threadStatusNo;
-
-	 
-	public BoardKnowBattle() {
-	// TODO Auto-generated constructor stub
+	
+	public Board() {
+		// TODO Auto-generated constructor stub
 	}
 
-
-	public BoardKnowBattle(int threadKey, String threadTitle, int writerKey, Date writtenDate, Date modifiedDate,
-			int readCount, int threadStatusNo) {
+	public Board(int articleNo, int threadKey, String threadTitle, String articleContent, int writerKey,
+			Date writtenDate, Date modifiedDate, int readCount, int threadStatusNo) {
 		super();
+		this.articleNo = articleNo;
 		this.threadKey = threadKey;
 		this.threadTitle = threadTitle;
+		this.articleContent = articleContent;
 		this.writerKey = writerKey;
 		this.writtenDate = writtenDate;
 		this.modifiedDate = modifiedDate;
@@ -33,89 +35,84 @@ public class BoardKnowBattle {
 		this.threadStatusNo = threadStatusNo;
 	}
 
+	public int getArticleNo() {
+		return articleNo;
+	}
+
+	public void setArticleNo(int articleNo) {
+		this.articleNo = articleNo;
+	}
 
 	public int getThreadKey() {
 		return threadKey;
 	}
 
-
 	public void setThreadKey(int threadKey) {
 		this.threadKey = threadKey;
 	}
-
 
 	public String getThreadTitle() {
 		return threadTitle;
 	}
 
-
 	public void setThreadTitle(String threadTitle) {
 		this.threadTitle = threadTitle;
 	}
 
+	public String getArticleContent() {
+		return articleContent;
+	}
+
+	public void setArticleContent(String articleContent) {
+		this.articleContent = articleContent;
+	}
 
 	public int getWriterKey() {
 		return writerKey;
 	}
 
-
 	public void setWriterKey(int writerKey) {
 		this.writerKey = writerKey;
 	}
-
 
 	public Date getWrittenDate() {
 		return writtenDate;
 	}
 
-
 	public void setWrittenDate(Date writtenDate) {
 		this.writtenDate = writtenDate;
 	}
-
 
 	public Date getModifiedDate() {
 		return modifiedDate;
 	}
 
-
 	public void setModifiedDate(Date modifiedDate) {
 		this.modifiedDate = modifiedDate;
 	}
-
 
 	public int getReadCount() {
 		return readCount;
 	}
 
-
 	public void setReadCount(int readCount) {
 		this.readCount = readCount;
 	}
-
 
 	public int getThreadStatusNo() {
 		return threadStatusNo;
 	}
 
-
 	public void setThreadStatusNo(int threadStatusNo) {
 		this.threadStatusNo = threadStatusNo;
 	}
-
-
-	@Override
-	public String toString() {
-		return "BoardKnowBattle [threadKey=" + threadKey + ", threadTitle=" + threadTitle + ", writerKey=" + writerKey
-				+ ", writtenDate=" + writtenDate + ", modifiedDate=" + modifiedDate + ", readCount=" + readCount
-				+ ", threadStatusNo=" + threadStatusNo + "]";
-	}
-
 
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
+		result = prime * result + ((articleContent == null) ? 0 : articleContent.hashCode());
+		result = prime * result + articleNo;
 		result = prime * result + ((modifiedDate == null) ? 0 : modifiedDate.hashCode());
 		result = prime * result + readCount;
 		result = prime * result + threadKey;
@@ -126,7 +123,6 @@ public class BoardKnowBattle {
 		return result;
 	}
 
-
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -135,7 +131,14 @@ public class BoardKnowBattle {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		BoardKnowBattle other = (BoardKnowBattle) obj;
+		Board other = (Board) obj;
+		if (articleContent == null) {
+			if (other.articleContent != null)
+				return false;
+		} else if (!articleContent.equals(other.articleContent))
+			return false;
+		if (articleNo != other.articleNo)
+			return false;
 		if (modifiedDate == null) {
 			if (other.modifiedDate != null)
 				return false;

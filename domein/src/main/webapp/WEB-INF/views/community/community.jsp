@@ -23,11 +23,10 @@
 	                <a href="">노하우</a>
 	            </div>
 	            <div class="community-bottom-right">
-	            	<form action="${path }/community/communityList.do" method="post">
+	            	<form action="${path }/community/community.do" method="post">
 		                <table class="board_list">
 		                    <thead>
 		                        <tr>
-		                        	<!-- <th>번호</th> -->
 		                            <th>제목</th>
 		                            <th>글쓴이</th>
 		                            <th>추천수</th>
