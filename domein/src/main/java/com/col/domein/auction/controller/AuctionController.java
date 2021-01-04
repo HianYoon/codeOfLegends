@@ -1,16 +1,28 @@
 package com.col.domein.auction.controller;
 
+import java.util.List;
+import java.util.Map;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.ModelAndView;
+
+import com.col.domein.auction.model.service.AuctionService;
 
 @Controller
 public class AuctionController {
-	
+	@Autowired
+	private AuctionService service;
 	//옥션등록
 	@RequestMapping("/auction/auctionEnllo.do")
-	public String auctionEnllo() {
-		
-		return "auction/auctionEnllo";
+	public ModelAndView auctionEnllo(ModelAndView mv, int memberKey) {
+		System.out.println(memberKey);
+		List<Map> map=service.selectBusinessKey(memberKey);
+		System.out.println(""+map);
+		mv.addObject("business",map);
+		mv.setViewName("auction/auctionEnllo");
+		return mv;
 	}
 	//옥션등록 수정
 	@RequestMapping("/auction/auctionEnlloUpdate.do")
