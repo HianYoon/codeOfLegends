@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.col.domein.ads.model.dao.AdsDao;
 import com.col.domein.ads.model.vo.BannerAds;
+import com.col.domein.ads.model.vo.DirectAds;
 import com.col.domein.product.model.vo.BoardProductSaleContent;
 
 @Service
@@ -67,6 +68,11 @@ public class AdsServiceImpl implements AdsService {
 	@Override
 	public List<BoardProductSaleContent> selectBoardDirectSale(List keys) {
 		return dao.selectBoardDirectSale(session,keys);
+	}
+
+	@Override
+	public int directAdsApply(DirectAds directAds) {
+		return dao.directAdsApply(session, directAds);
 	}
 
 	

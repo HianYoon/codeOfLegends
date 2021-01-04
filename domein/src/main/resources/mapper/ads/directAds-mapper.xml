@@ -2,6 +2,11 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="directAds">
 
+	<insert id="insertDirectAds" parameterType="directAds">
+		INSERT INTO DIRECT_SALES_ADS VALUES(SEQ_ADS_KEY.NEXTVAL,#{applicantKey},
+			#{startDate},#{endDate},SYSDATE,DEFAULT,DEFAULT,#{articleNo},#{adsPrice})
+	</insert>
+
 	<select id="selectDirectHoldCount" parameterType="int" resultType="int">
 		SELECT COUNT(ADS_KEY) FROM DIRECT_SALES_ADS WHERE 
 		APPLICANT_KEY=#{applicantKey} AND ADS_STATUS_NO=0

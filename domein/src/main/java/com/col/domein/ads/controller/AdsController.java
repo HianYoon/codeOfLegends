@@ -20,6 +20,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.col.domein.ads.model.service.AdsService;
 import com.col.domein.ads.model.vo.BannerAds;
+import com.col.domein.ads.model.vo.DirectAds;
 import com.col.domein.business.model.vo.Business;
 import com.col.domein.member.model.vo.Member;
 
@@ -94,10 +95,10 @@ public class AdsController {
 		}
 		
 		bannerAds.setStartDate(startDate);
-		bannerAds.setEndDate(endDate);
+		bannerAds.setEndDate(endDate);		
 		
 		int result=service.bannerApply(bannerAds);
-		System.out.println("이게 1이되야하는데: "+result);
+		System.out.println("bannerAds성공여부: "+result);
 		mv.addObject("msg",result>0?"입력성공":"입력실패");
 		mv.addObject("loc","/ads/adsMainApply.do");
 		mv.setViewName("/common/msg");
@@ -113,7 +114,7 @@ public class AdsController {
 		if(m!=null) {
 			TreeSet<Business> businesses=m.getBusinesses();
 			if(businesses.isEmpty()) {
-				mv.addObject("msg","아직 사업자 등록을 하지 않았습니다. 사업자 등록 후에 서비스를 이용해주세요.");
+				mv.addObject("msg","아직 사업자 등록을 하지 않았습니다. \\n 사업자 등록 후에 서비스를 이용해주세요.");
 				mv.addObject("loc","/member/myPage.do");
 				mv.setViewName("/common/msg");
 			}else {
@@ -133,10 +134,17 @@ public class AdsController {
 	}
 	
 	
-//	@RequestMapping("/ads/directAdsApplicationEnd.do")
-//	public ModelAndView directAdsApplyEnd() {
-//		
-//	}
+	@RequestMapping("/ads/directAdsApplicationEnd.do")
+	public ModelAndView directAdsApplyEnd(DirectAds directAds, Date startDate, Date endDate, ModelAndView mv) {
+		directAds.setStartDate(startDate);
+		directAds.setEndDate(endDate);
+		int result=service.directAdsApply(directAds);
+		System.out.println("directAds성공여부: "+result);
+		mv.addObject("msg",result>0?"입력성공":"입력실패");
+		mv.addObject("loc","/ads/adsMainApply.do");
+		mv.setViewName("/common/msg");
+		return mv;
+	}
 	
 	
 }
