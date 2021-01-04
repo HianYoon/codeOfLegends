@@ -5,6 +5,7 @@ import java.util.List;
 import org.apache.ibatis.session.SqlSession;
 
 import com.col.domein.ads.model.vo.BannerAds;
+import com.col.domein.ads.model.vo.DirectAds;
 import com.col.domein.product.model.vo.BoardProductSaleContent;
 
 public interface AdsDao {
@@ -28,5 +29,19 @@ public interface AdsDao {
 	int showMeDirectAdsRate(SqlSession session);
 	
 	List<BoardProductSaleContent> selectBoardDirectSale(SqlSession session,List keys);
+	
+	int directAdsApply(SqlSession session, DirectAds directAds);
+	
+	int selectBannerAccept(SqlSession session);
+	
+	int selectDirectAccept(SqlSession session);
+	
+	int selectBannerDeny(SqlSession session);
+	
+	int selectDirectDeny(SqlSession session);
+	
+	int selectBannerPending(SqlSession session);
+	
+	int selectDirectPending(SqlSession session);
 	
 }

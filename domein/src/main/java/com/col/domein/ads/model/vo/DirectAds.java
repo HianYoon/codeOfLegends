@@ -15,6 +15,7 @@ public class DirectAds {
 	private String adsMemo;
 	private int adsStatusNo;
 	private int articleNo;
+	private int adsPrice;
 	
 	
 	public DirectAds() {
@@ -23,7 +24,7 @@ public class DirectAds {
 
 
 	public DirectAds(int adsKey, int applicantKey, Date startDate, Date endDate, Date applyDate, String adsMemo,
-			int adsStatusNo, int articleNo) {
+			int adsStatusNo, int articleNo, int adsPrice) {
 		super();
 		this.adsKey = adsKey;
 		this.applicantKey = applicantKey;
@@ -33,6 +34,7 @@ public class DirectAds {
 		this.adsMemo = adsMemo;
 		this.adsStatusNo = adsStatusNo;
 		this.articleNo = articleNo;
+		this.adsPrice = adsPrice;
 	}
 
 
@@ -116,14 +118,24 @@ public class DirectAds {
 	}
 
 
+	public int getAdsPrice() {
+		return adsPrice;
+	}
+
+
+	public void setAdsPrice(int adsPrice) {
+		this.adsPrice = adsPrice;
+	}
+
+
 	@Override
 	public String toString() {
-		return "DirectSalesAds [adsKey=" + adsKey + ", applicantKey=" + applicantKey + ", startDate=" + startDate
+		return "DirectAds [adsKey=" + adsKey + ", applicantKey=" + applicantKey + ", startDate=" + startDate
 				+ ", endDate=" + endDate + ", applyDate=" + applyDate + ", adsMemo=" + adsMemo + ", adsStatusNo="
-				+ adsStatusNo + ", articleNo=" + articleNo + "]";
+				+ adsStatusNo + ", articleNo=" + articleNo + ", adsPrice=" + adsPrice + "]";
 	}
-	
-	
-	
+
+
+		
 
 }

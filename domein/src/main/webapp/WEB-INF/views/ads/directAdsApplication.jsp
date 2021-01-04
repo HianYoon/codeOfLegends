@@ -45,6 +45,7 @@
                 </div>
 
                 <div class="div_myArticle">
+                	<input type="hidden" name="applicantKey" value="${signedInMember.memberKey }"/>
                     <p><u>내가 쓴 게시글</u></p>                    
                        <table class="table_myArticle">
                            <thead>
@@ -94,7 +95,7 @@
                     결제금액&nbsp;&nbsp;<input type="text" id="totalPrice" value="0" name="adsPrice" readonly>&nbsp;원
                 </div>
                 <br><br>
-
+				
                 <div class="div_submit">
                     <input type="submit" class=".btn.btn--primary" value="결제화면으로 이동">&nbsp;
                     <input type="reset" class=".btn.btn--primary2" value="취소">
@@ -110,7 +111,8 @@
 		$("input[name=myArticle]").click(e=>{
 			$.ajax({
 				url:"<%=request.getContextPath()%>/product/productDetail",
-				data:{"articleNo":<%=request.getAttribute("boardDirectSale") %>},//서버에 전달할 데이터 자바스크립트 객체형식으로 보냄{key:value...}
+				/* articleNo 를 쏴주는 것 (articleNo 만으로 검색가능) */
+				data:{"boardDirectSale":<%=request.getAttribute("boardDirectSale") %>},//서버에 전달할 데이터 자바스크립트 객체형식으로 보냄{key:value...}
 				type:"get",
 				dataType:"html",
 				success:data=>{

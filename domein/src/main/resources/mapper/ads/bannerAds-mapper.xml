@@ -16,6 +16,8 @@
 		<result column="ADS_TITLE" property="adsTitle"/>
 		<result column="ADS_PRICE" property="adsPrice"/>				
 	</resultMap>
+	
+	<!-- adsController(회원신청 용) -->
 
 	<insert id="insertBannerAds" parameterType="bannerAds">
 		INSERT INTO BANNER_ADS_APPLICATION VALUES(SEQ_ADS_KEY.NEXTVAL,#{applicantKey},
@@ -40,6 +42,22 @@
 	
 	<select id="selectAdsRate" resultType="int">
 		SELECT ADS_RATE FROM (SELECT * FROM ADS_RATING ORDER BY SET_DATE DESC) WHERE ROWNUM=1 AND ADS_TYPE=1
+	</select>
+	
+	<!-- //////////////////////////////////////////////////////////////////////////////////////////////////////// -->
+	
+	<!-- adminAdsController (관리자용) -->
+	
+	<select id="selectBannerAccept" resultType="int">
+		SELECT COUNT(ADS_STATUS_NO) FROM BANNER_ADS_APPLICATION WHERE ADS_STATUS_NO=1 AND APPLY_DATE BETWEEN '210101' AND '211231' GROUP BY SUBSTR(APPLY_DATE,4,2)
+	</select>
+	
+	<select id="selectBannerDeny" resultType="int">
+		SELECT COUNT(ADS_STATUS_NO) FROM BANNER_ADS_APPLICATION WHERE ADS_STATUS_NO=6 AND APPLY_DATE BETWEEN '210101' AND '211231' GROUP BY SUBSTR(APPLY_DATE,4,2)
+	</select>
+	
+	<select id="selectBannerPending" resultType="int">
+		SELECT COUNT(ADS_STATUS_NO) FROM BANNER_ADS_APPLICATION WHERE ADS_STATUS_NO=0 AND APPLY_DATE BETWEEN '210101' AND '211231' GROUP BY SUBSTR(APPLY_DATE,4,2)
 	</select>
 	
 </mapper>
