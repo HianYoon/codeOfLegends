@@ -1,0 +1,209 @@
+@charset "UTF-8";
+/* start : FORUM DETAIL PAGE STYLE */
+/*---COMMON STYLE---*/
+/* image */
+img {
+	vertical-align: top;
+}
+/* button */
+.page-forum button,
+.page-forum [type=submit] {
+	border: none;
+	background-color: transparent;
+	appearance: none;
+	cursor: pointer;
+	transition: 0.2s;
+}
+.page-forum button:hover {
+	opacity: 0.7;
+}
+.page-forum button + button {
+	margin-left: 6px;
+}
+.page-forum .btn-type-1 {
+	padding: 5px 12px;
+	background-color: var(--main-yellow);
+	border-radius: 5px;
+}
+/* LAYOUT */
+.page-forum {
+	padding: 50px 0 100px;
+}
+.page-forum .wrap-inner { 
+	width: 100%;
+	max-width: 1000px;
+	margin-left: auto;
+	margin-right: auto;
+	padding: 0 30px;
+	box-sizing: border-box;
+}
+
+/* ARTICLE */
+.page-forum .article {
+	padding-bottom: 30px;
+	border-bottom: 1px solid #999;
+}
+.page-forum .article + .article {
+	margin-top: 30px;
+}
+.page-forum .article .wrap-title {
+	margin-bottom: 20px;
+	padding-bottom: 20px;
+	border-bottom: 1px solid #ddd;
+}
+.page-forum .article .wrap-title .page-title {
+	font-size: 30px;
+	line-height: 1.4;
+}
+.page-forum .article .wrap-contents {
+	display: flex;
+}
+/* ARTICLE - user thumbnail */
+.page-forum .article .box-img {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	width: 80px;
+	height: 80px;
+	margin-right: 20px;
+	border: 1px solid var(--main-yellow);
+}
+.page-forum .article .box-img img {
+	max-width: 100%;
+}
+/* ARTICLE - text area */
+.page-forum .article .box-text {
+	flex: 1;
+}
+/* ARTICLE - text area - top */
+.page-forum .article .box-text-top {
+	display: flex;
+	justify-content: space-between;
+	margin-bottom: 20px;
+}
+.page-forum .article .box-text-top .wrap-left {
+	display: flex;
+}
+.page-forum .article .box-text-top .nickname {
+	font-size: 20px;
+	font-weight: bold;
+}
+.page-forum .article .box-text-top .date {
+	margin-top: 0.5em;
+	margin-left: 15px;
+	font-size: 14px;
+	color: #999;
+}
+.page-forum .article .box-text-top .date .time {
+	margin-left: 5px;
+}
+.page-forum .article .box-text-top .box-button {
+	margin-left: 15px;
+}
+/* ARTICLE - text area - main */
+.page-forum .article .box-text-main .box-button {
+	margin-top: 10px;
+	text-align: right;
+}
+.page-forum .article .box-text-main .box-button .btn-like {
+	line-height: 1;
+	font-size: 18px;
+}
+.page-forum .article .box-text-main .box-button .btn-like img {
+	width: 20px;
+	margin-left: 4px;
+}
+/* ARTICLE - text area - bottom */
+.page-forum .article .box-text-bottom {
+	margin-top: 20px;
+	padding-top: 20px;
+	border-top: 1px solid #ddd;
+}
+.page-forum .article .box-text-bottom .info-article {
+	display: flex;
+	font-size: 14px;
+	text-align: center;
+}
+.page-forum .article .box-text-bottom .info-article>div {
+	position: relative;
+	display: flex;
+}
+.page-forum .article .box-text-bottom .info-article>div+div {
+	margin-left: 20px;
+	padding-left: 20px;
+}
+.page-forum .article .box-text-bottom .info-article>div+div:before {
+	display: block;
+	position: absolute;
+	top: 18%;
+	left: 0;
+	width: 1px;
+	height: 70%;
+	background-color: #ccc;
+	content: '';
+}
+.page-forum .article .box-text-bottom .info-article dt {
+	color: #999;
+}
+.page-forum .article .box-text-bottom .info-article dd {margin-left: 10px;}
+/* mobile */
+@media screen and (max-width: 768px) {
+	.page-forum .wrap-inner {
+		padding: 0 15px;
+	}
+	.page-forum .article .wrap-contents {
+		flex-wrap: wrap;
+	}
+	.page-forum .article .wrap-title .page-title {
+		font-size: 24px;
+	}
+	.page-forum .article .box-img {
+		width: 50px;
+		height: 50px;
+		margin-right: 10px;
+	}
+	.page-forum .article .box-text {
+		width: calc(100% - 62px);
+	}
+	.page-forum .article .box-text-top {
+		display: block;
+	}
+	.page-forum .article .box-text-top .wrap-left {
+		justify-content: space-between;
+	}
+	.page-forum .article .box-text-top .date {
+		margin-top: 4px;
+	}
+	.page-forum .article .box-text-top .box-button {
+		margin: 5px 0 0 0;
+	}
+	.page-forum .article .box-text-bottom {
+		margin-left: -62px;
+	}
+	.page-forum .article .box-text-bottom .info-article {
+
+		font-size: 12px;
+	}
+	.page-forum .article .box-text-bottom .info-article>div {
+		display: block;
+		width: 20%;
+	}
+	.page-forum .article .box-text-bottom .info-article>div+div {
+		margin: 0;
+		padding: 0;
+	}
+	.page-forum .article .box-text-bottom .info-article dt {
+		font-size: 12px;
+		white-space: nowrap;
+	}
+	.page-forum .article .box-text-bottom .info-article dd {
+		margin-left: 0;
+	}
+	.page-forum .article .box-text-main .box-button .btn-like {
+		font-size: 16px;
+	}
+	.page-forum .article .box-text-main .box-button .btn-like img {
+		width: 18px;
+	}
+}
+/* end : FORUM DETAIL PAGE STYLE */

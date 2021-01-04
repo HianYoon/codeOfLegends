@@ -19,7 +19,6 @@ public class BoardServiceImpl implements BoardService{
 	@Autowired
 	private SqlSession session;
 	
-	
 	@Override
 	public List<Map> selectBoardList(int cPage, int numPerpage) {
 		return dao.selectBoardList(session, numPerpage, numPerpage);
@@ -52,8 +51,9 @@ public class BoardServiceImpl implements BoardService{
 		return null;
 	}
 
-	/*
-	 * @Override public int write(Board b, List<Attachement> files) { // TODO
-	 * Auto-generated method stub return 0; }
-	 */
+	@Override
+	public List<Map> selectBkbArticles(int threadKey) {
+		// TODO Auto-generated method stub
+		return dao.selectBkbArticles(session,threadKey);
+	}
 }

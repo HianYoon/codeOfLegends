@@ -3,8 +3,6 @@ package com.col.domein.productcomment.controller;
 import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
-import java.util.List;
-import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -76,14 +74,14 @@ public class BDSreviewController {
 		mv.setViewName("redirect:/product/getComment");
 		return mv;
 	}
-	//like기능 
+	
 	@RequestMapping("/BDSreview/like.do")
-	public ModelAndView insertLike(BDSreviewLike bds,ModelAndView mv) {
-		System.out.println("작동안해?");
-			int result=service.insertLike(bds);
-			mv.addObject("msg",result>0?"좋아요":"별로입니다");
-
-		mv.setViewName("/product/productDetail.do");
+	public  ModelAndView insertLike(BDSreviewLike bds,ModelAndView mv) {
+		int result=service.insertLike(bds);
+		
+		mv.addObject("msg",result>0?"좋아요":"별로입니다");
+		mv.addObject("data",result);
+		mv.setViewName("product/productDetail.do");
 		return mv;
 	}
 

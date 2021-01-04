@@ -1,6 +1,9 @@
 package com.col.domein.ads.model.service;
 
+import java.util.List;
+
 import com.col.domein.ads.model.vo.BannerAds;
+import com.col.domein.product.model.vo.BoardProductSaleContent;
 
 public interface AdsService {
 
@@ -19,5 +22,9 @@ public interface AdsService {
 	int directRejectCount(int applicantKey);
 	
 	int showMeRate();
+	
+	int showMeDirectAdsRate();
+	
+	List<BoardProductSaleContent> selectBoardDirectSale(List keys);
 	
 }

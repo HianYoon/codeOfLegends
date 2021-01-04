@@ -4,6 +4,7 @@
     <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
     <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
  <link rel="stylesheet" href="${path }/resources/css/community/write.css"/>
+ <link rel="stylesheet" href="${path }/resources/css/jihunTab/TabMedia.css"/>
  <script src="https://cdn.ckeditor.com/4.14.0/standard/ckeditor.js"></script>
  
      <c:set var="path" value="${pageContext.request.contextPath }"/>
@@ -11,7 +12,7 @@
 	<jsp:param name="title" value=""/>
 </jsp:include>
 <section class="container">
-	<form action="${path }/community/insertBoard.do" class="form1" method = "post" enctype="multipart/form-data">
+	<form action="${path }/community/write.do" class="form1" method = "post" enctype="multipart/form-data">
 	<table width=100%>
 		<tr>
 			<td>제목</td>
@@ -40,7 +41,7 @@
     	fileborwserUploadUrl : "${path}/imageUpload.do"
     });
     $(".btn").click(e => {
-    	location.href = "${path}/community/community.do";
+    	location.href = "${path}/community/communityList.do";
     })
 /*     $(document).on('click', #btnSave', function(e){
     	$("#form").submit();

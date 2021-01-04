@@ -13,9 +13,9 @@ import com.col.domein.product.model.vo.Attachement;
 public interface BoardService {
 	  
 	List<Map> selectBoardList(int cPage, int numPerpage);
-	
+	List<Map> selectBkbArticles(int threadKey);
 	int selectCount();
-	Board selectBoardOne(int boardNo);
+	Board selectBoardOne(int articleNo);
 	int insertBoard(Board board,List<Attachment> files);
 
 }
