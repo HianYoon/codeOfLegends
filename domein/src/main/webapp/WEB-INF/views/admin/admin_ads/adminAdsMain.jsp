@@ -16,8 +16,7 @@
 		location.href = path;
 	<%
 	}
-	%>
-	let signedInMember= <%=session.getAttribute("signedInMember") %>;
+	%>	
 
 </script>
 
@@ -38,7 +37,7 @@
 	        <div class="div_info">
 	            <h3><u>알림메시지</u></h3>
 	            <p>
-	                관리자<>님, 돌아오셨군요!<br>
+	                관리자 <c:out value="<${signedInMember.nickname}>" />님, 돌아오셨군요!<br>
 	                현재 검토 대기중인 광고 요청이 총 <> 건 있습니다.
 	            </p>
 	        </div>
@@ -68,14 +67,22 @@
   // draws it.
   function drawVisualization() {
         // Some raw data (not necessarily accurate)
-        var data = google.visualization.arrayToDataTable([
-          ['월 별', '승인', '반려', '대기', '총 요청건'],
-          ['8월',9,2,0,11],
-          ['9월',5,1,0,6],
-          ['10월',13,9,0,22],
-          ['11월',18,13,0,31],
-          ['12월',8,3,1,12]
-        ]);
+        let accept=<%=request.getAttribute("accept") %>;
+        let deny=<%=request.getAttribute("deny") %>;
+        let pending=<%=request.getAttribute("pending") %>;
+        let total=accept+deny+pending;
+        
+        for(let i=0;i<6;i++){
+	        var data = google.visualization.arrayToDataTable([
+	          ['월 별', '승인', '반려', '대기', '총 요청건'],          
+	          ['7월',4,4,0,8],
+	          ['8월',9,2,0,11],
+	          ['9월',5,1,0,6],
+	          ['10월',13,9,0,22],
+	          ['11월',18,13,0,31],
+	          ['12월',8,3,1,12]
+	        ]);
+        }
 
         var options = {
           title : '월 별 광고통계(2020년)',
