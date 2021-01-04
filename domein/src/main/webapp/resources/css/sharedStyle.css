@@ -74,6 +74,10 @@ a {
 	border: solid black 3px;
 }
 
+.force-main-yellow{
+	background-color: var(--main-yellow) !important;
+}
+
 ul li {
 	list-style-type: none;
 }

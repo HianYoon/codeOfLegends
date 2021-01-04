@@ -27,7 +27,7 @@
 	</select>
 	
 	<select id="selectBusinessByMemberKey" resultType="business" resultMap="businessMap">
-		SELECT * FROM BUSINESS WHERE MEMBER_KEY = #{memberKey}
+		SELECT * FROM BUSINESS WHERE MEMBER_KEY = #{memberKey} AND BUSINESS_STATUS_NO != 9
 	</select>
 	
 	<select id="selectBusinessStatusDesc" resultType="string">
@@ -56,5 +56,11 @@
 		UPDATE BUSINESS SET BUSINESS_STATUS_NO = 9, BUSINESS_NO = 'deleted' WHERE MEMBER_KEY = #{memberKey} AND BUSINESS_STATUS_NO = 1
 	</update>
 
-
+	<update id="updateBusinessToStoppedByBusinessKey">
+		UPDATE BUSINESS SET BUSINESS_STATUS_NO = 9, BUSINESS_NO = 'deleted' WHERE BUSINESS_KEY = #{businessKey}
+	</update>
+	
+	<update id="updateBusinessNicknameAndTel" parameterType="business">
+		UPDATE BUSINESS SET BUSINESS_TEL =#{businessTel}, BUSINESS_NICKNAME =#{businessNickname} WHERE BUSINESS_KEY =#{businessKey}
+	</update>
 </mapper>

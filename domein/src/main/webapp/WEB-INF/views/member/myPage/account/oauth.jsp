@@ -70,7 +70,7 @@
 		</c:if>
 	</div>
 
-	<c:if test="${sources }"></c:if>
+
 	<!-- 아래 div는 비워두세요!  space-between을 위한 빈 아이임-->
 	<div></div>
 
