@@ -8,4 +8,24 @@
  where member_Key=#{signedInMember.memberKey} 
 		
 	</select>
+
+	<!-- auction등록 -->
+	<insert id="inertEnllo" parameterType="boardAuction">
+		INSERT INTO BOARD_AUCTION values(SEQ_article_No.nextval,
+		#{title},#{writerKey},SYSDATE,SYSDATE,
+		#{startDate},#{endDate},#{ReadCount},#{auctionStatusNo},#{content}
+		)
+		<selectKey order="AFTER" resultType="_int" keyProperty="articleNo">
+			select seq_product_no.currval from dual
+		</selectKey>
+	</insert>
+	
+	<!-- auction파일등록 -->
+	<insert id="insertUpFile" parameterType="boardAttachementFile">
+	 insert into BA_ATTACHED_FILE values(SEQ_FILE_KEY.NEXT.VAL,#{articleNo},#{originalFileName},#{renamedFileName})
+	</insert>
+	<!-- auction이미지파일등록 -->
+	<insert id="insertImgFile" parameterType="boardAttachementImage">
+	insert into BA_ATTACHED_FILE values(SEQ_IMAGE_KEY.NEXT.VAL,#{articleNo},#{imgOriginalFileName},#{imgRenamedFileName})
+	</insert>
 </mapper>
