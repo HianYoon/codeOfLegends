@@ -2,6 +2,7 @@ package com.col.domein.member.controller;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.TreeSet;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -16,10 +17,14 @@ import org.springframework.ui.Model;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.client.RestTemplate;
 
+import com.col.domein.business.model.service.BusinessService;
+import com.col.domein.business.model.vo.Business;
+import com.col.domein.business.model.vo.BusinessCategory;
 import com.col.domein.common.model.vo.ErrorUriMaker;
 import com.col.domein.member.model.service.MemberService;
 import com.col.domein.member.model.vo.Member;
@@ -39,6 +44,8 @@ public class MemberController {
 	private MemberService ms;
 	@Autowired
 	private BCryptPasswordEncoder pwEncoder;
+	@Autowired
+	private BusinessService bs;
 
 	@RequestMapping("/memberLogin.do")
 	public String memberLogin() {
@@ -620,6 +627,146 @@ public class MemberController {
 			return "redirect: " + request.getContextPath() + "/error.do";
 
 		return "redirect: " + request.getContextPath() + "/member/myPage/account/oauth.do";
+	}
+
+	////////////////////////////////////////////////////////////////////////////////////////////////////////
+//	계정 비지니스 관리
+
+	@RequestMapping("/myPage/account/business/manageBusiness.do")
+	public String manageBusiness(HttpSession session, HttpServletRequest request) {
+		return "member/myPage/account/business/manageBusiness";
+	}
+
+//	비지니스 추가 페이지
+	@RequestMapping("/myPage/account/business/addBusiness.do")
+	public String addBusiness() {
+		return "member/myPage/account/business/addBusiness";
+	}
+
+//	비지니스 추가 후 페이지
+	@PostMapping("/myPage/account/business/addBusinessEnd.do")
+	public String addBusinessEnd(HttpSession session, HttpServletRequest request, Business b,
+			@RequestParam(defaultValue = "99", required = false) String[] categories) {
+
+		Member m = (Member) session.getAttribute("signedInMember");
+
+		if (b.getBusinessNickname() == null || b.getBusinessNickname() == "") {
+			b.setBusinessNickname(b.getBusinessName());
+		}
+
+		if (categories != null) {
+			TreeSet<BusinessCategory> businessCategories = new TreeSet<BusinessCategory>();
+			for (String c : categories) {
+				BusinessCategory bc = new BusinessCategory(Integer.parseInt(c), null);
+				businessCategories.add(bc);
+			}
+			b.setBusinessCategories(businessCategories);
+		}
+		b.setMemberKey(m.getMemberKey());
+
+		boolean result = bs.insertBusiness(b);
+
+		if (!result)
+			return new ErrorUriMaker(request, "판매자 삽입 중 에러 발생!", "/member/myPage/account/business/manageBusiness.do",
+					"판매자 관리로...").getErrorUri();
+
+		Member modifiedM = ms.selectMemberByMemberKey(m.getMemberKey());
+		session.setAttribute("signedInMember", modifiedM);
+
+		return "redirect: " + request.getContextPath() + "/member/myPage/account/business/manageBusiness.do";
+	}
+
+//	비지니스 삭제 버튼 클릭시
+	@RequestMapping("/myPage/account/business/deleteBusiness.do")
+	public String deleteBusiness(HttpSession session, HttpServletRequest request, String businessKey) {
+		Member m = (Member) session.getAttribute("signedInMember");
+		int bKey = Integer.parseInt(businessKey);
+		boolean containFlag = false;
+		for (Business b : m.getBusinesses()) {
+			if (b.getBusinessKey() == bKey)
+				containFlag = true;
+		}
+		if (!containFlag)
+			return new ErrorUriMaker(request, "잘못된 접근입니다!", "/member/myPage/account/business/manageBusiness.do",
+					"판매자 관리로...").getErrorUri();
+
+		bs.updateBusinessToStoppedByBusinessKey(bKey);
+
+		Member modifiedM = ms.selectMemberByMemberKey(m.getMemberKey());
+		session.setAttribute("signedInMember", modifiedM);
+
+		return "redirect: " + request.getContextPath() + "/member/myPage/account/business/manageBusiness.do";
+	}
+
+//	비지니스 수정 클릭시
+	@RequestMapping("/myPage/account/business/modifyBusiness.do")
+	public String modifyBusiness(HttpSession session, HttpServletRequest request, String businessKey, Model model) {
+		Member m = (Member) session.getAttribute("signedInMember");
+		int bKey = Integer.parseInt(businessKey);
+		Business business = null;
+
+		for (Business b : m.getBusinesses()) {
+			if (b.getBusinessKey() == bKey)
+				business = b;
+		}
+		if (business == null)
+			return new ErrorUriMaker(request, "잘못된 접근입니다!", "/member/myPage/account/business/manageBusiness.do",
+					"판매자 관리로...").getErrorUri();
+
+		model.addAttribute("memberBusiness", business);
+
+		boolean[] categoryFlag = { false, false, false, false, false, false, false, false };
+
+		for (BusinessCategory bc : business.getBusinessCategories()) {
+			int categoryNo = bc.getBusinessCategoryNo();
+			if (categoryNo != 99) {
+				categoryFlag[categoryNo - 1] = true;
+			} else {
+				categoryFlag[7] = true;
+			}
+		}
+
+		model.addAttribute("categoryFlag", categoryFlag);
+
+		return "member/myPage/account/business/modifyBusiness";
+	}
+
+//	비지니스 수정 완료
+	@RequestMapping("/myPage/account/business/modifyBusinessEnd.do")
+	public String modifyBusinessEnd(HttpSession session, HttpServletRequest request, Business b,
+			@RequestParam(defaultValue = "99", required = false) String[] categories) {
+		
+		Member m = (Member) session.getAttribute("signedInMember");
+
+		boolean flag = false;
+		for(Business bu : m.getBusinesses()) {
+			if(bu.getBusinessKey() == b.getBusinessKey()) flag = true;
+		}
+		
+		if(!flag) return new ErrorUriMaker(request, "잘못된 접근입니다!", "/member/myPage/account/business/manageBusiness.do",
+				"판매자 관리로...").getErrorUri();
+		
+		if (b.getBusinessNickname() == null || b.getBusinessNickname() == "") {
+			b.setBusinessNickname(b.getBusinessName());
+		}
+
+		if (categories != null) {
+			TreeSet<BusinessCategory> businessCategories = new TreeSet<BusinessCategory>();
+			for (String c : categories) {
+				BusinessCategory bc = new BusinessCategory(Integer.parseInt(c), null);
+				businessCategories.add(bc);
+			}
+			b.setBusinessCategories(businessCategories);
+		}
+		
+		b.setMemberKey(m.getMemberKey());
+		
+		bs.updateBusinessInfo(b);
+		
+		Member modifiedM = ms.selectMemberByMemberKey(m.getMemberKey());
+		session.setAttribute("signedInMember", modifiedM);
+		
+		return "redirect: " + request.getContextPath() + "/member/myPage/account/business/manageBusiness.do";
 	}
 
 }

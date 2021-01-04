@@ -56,4 +56,36 @@ public class BusinessService {
 		return bd.updateBusinessToStoppedByMemberKey(session, memberKey);
 	};
 	
+	public boolean updateBusinessToStoppedByBusinessKey(int businessKey) {
+		return bd.updateBusinessToStoppedByBusinessKey(session, businessKey);
+	}
+	
+	public boolean updateBusinessInfo(Business b) {
+		int businessKey = b.getBusinessKey();
+//		1.닉네임과 전화번호 업데이트
+		boolean flag = bd.updateBusinessNicknameAndTel(session, b);
+		if(!flag) return flag;
+		
+//		2. 카테고리 모두 삭제
+		
+		flag = bd.deleteCategories(session, businessKey);
+		
+//		3.카테고리 재등록
+		boolean categoryFlag = false;
+		TreeSet<BusinessCategory> businessCategories = b.getBusinessCategories();
+		try {
+			for (BusinessCategory cat : businessCategories) {
+				Map<String, Integer> keys = new HashMap<String, Integer>();
+				keys.put("businessKey", businessKey);
+				keys.put("businessCategoryNo", cat.getBusinessCategoryNo());
+				categoryFlag = bd.insertBusinessCategory(session, keys);
+				if(!categoryFlag) return false;
+			}
+			categoryFlag = true;
+		} catch (Exception e) {
+			categoryFlag = false;
+		}
+		return categoryFlag;
+	}
+	
 }

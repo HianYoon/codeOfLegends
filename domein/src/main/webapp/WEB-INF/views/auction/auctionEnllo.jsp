@@ -53,52 +53,49 @@
             <div class="tab_container">
                 
  
-
+			<c:set value="${business}" var="business"/>
             <!-- 입찰 등록 form -->
                 <div id="tab2" class="tab_content">
                    <!--Content-->
-                 <form action="" method="post" enctype="multipart/form-data" id="oction--form" >
+                 <form action="${path }/auction/Enllo.do" method="post" enctype="multipart/form-data" id="oction--form" >
                   
                        <div class="oction--register--img">
                            <h1>입찰 등록</h1>
-                         
-                               <input type="text" class="input--text inputMax" name="" placeholder="제목" required>
-                               <input type="text" class="input--text inputMax" name="" placeholder="아이디" readonly>
-                            <input type="text" class="input--text inputMax" name="" placeholder="상호명" readonly required>
+                         <div>
+                               <input type="text" class="input--text inputMax" name="title" placeholder="제목" required>
+                               <input type="text" class="input--text inputMax" name="id" value="${signedInMember.nickname }" placeholder="아이디" readonly>
+                               <input type="hidden" class="input--text inputMax" name="writerKey" value="${signedInMember.memberKey }"/>
+                             <c:forEach items="${business}" var="business">
+                           			 <input type="text" class="input--text inputMax" name="businessName" value="${business.BUSINESS_NAME }" readonly required>
+                         	</c:forEach>
+                         </div>
 
                        
                         <div class="register-date-group">
                             <h4>입찰날짜</h4>
-                            시작일:  <input type="date" class="input--text" name="" placeholder="시작일" id="startDate" required>
-                            마감일:  <input type="date" class="input--text" name="" placeholder="마감일" id="endDate" required>
+                            시작일:  <input type="date" class="input--text" name="startDate" placeholder="시작일" id="startDate" required>
+                            마감일:  <input type="date" class="input--text" name="endDate" placeholder="마감일" id="endDate" required>
                         </div>
                         
-                        <div class="register-date-group">
-                            <h4>거래일자</h4>
-                            시작일:  <input type="date" class="input--text" name="" placeholder="시작일" id="deleveryDate" required>
-                            종료일:  <input type="date" class="input--text" name="" placeholder="마감일" id="deleveryEndDate" required>
-                        </div>
-                        
+                  
                         <div class="oction-img-container">
                             <div class="oction-img-file1">
                                 
                             </div>
                             <div class="oction-img-file">
-                                <input type="file" class="input--text upFile" id="upFile" name="imgFile"  multiple  readonly required />
+                                <input type="file" class="input--text upFile" id="upFile" name="upFile"  multiple    />
+                                <input type="file" class="input--text upFile" id="img" name="imgFile"  multiple    />
                             
                             
                         </div>
                         
                     </div>
                     
-                    
-                    
-                    
-                    <textarea name="" id="" cols="30" rows="10" class="input-text"placeholder="요구사항">요구사항:
+                    <textarea name="content" id="AuctionContent" cols="10" rows="10" class="input-text"placeholder="요구사항">요구사항:
                     </textarea>
                     <div class="register-btn-group">
-                        <button type="submit" class="btn btn--primary">등록하기</button>
-                        <button type="reset" class="btn btn--primary">취소하기</button>
+                        <button type="submit" id="EnlloBtn" class="btn btn--primary">등록하기</button>
+                        <button type="reset" id="cancleBtn" class="btn btn--primary">취소하기</button>
                     </div>
                 </div>
                 
@@ -108,4 +105,11 @@
   
 
 </section>
+<script type="text/javascript">
+$(document).ready(function(){
+	$("#EnlloBtn").click(function(){
+		alert("등록되었습니다.");
+	});
+});
+</script>
 <jsp:include page="/WEB-INF/views/common/footer.jsp"/>

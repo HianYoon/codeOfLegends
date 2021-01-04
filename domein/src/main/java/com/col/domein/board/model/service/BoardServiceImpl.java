@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.col.domein.board.model.dao.BoardDao;
 import com.col.domein.board.model.vo.Attachment;
-import com.col.domein.board.model.vo.BoardKnowBattle;
+import com.col.domein.board.model.vo.Board;
 
 @Service
 public class BoardServiceImpl implements BoardService{
@@ -18,7 +18,6 @@ public class BoardServiceImpl implements BoardService{
 	private BoardDao dao;
 	@Autowired
 	private SqlSession session;
-	
 	
 	@Override
 	public List<Map> selectBoardList(int cPage, int numPerpage) {
@@ -32,13 +31,22 @@ public class BoardServiceImpl implements BoardService{
 	}
 
 	@Override
-	public int insertBoard(BoardKnowBattle board, List<Attachment> files) {
+	public int insertBoard(Board board, List<Attachment> files) {
 		// TODO Auto-generated method stub
-		return 0;
+		/* return dao.insertBoard(session, board); */
+		int result=dao.insertBoard(session,  board);
+		if(result>0) {
+			if(files!=null) {
+				for(Attachment a:files) {
+					result=dao.insertAttachment(session,a);
+				}
+			}
+		}
+		return result;
 	}
 
 	@Override
-	public BoardKnowBattle selectBoardOne(int boardNo) {
+	public Board selectBoardOne(int boardNo) {
 		// TODO Auto-generated method stub
 		return null;
 	}

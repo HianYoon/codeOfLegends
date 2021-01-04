@@ -30,7 +30,7 @@
 		                <table class="board_list">
 		                    <thead>
 		                        <tr>
-		                        	<!-- <th>번호</th> -->
+		                        	<th>번호</th>
 		                            <th>제목</th>
 		                            <th>글쓴이</th>
 		                            <th>추천수</th>
@@ -40,6 +40,9 @@
 		                    </thead>
 	 	                    <c:forEach items="${list }" var="b">
 		                    	<tr>
+		                    			<td class="tit">
+		                    					<c:out value="${b.ARTICLE_NO }"/>
+		                    			</td>
 			                    		<td class="tit">
 			                    				<c:out value="${b.THREAD_KEY}"/>
 			                    		</td>

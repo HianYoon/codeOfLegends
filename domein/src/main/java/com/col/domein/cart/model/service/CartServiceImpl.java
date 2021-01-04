@@ -1,6 +1,7 @@
 package com.col.domein.cart.model.service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -28,14 +29,7 @@ public class CartServiceImpl implements CartService {
 	}
 
 
-	//비회원 상품가져오기
 
-	//비회원 
-	@Override
-	public List<Map> selectCartOne(int productNo) {
-		// TODO Auto-generated method stub
-		return dao.selectCartOne(session,productNo);
-	}
 
 	//membercart
 	@Override
@@ -92,5 +86,15 @@ public class CartServiceImpl implements CartService {
 		// TODO Auto-generated method stub
 		return dao.minusToAmount(session,productNo,amount,memberKey);
 	}
+
+
+
+
+	@Override
+	public ProductAll selectNonproductList(int productNo) {
+		// TODO Auto-generated method stub
+		return dao.selectNonproductList(session,productNo);
+	}
+
 
 }

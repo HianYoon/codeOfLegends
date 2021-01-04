@@ -22,5 +22,7 @@
 		BUSINESS_CATEGORIES(BUSINESS_KEY,BUSINESS_CATEGORY_NO)
 		VALUES(#{businessKey},#{businessCategoryNo})
 	</insert>
-
+	<delete id="deleteCategories">
+		DELETE FROM BUSINESS_CATEGORIES WHERE BUSINESS_KEY =#{businessKey}
+	</delete>
 </mapper>

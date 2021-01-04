@@ -1,0 +1,20 @@
+.existing-businesses{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+}
+.add-btn-cont{
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+.modify-btn-cont{
+  width: 30vw;
+  margin: 15px;
+}
+.modify-btn-cont>button.btn{
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}

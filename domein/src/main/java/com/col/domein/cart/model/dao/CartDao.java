@@ -1,11 +1,13 @@
 package com.col.domein.cart.model.dao;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 
 import com.col.domein.cart.model.vo.Cart;
+import com.col.domein.product.model.vo.ProductAll;
 
 public interface CartDao {
 
@@ -29,6 +31,9 @@ public interface CartDao {
 	int addToAmount(SqlSession session, int productNo,int amount, int memberKey);
 	//상품 수량 minus업데이트 
 	int minusToAmount(SqlSession session, int productNo, int amount, int memberKey);
+	//비회원 상품 불러오기
+	ProductAll selectNonproductList(SqlSession session, int productNo);
+
 	
 
 }

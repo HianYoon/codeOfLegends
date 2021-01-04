@@ -4,17 +4,18 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.OutputStream;
 import java.io.PrintWriter;
-import java.sql.Date;
-import java.text.SimpleDateFormat;
+//github.com/HianYoon/codeOfLegends.git
 import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+//github.com/HianYoon/codeOfLegends.git
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
@@ -29,6 +30,37 @@ public class BoardController {
 	@Autowired
 	private BoardService service;
 	
+	/*
+	 * @RequestMapping("/community/write.do") public ModelAndView write(Board b,
+	 * ModelAndView mv, Attachment a,
+	 * 
+	 * @RequestParam(value="upFile")MultipartFile upFile, HttpSession session) {
+	 * 
+	 * String
+	 * path=session.getServletContext().getRealPath("/resources/upload/bannerAds");
+	 * 
+	 * //파일 디렉토리가 없으면 mkdirs로 폴더를 생성! File dir=new File(path); if(!dir.exists())
+	 * dir.mkdirs();
+	 * 
+	 * //rename처리시작 if(!upFile.isEmpty()) { String
+	 * originalFileName.getOriginalFileName(); String
+	 * extension=originalFileName.substring(originalFileName.lastIndexOf(".")+1);
+	 * 
+	 * SimpleDateFormat sdf=new SimpleDateFormat("yyyyMMdd_HHmmssSSS"); int
+	 * rnd=(int)(Math.random()*10000); String
+	 * renamedFileName=sdf.format(System.currentTimeMillis())+"_"+rnd+"."+extension;
+	 * 
+	 * try { upFile.transferTo(new File(path+"/"+renamedFileName));
+	 * }catch(IOException e) { e.printStackTrace(); }
+	 * 
+	 * a.setOriginalFileName(originalFileName);
+	 * a.setRenamedFileName(renamedFileName); }
+	 * 
+	 * int result=service.write(b); System.out.println("이게 1이되야하는데: "+result);
+	 * mv.addObject("msg",result>0?"입력성공":"입력실패");
+	 * mv.addObject("loc","/ads/adsMainApply.do"); mv.setViewName("/common/msg");
+	 * return mv; }
+	 */
 	@RequestMapping("/community/communityList.do")
 	public ModelAndView boardList(ModelAndView mv,
 			@RequestParam(value="cPage", defaultValue="1") int cPage, 
@@ -39,7 +71,7 @@ public class BoardController {
 		int totalData=service.selectCount();
 		mv.addObject("pageBar",PageBarFactory.getPageBar(totalData, cPage, numPerpage, "communityList.do"));
 		mv.addObject("totalData",totalData);
-		mv.setViewName("community/community");
+		mv.setViewName("community/communityList");
 		
 		return mv;
 	}
@@ -92,25 +124,24 @@ public class BoardController {
 		return "community/write";
 	}
 	@RequestMapping("/imageUpload.do")
-	public void imageUpload(HttpServletRequest request, HttpServletResponse response,
+	public void imageUpload(HttpServletRequest request, HttpServletResponse response, HttpSession session,
 			@RequestParam MultipartFile upload) throws Exception {
 		response.setCharacterEncoding("utf-8");
 		response.setContentType("text/html; charset=utf-8");
-
+	
 		String fileName = upload.getOriginalFilename(); //첨부 파일 이름
 		byte[] bytes = upload.getBytes(); 
-		String uploadPath = "";
-		OutputStream out = new FileOutputStream(new File(uploadPath + fileName));
+		String path=session.getServletContext().getRealPath("/resources/upload/community");
+		OutputStream out = new FileOutputStream(new File(path + fileName));
 		out.write(bytes);
 		String callback = request.getParameter("CKEditorFuncNum");
-
+	
 		PrintWriter printWriter = response.getWriter();
 		String fileUrl = request.getContextPath() + "/images/" + fileName;
 		printWriter.println("<script>window.parent.CKEDITOR.tools.callFunction(" + callback + ",'" + fileUrl
 				+ "','이미지가 업로드되었습니다.')" + "</script>");
 		printWriter.flush();
 	}
-
 	@RequestMapping("/community/forum.do")
 	public String forum() {
 		return "community/forum";
@@ -120,30 +151,12 @@ public class BoardController {
 	public String profile() {
 		return "community/profile";
 	}
-	@RequestMapping("/community/community.do")
-	public String community() {
-		return "community/community";
-	}
 	
 	/*
-	 * @RequestMapping("/community/write.do") public String write() { return
-	 * "community/write"; }
+	 * @RequestMapping("/community/communityList.do") public String communityList()
+	 * { return "community/communityList"; }
 	 */
-	/*
-	 * @RequestMapping("/board/write.do") public ModelAndView insertBoard(Board
-	 * board, ModelAndView mv,
-	 * 
-	 * @RequestParam(value="upFile", required=false) MultipartFile[] upFile,
-	 * HttpSession session) { }
-	 */
-
-	/*
-	 * @RequestMapping("") public String () { return ""; }
-	 * 
-	 * @RequestMapping("") public String () { return ""; }
-	 * 
-	 * @RequestMapping("") public String () { return ""; }
-	 */
+	
 	
 	@RequestMapping("/community/bkbDetail.do")
 	public String bkbDetail(Model m,int threadKey) {
