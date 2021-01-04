@@ -16,16 +16,21 @@
 		#{startDate},#{endDate},#{ReadCount},#{auctionStatusNo},#{content}
 		)
 		<selectKey order="AFTER" resultType="_int" keyProperty="articleNo">
-			select seq_product_no.currval from dual
+			select SEQ_article_No.currval from dual
 		</selectKey>
 	</insert>
 	
 	<!-- auction파일등록 -->
 	<insert id="insertUpFile" parameterType="boardAttachementFile">
-	 insert into BA_ATTACHED_FILE values(SEQ_FILE_KEY.NEXT.VAL,#{articleNo},#{originalFileName},#{renamedFileName})
+	 insert into BA_ATTACHED_FILE values(SEQ_FILE_KEY.NEXTVAL,#{articleNo},#{originalFileName},#{renamedFileName})
 	</insert>
 	<!-- auction이미지파일등록 -->
 	<insert id="insertImgFile" parameterType="boardAttachementImage">
-	insert into BA_ATTACHED_FILE values(SEQ_IMAGE_KEY.NEXT.VAL,#{articleNo},#{imgOriginalFileName},#{imgRenamedFileName})
+	insert into BA_ATTACHED_IMAGE values(SEQ_IMAGE_KEY.NEXTVAL,#{articleNo},#{imgOriginalFileName},#{imgRenamedFileName})
 	</insert>
+	
+	<!-- 옥션 list -->
+	<select id="selectAuctionList" resultType="map">
+	select * from BOARD_AUCTION
+	</select>
 </mapper>

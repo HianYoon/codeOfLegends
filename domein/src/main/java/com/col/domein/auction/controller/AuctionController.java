@@ -127,5 +127,11 @@ public class AuctionController {
 	public String auctionView() {
 		return "auction/auctionView";
 	}
+	@RequestMapping("/auction/auctionList.do")
+	public ModelAndView selectAuctionList(ModelAndView mv,BoardAuction ba) {
+	List<Map> list=service.selectAuctionList(ba);
+	mv.addObject("auction",list);
+	mv.setViewName("auction/auctionList");
+	}
 
 }

@@ -13,6 +13,8 @@ public interface AuctionService {
 	List<Map> selectBusinessKey(int memberKey);
 	//등록
 	int inertEnllo(BoardAuction auc, List<BoardAttachementImage> imgs, List<BoardAttachementFile> files);
+	//auction List
+	List<Map> selectAuctionList(BoardAuction ba);
 
 
 }

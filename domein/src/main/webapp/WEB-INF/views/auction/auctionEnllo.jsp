@@ -62,12 +62,12 @@
                        <div class="oction--register--img">
                            <h1>입찰 등록</h1>
                          <div>
+                             <c:forEach items="${business}" var="business">
                                <input type="text" class="input--text inputMax" name="title" placeholder="제목" required>
                                <input type="text" class="input--text inputMax" name="id" value="${signedInMember.nickname }" placeholder="아이디" readonly>
-                               <input type="hidden" class="input--text inputMax" name="writerKey" value="${signedInMember.memberKey }"/>
+                               <input type="text" class="input--text inputMax" name="writerKey" value="${business.BUSINESS_KEY }"/>
                                <input type="hidden" class="inputMax" name="ReadCount" value="0"/>
                                <input type="hidden" class="inputMax" name="auctionStatusNo" value="1"/>
-                             <c:forEach items="${business}" var="business">
                            			 <input type="text" class="input--text inputMax" name="businessName" value="${business.BUSINESS_NAME }" readonly required>
                          	</c:forEach>
                          </div>

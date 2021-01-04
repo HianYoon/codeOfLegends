@@ -36,5 +36,11 @@ public class AuctionDaoImpl implements AuctionDao {
 		// TODO Auto-generated method stub
 		return session.insert("boardAuction.insertImgFile",bImg);
 	}
+	//옥션 리스트
+	@Override
+	public List<Map> selectAuctionList(SqlSession session, BoardAuction ba) {
+		// TODO Auto-generated method stub
+		return session.selectList("boardAuction.selectAuctionList",ba);
+	}
 
 }

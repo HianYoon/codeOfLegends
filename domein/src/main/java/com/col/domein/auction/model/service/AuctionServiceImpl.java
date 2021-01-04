@@ -59,6 +59,11 @@ public class AuctionServiceImpl implements AuctionService {
 		}
 		return result;
 	}
+	@Override
+	public List<Map> selectAuctionList(BoardAuction ba) {
+		// TODO Auto-generated method stub
+		return dao.selectAuctionList(session,ba);
+	}
 
 
 	

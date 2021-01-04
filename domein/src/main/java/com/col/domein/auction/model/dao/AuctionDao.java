@@ -19,5 +19,7 @@ public interface AuctionDao {
 	int insertUpFile(SqlSession session, BoardAttachementFile bFile);
 	//auction 이미지 등록
 	int insertImgFile(SqlSession session, BoardAttachementImage bImg);
+	//auction List
+	List<Map> selectAuctionList(SqlSession session, BoardAuction ba);
 
 }
