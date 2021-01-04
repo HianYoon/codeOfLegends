@@ -30,6 +30,7 @@ import com.col.domein.product.model.vo.Attachement;
 import com.col.domein.product.model.vo.BoardProductSaleContent;
 import com.col.domein.product.model.vo.Product;
 import com.col.domein.product.model.vo.ProductAll;
+import com.col.domein.productcomment.model.vo.BDSreview;
 
 
 
@@ -42,6 +43,8 @@ public class ProductController {
 	private ProductService service;
 	@Autowired
 	private Member m;
+	@Autowired
+	private com.col.domein.productcomment.model.service.BDSService BDSService;
 	//화면 전환용메소드
 	@RequestMapping("/product/into.do")
 	public String product() {
@@ -137,6 +140,7 @@ public class ProductController {
 			
 			
 			int result=service.insertProductFileList(p,files);
+			//BDSreview Comment=service.selectCommentList();
 			mv.addObject("msg",result>0?"입력성공":"입력실패");
 			mv.addObject("loc","/product/into.do");//productList로 보내기
 			mv.setViewName("common/msg");
@@ -161,9 +165,10 @@ public class ProductController {
 	}
 	//productDetail화면
 	@RequestMapping("/product/productDetail.do")
-	public ModelAndView selectproductDetail(ModelAndView mv,int articleNo) {
+	public ModelAndView selectproductDetail(ModelAndView mv,int articleNo,BDSreview bds) {
 		System.out.println("널이니"+articleNo);
-		
+		List<Map>comment=BDSService.selectBDScomment(bds.getReviewNo());
+		mv.addObject("comment",comment);
 		mv.addObject("product",service.selectProductDetail(articleNo));
 		mv.setViewName("product/productDetail");
 		return mv;

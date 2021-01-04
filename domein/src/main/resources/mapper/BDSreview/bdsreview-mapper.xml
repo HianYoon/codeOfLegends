@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="bdsReview">
+
+
+	<insert id="insertComment" parameterType="bdsReview">
+	
+			insert into BDS_REVIEW (REVIEW_NO,REVIEW_CONTENT,WRITER_KEY,
+			WRITTEN_DATE,MODIFIED_DATE,REVIEW_STATUS_NO,REF_ARTICLE,
+			R_ORIGINAL_FILE_NAME,R_RENAMED_FILE_NAME,REVIEW_LEVEL) 
+			values(SEQ_REVIEW_NO.NEXTVAL,
+			#{reviewContent},
+			#{writerKey},
+			SYSDATE,
+			SYSDATE,
+			#{reviewStatusNo},
+			#{refArticle},
+			#{rOriginalFileName},
+			#{rRenamedFileName},
+			#{BDSreviewLevel}
+			)
+	</insert>
+	
+	<select id="selectBDScomment" resultType="map">
+		SELECT * FROM BDS_REVIEW 
+	</select>
+	
+	<insert id="insertLike" parameterType="reviewLike">
+		insert into BDS_REVIEW_LIKE values(#{reviewNo},#{actorKey},SYSDATE)
+	</insert>
+	
+</mapper>

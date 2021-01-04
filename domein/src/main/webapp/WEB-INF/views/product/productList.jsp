@@ -62,17 +62,6 @@
 
    <div id="octionPage">
 
-        <div id="wrapper">    
-            <!--탭 메뉴 영역 -->
-            <ul class="tabs">
-                <li><a href="#tab1">판매등록</a></li>
-                <li><a href="#tab2">Action 참여</a></li>
-                <li><a href="#tab3">my상품List</a></li>
-                <li><a href="#tab4">상품List</a></li>
-            </ul>
-        
-        </div>
-
         <div class="tab-container-group">
 
 

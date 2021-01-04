@@ -3,20 +3,16 @@ package com.col.domein.board.model.dao;
 import java.util.List;
 import java.util.Map;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Service;
 
-import com.col.domein.board.model.dao.BoardDao;
+import com.col.domein.board.model.vo.BoardKnowBattle;
 
 @Service
 public interface BoardDao {
 
-	/*
-	 * List<Map<String,Object>> selectBoardList(Map<String,Object> map) throws
-	 * Exception;
-	 */
-	/*
-	 * List<Map> selectBoardList(SqlSession session, int cPage, int numPerpage);
-	 * List<Map<String, Object>> list(Map<String, Object> map);
-	 */
+	List<Map> selectBoardList(SqlSession session,int cpage, int numPerpage);
+	int selectCount(SqlSession session);
+	List<Map> selectBkbArticles(SqlSession session,int threadKey);
+	BoardKnowBattle selectBoardOne(SqlSession session,int boardNo);
 }

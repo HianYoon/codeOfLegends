@@ -6,6 +6,9 @@
      <c:set var="path" value="${pageContext.request.contextPath }"/>
       <link rel="stylesheet" href="${path }/resources/css/community/community.css"/>
  <script src="https://kit.fontawesome.com/0185489875.js" crossorigin="anonymous"></script>
+ <link rel="stylesheet" href="http://lab.lepture.com/editor/editor.css" />
+<script type="text/javascript" src="http://lab.lepture.com/editor/editor.js"></script>
+<script type="text/javascript" src="http://lab.lepture.com/editor/marked.js"></script>
 <jsp:include page="/WEB-INF/views/common/header.jsp">
 	<jsp:param name="title" value=""/>
 </jsp:include>
@@ -23,7 +26,7 @@
 	                <a href="">노하우</a>
 	            </div>
 	            <div class="community-bottom-right">
-	            	<form action="${path }/community/community.do" method="post">
+	            	<form action="${path }/community/communityList.do" method="post">
 		                <table class="board_list">
 		                    <thead>
 		                        <tr>
@@ -36,35 +39,29 @@
 		                        </tr>
 		                    </thead>
 	 	                    <c:forEach items="${list }" var="b">
-<%-- 		                    	<tr>
-		                    		<td class="tit">
-		                    			<a href="#">
-		                    				<c:out value="${b.THREAD_KEY}"/>
-		                    			</a>
-		                    		</td>
-		                    	</tr> --%>
 		                    	<tr>
-		                    		<td class="tit">
-		                    			<a href="${path }/community/forum.do">
-		                    				<c:out value="${b.threadTitle}"/>
-		                    			</a>
-		                    		</td>
-		                    		<td class="tit">
-		                    			<a href="${path }/community/profile.do">
-		                    				<c:out value="${b.writerKey}"/>
-		                    			</a>
-		                    		</td>
-		                    		<td class="tit">
-		                    				<c:out value="${b.READ_COUNT}"/>
-		                    		</td>
-		                    		<td class="tit">
-		                    				<c:out value="${b.threadStatusNo}"/>
-		                    		</td>
-		                    		<td class="tit">
-		                    				<c:out value="${b.writtenDate}"/>
-		                    		</td>
+			                    		<td class="tit">
+			                    				<c:out value="${b.THREAD_KEY}"/>
+			                    		</td>
+			                    		<td class="tit">
+			                    				<a href="${path }/community/bkbDetail.do?threadKey=${b.THREAD_KEY}"><c:out value="${b.THREAD_TITLE}"/></a>
+			                    		</td>
+			                    		<td class="tit">
+			                    				<c:out value="${b.WRITER_KEY}"/>
+			                    			</a>
+			                    		</td>
+			                    		<td class="tit">
+			                    				<c:out value="${b.READ_COUNT}"/>
+			                    		</td>
+			                    		<td class="tit">
+			                    				<c:out value="${b.READ_COUNT}"/>
+			                    		</td>
+			                    		<td class="tit">
+			                    				<c:out value="${b.WRITTEN_DATE}"/>
+			                    		</td>
 		                    	</tr>
 		                    </c:forEach>
+		                    
 <!-- 	 	                    <tbody>
 		                        <tr>
 		                            <td class="tit">
@@ -129,6 +126,9 @@
 		                            <td>12-10</td>
 		                        </tr>
 		                    </tbody> -->
+				        <div class="pageBar">
+						${pageBar }
+				        </div>
 		                </table>
 	                	<div class="community-bottom-right-button">
 	                    <img src="${path }/resources/images/profile/search.png" alt="" width="20px">
@@ -138,26 +138,19 @@
 	                </form>
 	            </div>
 	        </div>
-	        <div class="paging">
-	            <a href='#'>
-	                <i class="fas fa-chevron-circle-left"></i>
-	            </a>
-	            <a href='#'>1</a>
-	            <a href='#'>2</a>
-	            <a href='#'>3</a>
-	            <a href='#'>4</a>
-	            <a href='#'>5</a>
-	            <a href='#'>6</a>
-	            <a href='#'>7</a>
-	            <a href='#'>
-	                <i class="fas fa-chevron-circle-right"></i>
-	            </a>
-	        </div>
     </section>
     <script>
     $(".write").click(e => {
     	location.href = "${path}/community/write.do";
     })
+	var editor = new Editor({
+	element: document.getElementById("editor")
+	});
+	// editor 객체 생성
+	
+	editor.render();
+	// 랜더링!
+	post
     </script>
 <%--     <script src="${path }/resources/js/community/community.js"></script> --%>
 <jsp:include page="/WEB-INF/views/common/footer.jsp"/>

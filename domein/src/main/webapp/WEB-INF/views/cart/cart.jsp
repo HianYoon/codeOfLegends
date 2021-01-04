@@ -20,7 +20,6 @@
             <!--탭 메뉴 영역 -->
             <ul class="tabs">
                 <li><a href="#tab1">장바구니</a></li>
-                <li><a href="#">Action<br/>장바구니</a></li>
                 <li><a href="#">구매품목</a></li>
                 <li><a href="#">주문품목</a></li>
             
@@ -36,6 +35,7 @@
                     <div id="tab1" class="tab_content">
                         <!--Content-->
                         <h2>장바구니</h2>
+           <c:if test="${signedInMember != null}">             
               <c:choose>
                   <c:when test="${map.count }== 0">
                         		장바구니가 비어있습니다.
@@ -43,34 +43,34 @@
                   <c:otherwise>
                         	
                       
-                      <form action="${path }" method="POST">
+                      <form action="${path}/cart/orderToPay.do" method="POST">
                         
                         <div class="cart-container">
                             <hr/>
                        <c:if test="${signedInMember !=null }" var="productList">
                          <c:forEach items="${map.list}" var="list" varStatus="status">
                            	<c:set value="${list.AMOUNT*list.PRICE }" var="sumPriceAmount" />
-                                <div class="product-cart">
+                                <div data-tr_value="$" class="product-cart">
                                 	<input type="hidden" value="${signedInMember.memberKey}" name="memberKey" id="memberKey"/>
                                 	<input type="hidden" value="${list.PRODUCT_NO}" name="productNo" id="productNo"/>
                                     <input type="checkbox" name="cartCheck" value="${sumPriceAmount}" class="checkbox">
                                   
 
-                                        <img src="${path }/resources/upload/product/${list.P_RENAMED_FILE_NAME}" alt="이미지">
+                                     <a  href="${path }/product/productDetail.do?productNo=${list.PRODUCT_NO}" ></a><img src="${path }/resources/upload/product/${list.P_RENAMED_FILE_NAME}" alt="이미지"></a>
                                         <div class="cartContent">
 
                                             <p>상품명:<c:out value="${list.TITLE }"/></p>
                                             <div id="cart--btnbox">
-	                                            <input type="button" id="minus,${list.PRODUCT_NO}"  name="minus" value="-" />
+	                                            <input type="button" id="minus"  name="minus" value="-" />
 	                                        	
 		                                            <input type="text" id="amount" name="amount" value="${list.AMOUNT}" maxlength="" readonly/>
 	                                   
-	                                            <input type="button" id="plus,${list.PRODUCT_NO}"  name="plus" value="+" />
+	                                            <input type="button" id="plus"  name="plus" value="+" />
                                             </div>
                                               
                                             <div>가격
 	                                            <input type="text" id="product-price" name="cartPrice" value="${sumPriceAmount}"readonly/>원
-	                                            <input type="hidden" id="product--price" name="cartPrice" value="${list.PRICE}"readonly/>
+	                                            <input type="hidden" id="product--price" name="price" value="${list.PRICE}"readonly/>
                                             </div>
             								<button type="button" id="cart--deleteBtn" onclick="deleteBtn(event);" class="btn btn-primary2">삭제</button>
                                         </div>
@@ -85,19 +85,92 @@
                                 <div class="cart-total-price">
                                 	<p>배송비: 100,000원 이하 5000원</p>
                                 	<p id="All-qty"></p>
-                                    <p >총가격:<span class="totlaPrice" id="total-price"></span>원</p>
+                                    <p >총가격:<span class="totlaPrice" id="total-price">0</span>원</p>
 
                                 </div>
                                 <div class="cart-btn-group">
                                     <button type="button" id="checkbox"  class="btn btn-primary2">전체선택</button>
                                     <button type="button" id="" onclick="location.href='${path}/cart/cartIndex.do'" class="btn btn-primary2">쇼핑계속하기</button>
-                                    <button type="submit" id=""  class="btn btn-primary2">결제하기</button>
+                               
+                                    <button type="button" id="orderToPay" onclick="location.href='${path}/memberLogin.do'" class="btn btn-primary2">결제하기</button>
+                                 
+                                <c:if test="${signedInMember == null} " >
+                                    <button type="submit" id="orderToPay"  class="btn btn-primary2">결제하기</button>
+                                </c:if> 
                                 </div>
                             </div>
                         </form>
                	</c:otherwise>
              </c:choose>
                  </div>
+          </c:if>
+       <c:if test="${signedInMember == null}">
+              <c:choose>
+                  <c:when test="${map.count }== 0">
+                        		장바구니가 비어있습니다.
+                     </c:when>
+                  <c:otherwise>
+                        	
+                      
+                      <form action="${path}/cart/orderToPay.do" method="POST">
+                       
+                        <div class="cart-container">
+                            <hr/>
+                
+                         <c:forEach items="${nomlist}" var="nomlist" varStatus="status">
+                           	<c:set value="${nomlist.amount*nomlist.price }" var="sumPriceAmount" />
+                                <div data-tr_value="$" class="product-cart">
+                                	<input type="hidden" value="${signedInMember.memberKey}" name="memberKey" id="memberKey"/>
+                                	<input type="hidden" value="${nomlist.productNo}" name="productNo" id="productNo"/>
+                                    <input type="checkbox" name="cartCheck" value="${sumPriceAmount}" class="checkbox">
+                                  
+
+                                     <a  href="${path }/product/productDetail.do?productNo=${nomlist.productNo}" ></a><img src="${path }/resources/upload/product/${nomlist.renamedFileName}" alt="이미지"></a>
+                                        <div class="cartContent">
+
+                                            <p>상품명:<c:out value="${nomlist.title }"/></p>
+                                            <div id="cart--btnbox">
+	                                            <input type="button" id="minus"  name="minus" value="-" />
+	                                        	
+		                                            <input type="text" id="amount" name="amount" value="${nomlist.amount}" maxlength="" readonly/>
+	                                   
+	                                            <input type="button" id="plus"  name="plus" value="+" />
+                                            </div>
+                                             
+                                            <div>가격
+	                                            <input type="text" id="product-price" name="cartPrice" value="${sumPriceAmount}"readonly/>원
+	                                            <input type="hidden" id="product--price" name="price" value="${nomlist.price}"readonly/>
+                                            </div>
+            								<button type="button" id="cart--deleteBtn" onclick="location.replace='${path}/cart/nonDeleteBtn'" class="btn btn-primary2">삭제</button>
+                                        </div>
+                                 
+                   
+                                 </div>
+						</c:forEach>
+                   
+                     
+                                </div>
+                                <hr/>
+                                <div class="cart-total-price">
+                                	<p>배송비: 100,000원 이하 5000원</p>
+                                	<p id="All-qty"></p>
+                                    <p >총가격:<span class="totlaPrice" id="total-price">0</span>원</p>
+
+                                </div>
+                                <div class="cart-btn-group">
+                                    <button type="button" id="checkbox"  class="btn btn-primary2">전체선택</button>
+                                    <button type="button" id="" onclick="location.href='${path}/cart/cartIndex.do'" class="btn btn-primary2">쇼핑계속하기</button>
+                               
+                                    <button type="button" id="orderToPay" onclick="location.href='${path}/memberLogin.do'" class="btn btn-primary2">결제하기</button>
+                                 
+                                </div>
+                            </div>
+                      
+                        </form>
+               	</c:otherwise>
+             </c:choose>
+                 </div>
+       </c:if>
 		<!--모달 박스  -->	
 		
 	 <div class="modal-wrapper" style="display: none;">
@@ -143,6 +216,21 @@ $(document).ready(function(){
 function deleteBtn(event){
 	const productNo=$("#productNo").val();
 	const memberKey=$("#memberKey").val();
+	
+	if($("input[type=checkbox]").prop("checked")){
+		$("input[type=checkbox]").prop("checked",true);
+	}else{
+		$("input[type=checkbox]").prop("checked",false);
+	}
+	if(confirm("삭제하시겠습니까?")){
+		$("input[name=checkRow]:checked").each(function(){
+			let tr_value=$(this).val();
+			let tr=$("tr[data-tr_value='"+tr_value+"']");
+			tr.remove();
+		});
+	}else{
+		return false;
+	}
 	 
 	  $.ajax({
 		  url:"${path}/cart/delete.do",
@@ -162,7 +250,7 @@ function deleteBtn(event){
 				 //같은 이름의 클래스를 포함하고있느지를 물어볼때는 classList.contains='클래스이름'
 				if(tag.classList.contains("btn btn-primary2")){
 					const tr=tag.parentElement;
-					for(;tr.nodeName != "TR"; tr=tr.parentElement);
+					for(;tr.className != "cart-container"; tr=tr.parentElement);
 						tr.parentElement.parentElement.remove();
 				}				 
 			 }
@@ -171,49 +259,73 @@ function deleteBtn(event){
 	  })
 };
  //플러스 수량더하기  
-$(document).on("click","#plus",function(){
+/*  $(function(){
+	$("#plus").click(function(){
+		let n=$("#plus").index(this);//자기자신을 가르킨다.
+		let num=$("#amount:eq("+n+")").val();
+		num=$("#amount:eq("+n+")").val(num*1+1);
+		console.log(num);
+	});
+	$("#minus").click(function(){
+		let n=$("#minus").index(this);//자기자신을 가르킨다.
+		let num=$("#amount:eq("+n+")").val();
+			num=$("#amount:eq("+n+")").val(num*1-1);
+	});
 	
-
-
-
-	 let productCart=$(this).closest(".product-cart");
-	 const amount=productCart.find("#amount");
-	 console.log(amount);
+})*/
+$(document.body).on("click","#plus",function(){
+	
+	 let productCart=$(this).closest(".product-cart");//전체를 감싸는 div
+	 const amount=productCart.find("#amount");//수량
+	 let cheprice=productCart.find(".checkbox");//체크박스
+	 let inputs=productCart.find("input[name=cartCheck]");//input 태그 
+	 let totalPrice=$(".totlaPrice");//총가격
 	 const n=amount.val();//수량
 	 const sum=Number(n)+1;
 	 amount.val(sum);
-	 console.log(amount);
- 	 const price=productCart.find("#product-price");
+	 const price=productCart.find("#product-price");
 	 const changePrice=parseFloat(price.val());
-	 const total=$("#product--price");
+	 const total=productCart.find("#product--price");//개당 가격
 	 console.log("plus");
 	 const totalprice=Number(total.val());
 	 price.val(sum*totalprice);//총가격 
+	 cheprice.val(sum*totalprice);
+	 if(inputs.is(":checked")==true){
+		alert("안되냐?");
+		totalPrice.text(sum*totalprice);
+	 }else if(inputs.is(":checked")==true && Number(totalPrice.text()) !== 0){
+		 totalPrice.text(Number(totalPrice.text())+(sum*totalprice));
+	 }else{
+		 totalPrice.text(0);
+	 }
 });
-
 $(document.body).on("click","#minus",function(){
 	
 	 let productCart=$(this).closest(".product-cart");
-	 const amount=productCart.find("#amount");
-	 console.log(amount);
-	 const n=amount.val();//수량
-	 const sum=Number(n)-1;
+	 let amount=productCart.find("#amount");
+	 let cheprice=productCart.find(".checkbox");
+	 let inputs=productCart.find("input[name=cartCheck]");
+	 let totalPrice=$(".totlaPrice");
+	 let n=amount.val();//수량
+	 let sum=Number(n)-1;
+	 if(sum>0){
 	 amount.val(sum);
 	 const price=productCart.find("#product-price");
 	 const changePrice=parseFloat(price.val());
-	 const total=$("#product--price");
+	 const total=productCart.find("#product--price");
 	 console.log("minus");
 	 const totalprice=Number(total.val());
 	 price.val(sum*totalprice);//총가격 
+	 cheprice.val(sum*totalprice); 
+	 
+	 if(inputs.is(":checked")==true){
+			alert("안되냐?");
+			console.log(sum*totalprice);
+			totalPrice.text(sum*totalprice);
+		 }
+	 }else return;
 });
- function sum(){
- 	const sum=cartContainer.querySelectorAll("input[name='cartPrice']");
- 	
- 	for(let i=0;i<sum.legnth;i++){
- 		Allsum+=sum[i].val();
- 		console.log(Allsum);
- 		}
- 	}
+
  
 /* function plusUp(e,productNo){
 const amount=$("#amount").val();// 양
@@ -270,28 +382,65 @@ function minusDown(e,poductNo){
     
     allCheckInBox.onclick=function(){
     	const inputs=cartContainer.querySelectorAll("input[type='checkbox']");
-    			
-    			for (let i=0; i<inputs.length;i++)
-	        		inputs[i].checked=allCheckInBox;//boolean값을 쓰기위해서 checked속성을 이용
-    			console.log("true");
+    	alert("진짜냐");
+    		if($("input:checkbox[name=cartCheck]").is(":checked") ==false){
+    			$("input[type='checkbox']").prop("checked",true);
+    			console.log("1");
+    		}else {
+    			$("input[type='checkbox']").prop("checked",false);
+    			 $(".totlaPrice").text(0);
+    		}
+    		//	for (let i=0; i<inputs.length;i++)
+	        //		inputs[i].checked=allCheckInBox;//boolean값을 쓰기위해서 checked속성을 이용
+    		//	console.log("true");
+    		
+	    //체크박스 선택시 총 가격구하기
+	    //checkbox의 name값이 current_product이면서 체크되어 있는 함수를 each함수로 호출한다. 
+	    
+	    let sum=0;//담을 값을 선언해준다.
+	    $("input[name=cartCheck]:checked").each(function(i){
+	    				sum +=Number($(this).val());
+	    				console.log(sum);
+	    				$(".totlaPrice").text(sum);	
+	    });
     };      
+    $(".checkbox").click(function(){
+    	if($("input:checkbox[name=cartCheck]").is(":checked") ==true){
+    		alert("체크됨");
+    	    let sum=0;//담을 값을 선언해준다.
+    	    $("input[name=cartCheck]:checked").each(function(i){
+    	    				sum +=Number($(this).val());
+    	    				console.log(sum);
+    	    				$(".totlaPrice").text(sum);	
+    	    });
+    	}else if($("input:checkbox[name=cartCheck]").is(":checked") ==false){
+    		alert("안 체크됨");
+    		   let sum=0;//담을 값을 선언해준다.
+       	    $("input[name=cartCheck]:checked").each(function(i){
+       	    				sum -=Number($(this).val());
+       	    				console.log(sum);
+       	    				$(".totlaPrice").text(sum);	
+       	    });
+    	}else{
+    		$(".totlaPrice").text(0);	
+    	}
+    })
 	              const open1=document.getElementById("modalOpen");
                   const close1=document.getElementById("modalClose");
                   const send=document.getElementById("modalSend");
                   const modal1=document.querySelector(".modal-wrapper");
-
-/* 		//총합계 cart
-	 	function cartSuccessRoutine(data, productNo, amount){
-			if($("input:checkbox[name='checkbox']").is(":checked") == true){
-				console.log("찍히니?");
-				const ckprice=$("input[type='checkbox']").val();
-				ckprice.each(function(i){
-					const totalprice = Number(ckprice[i].val());
-					console.log(totalprice);
-					$("#total-price").text(totalprice);
-			});
-			}
-		};
- */
+			//구매버튼 이벤트 
+			$(document.body).on("click","#orderToPay",function(){
+				if(confirm("구매하시겠습니까?")){
+					if($("input:checkbox[name=cartCheck]").is(":checked").length != 0){
+		    			
+		    		}else{
+		    			confirm("선택된 상품이 없습니다.");
+		    		}
+					
+				}
+			});	
+				
+				
 </script>
 <jsp:include page="/WEB-INF/views/common/footer.jsp"/>

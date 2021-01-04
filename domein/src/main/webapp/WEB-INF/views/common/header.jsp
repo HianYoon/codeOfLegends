@@ -96,7 +96,7 @@
 								<div>
 									<img src="${path }/resources/images/profile/blind.png" alt="" />
 								</div>
-								<p>블라인드 입찰</p>
+								<p>Auction</p>
 							</div>
 					</a></li>
 					<li><a href="${path }/product/productList.do">
@@ -107,7 +107,7 @@
 								<p>카테고리</p>
 							</div>
 					</a></li>
-					<li><a href="${path }/community/community.do">
+					<li><a href="${path }/community/communityList.do">
 							<div>
 								<div>
 									<img src="${path }/resources/images/profile/talk.png" alt="" />
@@ -167,7 +167,7 @@
 					</a>
 				</div>
 				<div>
-					<a href="#">
+					<a href="${path }/community/communitylist.do">>
 						<div>
 							<img src="${path }/resources/images/profile/talk.png" alt="" />
 						</div>

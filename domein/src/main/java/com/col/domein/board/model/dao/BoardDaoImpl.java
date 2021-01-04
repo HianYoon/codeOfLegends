@@ -3,37 +3,49 @@ package com.col.domein.board.model.dao;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.ibatis.session.RowBounds;
 import org.apache.ibatis.session.SqlSession;
-import org.mybatis.spring.SqlSessionTemplate;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+
+import com.col.domein.board.model.vo.BoardKnowBattle;
+
 
 @Repository
 public class BoardDaoImpl implements BoardDao{
 
-	/*
-	 * @Autowired private SqlSessionTemplate sqlSession;
-	 * 
-	 * @Override public List<Map<String, Object>> list(Map<String, Object> map) { //
-	 * TODO Auto-generated method stub return sqlSession.selectList("mapper.list",
-	 * map); }
-	 * 
-	 * @Override public List<Map> selectBoardList(SqlSession session, int cPage, int
-	 * numPerpage) { // TODO Auto-generated method stub return
-	 * session.selectList("board.selectBoardList",null, new
-	 * RowBounds((cPage-1)*numPerpage,numPerpage)); }
-	 */
+	@Override
+	public List<Map> selectBoardList(SqlSession session, int cPage, int numPerpage) {
+		// TODO Auto-generated method stub
+//		return session.selectList("board.selectBoardList",null,
+//				new RowBounds((cPage-1)*numPerpage,numPerpage));
+//		return session.selectList("board.selectBoardList", null,
+//				new RowBounds(((cPage - 1) * numPerpage), numPerpage));
+		return session.selectList("board.selectBoardList");
+	}
 
+	@Override
+	public int selectCount(SqlSession session) {
+		// TODO Auto-generated method stub
+		return session.selectOne("board.selectCount");
+	}
+
+	@Override
+	public BoardKnowBattle selectBoardOne(SqlSession session, int boardNo) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Map> selectBkbArticles(SqlSession session, int threadKey) {
+		// TODO Auto-generated method stub
+		return session.selectList("board.selectBkbArticles",threadKey);
+	}
 	
 	/*
-	 * public List<Map<String, Object>> selectBoardList(Map<String, Object> map) {
-	 * 
-	 * return (List<Map<String,Object>>)selectList("board.selectBoardList", map); }
+	 * @Override public int insertBoard(SqlSession session, BoardKnowBattle board) {
+	 * // TODO Auto-generated method stub return
+	 * session.insert("board.insertBoard",board); }
 	 */
-	/*
-	 * public List<Board> getBoardList() { return
-	 * sqlSession.selectList("getBoardList"); }
-	 */
-	/* public list */
+
 }
 

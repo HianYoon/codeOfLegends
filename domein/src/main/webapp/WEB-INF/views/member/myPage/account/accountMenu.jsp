@@ -34,8 +34,8 @@
 			</a>
 		</div>
 		<div class="account-nav-list">
-			<a href="#"> <i class="fas fa-briefcase"
-				id="account-business-icon"></i> 판매자 인증
+			<a href="${path }/member/myPage/account/business/manageBusiness.do"> <i class="fas fa-briefcase"
+				id="account-business-icon"></i> 판매자 관리
 			</a>
 		</div>
 		<div class="account-nav-list">

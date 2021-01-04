@@ -58,6 +58,9 @@
 											<c:if test="${proList.PRODUCT_STATUS_NO==9 }">
 												<p class="labeling gray">삭제</p>
 											</c:if>
+											<c:if test="${proList.PRODUCT_STATUS_NO==0 }">
+												<p class="labeling gray">중지</p>
+											</c:if>
 											<p class="list-title">
 												<a href="${path }/product/productDetail.do?articleNo=${proList.ARTICLE_NO}" ><c:out value="${proList.TITLE }"/></a>
 											</p>

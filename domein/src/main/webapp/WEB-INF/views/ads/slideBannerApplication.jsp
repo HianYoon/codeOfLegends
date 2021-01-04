@@ -18,12 +18,19 @@
 	%>
 </script>
 
+<!-- jQuery UI CSS파일  -->
+<link rel="stylesheet" href="http://code.jquery.com/ui/1.8.18/themes/base/jquery-ui.css" type="text/css" />  
+<!-- jQuery 기본 js파일 -->
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>  
+<!-- jQuery UI 라이브러리 js파일 -->
+<script src="http://code.jquery.com/ui/1.8.18/jquery-ui.min.js"></script> 
+
 <link rel="stylesheet" href="${path }/resources/css/ads/bannerApplication.css" />
 
 <section id="content">
     <div id="wholeback">
         <div class="tab_menu">
-            <ul><h2>광고신청 페이지</h2>
+            <ul><h2><a href="${path }/ads/adsMainApply.do">광고신청</a></h2>
                 <li><a href="${path }/ads/slideBannerApplication.do"><h5>슬라이드 배너 신청</h5></a></li>
                 <li><a href="${path }/ads/directAdsApplication.do"><h5>(판매)추천 게시글 신청</h5></a></li>
             </ul>
@@ -57,11 +64,11 @@
                 <div class="div_attached">
                     <p><u>첨부파일 (메인배너에 삽입될 이미지를 580x190 사이즈로 업로드)</u></p>
                     <span><u>Preview(미리보기)</u></span>
-                    <div id="div_preImage">
+                    <div id="div_preImage" onclick="fn_activateUpload(event);">
                         <p>미리보기가 표시됩니다.</p>
                         <!-- <img src="C:\Users\Sungbin\Desktop\images\img_preview.png" alt="미리보기가 표시됩니다." id="preImage" width="100%" height="100%"><br> -->
                     </div>
-                    <input type="file" class=".btn.btn--primary" name="upload" accept="image/*" onchange="fn_readImage(event);" required>
+                    <input type="file" class=".btn.btn--primary" name="upFile" accept="image/*" onchange="fn_readImage(event);" required>
                     <input type="button" class=".btn.btn--primary2" name="deleteFile" value="삭제" onclick="fn_deleteFile();">                
                 </div>
                 <br>
@@ -72,10 +79,10 @@
                 <br>
                 <div class="div_period">
                     <p><u>기간 및 가격</u></p>
-                    개시일&nbsp;&nbsp;<input type="date" name="startDate" min="" required>&nbsp;&nbsp;                        
-                    종료일&nbsp;&nbsp;<input type="date" name="endDate" min="" required><br>
+                    개시일&nbsp;&nbsp;<input type="text" id="startDate" name="startDate" placeholder="개시일 선택" onchange="fn_triggerEnd(event)" required>&nbsp;&nbsp;                        
+                    종료일&nbsp;&nbsp;<input type="text" id="endDate" name="endDate" placeholder="종료일 선택" onchange="fn_triggerPrice(event)" disabled required><br>
                     <!-- 기타 선택 시, return false로 체크 -->
-                    결제금액&nbsp;&nbsp;<input type="text" value="0" name="adsPrice" readonly>&nbsp;원
+                    결제금액&nbsp;&nbsp;<input type="text" id="totalPrice" value="0" name="adsPrice" readonly>&nbsp;원
                 </div>
                 <br><br>
                 <div class="div_submit">
@@ -89,19 +96,68 @@
 </section>
 <script>
     $(function(){
+		/* url위 안내메시지 출력 */
         $("#urlLink").focus(e=>{
             $("#msg_url").html("[이미지 클릭 시, 이동할 주소를 입력해주세요. 요청주소가 없을 시, -입력]").css("color","green");
         });
         $("#urlLink").blur(e=>{
             $("#msg_url").html("");
         });
+        /* datepicker 개시일에 생성 */
+        $("#startDate").datepicker({
+            dateFormat: 'yy-mm-dd',
+            prevText:'이전 달',
+            nextText:'다음 달',
+            currentText:'오늘',
+            monthNames:['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'],
+            monthNamesShort:['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'],
+            dayNames:['일','월','화','수','목','금','토'],
+            dayNamesShort:['일','월','화','수','목','금','토'],
+            showMonthAfteryear:true,
+            yearSuffix:'년',
+            defaultDate: new Date(),
+            minDate:0                
+        });              
     })
+    /* DB에서 adsRate를 가져와 날짜 선택 시 계산하여 측정 */
+    function fn_triggerPrice(e){    	
+	    let ratePerDay=<%=request.getAttribute("adsRate") %>;
+	    console.log("하루당 가격: "+ratePerDay);
+	    
+	    let dayGap=((new Date($("#endDate").val())-new Date($("#startDate").val()))/1000/60/60/24)+1;
+	    console.log("몇일차이: "+dayGap);
+	    
+	    let totalPrice=dayGap*ratePerDay;
+	    console.log("결제할 금액: "+totalPrice);
+	    
+	    $("#totalPrice").val(totalPrice);        
+    }
+    /* 개시일 값이 onchange될 시, destroy 후 종료일 datepicker 생성 */
+    function fn_triggerEnd(e){
+	    $(e.target).next().attr('disabled',false);
+	    $(e.target).next().datepicker("destroy");
+	    $(e.target).next().datepicker({
+	        dateFormat: 'yy-mm-dd',
+	        prevText:'이전 달',
+	        nextText:'다음 달',
+	        currentText:'오늘',
+	        monthNames:['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'],
+	        monthNamesShort:['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'],
+	        dayNames:['일','월','화','수','목','금','토'],
+	        dayNamesShort:['일','월','화','수','목','금','토'],
+	        showMonthAfteryear:true,
+	        yearSuffix:'년',
+	        // defaultDate: new Date($("#startDate").val()),
+	        minDate: new Date($("#startDate").val())
+	    });
+	}
+    /* div눌러도 file Upload 실행 */
+    function fn_activateUpload(e){
+    	$(e.target).next().click();
+    }
+    /* image 확장자로만 업로드 파일 제한 */
     function fn_readImage(e){
-        var reader=new FileReader();
-        // if(!e.target.files[0].match("image.*")){
-        //     alert("이미지 파일만 업로드 가능합니다.");
-        //     return;
-        // }            
+        var reader=new FileReader();                
         let extensionName=e.target.value.substring(e.target.value.lastIndexOf('.')+1,e.target.value.length);
         console.log(extensionName);
         if(extensionName=='jpg'||extensionName=='jpeg'||extensionName=='png'||extensionName=='gif'){
@@ -124,6 +180,7 @@
         }
         reader.readAsDataURL(e.target.files[0]);
     }
+    /* 삭제 버튼 클릭시, 업로드된 파일 및 이미지 삭제 */
     function fn_deleteFile(){            
         $("#div_preImage").empty();
         let p=document.createElement("p");            

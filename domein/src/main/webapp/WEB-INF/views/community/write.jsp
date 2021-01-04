@@ -11,15 +11,15 @@
 	<jsp:param name="title" value=""/>
 </jsp:include>
 <section class="container">
-	<form action="${path }/community/write.do" class="form1" method = "post" >
-	<table>
+	<form action="${path }/community/write.do" class="form1" method = "post" enctype="multipart/form-data" style="margin-top:127px;">
+	<table width=100%>
 		<tr>
 			<td>제목</td>
 			<td><input type="text" placeholder="제목을 입력해주세요"></td>
 		</tr>
 		<tr>
 			<td>내용</td>
-			<td><textarea rows="5" cols="60" name="description" id="description"></textarea>
+			<td><textarea rows="5" cols="60" name="ckeditor" id="ckeditor"></textarea>
 			</td>
 		</tr>
 		<tr>
@@ -40,7 +40,7 @@
     	fileborwserUploadUrl : "${path}/imageUpload.do"
     });
     $(".btn").click(e => {
-    	location.href = "${path}/community/community.do";
+    	location.href = "${path}/community/communityList.do";
     })
 /*     $(document).on('click', #btnSave', function(e){
     	$("#form").submit();

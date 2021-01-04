@@ -20,7 +20,11 @@
     margin-left:-20px;
 }
 .div_info{
+	margin-top:10px;
     padding-bottom: 20px;
+}
+.div_stat{
+	margin-top:10px;
 }
 .div_stat>h3{
 	text-decoration:underline;

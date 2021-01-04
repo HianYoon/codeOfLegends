@@ -3,38 +3,49 @@ package com.col.domein.board.model.service;
 import java.util.List;
 import java.util.Map;
 
-import javax.annotation.Resource;
-
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.col.domein.board.model.dao.BoardDao;
+import com.col.domein.board.model.vo.Attachment;
+import com.col.domein.board.model.vo.BoardKnowBattle;
 
+@Service
 public class BoardServiceImpl implements BoardService{
-	/*
-	 * @Autowired private BoardDao dao;
-	 * 
-	 * @Autowired SqlSession session;
-	 * 
-	 * @Resource(name = "dao") private BoardDao boardDao;
-	 * 
-	 * @Override public List<Map<String, Object>> list(Map<String, Object> map) { //
-	 * TODO Auto-generated method stub return boardDao.list(map); }
-	 * 
-	 * @Override public List<Map> selectBoardList(int cPage, int numPerpage) { //
-	 * TODO Auto-generated method stub return
-	 * dao.selectBoardList(session,cPage,numPerpage); }
-	 */
 
-	/*
-	 * @Service("BoardService") public class BoardServicImpl implements BoardService
-	 * {
-	 * 
-	 * @Override public List<Map<String, Object>> selectBoardList(Map<String,
-	 * Object> map) throws Exception {
-	 * 
-	 * return BoardDao.selectBoardList(map); } }
-	 */
-/*	public List<Board> getBoardList() {
-		return boardDao.getBoardList();*/
+	@Autowired
+	private BoardDao dao;
+	@Autowired
+	private SqlSession session;
+	
+	
+	@Override
+	public List<Map> selectBoardList(int cPage, int numPerpage) {
+		return dao.selectBoardList(session, numPerpage, numPerpage);
+	}
+
+	@Override
+	public int selectCount() {
+		// TODO Auto-generated method stub
+		return dao.selectCount(session);
+	}
+
+	@Override
+	public int insertBoard(BoardKnowBattle board, List<Attachment> files) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public BoardKnowBattle selectBoardOne(int boardNo) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Map> selectBkbArticles(int threadKey) {
+		// TODO Auto-generated method stub
+		return dao.selectBkbArticles(session,threadKey);
+	}
 }

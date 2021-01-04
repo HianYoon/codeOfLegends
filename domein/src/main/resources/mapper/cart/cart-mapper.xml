@@ -43,4 +43,9 @@
 		update cart set amount= amount-#{amount} where member_key=#{memberKey}
 		and product_no=#{productNo}
 		</update>
+		
+		<!-- 비회원 상품 불러오기  -->
+		<select id="selectNonproductList" resultType="productAll">
+			select ARTICLE_NO,TITLE,PRODUCT_NO,PRICE,MEASURE_UNIT,AMOUNT,MEMBER_KEY,P_RENAMED_FILE_NAME from Product_all where product_no=#{productNo}
+		</select>
 </mapper>
