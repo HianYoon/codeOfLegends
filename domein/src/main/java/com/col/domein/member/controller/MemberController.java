@@ -692,4 +692,34 @@ public class MemberController {
 		
 		return "redirect: "+request.getContextPath()+"/member/myPage/account/business/manageBusiness.do";
 	}
+	
+//	비지니스 수정 클릭시
+	@RequestMapping("/myPage/account/business/modifyBusiness.do")
+	public String modifyBusiness(HttpSession session, HttpServletRequest request, String businessKey, Model model) {
+		Member m = (Member) session.getAttribute("signedInMember");
+		int bKey = Integer.parseInt(businessKey);
+		Business business = null;
+		
+		for(Business b : m.getBusinesses()) {
+			if(b.getBusinessKey() == bKey) business = b;
+		}
+		if(business == null) return new ErrorUriMaker(request, "잘못된 접근입니다!","/member/myPage/account/business/manageBusiness.do", "판매자 관리로...").getErrorUri();
+		
+		model.addAttribute("memberBusiness", business);
+		
+		boolean[] categoryFlag = {false,false,false,false,false,false,false,false};
+		
+		for(BusinessCategory bc : business.getBusinessCategories()) {
+			int categoryNo = bc.getBusinessCategoryNo();
+			if(categoryNo!=99) {
+				categoryFlag[categoryNo-1] = true;
+			} else {
+				categoryFlag[7] = true;
+			}
+		}
+		
+		model.addAttribute("categoryFlag", categoryFlag);
+		
+		return "member/myPage/account/business/modifyBusiness";
+	}
 }
