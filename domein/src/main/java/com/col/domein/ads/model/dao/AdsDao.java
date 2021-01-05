@@ -44,4 +44,10 @@ public interface AdsDao {
 	
 	int selectDirectPending(SqlSession session);
 	
+	List selectAccept(SqlSession session);
+	
+	List selectDeny(SqlSession session);
+	
+	List selectPending(SqlSession session);
+	
 }

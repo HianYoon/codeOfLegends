@@ -105,6 +105,21 @@ public class AdsServiceImpl implements AdsService {
 		return dao.selectDirectPending(session);
 	}
 
+	@Override
+	public List selectAccept() {		
+		return dao.selectAccept(session);
+	}
+
+	@Override
+	public List selectDeny() {
+		return dao.selectDeny(session);
+	}
+
+	@Override
+	public List selectPending() {
+		return dao.selectPending(session);
+	}
+
 	
 	
 	

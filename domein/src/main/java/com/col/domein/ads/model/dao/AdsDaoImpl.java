@@ -1,5 +1,6 @@
 package com.col.domein.ads.model.dao;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
@@ -69,33 +70,90 @@ public class AdsDaoImpl implements AdsDao {
 
 	@Override
 	public int selectBannerAccept(SqlSession session) {
-		return session.selectOne("bannerAds.selectBannerAccept");
+		if(session.selectOne("bannerAds.selectBannerAccept")==null) {
+			return 0;
+		}else {
+			return session.selectOne("bannerAds.selectBannerAccept");
+		}
 	}
 
 	@Override
 	public int selectDirectAccept(SqlSession session) {
-		return session.selectOne("directAds.selectDirectAccept");
+		if(session.selectOne("directAds.selectDirectAccept")==null) {
+			return 0;
+		}else {
+			return session.selectOne("directAds.selectDirectAccept");			
+		}
 	}
 
 	@Override
 	public int selectBannerDeny(SqlSession session) {
-		return session.selectOne("bannerAds.selectBannerDeny");
+		if(session.selectOne("bannerAds.selectBannerDeny")==null) {
+			return 0;
+		}else {
+			return session.selectOne("bannerAds.selectBannerDeny");
+		}
 	}
 
 	@Override
 	public int selectDirectDeny(SqlSession session) {
-		return session.selectOne("directAds.selectDirectDeny");
-				
+		if(session.selectOne("directAds.selectDirectDeny")==null) {
+			return 0;
+		}else {
+			return session.selectOne("directAds.selectDirectDeny");			
+		}		
 	}
 
 	@Override
 	public int selectBannerPending(SqlSession session) {
-		return session.selectOne("bannerAds.selectBannerPending");
+		if(session.selectOne("bannerAds.selectBannerPending")==null) {
+			return 0;
+		}else {
+			return session.selectOne("bannerAds.selectBannerPending");
+		}
 	}
 
 	@Override
 	public int selectDirectPending(SqlSession session) {
-		return session.selectOne("directAds.selectDirectPending");
+		if(session.selectOne("directAds.selectDirectPending")==null) {
+			return 0;
+		}else {
+			return session.selectOne("directAds.selectDirectPending");			
+		}
+	}
+
+	@Override
+	public List selectAccept(SqlSession session) {
+		List<Integer> accept=new ArrayList();
+		accept.add(0);
+		System.out.println("이게 다오: "+accept.get(0));
+		if(session.selectList("bannerAds.selectAccept")==null&&session.selectList("bannerAds.selectAccept").size()==0) {
+			return accept;
+		}else {
+			return session.selectList("bannerAds.selectAccept");
+		}
+	}
+
+	@Override
+	public List selectDeny(SqlSession session) {
+		List deny=new ArrayList();
+		deny.add(0);
+		if(session.selectList("bannerAds.selectDeny")==null) {
+			return deny;
+		}else {
+			return session.selectList("bannerAds.selectDeny");
+		}
+	}
+
+	@Override
+	public List selectPending(SqlSession session) {
+		List pending=new ArrayList();
+		pending.add(0);
+		if(session.selectList("bannerAds.selectPending")==null) {
+			return pending;
+		}else {
+			return session.selectList("bannerAds.selectPending");
+		}
 	}
 	
 	

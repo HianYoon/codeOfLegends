@@ -1,5 +1,8 @@
 package com.col.domein.admin.controller;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +12,8 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.col.domein.ads.model.service.AdsService;
 import com.col.domein.member.model.vo.Member;
+
+import net.sf.json.JSONArray;
 
 @Controller
 public class AdminAdsController {
@@ -23,17 +28,18 @@ public class AdminAdsController {
 		Member m=(Member) session.getAttribute("signedInMember");	
 		
 		if(m!=null) {
-			int bannerAccept=service.selectBannerAccept();
-			int directAccept=service.selectDirectAccept();
-			mv.addObject("accept",bannerAccept+directAccept);
+			List accept=service.selectAccept();
+			JSONArray jAccept=JSONArray.fromObject(accept);
+//			String acceptJSON=new Gson().toJson(accept); 			
+			mv.addObject("accept",jAccept);
 			
-			int bannerDeny=service.selectBannerDeny();
-			int directDeny=service.selectDirectDeny();
-			mv.addObject("deny",bannerDeny+directDeny);
+			List deny=service.selectDeny();	
+			JSONArray jDeny=JSONArray.fromObject(deny);
+			mv.addObject("deny",jDeny);
 			
-			int bannerPending=service.selectBannerPending();
-			int directPending=service.selectDirectPending();
-			mv.addObject("pending",bannerPending+directPending);
+			List pending=service.selectPending();			
+			JSONArray jPending=JSONArray.fromObject(pending);
+			mv.addObject("pending",jPending);							
 							
 			mv.setViewName("/admin/admin_ads/adminAdsMain");
 			return mv;

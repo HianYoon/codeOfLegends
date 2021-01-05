@@ -42,4 +42,10 @@ public interface AdsService {
 	
 	int selectDirectPending();
 	
+	List selectAccept();
+	
+	List selectDeny();
+	
+	List selectPending();
+	
 }
