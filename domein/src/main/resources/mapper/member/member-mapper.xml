@@ -112,5 +112,7 @@
 		SET ID = #{id}, USERNAME = #{userName}, NICKNAME = #{nickname}, PHONE = #{phone}, IS_SUBSCRIBED = #{isSubscribed}
 		WHERE MEMBER_KEY = #{memberKey}
 	</update>
-	
+	<select id="selectIdByEmail" parameterType="map" resultType="string">
+		SELECT ID FROM MEMBER WHERE EMAIL = #{email}
+	</select>
 </mapper>

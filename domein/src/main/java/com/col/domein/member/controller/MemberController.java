@@ -52,6 +52,13 @@ public class MemberController {
 		return "member/memberLogin";
 	}
 
+//	현재 멤버 다시 불러오기
+	public void loadMemberAgain(HttpSession session) {
+		Member m = (Member) session.getAttribute("signedInMember");
+		Member modifiedM = ms.selectMemberByMemberKey(m.getMemberKey());
+		session.setAttribute("signedInMember", modifiedM);
+	}
+	
 /////////////////////////////////////////////////////////
 ////////////회원가입 로직 ///////////////////////////////	
 /////////////////////////////////////////////////////////
@@ -786,11 +793,29 @@ public class MemberController {
 		loadMemberAgain(session);
 		return "redirect: " + request.getContextPath() + "/member/myPage/account.do";
 	}
+/////////////////////////////////////////////////////////
+//	아이디 비밀번호 찾기
+	@RequestMapping("/idPwFind.do")
+	public String idPwFind() {
+		return "member/idFind";
+	}
+	@RequestMapping("/pwFind.do")
+	public String pwFind() {
+		return "member/pwFind";
+	}
 	
-//	현재 멤버 다시 불러오기
-	public void loadMemberAgain(HttpSession session) {
-		Member m = (Member) session.getAttribute("signedInMember");
-		Member modifiedM = ms.selectMemberByMemberKey(m.getMemberKey());
-		session.setAttribute("signedInMember", modifiedM);
+	@RequestMapping("/pwFindEnd.do")
+	public String pwFindEnd(Model model, HttpServletRequest request, String memberKey, String confirmationKey) {
+		
+		model.addAttribute("memberKey",memberKey);
+		model.addAttribute("confirmationKey", confirmationKey);
+		
+		return "member/emailPwChange";
+	}
+	
+	@RequestMapping("/emailPwChangeEnd.do")
+	public String emailPwChangeEnd(HttpServletRequest request, String memberKey, String confirmationKey, String password) {
+		
+		return "";
 	}
 }

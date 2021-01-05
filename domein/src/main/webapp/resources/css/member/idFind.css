@@ -1,0 +1,42 @@
+#context{
+  display: flex;
+  justify-content: center;
+}
+.finder-cont{
+  margin: 5%;
+  width: 90%;
+
+}
+.finder-top-button-cont{
+  width: 100%;
+  display: flex;
+  
+}
+.finder-top-button-cont>div{
+  width: 50%;
+  height: 50px;
+  border-top-left-radius: 20%;
+  border-top-right-radius: 20%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+.id-cont{
+  background-color: var(--second-grey);
+}
+.pw-cont{
+  background-color: var(--third-grey);
+}
+.finder-bottom-cont{
+  background-color: var(--second-grey);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.finder-bottom-cont>*{
+  margin: 30px;
+}
+
+
