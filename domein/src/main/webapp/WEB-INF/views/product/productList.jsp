@@ -43,11 +43,6 @@
             $('#remaningQuantity').val(val);
             alert($('#remaningQuantity').val());
         }
-        //my상품조회
-        var Mylist=document.querySelector(".myListSearch");
-        Mylist.onclick=function(e){
-      	  location.href="${path}/product/SelectMyList.do?businessKey=1";
-        }
      	//상품 조회
      	$(function(){
      		$("#searchBtn").click(function(){

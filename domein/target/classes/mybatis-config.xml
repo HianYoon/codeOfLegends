@@ -22,5 +22,7 @@
 		<typeAlias type="com.col.domein.productcomment.model.vo.BDSreview" alias="bdsReview"/>
 		<typeAlias type="com.col.domein.productcomment.model.vo.BDSreviewLike" alias="reviewLike"/>
 		<typeAlias type="com.col.domein.auction.model.vo.BoardAuction" alias="boardAuction"/>
+		<typeAlias type="com.col.domein.auction.model.vo.BoardAttachementImage" alias="boardAttachementImage"/>
+		<typeAlias type="com.col.domein.auction.model.vo.BoardAttachementFile" alias="boardAttachementFile"/>
 	</typeAliases>
 </configuration>

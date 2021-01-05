@@ -5,8 +5,7 @@
     <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
      <c:set var="path" value="${pageContext.request.contextPath }"/>
     
-<link rel="stylesheet"
-	href="${path }/resources/css/auction/auction.css" />
+<link rel="stylesheet" href="${path }/resources/css/auction/auction.css" />
   <link rel="stylesheet" href="${path }/resources/css/jihunTab/TabMedia.css"/>
   
 <jsp:include page="/WEB-INF/views/common/header.jsp">
@@ -36,22 +35,12 @@
 
  <div id="octionPage">
 
-        <div id="wrapper">    
-            <!--탭 메뉴 영역 -->
-            <ul class="tabs">
-                <li><a href="#tab1">입찰목록</a></li>
-                <li><a href="#tab2">입찰등록</a></li>
-                <li><a href="#tab3">입찰참여</a></li>
-                <li><a href="#tab5">myOction<br>(판매자)</a></li>
-               
-            </ul>
-        </div>
         <div class="tab-container-group">
                 <!-- myOction(판매자페이지) -->
               <div id="tab5" class="tab_content">
                   <div class="OctionBuyer-text-container" >
                     <div class="action-container">
-
+					<c:forEach items="${list }" var="list">
                         <div class="Oction-text-items">
                             
                             <ul>
@@ -59,56 +48,33 @@
                                 <li class="buyer-img"><span><img src="" alt=""></span>
                                     <span class="buyer-small-img"><img src="#" alt="img1"></span>
                                     <span><img src="#" alt="img2"></span>
-                                    <span><img src="#" alt="img3"></span>
-                                    <span><img src="#" alt="img4"></span>
-                                    <span><img src="#" alt="img5"></span>
                                 </li>
                             </ul>
                             <ul>
                                 
-                                <li><span>제목:</span><span>xxxxxxxxxxxxxx</span></li>
-                                <li><span>구매자:</span><span>Col-company</span></li>
-                                <li><span>입찰시작일:20.11.20 </span><span> 마감일:20.12.7</span></li>
-                                <li><span>납품시작일:20.12.4 </span><span> 종료일:20.12.31</span></li>
+                                <li><span>제목:<c:out value="${list.TITLE}"/></span></li>
+                                <li><span>사업자:<c:out value="${list.BUSINESS_NAME}"/></span></li>
+                                <li>시작일:<fmt:formatDate value="${list.START_DATE}" pattern="yyyy-MM-dd HH:mm"/>
+                                <span class="Oction-date">마감일:<fmt:formatDate value="${list.END_DATE}" pattern="yyyy-MM-dd HH:mm"/></span>
+                                </li>
                                 <li><h4>요구사항</h4></li>
                                 <li>
                                     
-                                    <textarea name="" id="textarea" cols="20" rows="7" readonly>
-                                        
-                                    </textarea></li>
+                                    <textarea name="content" id="textarea" cols="20" rows="7" readonly><c:out value="${list.CONTENT}"/></textarea></li>
                                 </ul>
                                 
                                 
                             </div>
                             <div class="slideshow-container">
+                             	
+                             	<c:forEach items="${list.RENAMED_FILE_NAME }" var="listImg">  
+	                                <div class="mySlides fade">
+	                                    <div class="numbertext">1 / 5</div>
+	                                    <img src="${path }/resources/boardauction/file/${listImg}" class="slideImg"  style="width:100%">
+	                                    <div class="text">Caption Text</div>
+	                                </div>
+                                </c:forEach>  
                                 
-                                <div class="mySlides fade">
-                                    <div class="numbertext">1 / 5</div>
-                                    <img src="img_nature_wide.jpg" class="slideImg"  style="width:100%">
-                                    <div class="text">Caption Text</div>
-                                </div>
-                                
-                                <div class="mySlides fade">
-                                    <div class="numbertext">2 / 5</div>
-                                    <img src="img_snow_wide.jpg" class="slideImg" style="width:100%">
-                                    <div class="text">Caption Two</div>
-                                </div>
-                                
-                                <div class="mySlides fade">
-                                    <div class="numbertext">3 / 5</div>
-                                    <img src="img_mountains_wide.jpg" class="slideImg"  style="width:100%">
-                                    <div class="text">Caption Three</div>
-                                </div>
-                                <div class="mySlides fade">
-                                    <div class="numbertext">4 / 5</div>
-                                    <img src="img_mountains_wide.jpg" class="slideImg"  style="width:100%">
-                                    <div class="text">Caption Three</div>
-                                </div>
-                                <div class="mySlides fade">
-                                    <div class="numbertext">5 / 5</div>
-                                    <img src="img_mountains_wide.jpg" class="slideImg"  style="width:100%">
-                                    <div class="text">Caption Three</div>
-                                </div>
                                 
                             </div>
                             <br>
@@ -121,7 +87,7 @@
                                 <span class="dot"></span> 
                             </div>
                         </div>
-
+					</c:forEach>
                         <div class="OctionBuyerBar">
                              <ul>
                                  <li><a href="">Auction</a></li>

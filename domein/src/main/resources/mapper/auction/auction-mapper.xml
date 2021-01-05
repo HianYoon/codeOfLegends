@@ -8,4 +8,38 @@
  where member_Key=#{signedInMember.memberKey} 
 		
 	</select>
+
+	<!-- auction등록 -->
+	<insert id="inertEnllo" parameterType="boardAuction">
+		INSERT INTO BOARD_AUCTION values(SEQ_article_No.nextval,
+		#{title},#{writerKey},SYSDATE,SYSDATE,
+		#{startDate},#{endDate},#{ReadCount},#{auctionStatusNo},#{content}
+		)
+		<selectKey order="AFTER" resultType="_int" keyProperty="articleNo">
+			select SEQ_article_No.currval from dual
+		</selectKey>
+	</insert>
+	
+	<!-- auction파일등록 -->
+	<insert id="insertUpFile" parameterType="boardAttachementFile">
+	 insert into BA_ATTACHED_FILE values(SEQ_FILE_KEY.NEXTVAL,#{articleNo},#{originalFileName},#{renamedFileName})
+	</insert>
+	<!-- auction이미지파일등록 -->
+	<insert id="insertImgFile" parameterType="boardAttachementImage">
+	insert into BA_ATTACHED_IMAGE values(SEQ_IMAGE_KEY.NEXTVAL,#{articleNo},#{imgOriginalFileName},#{imgRenamedFileName})
+	</insert>
+	
+	<!-- 옥션 list -->
+	<select id="selectAuctionList" resultType="map">
+ 	select ba.*,b.business_name,bi.renamed_file_name,(select count(*) from board_auction where ba.article_no=article_no)as ATTAC from board_auction ba 
+	join business b on ba.writer_key=b.business_key inner join ba_attached_image bi on ba.article_no=bi.article_no
+	</select>
+	<!-- 옥션 list count -->
+	<select id="selectCount" resultType="_int">
+		select count(*) from board_auction
+	</select>
+	<select id="selectAuctionView" resultType="map">
+		select * from board_auction ba join business b on ba.writer_key=b.business_key inner join ba_attached_image bi on ba.article_no=bi.article_no
+		where ba.article_no=#{articleNo}
+	</select>
 </mapper>

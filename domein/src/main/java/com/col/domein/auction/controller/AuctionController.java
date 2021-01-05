@@ -1,14 +1,28 @@
 package com.col.domein.auction.controller;
 
+import java.io.File;
+import java.io.IOException;
+import java.sql.Date;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.col.domein.auction.model.service.AuctionService;
+import com.col.domein.auction.model.vo.BoardAttachementFile;
+import com.col.domein.auction.model.vo.BoardAttachementImage;
+import com.col.domein.auction.model.vo.BoardAuction;
+import com.col.domein.common.pageBar.PageBarFactory;
+import com.col.domein.product.model.vo.Attachement;
 
 @Controller
 public class AuctionController {
@@ -24,6 +38,71 @@ public class AuctionController {
 		mv.setViewName("auction/auctionEnllo");
 		return mv;
 	}
+	//옥션등록 
+	@RequestMapping("auction/insertEnllo.do")
+	public ModelAndView inertEnllo(ModelAndView mv,Date startDate, Date endDate,BoardAuction auc,
+			@RequestParam(value="upFile")MultipartFile upFile,
+			@RequestParam(value="imgFile")MultipartFile imgFile,
+			HttpSession session) {
+		
+		String path=session.getServletContext().getRealPath("/resources/upload/boardauction/file");
+		File dir=new File(path);
+		String path1=session.getServletContext().getRealPath("/resources/upload/boardauction/img");
+		File dir1=new File(path1);
+		List<BoardAttachementFile> files=new ArrayList();
+		List<BoardAttachementImage> imgs=new ArrayList();
+		if(!dir.exists()) dir.mkdirs();
+		
+		if(!upFile.isEmpty()) {
+			String originalFileName=upFile.getOriginalFilename();
+			String extension=originalFileName.substring(originalFileName.lastIndexOf(".")+1);
+			
+			SimpleDateFormat sdf=new SimpleDateFormat("yyyyMMdd_HHmmssSSS");
+			int rnd=(int)(Math.random()*10000);
+			String rename=sdf.format(System.currentTimeMillis())+"_"+rnd+"."+extension;
+			try {
+				upFile.transferTo(new File(path+"/"+rename));
+			}catch(IOException e) {
+				e.printStackTrace();
+			}
+			BoardAttachementFile bFile =BoardAttachementFile.builder().originalFileName(originalFileName)
+					.renamedFileName(rename).build();
+			files.add(bFile);
+		}else {
+			
+		}
+		
+		if(!dir1.exists()) dir1.mkdirs();
+		
+		if(!imgFile.isEmpty()) {
+			String originalFileName=imgFile.getOriginalFilename();
+			String extension=originalFileName.substring(originalFileName.lastIndexOf(".")+1);
+			
+			SimpleDateFormat sdf=new SimpleDateFormat("yyyyMMdd_HHmmssSSS");
+			int rnd=(int)(Math.random()*10000);
+			String rename=sdf.format(System.currentTimeMillis())+"_"+rnd+"."+extension;
+			try {
+				imgFile.transferTo(new File(path+"/"+rename));
+			}catch(IOException e) {
+				e.printStackTrace();
+			}
+			
+			BoardAttachementImage bImg =BoardAttachementImage.builder().imgOriginalFileName(originalFileName)
+					.imgRenamedFileName(rename).build();
+			imgs.add(bImg);
+			
+		}else {
+			mv.setViewName("");
+		}
+		auc.setStartDate(startDate);
+		auc.setEndDate(endDate);
+		System.out.println(""+auc);
+		int result=service.inertEnllo(auc,imgs,files);
+		mv.addObject("msg",result>0?"입력성공":"입력실패");
+		mv.setViewName("/auction/auctionList.do");
+		return mv;
+	}
+	
 	//옥션등록 수정
 	@RequestMapping("/auction/auctionEnlloUpdate.do")
 	public String auctionEnlloUpdate() {
@@ -46,8 +125,27 @@ public class AuctionController {
 	}
 	//옥션 view페이지
 	@RequestMapping("/auction/auctionView.do")
-	public String auctionView() {
-		return "auction/auctionView";
+	public ModelAndView auctionView(ModelAndView mv, int articleNo) {
+		List<Map> list=service.selectAuctionView(articleNo);
+		mv.addObject("list",list);
+		mv.setViewName("auction/auctionView");
+		
+		return mv;
 	}
-
+	//
+	@RequestMapping("/auction/auctionList.do")
+	public ModelAndView selectAuctionList(ModelAndView mv,
+			@RequestParam(value="cPage",defaultValue="1") int cPage,
+			@RequestParam(value="numPerpage",defaultValue="10")int numPerpage) {
+		
+		List<Map> list=service.selectAuctionList(cPage,numPerpage);
+		int totalData=service.selectCount();
+		
+	System.out.println(""+list);
+	mv.addObject("pageBar",PageBarFactory.getPageBar(totalData, cPage, numPerpage, "auctionList.do"));
+	mv.addObject("auction",list);
+	mv.setViewName("auction/auctionList");
+	return mv;
+	
+	}
 }

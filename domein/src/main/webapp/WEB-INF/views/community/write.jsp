@@ -3,7 +3,7 @@
     <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
     <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
     <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
- <link rel="stylesheet" href="${path }/resources/css/community/write.css"/>
+ <link rel="stylesheet" href="${path }/resources/css/community/write.css?after"/>
  <link rel="stylesheet" href="${path }/resources/css/jihunTab/TabMedia.css"/>
  <script src="https://cdn.ckeditor.com/4.14.0/standard/ckeditor.js"></script>
  
@@ -12,15 +12,15 @@
 	<jsp:param name="title" value=""/>
 </jsp:include>
 <section class="container">
-	<form action="${path }/community/write.do" class="form1" method = "post" enctype="multipart/form-data">
+	<form action="${path }/community/write.do" class="form1" name="form1" method = "post" enctype="multipart/form-data">
 	<table width=100%>
 		<tr>
 			<td>제목</td>
-			<td><input type="text" placeholder="제목을 입력해주세요"></td>
+			<td><input type="text" name="title" id="title" placeholder="제목을 입력해주세요"></td>
 		</tr>
 		<tr>
 			<td>내용</td>
-			<td><textarea rows="5" cols="60" name="ckeditor" id="ckeditor"></textarea>
+			<td><textarea rows="5" cols="60" name="ckeditor" id="ckeditor" placeholder="내용을 입력해주세요"></textarea>
 			</td>
 		</tr>
 		<tr>
@@ -31,7 +31,7 @@
 		</tr>
 	</table>
 	    <div class="sbm">
-            <input type="submit" class="btn" value="확인" />
+            <input type="button" class="btn" id="btnSave" value="확인" />
             <input type="button" class="btn" id="btnR" value="취소"/>
         </div>
     </form>
@@ -43,6 +43,26 @@
     $(".btn").click(e => {
     	location.href = "${path}/community/communityList.do";
     })
+    $(document).on('click', 'btnSave', function(e){
+    	$("#form1").submit();
+    })
+/*     $(document).ready(function(){
+    	$("#btnSave").click(function(){
+    		var title = $("#title").val();
+    		var ckeditor = $("#ckeditor").val();
+    		if(title == ""){
+    			alert("제목을 입력하세요");
+    			document.form1.title.focus();
+    			return;
+    		}
+    		if(ckeditor == ""){
+    			alert("내용을 입력하세요");
+    			document.form1.content.focus();
+    			return;
+    		}
+    		document.form1.submit();
+    	})
+    }) */
 /*     $(document).on('click', #btnSave', function(e){
     	$("#form").submit();
     }); */

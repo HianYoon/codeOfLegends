@@ -138,6 +138,9 @@
 			</otherwise>
 		</choose>
 	</select>
-		
+		<!-- businessKey -->
+		<select id="selectBusinessOne" resultType="_int">
+			select * from BUSINESS where MEMBER_KEY=#{signedInMember.memberKey}
+		</select>
 		
 </mapper>

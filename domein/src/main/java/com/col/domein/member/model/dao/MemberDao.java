@@ -124,4 +124,12 @@ public class MemberDao {
 	public boolean deleteSelectedOauthFromMember(SqlSession session, SnsInfo sns) {
 		return session.delete("oauth.deleteSelectedOauthFromMember", sns)==1;
 	}
+	
+	public boolean updateMemberFromAccountInfo(SqlSession session, Member m) {
+		return session.update("member.updateMemberFromAccountInfo", m) == 1;
+	}
+	
+	public String selectIdByEmail(SqlSession session, Map<String,String> map) {
+		return session.selectOne("member.selectIdByEmail", map);
+	}
 }

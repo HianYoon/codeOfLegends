@@ -36,16 +36,6 @@
 
  <div id="octionPage">
 
-        <div id="wrapper">    
-            <!--탭 메뉴 영역 -->
-            <ul class="tabs">
-                <li><a href="#tab1">입찰목록</a></li>
-                <li><a href="#tab2">입찰등록</a></li>
-                <li><a href="#tab3">입찰참여</a></li>
-                <li><a href="#tab5">myOction<br>(판매자)</a></li>
-               
-            </ul>
-        </div>
         <div class="tab-container-group">
 
        
@@ -65,73 +55,33 @@
                                     <li>마감순</li>
                                     <li>조회순</li>
                                 </ul>
-                                <ul class="grid">
-                                    <li>
-                                        <a href="#grid1">
-                                            <img src="" alt="List">
-
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="#grid2">
-                                            <img src="" alt="Grid">
-
-                                          </a>
-                                     </li>
-                                </ul>
+                             
                             </div>
-                        
-                        <div id="grid1" class="oction-list-container">
-
-                            <div class="oction_img">
-                                <img src="#" alt="이미지" id="oction-img">
-                                
-                            </div> 
-                            <div class="oction_textlist">
-                                <a href="">
-                                    
-                                    <ul class="oction-list">
-                                        <li><span>제목:</span>  
-                                        </li>
-                                        <li><span>상호명:</span></li>
-                                        <li class="oction-dateBox"><span class="Oction-date">등록일:</span><span class="Oction-date">마감일:</span></li>
-                                        
-                                    </ul>
-                                </a>
-                            </div>
-                            <div class="btn-oction-box">
-                                        <p>조회수</p>
-                                     <button class="btn">수정</button>    
-                                     <button class="btn btn--primary">삭제</button>    
-                                     <button class="btn btn--primary">참여</button>    
-                                                
-                            </div>
-                              
-                        </div>
-                        
+               
                         <!-- grid정렬 -->
+                       
                             <div id="grid2" class="oction-list-container">
                                 <!-- grid-content -->
                                 <div class="grid2-container">
-
+									<c:forEach items="${auction}" var="auction">
                                     <!-- 절제선 -->
                                     <div class="oction--grid--container">
                        
-                                        <div class="oction-img-group">
-                                            <img id="big-target" src="" alt="이미지" data-zoom="3"/>
+                                        <a href="${path }/auction/auctionView.do?articleNo=${auction.ARTICLE_NO}"class="oction-img-group">
+                                            <img id="big-target" src="${path }/resources/upload/boardauction/file/${auction.RENAMED_FILE_NAME}" alt="이미지" data-zoom="3"/>
                                             
-                                        </div>
+                                        </a>
                                         <div>
             
                                             <ul class="grid-text-group" style="padding:0">
-                                                <li>제목</li>
-                                                <li>상호명</li>
-                                                <li><span>등록일</span><span>마감일</span></li>
+                                                <li>제목:<c:out value="${auction.TITLE }"/></li>
+                                                <li>상호명:<span>상호명:<c:out value="${auction.BUSINESS_NAME }"/></li>
+                                                 <li class="oction-dateBox"><span class="Oction-date">시작일:<fmt:formatDate value="${auction.START_DATE}" pattern="yyyy-MM-dd HH:mm"/></span><span class="Oction-date">마감일:<fmt:formatDate value="${auction.END_DATE}" pattern="yyyy-MM-dd HH:mm"/></span></li>
                                                 <li>조회수
                                                 </li>
                                                   <li>
-                                                         <span><a href=""><img src="" alt="찜" style="width: 15px;height:15px;"></a></span>
-                                                         <span><a href=""><img src="" alt="like"></a></span>
+                                                    <span><a href="${path}"><img src="${path }/resources/images/profile/jjim.png" alt="찜" style="width: 15px;height:15px;"></a></span>
+                                           			<span><a href="${path}"><img src="${path }/resources/images/profile/add-to-basket.png" alt="like" style="width: 15px;height:15px;"></a></span>
                             
                                                </li>
                                                 
@@ -141,14 +91,33 @@
                                             
                                     
                                  </div>
-                              
+                               </c:forEach>
                                     <!-- 절제선 -->
                                 </div>
+                                <div id="pageBar">${pageBar }</div>
                             </div>
+                    
                 </div>
             </div>
 
 	</div>
 </div>
 </section>
+<script src="${path }/resources/js/auction/auctionList.js" defer></script>
+<script>
+/* $(document).ready(function(){
+ 	$(".oction-list-container").hide();
+ 	$("ul.grid li:first").addClass("active").show();
+ 	$(".oction-list-container").show();
+ });
+ $("ul.grid li").click(function(){
+ 	$("ul.grid li").removeClass("active");
+ 	$(this).addClass("active");
+ 	$(".oction-list-container").hide();
+ 	let activeList=$(this).find('a').attr('href');
+ 	$(activeList).fadeIn();
+ 	return false;
+ 
+ }) */
+</script>
 <jsp:include page="/WEB-INF/views/common/footer.jsp"/>

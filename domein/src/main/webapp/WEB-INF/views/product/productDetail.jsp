@@ -22,14 +22,13 @@
         	<div class="product-container">
        
 	            <div class="product-img">
-	                <img src="${path}/resources/upload/product/${p.P_RENAMED_FILE_NAME}" alt="빅이미지">
+	                <img src="${path}/resources/upload/product/${p.P_RENAMED_FILE_NAME}" alt="빅이미지" style="width:100%;heidth:100%;box-sizing:border-box;">
 	            </div>
 	                
 	            <div class="product-textgroup">
 	                <form name="form" action="${path}/cart/cart.do" method="post" >
 	                    <h2>카테고리명<input type="hidden" id="pNo" name="productNo" value="${p.PRODUCT_NO}"></h2>
 	                 <input type="hidden" id="mNo" name="memberKey" value="${member.memberKey}">
-	                 <input type="hidden" id="" name="" value=""/>
 	                  
 	                    <ul class="star">
 	                        <li><span>☆</span><span>☆</span><span>☆</span><span>☆</span><span>☆</span>리뷰수:</li>

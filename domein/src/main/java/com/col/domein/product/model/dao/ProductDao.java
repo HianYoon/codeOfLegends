@@ -5,6 +5,7 @@ import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 
+import com.col.domein.business.model.vo.Business;
 import com.col.domein.common.crteria.SearchCriteria;
 import com.col.domein.product.model.vo.Attachement;
 import com.col.domein.product.model.vo.BoardProductSaleContent;
@@ -59,5 +60,7 @@ public interface ProductDao {
 	int updateAuctionStatusToStoppedByBusinessKey(SqlSession session, int businessKey);
 	
 	List<Map> searchArticle(SqlSession session, String keyword, String searchOption);
+	//memberKey
+	List<Map> selectBusinessOne(SqlSession session, int memberKey);
 
 }
