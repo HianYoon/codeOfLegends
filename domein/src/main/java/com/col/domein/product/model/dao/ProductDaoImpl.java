@@ -8,6 +8,7 @@ import org.apache.ibatis.session.RowBounds;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
+import com.col.domein.business.model.vo.Business;
 import com.col.domein.common.crteria.SearchCriteria;
 import com.col.domein.product.model.vo.Attachement;
 import com.col.domein.product.model.vo.BoardProductSaleContent;
@@ -153,6 +154,12 @@ public class ProductDaoImpl implements ProductDao {
 		map.put("keyword",keyword);
 		map.put("searchOption",searchOption);
 		return session.selectList("product.searchArticle",map);
+	}
+	//business키 불러오기
+	@Override
+	public List<Map> selectBusinessOne(SqlSession session, int memberKey) {
+		// TODO Auto-generated method stub
+		return session.selectList("product.selectBusinessOne",memberKey);
 	}
 	
 	

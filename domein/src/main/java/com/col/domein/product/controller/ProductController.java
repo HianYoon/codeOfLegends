@@ -75,6 +75,7 @@ public class ProductController {
 		System.out.println(""+bp);
 		
 		int result=service.insertBoardSContent(bp);
+		
 		mv.addObject("msg",result>0?"입력성공":"입력실패");
 		mv.addObject("boardContent",bp);
 		mv.addObject("loc","/product/into.do");
@@ -264,9 +265,22 @@ public class ProductController {
 	public ModelAndView productDelete(ModelAndView mv,int articleNo) {
 		int result=service.productDelete(articleNo);
 		mv.addObject("msg",result>0?"삭제성공":"삭제실패");
-		mv.setViewName("product/MyProductList");
+		mv.setViewName("product/productUpdate");
 		return mv;
 		
+	}
+	// 등록페이지로 이동
+	@RequestMapping("/product/intoEnllo.do")
+	public ModelAndView goToproductEnllo(ModelAndView mv,int memberKey) {
+		System.out.println(memberKey);
+		List<Map> b=service.selectBusinessOne(memberKey);
+		mv.addObject("business",b);
+		mv.setViewName("product/productEnllo");
+		return mv;
+	}
+	@RequestMapping("/product/intoproductList.do")
+	public String goToproductList() {
+		return "product/myProductList";
 	}
 	
 }

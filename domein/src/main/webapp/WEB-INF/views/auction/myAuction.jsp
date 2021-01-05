@@ -16,12 +16,10 @@
 </script>
 <div class="myPageHeader">
 	<a href="${path }/auction/auctionEnllo.do?memberKey=${signedInMember.memberKey}">옥션등록</a>
-	<a href="${path }/auction/auctionEnlloUpdate.do">옥션등록수정</a>
-	<a href="${path }/auction/auctionJoin.do">옥션참여</a>
-	<a href="${path }/auction/auctionJoinUpdate.do">옥션참여수정</a>
+	<a href="${path }/auction/auctionJoin.do">옥션참여Joinlist</a>
 	<a href="${path }/auction/auctionUpdate.do">옥션List/수정/삭제</a>
-	<a href="${path }/product/insert.do">판매등록</a>
-	<a href="${path }/product/productUpdate.do">판매수정</a>
+	<a href="${path }/product/intoEnllo.do?memberKey=${signedInMember.memberKey}">판매등록</a>
+	<a href="${path }/product/intoproductList.do?memberKey=${signedInMember.memberKey}">my판매list</a>
 	
 	<c:if test="${signedInMember.levelNo == 99 }"> <a href="#">관리자</a></c:if>
 </div>
