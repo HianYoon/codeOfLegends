@@ -132,6 +132,7 @@ public class AuctionController {
 	List<Map> list=service.selectAuctionList(ba);
 	mv.addObject("auction",list);
 	mv.setViewName("auction/auctionList");
+	return mv;
 	}
 
 }
