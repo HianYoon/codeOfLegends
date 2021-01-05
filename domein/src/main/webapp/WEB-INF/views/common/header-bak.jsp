@@ -12,8 +12,11 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <script src="http://code.jquery.com/jquery-3.5.1.min.js"></script>
 <link rel="stylesheet" href="${path }/resources/css/sharedStyle.css" />
-<link rel="stylesheet" href="${path }/resources/css/common/headerStyle1.css" />
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+<link rel="stylesheet"
+	href="${path }/resources/css/common/headerStyle.css" />
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+<script src="https://apis.google.com/js/platform.js" async defer></script>
 <meta name="google-signin-client_id"
 	content="1048798785374-akhqjnf6p4g1fdo3mkf2pudg9ffh5ger.apps.googleusercontent.com">
 <title><%=request.getParameter("title")%></title>
@@ -88,7 +91,7 @@
 			</div>
 			<div class="mainNav-bottom">
 				<ul class="mainNav-bottom-inner">
-					<li><a href="${path}/auction/auctionList.do">
+					<li><a href="#">
 							<div>
 								<div>
 									<img src="${path }/resources/images/profile/blind.png" alt="" />

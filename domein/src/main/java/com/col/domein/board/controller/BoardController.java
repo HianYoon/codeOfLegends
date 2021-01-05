@@ -67,11 +67,12 @@ public class BoardController {
 			@RequestParam(value="numPerpage", defaultValue="10") int numPerpage) {
 			
 		mv.addObject("list",service.selectBoardList(cPage,numPerpage));
+        System.out.println(service.selectBoardList(cPage,numPerpage));
 		
 		int totalData=service.selectCount();
 		mv.addObject("pageBar",PageBarFactory.getPageBar(totalData, cPage, numPerpage, "communityList.do"));
 		mv.addObject("totalData",totalData);
-		mv.setViewName("community/communityList");
+		mv.setViewName("community/community");
 		
 		return mv;
 	}
