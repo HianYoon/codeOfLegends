@@ -43,28 +43,6 @@
 					<c:forEach items="${list }" var="list">
                         <div class="Oction-text-items">
                             
-                            <ul>
-                                <li><img src=""  class="big--img" alt="큰이미지" style="width:200px;height:200px; box-sizing: border-box; padding: 5px 3px 5px;"></li>
-                                <li class="buyer-img"><span><img src="" alt=""></span>
-                                    <span class="buyer-small-img"><img src="#" alt="img1"></span>
-                                    <span><img src="#" alt="img2"></span>
-                                </li>
-                            </ul>
-                            <ul>
-                                
-                                <li><span>제목:<c:out value="${list.TITLE}"/></span></li>
-                                <li><span>사업자:<c:out value="${list.BUSINESS_NAME}"/></span></li>
-                                <li>시작일:<fmt:formatDate value="${list.START_DATE}" pattern="yyyy-MM-dd HH:mm"/>
-                                <span class="Oction-date">마감일:<fmt:formatDate value="${list.END_DATE}" pattern="yyyy-MM-dd HH:mm"/></span>
-                                </li>
-                                <li><h4>요구사항</h4></li>
-                                <li>
-                                    
-                                    <textarea name="content" id="textarea" cols="20" rows="7" readonly><c:out value="${list.CONTENT}"/></textarea></li>
-                                </ul>
-                                
-                                
-                            </div>
                             <div class="slideshow-container">
                              	
                              	<c:forEach items="${list.RENAMED_FILE_NAME }" var="listImg">  
@@ -85,6 +63,22 @@
                                 <span class="dot"></span> 
                                 <span class="dot"></span> 
                                 <span class="dot"></span> 
+                            </div>
+                            
+                            <ul>
+                                
+                                <li><span>제목:<c:out value="${list.TITLE}"/></span></li>
+                                <li><span>사업자:<c:out value="${list.BUSINESS_NAME}"/></span></li>
+                                <li>시작일:<fmt:formatDate value="${list.START_DATE}" pattern="yyyy-MM-dd HH:mm"/>
+                                <span class="Oction-date">마감일:<fmt:formatDate value="${list.END_DATE}" pattern="yyyy-MM-dd HH:mm"/></span>
+                                </li>
+                                <li><h4>요구사항</h4></li>
+                                <li>
+                                    
+                                    <textarea name="content" id="textarea" cols="20" rows="7" readonly><c:out value="${list.CONTENT}"/></textarea></li>
+                                </ul>
+                                
+                                
                             </div>
                         </div>
 					</c:forEach>
