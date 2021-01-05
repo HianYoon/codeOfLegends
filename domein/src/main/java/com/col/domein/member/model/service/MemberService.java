@@ -717,6 +717,7 @@ public class MemberService {
 		
 //		5. 멤버 account_status_no 9로 변경 & email의 앞자리에 deleted: 삽입 하여 업데이트
 		m.setEmail("deleted: "+m.getEmail());
+		m.setPhone("deleted: "+m.getPhone());
 		m.setAccountStatusNo(9);
 		int result = md.updateMemberToDeleted(session, m);
 		
@@ -735,5 +736,7 @@ public class MemberService {
 	public boolean deleteSelectedOauthFromMember(SnsInfo sns) {
 		return md.deleteSelectedOauthFromMember(session, sns);
 	}
-	
+	public boolean updateMemberFromAccountInfo(Member m) {
+		return md.updateMemberFromAccountInfo(session, m);
+	}
 }

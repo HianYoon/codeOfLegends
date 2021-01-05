@@ -24,7 +24,7 @@
 	<div class="section-content">
 
 		<div class="account-nav-list">
-			<a href="#"> <i class="fas fa-user-circle" id="account-user-icon"></i>
+			<a href="${path }/member/myPage/account/accountInfo.do"> <i class="fas fa-user-circle" id="account-user-icon"></i>
 				회원정보 수정
 			</a>
 		</div>

@@ -95,7 +95,7 @@
 
 	<update id="updateMemberToDeleted" parameterType="member">
 		UPDATE MEMBER
-		SET EMAIL = #{email}, ACCOUNT_STATUS_NO = 9 WHERE MEMBER_KEY =
+		SET PHONE = #{phone}, EMAIL = #{email}, ACCOUNT_STATUS_NO = 9 WHERE MEMBER_KEY =
 		#{memberKey}
 	</update>
 	
@@ -105,6 +105,12 @@
 	<update id="updateMemberPassword" parameterType="member">
 		UPDATE MEMBER
 		SET PASSWORD = #{password} WHERE MEMBER_KEY = #{memberKey}
+	</update>
+	
+	<update id="updateMemberFromAccountInfo" parameterType="member">
+		UPDATE MEMBER
+		SET ID = #{id}, USERNAME = #{userName}, NICKNAME = #{nickname}, PHONE = #{phone}, IS_SUBSCRIBED = #{isSubscribed}
+		WHERE MEMBER_KEY = #{memberKey}
 	</update>
 	
 </mapper>

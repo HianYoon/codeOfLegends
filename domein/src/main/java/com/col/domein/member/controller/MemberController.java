@@ -670,8 +670,7 @@ public class MemberController {
 			return new ErrorUriMaker(request, "판매자 삽입 중 에러 발생!", "/member/myPage/account/business/manageBusiness.do",
 					"판매자 관리로...").getErrorUri();
 
-		Member modifiedM = ms.selectMemberByMemberKey(m.getMemberKey());
-		session.setAttribute("signedInMember", modifiedM);
+		loadMemberAgain(session);
 
 		return "redirect: " + request.getContextPath() + "/member/myPage/account/business/manageBusiness.do";
 	}
@@ -692,8 +691,7 @@ public class MemberController {
 
 		bs.updateBusinessToStoppedByBusinessKey(bKey);
 
-		Member modifiedM = ms.selectMemberByMemberKey(m.getMemberKey());
-		session.setAttribute("signedInMember", modifiedM);
+		loadMemberAgain(session);
 
 		return "redirect: " + request.getContextPath() + "/member/myPage/account/business/manageBusiness.do";
 	}
@@ -763,10 +761,36 @@ public class MemberController {
 		
 		bs.updateBusinessInfo(b);
 		
-		Member modifiedM = ms.selectMemberByMemberKey(m.getMemberKey());
-		session.setAttribute("signedInMember", modifiedM);
+		loadMemberAgain(session);
 		
 		return "redirect: " + request.getContextPath() + "/member/myPage/account/business/manageBusiness.do";
 	}
-
+	
+	@RequestMapping("/myPage/account/accountInfo.do")
+	public String accountInfo(HttpSession session, HttpServletRequest request) {
+		return "member/myPage/account/accountInfo";
+	}
+	
+	@RequestMapping("/myPage/account/accountInfoEnd.do")
+	public String accountInfoEnd(HttpSession session, HttpServletRequest request, Member updatedMember, String isSubscribed) {
+		Member m = (Member) session.getAttribute("signedInMember");
+		
+		if (isSubscribed != null && isSubscribed.equals("1"))
+			updatedMember.setIsSubscribed(1);
+		else updatedMember.setIsSubscribed(0);
+		updatedMember.setMemberKey(m.getMemberKey());
+		
+		boolean flag = ms.updateMemberFromAccountInfo(updatedMember);
+		if(!flag) return new ErrorUriMaker(request, "", "", "").getErrorUri();
+		
+		loadMemberAgain(session);
+		return "redirect: " + request.getContextPath() + "/member/myPage/account.do";
+	}
+	
+//	현재 멤버 다시 불러오기
+	public void loadMemberAgain(HttpSession session) {
+		Member m = (Member) session.getAttribute("signedInMember");
+		Member modifiedM = ms.selectMemberByMemberKey(m.getMemberKey());
+		session.setAttribute("signedInMember", modifiedM);
+	}
 }
