@@ -3,6 +3,7 @@ package com.col.domein.auction.model.dao;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.ibatis.session.RowBounds;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
@@ -38,9 +39,22 @@ public class AuctionDaoImpl implements AuctionDao {
 	}
 	//옥션 리스트
 	@Override
-	public List<Map> selectAuctionList(SqlSession session, BoardAuction ba) {
+	public List<Map> selectAuctionList(SqlSession session, int cPage, int numPerpage) {
 		// TODO Auto-generated method stub
-		return session.selectList("boardAuction.selectAuctionList",ba);
+		return session.selectList("boardAuction.selectAuctionList",null,new RowBounds((cPage-1)*numPerpage,numPerpage));
+	}
+	@Override
+	public int selectCount(SqlSession session) {
+		// TODO Auto-generated method stub
+		return session.selectOne("boardAuction.selectCount");
+	}
+
+
+	//옥션 view
+	@Override
+	public List<Map> selectAuctionView(SqlSession session, int articleNo) {
+		// TODO Auto-generated method stub
+		return session.selectList("boardAuction.selectAuctionView",articleNo);
 	}
 
 }

@@ -91,7 +91,7 @@
 			</div>
 			<div class="mainNav-bottom">
 				<ul class="mainNav-bottom-inner">
-					<li><a href="#">
+					<li><a href="${path}/auction/auctionList.do">
 							<div>
 								<div>
 									<img src="${path }/resources/images/profile/blind.png" alt="" />

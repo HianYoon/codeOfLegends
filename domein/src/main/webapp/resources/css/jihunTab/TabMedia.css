@@ -1,12 +1,12 @@
 @charset "UTF-8";
 
  /* 전체 html display  flex*/
- #octionPage{
-    display:flex;
+#octionPage {
+    display: flex;
     width: 1200px;
+    justify-content: center;
     height: auto;
-    gap:50px;
-   
+    gap: 50px;
 }
 
 div#wrapper {

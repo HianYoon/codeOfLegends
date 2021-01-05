@@ -20,6 +20,12 @@ public interface AuctionDao {
 	//auction 이미지 등록
 	int insertImgFile(SqlSession session, BoardAttachementImage bImg);
 	//auction List
-	List<Map> selectAuctionList(SqlSession session, BoardAuction ba);
+	List<Map> selectAuctionList(SqlSession session, int cPage, int numPerpage);
+	//카운트
+	int selectCount(SqlSession session);
+
+
+	//auction view
+	List<Map> selectAuctionView(SqlSession session, int articleNo);
 
 }

@@ -31,6 +31,15 @@
 	
 	<!-- 옥션 list -->
 	<select id="selectAuctionList" resultType="map">
-	select * from BOARD_AUCTION
+ 	select ba.*,b.business_name,bi.renamed_file_name,(select count(*) from board_auction where ba.article_no=article_no)as ATTAC from board_auction ba 
+	join business b on ba.writer_key=b.business_key inner join ba_attached_image bi on ba.article_no=bi.article_no
+	</select>
+	<!-- 옥션 list count -->
+	<select id="selectCount" resultType="_int">
+		select count(*) from board_auction
+	</select>
+	<select id="selectAuctionView" resultType="map">
+		select * from board_auction ba join business b on ba.writer_key=b.business_key inner join ba_attached_image bi on ba.article_no=bi.article_no
+		where ba.article_no=#{articleNo}
 	</select>
 </mapper>
