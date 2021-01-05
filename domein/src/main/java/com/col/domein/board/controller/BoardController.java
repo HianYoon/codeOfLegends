@@ -61,20 +61,23 @@ public class BoardController {
 	 * mv.addObject("loc","/ads/adsMainApply.do"); mv.setViewName("/common/msg");
 	 * return mv; }
 	 */
-	@RequestMapping("/community/communityList.do")
-	public ModelAndView boardList(ModelAndView mv,
-			@RequestParam(value="cPage", defaultValue="1") int cPage, 
-			@RequestParam(value="numPerpage", defaultValue="10") int numPerpage) {
-			
-		mv.addObject("list",service.selectBoardList(cPage,numPerpage));
-		
-		int totalData=service.selectCount();
-		mv.addObject("pageBar",PageBarFactory.getPageBar(totalData, cPage, numPerpage, "communityList.do"));
-		mv.addObject("totalData",totalData);
-		mv.setViewName("community/communityList");
-		
-		return mv;
-	}
+	/*
+	 * @RequestMapping("/community/communityList.do") public ModelAndView
+	 * boardList(ModelAndView mv,
+	 * 
+	 * @RequestParam(value="cPage", defaultValue="1") int cPage,
+	 * 
+	 * @RequestParam(value="numPerpage", defaultValue="10") int numPerpage) {
+	 * 
+	 * mv.addObject("list",service.selectBoardList(cPage,numPerpage));
+	 * 
+	 * int totalData=service.selectCount();
+	 * mv.addObject("pageBar",PageBarFactory.getPageBar(totalData, cPage,
+	 * numPerpage, "communityList.do")); mv.addObject("totalData",totalData);
+	 * mv.setViewName("community/communityList");
+	 * 
+	 * return mv; }
+	 */
 	
 //	@RequestMapping("/community/write.do")
 //	public void fileDownload(String oriname, String rename,
@@ -152,10 +155,10 @@ public class BoardController {
 		return "community/profile";
 	}
 	
-	/*
-	 * @RequestMapping("/community/communityList.do") public String communityList()
-	 * { return "community/communityList"; }
-	 */
+	
+	  @RequestMapping("/community/communityList.do") public String communityList()
+	  { return "community/communityList"; }
+
 	
 	
 	@RequestMapping("/community/bkbDetail.do")
