@@ -96,7 +96,7 @@
 				<div class="mobile-logo-cont">
 					<img src="${path }/resources/images/logo/signature.png" alt="" />
 
-				</div>
+				</div> 
 			</a>
 		</div>
 		<div class="mobile">

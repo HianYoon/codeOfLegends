@@ -8,7 +8,7 @@ window.addEventListener("scroll", function () {
 	} else {
 		mainNav.classList.remove("bg-grey");
 		mainNav.classList.remove("txt-white");
-	}
+	} 
 });
 $(function () {
 	$("#categoryTap").mouseenter(function () {
