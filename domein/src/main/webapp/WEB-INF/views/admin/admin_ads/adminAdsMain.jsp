@@ -30,9 +30,9 @@
 	<div id="wholeback">
 	    <div class="tab_menu">
 	        <ul><h2>[관리자] 광고관리</h2>
-	            <li><a href=""><h5>슬라이드 배너 관리</h5></a></li>
-	            <li><a href=""><h5>슬라이드 배너 요청 검토</h5></a></li>
-	            <li><a href=""><h5>추천 게시글 요청 검토</h5></a></li>
+	            <li><a href="${path }/admin/admin_ads/adminBannerManage.do"><h5>슬라이드 배너 관리</h5></a></li>
+	            <li><a href="${path }/admin/admin_ads/adminBannerView.do"><h5>슬라이드 배너 요청 검토</h5></a></li>
+	            <li><a href="${path }/admin/admin_ads/adminDirectView.do"><h5>추천 게시글 요청 검토</h5></a></li>
 	        </ul>
 	    </div>
 	    <div id="container">
@@ -49,8 +49,8 @@
 	        <hr>
 	        <div class="div_stat">
 	            <h3>광고통계(총 광고 요청수 / 승인 / 반려 / 검토대기)</h3>
-	            <p>지난 달에 대기 상태의 광고가 없다면 해당 월은 표시되지 않습니다.</p>
-	            <br>
+	            <p>[지난 달에 대기 상태의 광고가 없다면 해당 월은 표시되지 않습니다]</p>
+	            <br><br>
 	            <div id="div_gChart"></div>                    
 	        </div>
 	    </div>

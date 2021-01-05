@@ -69,56 +69,63 @@ public class AdsDaoImpl implements AdsDao {
 	}
 
 	@Override
-	public int selectBannerAccept(SqlSession session) {
-		if(session.selectOne("bannerAds.selectBannerAccept")==null) {
-			return 0;
+	public List selectBannerAccept(SqlSession session, String today) {		
+//			System.out.println("dao: "+session.selectList("bannerAds.selectBannerAccept",today));
+		return session.selectList("bannerAds.selectBannerAccept",today);		
+	}
+
+	@Override
+	public List selectDirectAccept(SqlSession session) {
+		List<Integer> accept=new ArrayList();
+		accept.add(0);
+		if(session.selectList("directAds.selectDirectAccept")==null) {
+			return accept;
 		}else {
-			return session.selectOne("bannerAds.selectBannerAccept");
+			return session.selectList("directAds.selectDirectAccept");			
 		}
 	}
 
 	@Override
-	public int selectDirectAccept(SqlSession session) {
-		if(session.selectOne("directAds.selectDirectAccept")==null) {
-			return 0;
+	public List selectBannerDeny(SqlSession session) {
+		List<Integer> deny=new ArrayList();
+		deny.add(0);
+		if(session.selectList("bannerAds.selectBannerDeny")==null) {
+			return deny;
 		}else {
-			return session.selectOne("directAds.selectDirectAccept");			
+			return session.selectList("bannerAds.selectBannerDeny");
 		}
 	}
 
 	@Override
-	public int selectBannerDeny(SqlSession session) {
-		if(session.selectOne("bannerAds.selectBannerDeny")==null) {
-			return 0;
+	public List selectDirectDeny(SqlSession session) {
+		List<Integer> deny=new ArrayList();
+		deny.add(0);
+		if(session.selectList("directAds.selectDirectDeny")==null) {
+			return deny;
 		}else {
-			return session.selectOne("bannerAds.selectBannerDeny");
-		}
-	}
-
-	@Override
-	public int selectDirectDeny(SqlSession session) {
-		if(session.selectOne("directAds.selectDirectDeny")==null) {
-			return 0;
-		}else {
-			return session.selectOne("directAds.selectDirectDeny");			
+			return session.selectList("directAds.selectDirectDeny");			
 		}		
 	}
 
 	@Override
-	public int selectBannerPending(SqlSession session) {
-		if(session.selectOne("bannerAds.selectBannerPending")==null) {
-			return 0;
+	public List selectBannerPending(SqlSession session) {
+		List<Integer> pending=new ArrayList();
+		pending.add(0);
+		if(session.selectList("bannerAds.selectBannerPending")==null) {
+			return pending;
 		}else {
-			return session.selectOne("bannerAds.selectBannerPending");
+			return session.selectList("bannerAds.selectBannerPending");
 		}
 	}
 
 	@Override
-	public int selectDirectPending(SqlSession session) {
-		if(session.selectOne("directAds.selectDirectPending")==null) {
-			return 0;
+	public List selectDirectPending(SqlSession session) {
+		List<Integer> pending=new ArrayList();
+		pending.add(0);
+		if(session.selectList("directAds.selectDirectPending")==null) {
+			return pending;
 		}else {
-			return session.selectOne("directAds.selectDirectPending");			
+			return session.selectList("directAds.selectDirectPending");			
 		}
 	}
 

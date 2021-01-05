@@ -28,6 +28,7 @@
 }
 .div_stat>h3{
 	text-decoration:underline;
+	margin-bottom:8px;
 }
 
 @media (max-width:768px){
