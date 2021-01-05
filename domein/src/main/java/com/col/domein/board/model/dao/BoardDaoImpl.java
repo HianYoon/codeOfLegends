@@ -59,7 +59,7 @@ public class BoardDaoImpl implements BoardDao{
 	@Override
 	public List<Map> selectBoardList(SqlSession session, int cpage, int numPerpage) {
 		// TODO Auto-generated method stub
-		return null;
+		return session.selectList("board.selectBoardList");
 		/*
 		 * return session.selectList("board.selectBoardList",null, new
 		 * RowBounds((cPage-1)*numPerpage,numPerpage));

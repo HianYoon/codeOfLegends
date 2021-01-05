@@ -17,6 +17,7 @@
 	margin: 0;
 	padding: 0;
 	font-family: 'Noto Sans KR', sans-serif;
+	vertical-align: top;
 }
 
 section {
@@ -32,6 +33,20 @@ header, footer, header *, footer * {
 a {
 	text-decoration: none;
 	color: black;
+}
+
+button,
+[type=submit] {
+   border: none;
+   background-color: transparent;
+   appearance: none;
+   cursor: pointer;
+   transition: 0.2s;
+}
+a:hover,
+button:hover,
+[type=submit]:hover {
+   opacity: 0.6;
 }
 
 /* 폰트 클래스 */
@@ -159,7 +174,7 @@ ul li {
 @media screen and (min-width: 769px) {
 	section {
 		position: relative;
-		margin-top: 119.39px;
+		margin-top: 203.55px;
 		margin-bottom:0;
 	}
 }
