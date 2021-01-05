@@ -66,13 +66,14 @@
                                 
                             </div>
                             <div class="slideshow-container">
-                                
-                                <div class="mySlides fade">
-                                    <div class="numbertext">1 / 5</div>
-                                    <img src="img_nature_wide.jpg" class="slideImg"  style="width:100%">
-                                    <div class="text">Caption Text</div>
-                                </div>
-                                
+                             	
+                             	<c:forEach items="${list.RENAMED_FILE_NAME }" var="listImg">  
+	                                <div class="mySlides fade">
+	                                    <div class="numbertext">1 / 5</div>
+	                                    <img src="${path }/resources/boardauction/file/${listImg}" class="slideImg"  style="width:100%">
+	                                    <div class="text">Caption Text</div>
+	                                </div>
+                                </c:forEach>  
                                 
                                 
                             </div>
