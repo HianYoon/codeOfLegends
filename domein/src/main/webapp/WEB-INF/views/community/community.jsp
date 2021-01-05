@@ -40,95 +40,30 @@
 		                    </thead>
 	 	                    <c:forEach items="${list }" var="b">
 		                    	<tr>
-		                    			<td class="tit">
+<%-- 		                    			<td class="tit">
 		                    					<c:out value="${b.ARTICLE_NO }"/>
-		                    			</td>
-			                    		<td class="tit">
+		                    			</td> --%>
+ 			                    		<td class="tit" style="padding-left:4.5%">
 			                    				<c:out value="${b.THREAD_KEY}"/>
 			                    		</td>
-			                    		<td class="tit">
+			                    		<td class="tit" style="padding-left:5.5%">
 			                    				<a href="${path }/community/bkbDetail.do?threadKey=${b.THREAD_KEY}"><c:out value="${b.THREAD_TITLE}"/></a>
 			                    		</td>
-			                    		<td class="tit">
+			                    		<td class="tit" style="padding-left:5.5%">
 			                    				<c:out value="${b.WRITER_KEY}"/>
 			                    			</a>
 			                    		</td>
-			                    		<td class="tit">
+			                    		<td class="tit" style="padding-left:5.5%">
 			                    				<c:out value="${b.READ_COUNT}"/>
 			                    		</td>
-			                    		<td class="tit">
+			                    		<td class="tit" style="padding-left:5.5%">
 			                    				<c:out value="${b.READ_COUNT}"/>
 			                    		</td>
-			                    		<td class="tit">
+			                    		<td class="tit" style="padding-left:12%">
 			                    				<c:out value="${b.WRITTEN_DATE}"/>
 			                    		</td>
 		                    	</tr>
 		                    </c:forEach>
-		                    
-<!-- 	 	                    <tbody>
-		                        <tr>
-		                            <td class="tit">
-		                                <a href='#'>밥은 국밥이지 밥은 국밥인가</a>
-		                            </td>
-		                            <td>국밥원정대</td>
-		                            <td>1</td>
-		                            <td>1</td>
-		                            <td>11-18</td>
-		                        </tr>
-		                        <tr>
-		                            <td class="tit">
-		                                <a href='#'>국밥 7천원 8천원</a>
-		                            </td>
-		                            <td>외계인</td>
-		                            <td>2</td>
-		                            <td>3</td>
-		                            <td>11-19</td>
-		                        </tr>
-		                        <tr>
-		                            <td class="tit">
-		                                <a href='#'>소고기 판매해요</a></td>
-		                            <td>존스노우</td>
-		                            <td>2</td>
-		                            <td>3</td>
-		                            <td>12-09</td>
-		                        </tr>
-		                        <tr>
-		                            <td class="tit">
-		                                <a href='#'>애완용품 판매합니다</a>
-		                            </td>
-		                            <td>사람</td>
-		                            <td>2</td>
-		                            <td>3</td>
-		                            <td>12-09</td>
-		                        </tr>
-		                        <tr>
-		                            <td class="tit">
-		                                <a href='#'>국밥은 8500원 이상 먹지 마세요</a>
-		                            </td>
-		                            <td>국밥충</td>
-		                            <td>5</td>
-		                            <td>5</td>
-		                            <td>12-10</td>
-		                        </tr>
-		                        <tr>
-		                            <td class="tit">
-		                                <a href='#'>국밥국밥국밥국밥국밥국밥</a>
-		                            </td>
-		                            <td>국밥부장관</td>
-		                            <td>5</td>
-		                            <td>5</td>
-		                            <td>12-10</td>
-		                        </tr>
-		                        <tr>
-		                            <td class="tit">
-		                                <a href='#'>아직도 너의 국밥을 못잊어</a>
-		                            </td>
-		                            <td>gookbab</td>
-		                            <td>5</td>
-		                            <td>5</td>
-		                            <td>12-10</td>
-		                        </tr>
-		                    </tbody> -->
 				        <div class="pageBar">
 						${pageBar }
 				        </div>

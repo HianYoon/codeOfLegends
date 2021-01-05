@@ -10,227 +10,81 @@
   
   <link rel="stylesheet" href="sharedStyle.css"></link>
   <!-- header -->
-  <link rel="stylesheet" href="headerStyle.css">
+  <link rel="stylesheet" href="headerStyle1.css">
   <link rel="stylesheet" href="forum.css"></link>
   <link rel="stylesheet"
     href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
-
-  <script type="text/javascript" src="headerScript.js"></script>
 </head>
 <body>
-	<header class="container">
-		<div class="group">
-			<div id="mainNav">
+	<header>
+		<div class="header-top pc-only">
+			<div class="inner">
 				<div class="logo">
-					<a href="domein/"> <img
-						src="./images/logo/signature.png" alt="" />
-					</a>
+					<a href="domein/"><img src="./images/common/header/logo.jpg" alt="도매인"></a>
+					<p class="sub-title-logo">도소매 거래를 하는 사람들</p>
 				</div>
-				<div class="search-box">
-					<input type="text" class="search-txt" placeholder="검색"> <a
-						class="search-btn" href="#"> <i class="fas fa-search"></i>
-					</a>
+				<div class="box-search">
+					<input type="text" placeholder="찾으시는 품목이 있으신가요?">
+					<button><img src="./images/common/header/icon-search.png" alt="검색"></button>
 				</div>
-				<ul>
-					<li><a href="#"> <img class="top-buttons"
-							src="./images/profile/notification.png" alt="" />
-					</a></li>
-					<li><a href="#"> <img class="top-buttons"
-							src="./images/profile/comment.png" alt="" />
-					</a></li>
-					<c:if test="${signedInMember == null }">
-						<li><a href="domein/cart/cart.do"> <img class="top-buttons"
-								src="./images/profile/add-to-basket.png"
-								alt="장바구니" />
-						</a></li>
-					</c:if>
-					<c:if test="${signedInMember != null }">
-						<li><a href="domein/cart/cart.do?memberKey=${signedInMember.memberKey}"> <img class="top-buttons"
-								src="./images/profile/add-to-basket.png"
-								alt="장바구니" />
-						</a></li>
-					</c:if>
-					<c:if test="${signedInMember == null }">
-						<li><a href="domein/member/memberLogin.do">로그인</a></li>
-						<li><a href="domein/member/signUp/signUp.do">회원가입</a></li>
-					</c:if>
-					<c:if
-						test="${signedInMember != null and signedInMember.profileUrl == null}">
-						<li><a href="domein/member/myPage.do"> <img
-								class="top-buttons"
-								src="./images/profile/user.png" alt="" />
-
-						</a></li>
-						<li><a href="domein/member/logout.do"> <img
-								class="top-buttons"
-								src="./images/common/logout.png" alt="로그아웃" />
-						</a></li>
-
-					</c:if>
-					<c:if
-						test="${signedInMember != null and signedInMember.profileUrl != null}">
-						<li><a href="domein/member/myPage.do"> <img
-								class="top-buttons circle-pic-frame"
-								src="${signedInMember.profileUrl }" alt="" />
-
-						</a></li>
-						<li id="logout"><a href="#"> <img class="top-buttons"
-								src="./images/common/logout.png" alt="로그아웃" />
-						</a></li>
-					</c:if>
-
-				</ul>
-			</div>
-			<div class="mainNav-bottom">
-				<ul class="mainNav-bottom-inner">
-					<li><a href="#">
-							<div>
-								<div>
-									<img src="./images/profile/blind.png" alt="" />
-								</div>
-								<p>블라인드 입찰</p>
-							</div>
-					</a></li>
-					<li><a href="domein/product/productList.do">
-							<div id="categoryTap">
-								<div>
-									<img src="./images/profile/blind.png" alt="" />
-								</div>
-								<p>카테고리</p>
-							</div>
-					</a></li>
-					<li><a href="domein/community/community.do">
-							<div>
-								<div>
-									<img src="./images/profile/talk.png" alt="" />
-								</div>
-								<p>지식인</p>
-							</div>
-					</a></li>
-					<li><a href="#">
-							<div>
-								<div>
-									<img src="./images/profile/review.png" alt="" />
-								</div>
-								<p>불만 마법사</p>
-							</div>
-
-					</a></li>
-					<c:if test="${signedInMember != null }">
-					<li><a href="domein/member/myPage.do">
-							<div>
-								<div>
-									<img src="./images/profile/home.png" alt="" />
-								</div>
-								<p>마이 페이지</p>
-							</div>
-					</a></li>
-					</c:if>
-				</ul>
-			</div>
-		</div>
-		<div class="mobile-title">
-			<div class="mobile-logo-left">
-				<input type="image" class="left"
-					src="./images/profile/left.png" />
-				<p></p>
-			</div>
-			<a href="domein">
-				<div class="mobile-logo-cont">
-					<img src="./images/logo/signature.png" alt="" />
-
-				</div>
-			</a>
-		</div>
-		<div class="mobile">
-			<div class="mobile-in">
-				<div>
-					<a href="#">
-						<div>
-							<img src="./images/profile/search.png" alt="" />
-						</div>
-					</a>
-				</div>
-				<div>
-					<a href="#">
-						<div>
-							<img src="./images/profile/blind.png" alt="" />
-						</div>
-					</a>
-				</div>
-				<div>
-					<a href="#">
-						<div>
-							<img src="./images/profile/talk.png" alt="" />
-						</div>
-					</a>
-				</div>
-				<div>
-					<a href="#">
-						<div>
-							<img src="./images/profile/review.png" alt="" />
-						</div>
-					</a>
-				</div>
-				<div>
-					<c:if test="${signedInMember == null }">
-						<a href="domein/member/memberLogin.do">
-							<div>
-								<img src="./images/profile/user.png" alt="" />
-							</div>
-						</a>
-					</c:if>
-					<c:if
-						test="${signedInMember != null and signedInMember.profileUrl == null}">
-						<a href="domein/member/myPage.do">
-							<div>
-								<img src="./images/profile/user.png" alt="" />
-							</div>
-						</a>
-					</c:if>
-					<c:if
-						test="${signedInMember != null and signedInMember.profileUrl != null}">
-						<a href="domein/member/myPage.do">
-							<div>
-								<img src="${signedInMember.profileUrl }" alt=""
-									class="circle-pic-frame" />
-							</div>
-						</a>
-					</c:if>
+				<div class="box-button">
+					<button class="btn-cart"><i class="icon-cart"></i>CART</button>
+					<button class="btn-mypage"><i class="icon-mypage"></i>MY PAGE</button>
+					<button class="btn-csCenter"><i class="icon-csCenter"></i>고객센터</button>
 				</div>
 			</div>
 		</div>
-		<div class="categorytap">
-			<ul class="one2" style="">
-				<li><a href="${path}/product/productDetailView.do"><img
-						src="./images/signUp/beef.png"
-						style="width: 30px; height: 30px; box-sizing: border-box;" alt="" />test중
-						product</a></li>
-				<li><a href="#"><img
-						src="./images/signUp/fish.png" alt=""
-						style="width: 30px; height: 30px; box-sizing: border-box;" />수산</a></li>
-				<li><a href="#"><img
-						src="./images/signUp/vegetables.png" alt=""
-						style="width: 30px; height: 30px; box-sizing: border-box;" />야채</a></li>
-				<li><a href="#"><img
-						src="./images/signUp/beam.png" alt=""
-						style="width: 30px; height: 30px; box-sizing: border-box;" />철강</a></li>
-				<li><a href="#"><img
-						src="./images/signUp/bone.png" alt=""
-						style="width: 30px; height: 30px; box-sizing: border-box;" />애견</a></li>
-				<li><a href="#"><img
-						src="./images/signUp/bread.png" alt=""
-						style="width: 30px; height: 30px; box-sizing: border-box;" />베이커리</a></li>
-				<li><a href="#"><img
-						src="./images/signUp/free-icon-lightning-616494.png"
-						alt="" style="width: 30px; height: 30px; box-sizing: border-box;" />전자기기</a></li>
-				<li><a href="#"><img
-						src="./images/signUp/free-icon-question-mark-in-dark-circle-71768.png"
-						alt="" style="width: 30px; height: 30px; box-sizing: border-box;" />기타</a></li>
-			</ul>
-
+		<div class="area-nav">
+			<nav>
+				<div class="inner">
+					<ul class="list-depth-1">
+						<li class="depth-1">
+							<a href="#">도매 경매</a>
+							<ul class="list-depth-2">
+								<li><a href="#"><i class="icon-meat"></i>정육</a></li>
+								<li><a href="#"><i class="icon-fish"></i>수산물</a></li>
+								<li><a href="#"><i class="icon-vegetable"></i>과일·채소</a></li>
+								<li><a href="#"><i class="icon-bread"></i>베이커리</a></li>
+								<li><a href="#"><i class="icon-metal"></i>철강</a></li>
+								<li><a href="#"><i class="icon-electronic"></i>전자기기</a></li>
+								<li><a href="#"><i class="icon-pet"></i>애견</a></li>
+								<li><a href="#"><i class="icon-etc"></i>ETC</a></li>
+							</ul>
+						</li>
+						<li class="depth-1">
+							<a href="#">일반 구매</a>
+							<ul class="list-depth-2">
+								<li><a href="#"><i class="icon-meat"></i>정육</a></li>
+								<li><a href="#"><i class="icon-fish"></i>수산물</a></li>
+								<li><a href="#"><i class="icon-vegetable"></i>과일·채소</a></li>
+								<li><a href="#"><i class="icon-bread"></i>베이커리</a></li>
+								<li><a href="#"><i class="icon-metal"></i>철강</a></li>
+								<li><a href="#"><i class="icon-electronic"></i>전자기기</a></li>
+								<li><a href="#"><i class="icon-pet"></i>애견</a></li>
+								<li><a href="#"><i class="icon-etc"></i>ETC</a></li>
+							</ul>
+						</li>
+					</ul>
+					<a href="" class="link-forum"><i class="icon-forum"></i><span><small>도매인</small><br>지식포럼</span></a>
+				</div>
+			</nav>
+			<button class="button-close">닫기</button>
 		</div>
 	</header>
+	<div class="menu-floating">
+		<ul>
+			<li>
+				<button class="btn-alarm">
+					<img src="./images/common/header/icon-alarm.png" alt="알람">
+				</button>
+			</li>
+			<li>
+				<button class="btn-message">
+					<img src="./images/common/header/icon-message.png" alt="메세지">
+				</button>
+			</li>
+		</ul>
+	</div>
   <section id="content" class="page-forum">
 		<div class="container">
 			<div class="wrap-inner">
@@ -249,8 +103,8 @@
 									<p class="date">2021.01.03</p>
 								</div>
 								<div class="box-button">
-									<button class="btn-type-1 edit">수정</button>
-									<button class="btn-type-1 delete">삭제</button>
+									<button class="btn-type-1 btn-edit">수정</button>
+									<button class="btn-type-1 btn-delete">삭제</button>
 								</div>		
 							</div>
 							<div class="box-text-main">
@@ -319,5 +173,8 @@
 			</div>
 		</div>
 	</section>
+
+
+  <script type="text/javascript" src="headerScript1.js"></script>
 </body>
 </html>
