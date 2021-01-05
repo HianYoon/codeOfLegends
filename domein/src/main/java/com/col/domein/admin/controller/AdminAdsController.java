@@ -1,5 +1,9 @@
 package com.col.domein.admin.controller;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.List;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,7 +12,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.col.domein.ads.model.service.AdsService;
+import com.col.domein.ads.model.vo.BannerAds;
 import com.col.domein.member.model.vo.Member;
+import com.google.gson.Gson;
+
+import net.sf.json.JSONArray;
+import net.sf.json.JSONObject;
 
 @Controller
 public class AdminAdsController {
@@ -23,17 +32,18 @@ public class AdminAdsController {
 		Member m=(Member) session.getAttribute("signedInMember");	
 		
 		if(m!=null) {
-			int bannerAccept=service.selectBannerAccept();
-			int directAccept=service.selectDirectAccept();
-			mv.addObject("accept",bannerAccept+directAccept);
+			List accept=service.selectAccept();
+			JSONArray jAccept=JSONArray.fromObject(accept);
+			//String acceptJSON=new Gson().toJson(accept); 			
+			mv.addObject("accept",jAccept);
 			
-			int bannerDeny=service.selectBannerDeny();
-			int directDeny=service.selectDirectDeny();
-			mv.addObject("deny",bannerDeny+directDeny);
+			List deny=service.selectDeny();	
+			JSONArray jDeny=JSONArray.fromObject(deny);
+			mv.addObject("deny",jDeny);
 			
-			int bannerPending=service.selectBannerPending();
-			int directPending=service.selectDirectPending();
-			mv.addObject("pending",bannerPending+directPending);
+			List pending=service.selectPending();			
+			JSONArray jPending=JSONArray.fromObject(pending);
+			mv.addObject("pending",jPending);							
 							
 			mv.setViewName("/admin/admin_ads/adminAdsMain");
 			return mv;
@@ -43,5 +53,30 @@ public class AdminAdsController {
 		}
 	}
 	
+	
+	@RequestMapping("/admin/admin_ads/adminBannerManage.do")
+	public ModelAndView adminBannerManage(ModelAndView mv) {
+		Date day=new Date();
+		SimpleDateFormat sdf=new SimpleDateFormat("yyyy/MM/dd");
+		String today=sdf.format(day);		
+		System.out.println("오늘의 날짜: "+today);
+		
+		List<BannerAds> accept=service.selectBannerAccept(today);
+		JSONArray jAccept=JSONArray.fromObject(accept);
+		
+		for(BannerAds b:accept) {
+			JSONObject jo=new JSONObject();
+			jo.put("adsKey",b.getAdsKey());
+			jo.put("applicantKey",b.getApplicantKey());			
+			jo.put("adsRenamedFileName",b.getAdsRenamedFileName());			
+			jo.put("urlLink",b.getUrlLink());			
+			jo.put("adsTitle",b.getAdsTitle());			
+			jAccept.add(jo);
+		}
+//		String jAccept=new Gson().toJson(accept);
+		mv.addObject("accept",jAccept);
+		mv.setViewName("/admin/admin_ads/slideBannerManager");
+		return mv;
+	}
 	
 }

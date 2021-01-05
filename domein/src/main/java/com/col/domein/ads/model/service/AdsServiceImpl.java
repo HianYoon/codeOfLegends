@@ -1,5 +1,6 @@
 package com.col.domein.ads.model.service;
 
+import java.sql.Date;
 import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
@@ -76,33 +77,48 @@ public class AdsServiceImpl implements AdsService {
 	}
 
 	@Override
-	public int selectBannerAccept() {
-		return dao.selectBannerAccept(session);
+	public List selectBannerAccept(String today) {
+		return dao.selectBannerAccept(session, today);
 	}
 
 	@Override
-	public int selectDirectAccept() {
+	public List selectDirectAccept() {
 		return dao.selectDirectAccept(session);
 	}
 
 	@Override
-	public int selectBannerDeny() {
+	public List selectBannerDeny() {
 		return dao.selectBannerDeny(session);
 	}
 
 	@Override
-	public int selectDirectDeny() {
+	public List selectDirectDeny() {
 		return dao.selectDirectDeny(session);
 	}
 
 	@Override
-	public int selectBannerPending() {
+	public List selectBannerPending() {
 		return dao.selectBannerPending(session);
 	}
 
 	@Override
-	public int selectDirectPending() {
+	public List selectDirectPending() {
 		return dao.selectDirectPending(session);
+	}
+
+	@Override
+	public List selectAccept() {		
+		return dao.selectAccept(session);
+	}
+
+	@Override
+	public List selectDeny() {
+		return dao.selectDeny(session);
+	}
+
+	@Override
+	public List selectPending() {
+		return dao.selectPending(session);
 	}
 
 	

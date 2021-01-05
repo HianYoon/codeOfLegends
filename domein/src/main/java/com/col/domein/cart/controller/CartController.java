@@ -144,7 +144,7 @@ public class CartController {
 			mv.setViewName("cart/cart");
 		}else {
 				 
-				 mv.setViewName("index");
+				 mv.setViewName("cart/cart");
 		
 		}
 		return mv;
@@ -176,16 +176,4 @@ public class CartController {
 		return "index";
 	}
 
-	//상품 수량 업데이트
-	@RequestMapping("/cart/addToAmount")
-	public String addToAmount(int productNo, int amount,int memberKey) {
-		
-		 int result=service.addToAmount(amount,productNo,memberKey);
-		return "redirect:/cart/list.do";
-	}
-	@RequestMapping("/cart/minusToAmount")
-	public String downToAmount(int productNo, int amount, int memberKey) {
-		int result=service.downToAmount(productNo,amount,memberKey);
-		return "redirect:/cart/list.do";
-	}
 }

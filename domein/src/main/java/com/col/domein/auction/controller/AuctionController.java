@@ -21,6 +21,7 @@ import com.col.domein.auction.model.service.AuctionService;
 import com.col.domein.auction.model.vo.BoardAttachementFile;
 import com.col.domein.auction.model.vo.BoardAttachementImage;
 import com.col.domein.auction.model.vo.BoardAuction;
+import com.col.domein.common.pageBar.PageBarFactory;
 import com.col.domein.product.model.vo.Attachement;
 
 @Controller
@@ -98,7 +99,7 @@ public class AuctionController {
 		System.out.println(""+auc);
 		int result=service.inertEnllo(auc,imgs,files);
 		mv.addObject("msg",result>0?"입력성공":"입력실패");
-		mv.setViewName("/auction/auction.do");
+		mv.setViewName("/auction/auctionList.do");
 		return mv;
 	}
 	
@@ -124,15 +125,27 @@ public class AuctionController {
 	}
 	//옥션 view페이지
 	@RequestMapping("/auction/auctionView.do")
-	public String auctionView() {
-		return "auction/auctionView";
+	public ModelAndView auctionView(ModelAndView mv, int articleNo) {
+		List<Map> list=service.selectAuctionView(articleNo);
+		mv.addObject("list",list);
+		mv.setViewName("auction/auctionView");
+		
+		return mv;
 	}
+	//
 	@RequestMapping("/auction/auctionList.do")
-	public ModelAndView selectAuctionList(ModelAndView mv,BoardAuction ba) {
-	List<Map> list=service.selectAuctionList(ba);
+	public ModelAndView selectAuctionList(ModelAndView mv,
+			@RequestParam(value="cPage",defaultValue="1") int cPage,
+			@RequestParam(value="numPerpage",defaultValue="10")int numPerpage) {
+		
+		List<Map> list=service.selectAuctionList(cPage,numPerpage);
+		int totalData=service.selectCount();
+		
+	System.out.println(""+list);
+	mv.addObject("pageBar",PageBarFactory.getPageBar(totalData, cPage, numPerpage, "auctionList.do"));
 	mv.addObject("auction",list);
 	mv.setViewName("auction/auctionList");
 	return mv;
+	
 	}
-
 }

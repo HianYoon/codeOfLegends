@@ -416,7 +416,7 @@ textarea:focus{
     box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.85), 0 0 3px 3px rgba(0, 0, 0, 0.25);
     display: none;
 }
-@media(max-width:700px){
+@media(max-width:768px){
   
     .Oction-text-items {
         display: none !important;
@@ -483,7 +483,8 @@ textarea:focus{
     }
 }
  <!-- -------------- auction list  ---------------- -->
-    
+ 
+
   /* octionList CSS */
 .oction--header{
     display:flex;
@@ -546,6 +547,10 @@ textarea:focus{
     /* 이미지가 padding때문에 커지지않게하기위해서 */
     box-sizing: border-box;
 }
+img#big-target {
+    width: 200px;
+    height: 150px;
+}
 .oction-dateBox{
     display: grid;
     grid-template-columns: auto auto;
@@ -581,21 +586,25 @@ textarea:focus{
 
 .oction-img-group{
     display: block;
-    width: 150px;
+    width: 200px;
     height: 150px;
     margin-bottom: 5px;
     font-size: 15px;
     font-weight: 400;
-    border: 1px solid red;
     box-sizing: border-box;
     
+}
+.oction-img-group #big-target{
+
+    width: 200px;
+    height: 150px;
 }
 .grid-text-group li{
    padding:none;
 }
 
 
-@media (max-width:700px){
+@media (max-width:768px){
 
     .oction--header {
         display: contents !important;

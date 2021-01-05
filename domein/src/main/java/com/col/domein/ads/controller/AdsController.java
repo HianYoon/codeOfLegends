@@ -113,6 +113,7 @@ public class AdsController {
 		Member m=(Member) session.getAttribute("signedInMember");
 		if(m!=null) {
 			TreeSet<Business> businesses=m.getBusinesses();
+			System.out.println("멤버의 사업: "+businesses);
 			if(businesses.isEmpty()) {
 				mv.addObject("msg","아직 사업자 등록을 하지 않았습니다. \\n 사업자 등록 후에 서비스를 이용해주세요.");
 				mv.addObject("loc","/member/myPage.do");
@@ -122,6 +123,7 @@ public class AdsController {
 				for(Business b : businesses){
 				   keys.add(b.getBusinessKey());
 				}		
+				System.out.println("사업키: "+keys.get(0));
 				mv.addObject("adsRate",service.showMeDirectAdsRate());
 				mv.addObject("boardDirectSale",service.selectBoardDirectSale(keys));
 				mv.setViewName("ads/directAdsApplication");

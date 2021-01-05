@@ -59,10 +59,23 @@ public class AuctionServiceImpl implements AuctionService {
 		}
 		return result;
 	}
+
+	//auction view
 	@Override
-	public List<Map> selectAuctionList(BoardAuction ba) {
+	public List<Map> selectAuctionView(int articleNo) {
 		// TODO Auto-generated method stub
-		return dao.selectAuctionList(session,ba);
+		return dao.selectAuctionView(session,articleNo);
+	}
+	//옥션 list
+	@Override
+	public List<Map> selectAuctionList(int cPage, int numPerpage) {
+		// TODO Auto-generated method stub
+		return dao.selectAuctionList(session,cPage,numPerpage);
+	}//페이지바
+	@Override
+	public int selectCount() {
+		// TODO Auto-generated method stub
+		return dao.selectCount(session);
 	}
 
 

@@ -32,16 +32,22 @@ public interface AdsDao {
 	
 	int directAdsApply(SqlSession session, DirectAds directAds);
 	
-	int selectBannerAccept(SqlSession session);
+	List selectBannerAccept(SqlSession session, String today);
 	
-	int selectDirectAccept(SqlSession session);
+	List selectDirectAccept(SqlSession session);
 	
-	int selectBannerDeny(SqlSession session);
+	List selectBannerDeny(SqlSession session);
 	
-	int selectDirectDeny(SqlSession session);
+	List selectDirectDeny(SqlSession session);
 	
-	int selectBannerPending(SqlSession session);
+	List selectBannerPending(SqlSession session);
 	
-	int selectDirectPending(SqlSession session);
+	List selectDirectPending(SqlSession session);
+	
+	List selectAccept(SqlSession session);
+	
+	List selectDeny(SqlSession session);
+	
+	List selectPending(SqlSession session);
 	
 }

@@ -14,7 +14,12 @@ public interface AuctionService {
 	//등록
 	int inertEnllo(BoardAuction auc, List<BoardAttachementImage> imgs, List<BoardAttachementFile> files);
 	//auction List
-	List<Map> selectAuctionList(BoardAuction ba);
+	List<Map> selectAuctionList(int cPage, int numPerpage);
+	//옥션 수 
+	int selectCount();
+	//auction view페이지
+	List<Map> selectAuctionView(int articleNo);
+
 
 
 }

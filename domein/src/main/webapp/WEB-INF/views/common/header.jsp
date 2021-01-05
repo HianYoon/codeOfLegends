@@ -29,7 +29,7 @@
 		<div class="header-top pc-only">
 			<div class="inner">
 				<div class="logo">
-					<a href="${path }"><img src="${path }/resources/images/common/header/logo.jpg" alt="도매인"></a>
+					<a href="${path }"><img src="${path }/resources/images/logo/signature.png" alt="도매인"></a>
 					<p class="sub-title-logo">도소매 거래를 하는 사람들</p>
 				</div>
 				<div class="box-search">
@@ -44,7 +44,7 @@
 					<c:if test="${signedInMember != null }">
 						<button class="btn-cart" onclick="location.href='${path }/cart/cart.do?memberKey=${signedInMember.memberKey}'"><i class="icon-cart"></i>CART</button>
 						<button class="btn-mypage" onclick="location.href='${path }/member/myPage.do'"><i class="icon-mypage"></i>MY PAGE</button>
-						<button class="btn-mypage" onclick="location.replace('${path }/member/logout.do')"><i class="icon-mypage"></i>로그아웃</button>
+						<button class="btn-mypage" onclick="signOut(); location.replace('${path }/member/logout.do')"><i class="icon-mypage"></i>로그아웃</button>
 					</c:if>
 					<button class="btn-csCenter"><i class="icon-csCenter"></i>고객센터</button>
 				</div>
@@ -55,7 +55,7 @@
 				<div class="inner">
 					<ul class="list-depth-1">
 						<li class="depth-1">
-							<a href="#">도매 경매</a>
+							<a href="${path}/auction/auctionList.do">도매 경매</a>
 							<ul class="list-depth-2">
 								<li><a href="#"><i class="icon-meat"></i>정육</a></li>
 								<li><a href="#"><i class="icon-fish"></i>수산물</a></li>
@@ -86,6 +86,77 @@
 			</nav>
 			<button class="button-close">닫기</button>
 		</div>
+		<div class="mobile-title">
+			<div class="mobile-logo-left">
+				<input type="image" class="left"
+					src="${path }/resources/images/profile/left.png" />
+				<p></p>
+			</div>
+			<a href="${path }">
+				<div class="mobile-logo-cont">
+					<img src="${path }/resources/images/logo/signature.png" alt="" />
+
+				</div>
+			</a>
+		</div>
+		<div class="mobile">
+			<div class="mobile-in">
+				<div>
+					<a href="#">
+						<div>
+							<img src="${path }/resources/images/profile/search.png" alt="" />
+						</div>
+					</a>
+				</div>
+				<div>
+					<a href="#">
+						<div>
+							<img src="${path }/resources/images/profile/blind.png" alt="" />
+						</div>
+					</a>
+				</div>
+				<div>
+					<a href="${path }/community/communitylist.do">
+						<div>
+							<img src="${path }/resources/images/profile/talk.png" alt="" />
+						</div>
+					</a>
+				</div>
+				<div>
+					<a href="#">
+						<div>
+							<img src="${path }/resources/images/profile/review.png" alt="" />
+						</div>
+					</a>
+				</div>
+				<div>
+					<c:if test="${signedInMember == null }">
+						<a href="${path }/member/memberLogin.do">
+							<div>
+								<img src="${path }/resources/images/profile/user.png" alt="" />
+							</div>
+						</a>
+					</c:if>
+					<c:if
+						test="${signedInMember != null and signedInMember.profileUrl == null}">
+						<a href="${path }/member/myPage.do">
+							<div>
+								<img src="${path }/resources/images/profile/user.png" alt="" />
+							</div>
+						</a>
+					</c:if>
+					<c:if
+						test="${signedInMember != null and signedInMember.profileUrl != null}">
+						<a href="${path }/member/myPage.do">
+							<div>
+								<img src="${signedInMember.profileUrl }" alt=""
+									class="circle-pic-frame" />
+							</div>
+						</a>
+					</c:if>
+				</div>
+			</div>
+		</div>
 	</header>
 	<div class="menu-floating">
 		<ul>
@@ -101,6 +172,8 @@
 			</li>
 		</ul>
 	</div>
-	
+
+	<div class="g-signin2 displayNone" data-onsuccess=""></div>
+	<script src="${path }/resources/js/common/headerScript.js"></script>
 <script src="${path }/resources/js/common/headerScript1.js"></script>
 </body>
