@@ -55,7 +55,7 @@
 				<div class="inner">
 					<ul class="list-depth-1">
 						<li class="depth-1">
-							<a href="#">도매 경매</a>
+							<a href="${path}/auction/auctionList.do">도매 경매</a>
 							<ul class="list-depth-2">
 								<li><a href="#"><i class="icon-meat"></i>정육</a></li>
 								<li><a href="#"><i class="icon-fish"></i>수산물</a></li>
