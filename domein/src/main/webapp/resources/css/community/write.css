@@ -1,22 +1,27 @@
+@charset "UTF-8";
 .container{
+	box-sizing: border-box;
+	margin:0;
 	padding-top: 8%;
 }
-.row{
-    padding-top: 20px;
+form.form1 {
+    padding-top: 13%;
 }
-.form{
-	padding-top: 120px;
+table {
+    padding-top: 15%;
 }
-.row table th{
-    padding-left: 10px;
-    padding-right: 20px;
+table td{
+    padding-bottom:20px;
 }
 .sbm{
     width:100%;
     margin-right:90%;
+    padding-left: 50%;
 }
-.sbm input{
-    /* margin-left: 20px; */
-    /* width: 6rem;
-    height: 3rem; */
+@media screen and (max-width: 768px) {
+    .container div{
+        flex-wrap: wrap;
+        padding:0;
+        margin:0;
+    }
 }

@@ -4,7 +4,6 @@ import java.sql.Date;
 
 import org.springframework.stereotype.Component;
 
-
 @Component
 public class BoardKnowBattle {
 	
@@ -111,6 +110,60 @@ public class BoardKnowBattle {
 				+ ", writtenDate=" + writtenDate + ", modifiedDate=" + modifiedDate + ", readCount=" + readCount
 				+ ", threadStatusNo=" + threadStatusNo + "]";
 	}
+
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((modifiedDate == null) ? 0 : modifiedDate.hashCode());
+		result = prime * result + readCount;
+		result = prime * result + threadKey;
+		result = prime * result + threadStatusNo;
+		result = prime * result + ((threadTitle == null) ? 0 : threadTitle.hashCode());
+		result = prime * result + writerKey;
+		result = prime * result + ((writtenDate == null) ? 0 : writtenDate.hashCode());
+		return result;
+	}
+
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		BoardKnowBattle other = (BoardKnowBattle) obj;
+		if (modifiedDate == null) {
+			if (other.modifiedDate != null)
+				return false;
+		} else if (!modifiedDate.equals(other.modifiedDate))
+			return false;
+		if (readCount != other.readCount)
+			return false;
+		if (threadKey != other.threadKey)
+			return false;
+		if (threadStatusNo != other.threadStatusNo)
+			return false;
+		if (threadTitle == null) {
+			if (other.threadTitle != null)
+				return false;
+		} else if (!threadTitle.equals(other.threadTitle))
+			return false;
+		if (writerKey != other.writerKey)
+			return false;
+		if (writtenDate == null) {
+			if (other.writtenDate != null)
+				return false;
+		} else if (!writtenDate.equals(other.writtenDate))
+			return false;
+		return true;
+	}
+	
+	
+	
 }
 
 

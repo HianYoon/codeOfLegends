@@ -1,5 +1,8 @@
 $(".sign-up").click((e) => {
-	location.href = "${path}/member/signUp/signUp.do";
+	location.href = path+"/member/signUp/signUp.do";
+});
+$(".id-pw-finder").click((e)=>{
+	location.href = path + "/member/idPwFind.do";
 });
 $("#btn-google").click((e) => {
 	$("#googleSignIn *").trigger("click");

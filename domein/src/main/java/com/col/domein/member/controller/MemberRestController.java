@@ -10,6 +10,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -157,5 +158,29 @@ public class MemberRestController {
 	public boolean passwordChecker(HttpSession session, String password) {
 		Member m = (Member) session.getAttribute("signedInMember");
 		return pwEncoder.matches(password, m.getPassword());
+	}
+	/////////////////////////////////////////////
+	@GetMapping("/id/find")
+	public String idFinder( String email) {
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("email", email);
+		String result = ""; 
+		try {
+			result = ms.selectIdByEmail(map);
+		} catch (Exception e) {
+			result = "";
+		}
+		return result;
+	}
+	
+	@GetMapping("/password/find")
+	public boolean pwFinder(HttpServletRequest request, String email) {
+
+		Member m = null;
+		m = ms.selectMemberByEmail(email);
+		if(m == null) return false;
+		
+		ms.sendPasswordFindEmail(request, m);
+		return true;
 	}
 }
