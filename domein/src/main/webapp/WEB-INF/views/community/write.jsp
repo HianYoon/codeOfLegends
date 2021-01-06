@@ -19,14 +19,14 @@
 			<td><input type="text" name="title" id="title" placeholder="제목을 입력해주세요"></td>
 		</tr>
 		<tr>
-			<td>내용</td>
-			<td><textarea rows="5" cols="60" name="ckeditor" id="ckeditor" placeholder="내용을 입력해주세요"></textarea>
+			<td>파일</td>
+			<td>
+				<input type="file" name="file1" id="file1">
 			</td>
 		</tr>
 		<tr>
-			<td>이미지</td>
-			<td>
-				<input type="file" name="file1" id="file1">
+			<td>내용</td>
+			<td><textarea rows="5" cols="60" name="ckeditor" id="ckeditor" placeholder="내용을 입력해주세요"></textarea>
 			</td>
 		</tr>
 	</table>
@@ -37,9 +37,30 @@
     </form>
 </section>
     <script>
-    CKEDITOR.replace("ckeditor", {
-    	fileborwserUploadUrl : "${path}/imageUpload.do"
+     $(function(){
+        
+        CKEDITOR.replace( 'ckeditor', {//해당 이름으로 된 textarea에 에디터를 적용
+            width:'100%',
+            height:'400px',
+            filebrowserImageUploadUrl: "${path}/community/imageUpload.do" //여기 경로로 파일을 전달하여 업로드 시킨다.
+        });
+         
+         
+        CKEDITOR.on('dialogDefinition', function( ev ){
+            var dialogName = ev.data.name;
+            var dialogDefinition = ev.data.definition;
+          
+            switch (dialogName) {
+                case 'image': //Image Properties dialog
+                    //dialogDefinition.removeContents('info');
+                    break;
+            }
+        });
+         
     });
+/*      CKEDITOR.replace("ckeditor", {
+    	fileborwserUploadUrl : "${path}/community/imageUpload.do"
+    }); */
     $(".btn").click(e => {
     	location.href = "${path}/community/communityList.do";
     })
