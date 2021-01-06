@@ -36,7 +36,7 @@
 <meta name="theme-color" content="#ffffff">
 <meta name="google-signin-client_id"
 	content="1048798785374-akhqjnf6p4g1fdo3mkf2pudg9ffh5ger.apps.googleusercontent.com">
-<title><%=request.getParameter("title")%></title>
+<title>도매인 - 도소매 거래를 하는 사람들</title>
 <script>
 	const path = "${path}";
 </script>

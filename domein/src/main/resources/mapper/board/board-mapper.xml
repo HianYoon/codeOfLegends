@@ -2,17 +2,6 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="board">
 
- 	 <resultMap type="board" id="boardMap">
-		<id column="THREAD_KEY" property="threadKey"/>
-		<result column="ARTICLE_NO" property="articleNo"/>
-		<result column="THREAD_TITLE" property="threadTitle"/>
-		<result column="WRITER_KEY" property="writerKey"/>
-		<result column="WRITTEN_DATE" property="writtenDate"/>
-		<result column="MODIFIED_DATE" property="modifiedDate"/>
-		<result column="READ_COUNT" property="readCount"/>
-		<result column="THREAD_STAUTS_NO" property="threadStatusNo"/>		
-	</resultMap>
-
  	<insert parameterType="board" id="insertBoard">
 		INSERT INTO BOARD_KNOW_BATTLE VALUES(SEQ_THREAD_KEY.NEXTVAL,
 			#{threadTitle},
@@ -35,8 +24,9 @@
 		#{renamedFileName},
 		)
 	</insert>
+	
 	<select id="selectBoardList" resultType="map">
- 		<!-- select b.*, (select count(*) from ATTACHMENT WHERE B.THREADKEY=THREADKEY) AS ATTCOUNT
+<!--  		 select b.*, (select count(*) from BOARD WHERE B.THREADKEY=THREADKEY) AS
 		from BOARD_KNOW_BATTLE B order by writtenDate desc -->
 		SELECT BKB.*,(SELECT COUNT(*) FROM BKB_ARTICLE WHERE THREAD_KEY = BKB.THREAD_KEY) AS ARTICLES FROM BOARD_KNOW_BATTLE BKB ORDER BY WRITTEN_DATE DESC 
 	</select>
@@ -51,4 +41,5 @@
 	<select id="selectBkbArticles" parameterType="_int" resultType="map">
 		SELECT BA.*,BKB.THREAD_TITLE,M.NICKNAME,M.PROFILE_URL FROM BKB_ARTICLE BA LEFT JOIN BOARD_KNOW_BATTLE BKB ON BA.THREAD_KEY = BKB.THREAD_KEY LEFT JOIN MEMBER M ON BA.WRITER_KEY = M.MEMBER_KEY WHERE BA.THREAD_KEY = #{threadKey} ORDER BY ARTICLE_NO
 	</select>
+	
 </mapper>

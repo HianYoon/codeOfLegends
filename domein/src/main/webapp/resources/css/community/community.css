@@ -19,6 +19,7 @@
     /* height: 2em; */
     border-top: 2px solid black;
     border-bottom: 2px solid black;
+    margin-top: 120px;
 }
 
 .community-title p{
@@ -31,11 +32,11 @@
 }
 .community-bottom-left{
     display:block;
-    width:17%;
-    height:8em;
+    width:10%;
+/*     height:8em; */
     font-size: 1.5em;
-    padding-top: 10%;
-    margin-top: 5%;
+    padding-top: 4%;
+    margin-top: 2%;
     margin-left: 50px;
     border-right: 2px solid black;
     text-decoration: none;
