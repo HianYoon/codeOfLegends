@@ -9,6 +9,21 @@
 	<jsp:param name="title" value="[관리자]슬라이드 배너 관리"/>
 </jsp:include>
 
+<script>
+	/* "롼리자가 아니면"으로 수정 필요 */
+	<%
+	if(session.getAttribute("signedInMember") == null){ %>
+		location.href = path;
+	<%
+	}
+	%>		
+	if(${signedInMember.levelNo}!=99){
+		alert("관리자만 이용가능한 서비스입니다.");
+		location.href=path;
+	}
+
+</script>
+
 <!-- Add the slick-theme.css if you want default styling -->
 <link rel="stylesheet" type="text/css" href="http://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>
 <!-- Add the slick-theme.css if you want default styling -->
@@ -16,7 +31,7 @@
 
 <script type="text/javascript" src="http://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
 
-<link rel="stylesheet" type="text/css" href="${path }/resources/css/admin/ads/slideBannerManager.css"/>
+<link rel="stylesheet" type="text/css" href="${path }/resources/css/admin/ads/slideBannerManager.css?after"/>
 
 <section id="content">
 	<div id="wholeback">
@@ -49,6 +64,7 @@
 	            </c:forEach>	            
 	            <input type="button" class=".btn.btn--primary2" value="삭제" onclick="fn_deleteAds();">
 	        </div>
+	        <br>
 	        <div class="div_submit">
 	            <input type="submit" value="등록완료">
 	        </div>

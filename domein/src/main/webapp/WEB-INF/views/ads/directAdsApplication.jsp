@@ -26,7 +26,7 @@
 <script src="http://code.jquery.com/ui/1.8.18/jquery-ui.min.js"></script> 
 
 <!-- css파일 소환 -->
-<link rel="stylesheet" href="${path }/resources/css/ads/directAdsApplication.css" />
+<link rel="stylesheet" href="${path }/resources/css/ads/directAdsApplication.css?after" />
 
 <section id="content">
     <div id="wholeback">

@@ -24,7 +24,7 @@
 
 </script>
 
-<link rel="stylesheet" href="${path }/resources/css/admin/ads/adsMain.css" />
+<link rel="stylesheet" href="${path }/resources/css/admin/ads/adsMain.css?after" />
 
 <section id="content">
 	<div id="wholeback">
@@ -36,8 +36,8 @@
 	        </ul>
 	    </div>
 	    <div id="container">
-	        <h2>광고관리 페이지</h2>
-	        <hr>
+	        <!-- <h2>광고관리 페이지</h2>
+	        <hr> -->
 	        <div class="div_info">
 	            <h3><u>알림메시지</u></h3>
 	            <br>
