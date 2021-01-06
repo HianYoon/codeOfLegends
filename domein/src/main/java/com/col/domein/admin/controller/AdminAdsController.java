@@ -79,4 +79,21 @@ public class AdminAdsController {
 		return mv;
 	}
 	
+	//slideBannerRequestBoard로 화면 전환(슬라이드 배너 요청 검토)
+	@RequestMapping("/admin/admin_ads/adminBannerView.do")
+	public ModelAndView viewAdminBannerBoard(ModelAndView mv) {
+		mv.setViewName("/admin/admin_ads/slideBannerRequestBoard");
+		return mv;
+	}
+	
+	//directAdsRequestBoard로 화면 전환(추천게시글 요청 검토)
+	@RequestMapping("/admin/admin_ads/adminDirectView.do")
+	public ModelAndView viewAdminDirectBoard(ModelAndView mv) {
+		mv.setViewName("/admin/admin_ads/directAdsRequestBoard");
+		return mv;
+	}
+	
+	
+	
+	
 }
