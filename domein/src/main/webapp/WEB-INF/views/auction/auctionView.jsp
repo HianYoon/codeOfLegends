@@ -174,8 +174,7 @@
 		});
 	})
 	
-	$(function(){
-		showReplayList(){
+	$(document).on(function showReplayList(){
 	
 		const url="${path}/restBoard/getReplyList",
 		const paramData={"bid":"${boardContent.bid}"};
