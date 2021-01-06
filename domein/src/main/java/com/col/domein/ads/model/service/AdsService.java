@@ -30,16 +30,22 @@ public interface AdsService {
 	
 	int directAdsApply(DirectAds directAds);
 	
-	int selectBannerAccept();
+	List selectBannerAccept(String today);
 	
-	int selectDirectAccept();
+	List selectDirectAccept();
 	
-	int selectBannerDeny();
+	List selectBannerDeny();
 	
-	int selectDirectDeny();
+	List selectDirectDeny();
 	
-	int selectBannerPending();
+	List selectBannerPending();
 	
-	int selectDirectPending();
+	List selectDirectPending();
+	
+	List selectAccept();
+	
+	List selectDeny();
+	
+	List selectPending();
 	
 }

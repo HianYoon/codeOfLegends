@@ -88,19 +88,6 @@
     text-decoration: underline;
 }
 
-.paging{
-    width: 100%;
-    text-align: center;
-    padding-top: 5%;
-}
-
-.paging a{
-    text-decoration: none;
-    color: inherit;
-    font-size: 2em;
-    text-align: center;
-    padding: 10px;
-}
 @media screen and (max-width: 768px) {
     .community-bottom-left{
         border:0;
@@ -114,7 +101,7 @@
     .community-bottom-right-button{
         display:flex;
         justify-content: space-between;
-        margin-top: 20%;
+        padding-top: 20%;
     }
 }
 @media screen and (max-width: 768px) {

@@ -30,14 +30,14 @@
 	
 	<select id="selectBoardDirectSale" parameterType="com.col.domein.product.model.vo.BoardProductSaleContent" resultType="list">
 		SELECT * FROM BOARD_DIRECT_SALE WHERE BUSINESS_KEY IN
-		<foreach collection="keys" item="k" index="i" open="(" separator="," close=")">
+		<foreach collection="list" item="k" index="i" open="(" separator="," close=")">
 			#{k}
 		</foreach>
 	</select>
 	
 	<!-- ///////////////////////////////////////////////////////////////////////////////////////////////////////////// -->
 	
-	<!-- adminAdsController (관리자용) -->
+	<!-- DirectAds만 상태 불러올 때(accept, deny, pending) -->
 	
 	<select id="selectDirectAccept" resultType="int">
 		SELECT COUNT(ADS_STATUS_NO) FROM DIRECT_SALES_ADS WHERE ADS_STATUS_NO=1 AND APPLY_DATE BETWEEN '210101' AND '211231' GROUP BY SUBSTR(APPLY_DATE,4,2)

@@ -1,4 +1,4 @@
-
+ 
 //SCROLL
 var header = document.querySelector('header'),
     headerHeight = header.offsetHeight

@@ -2,7 +2,7 @@
 /*---COMMON STYLE---*/
 header * {
   box-sizing: border-box;
-}
+} 
 header [class*='icon-'] {
   background-repeat: no-repeat;
   background-position: center;

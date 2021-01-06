@@ -4,6 +4,8 @@ import java.sql.Date;
 
 import org.springframework.stereotype.Component;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 @Component
 public class BannerAds {
 
@@ -11,8 +13,11 @@ public class BannerAds {
 	private int applicantKey;
 	private String adsOriginalFileName;
 	private String adsRenamedFileName;
+	//@JsonFormat(shape=JsonFormat.Shape.STRING, pattern="yyyy-MM-dd")
 	private Date startDate;
+	//@JsonFormat(shape=JsonFormat.Shape.STRING, pattern="yyyy-MM-dd")
 	private Date endDate;
+	//@JsonFormat(shape=JsonFormat.Shape.STRING, pattern="yyyy-MM-dd")
 	private Date applyDate;
 	private String urlLink;
 	private String adsDescription;

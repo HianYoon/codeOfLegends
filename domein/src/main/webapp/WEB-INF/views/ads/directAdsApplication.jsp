@@ -18,8 +18,15 @@
 	%>
 </script>
 
+<!-- jQuery UI CSS파일  -->
+<link rel="stylesheet" href="http://code.jquery.com/ui/1.8.18/themes/base/jquery-ui.css" type="text/css" />  
+<!-- jQuery 기본 js파일 -->
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>  
+<!-- jQuery UI 라이브러리 js파일 -->
+<script src="http://code.jquery.com/ui/1.8.18/jquery-ui.min.js"></script> 
+
 <!-- css파일 소환 -->
-<link rel="stylesheet" href="${path }/resources/css/ads/directAdsApplication.css" />
+<link rel="stylesheet" href="${path }/resources/css/ads/directAdsApplication.css?after" />
 
 <section id="content">
     <div id="wholeback">
@@ -55,7 +62,7 @@
                                    <th>날짜</th>
                                </tr>
                            </thead>                              
-                           <c:if test="${boardDirectSale not empty }">   
+                           <c:if test="${not empty boardDirectSale }">   
                            <tbody>                    
 	                           <c:forEach items="${boardDirectSale }" var="bds" varStatus="vs">                       
 	                               <tr>
@@ -66,10 +73,10 @@
 	                           </c:forEach>
                            </tbody>
                            </c:if>
-                           <c:if test="${boardDirectSale empty }">
+                           <c:if test="${empty boardDirectSale }">
                            <tbody>
                            		<tr>
-                           			<td colspan="3"><h3>등록된 게시글이 없습니다.</h3></td>
+                           			<td colspan="3" style="color:red; text-align:center"><br><h3>등록된 게시글이 없습니다.</h3><br></td>
                            		</tr>
                            </tbody>
                            </c:if>
@@ -82,9 +89,16 @@
 
                <div class="div_preview">
                    <p><u>Preview(미리보기)</u></p>
+                   <c:if test="${not empty boardDirectSale }">
                    <div class="div_ajax">
-	
+						
                    </div>
+                   </c:if>
+                   <c:if test="${empty boardDirectSale }">
+                   <div class="div_ajax">
+						<br><p style="text-align:center">결과가 없습니다.</p><br>
+                   </div>
+                   </c:if>
                </div>
 
                <div class="div_period">
@@ -125,6 +139,21 @@
 				}
 			});
 		});
+		/* datepicker 개시일에 생성 */
+        $("#startDate").datepicker({
+            dateFormat: 'yy-mm-dd',
+            prevText:'이전 달',
+            nextText:'다음 달',
+            currentText:'오늘',
+            monthNames:['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'],
+            monthNamesShort:['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'],
+            dayNames:['일','월','화','수','목','금','토'],
+            dayNamesShort:['일','월','화','수','목','금','토'],
+            showMonthAfteryear:true,
+            yearSuffix:'년',
+            defaultDate: new Date(),
+            minDate:0                
+        }); 
 	})
 	/* DB에서 adsRate를 가져와 날짜 선택 시 계산하여 측정 */
 	function fn_triggerPrice(e){    	

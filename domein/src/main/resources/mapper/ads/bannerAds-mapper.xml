@@ -48,8 +48,22 @@
 	
 	<!-- adminAdsController (관리자용) -->
 	
-	<select id="selectBannerAccept" resultType="int">
-		SELECT COUNT(ADS_STATUS_NO) FROM BANNER_ADS_APPLICATION WHERE ADS_STATUS_NO=1 AND APPLY_DATE BETWEEN '210101' AND '211231' GROUP BY SUBSTR(APPLY_DATE,4,2)
+	<select id="selectAccept" resultType="int">
+		SELECT COUNT(ADS_STATUS_NO) FROM BANNER_ADS_APPLICATION LEFT JOIN DIRECT_SALES_ADS USING (ADS_STATUS_NO, APPLY_DATE) WHERE ADS_STATUS_NO=1 AND APPLY_DATE BETWEEN '210101' AND '211231' GROUP BY SUBSTR(APPLY_DATE,4,2)
+	</select>
+	
+	<select id="selectDeny" resultType="int">
+		SELECT COUNT(ADS_STATUS_NO) FROM BANNER_ADS_APPLICATION LEFT JOIN DIRECT_SALES_ADS USING (ADS_STATUS_NO, APPLY_DATE) WHERE ADS_STATUS_NO=6 AND APPLY_DATE BETWEEN '210101' AND '211231' GROUP BY SUBSTR(APPLY_DATE,4,2)
+	</select>
+	
+	<select id="selectPending" resultType="int">
+		SELECT COUNT(ADS_STATUS_NO) FROM BANNER_ADS_APPLICATION LEFT JOIN DIRECT_SALES_ADS USING (ADS_STATUS_NO, APPLY_DATE) WHERE ADS_STATUS_NO=0 AND APPLY_DATE BETWEEN '210101' AND '211231' GROUP BY SUBSTR(APPLY_DATE,4,2)
+	</select>
+	
+	<!-- //////////////////////////////////// BannerAds만 상태 불러올 때(accept, deny, pending) /////////////////////////////////////// -->
+	
+	<select id="selectBannerAccept" parameterType="string" resultMap="bannerAdsMap">
+		SELECT ADS_KEY, APPLICANT_KEY, ADS_RENAMED_FILE_NAME, URL_LINK, ADS_TITLE FROM BANNER_ADS_APPLICATION WHERE ADS_STATUS_NO=1 AND START_DATE <![CDATA[<=]]> #{today} AND END_DATE <![CDATA[>=]]> #{today}
 	</select>
 	
 	<select id="selectBannerDeny" resultType="int">

@@ -19,6 +19,7 @@
 		<typeAlias type="com.col.domein.ads.model.vo.DirectAds" alias="directAds"/>
 		<typeAlias type="com.col.domein.board.model.vo.BoardKnowBattle" alias="boardKnowBattle"/>
 		<typeAlias type="com.col.domein.board.model.vo.Attachment" alias="attachment"/>
+		<typeAlias type="com.col.domein.board.model.vo.Board" alias="board"/>
 		<typeAlias type="com.col.domein.productcomment.model.vo.BDSreview" alias="bdsReview"/>
 		<typeAlias type="com.col.domein.productcomment.model.vo.BDSreviewLike" alias="reviewLike"/>
 		<typeAlias type="com.col.domein.auction.model.vo.BoardAuction" alias="boardAuction"/>
