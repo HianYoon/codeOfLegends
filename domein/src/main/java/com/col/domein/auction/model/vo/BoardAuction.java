@@ -169,7 +169,8 @@ public class BoardAuction {
 					+ ", writtenDate=" + writtenDate + ", ModifiedDate=" + ModifiedDate + ", startDate=" + startDate
 					+ ", endDate=" + endDate + ", ReadCount=" + ReadCount + ", auctionStatusNo=" + auctionStatusNo
 					+ ", content=" + content + "]";
-		}               
+		}         
+		
 		
 	                                                          
 	   

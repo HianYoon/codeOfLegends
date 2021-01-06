@@ -45,4 +45,7 @@
 	<select id="getReplyList" resultType="boardAuction">
 		select * from board_Auction where writerKey = #{bid}
 	</select>
+	<update id="plusReadCount" parameterType="boardAuction">
+		update board_Auction set READ_COUNT = READ_COUNT + 1 where ARTICLE_NO=#{articleNo}
+	</update>
 </mapper>

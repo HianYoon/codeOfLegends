@@ -47,7 +47,7 @@
                         <!--Content-->
                             <div class="oction--header">
                                 <div class="oction-searchbox">
-                                    <input type="search" class="input--text oction--input"/>
+                        
                                 </div>
                                 <ul>
                                     <li>인기순</li>
@@ -77,7 +77,7 @@
                                                 <li>제목:<c:out value="${auction.TITLE }"/></li>
                                                 <li>상호명:<span>상호명:<c:out value="${auction.BUSINESS_NAME }"/></li>
                                                  <li class="oction-dateBox"><span class="Oction-date">시작일:<fmt:formatDate value="${auction.START_DATE}" pattern="yyyy-MM-dd HH:mm"/></span><span class="Oction-date">마감일:<fmt:formatDate value="${auction.END_DATE}" pattern="yyyy-MM-dd HH:mm"/></span></li>
-                                                <li>조회수
+                                                <li>조회수: <c:out value="${auction.READ_COUNT}"/>
                                                 </li>
                                                   <li>
                                                     <span><a href="${path}"><img src="${path }/resources/images/profile/jjim.png" alt="찜" style="width: 15px;height:15px;"></a></span>

@@ -82,6 +82,12 @@ public class AuctionServiceImpl implements AuctionService {
 		// TODO Auto-generated method stub
 		return dao.getReplyList(session,bid);
 	}
+	//조회수 증
+	@Override
+	public void plusReadCount(int articleNo) {
+		// TODO Auto-generated method stub
+		dao.plusReadCount(session,articleNo);
+	}
 
 
 	

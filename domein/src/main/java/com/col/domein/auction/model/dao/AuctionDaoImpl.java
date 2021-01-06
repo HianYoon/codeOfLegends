@@ -61,5 +61,11 @@ public class AuctionDaoImpl implements AuctionDao {
 		// TODO Auto-generated method stub
 		return session.selectList("boardAuction.getReplyList",bid);
 	}
+	// 조회수 증가 
+	@Override
+	public void  plusReadCount(SqlSession session, int articleNo) {
+		// TODO Auto-generated method stub
+		session.update("boardAuction.plusReadCount",articleNo);
+	}
 
 }

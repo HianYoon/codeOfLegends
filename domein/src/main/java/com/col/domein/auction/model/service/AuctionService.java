@@ -21,6 +21,8 @@ public interface AuctionService {
 	List<Map> selectAuctionView(int articleNo);
 	//비동기식 댓글
 	List<BoardAuction> getReplyList(int bid);
+	//조회수 증가 
+	void plusReadCount(int articleNo);
 
 
 

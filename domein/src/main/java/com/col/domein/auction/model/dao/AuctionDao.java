@@ -29,5 +29,7 @@ public interface AuctionDao {
 	List<Map> selectAuctionView(SqlSession session, int articleNo);
 	//댓글 구현
 	List<BoardAuction> getReplyList(SqlSession session, int bid);
+	//조회수 증가 
+	void plusReadCount(SqlSession session, int articleNo);
 
 }

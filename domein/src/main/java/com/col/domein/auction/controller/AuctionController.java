@@ -127,6 +127,8 @@ public class AuctionController {
 	@RequestMapping("/auction/auctionView.do")
 	public ModelAndView auctionView(ModelAndView mv, int articleNo) {
 		List<Map> list=service.selectAuctionView(articleNo);
+		//조회수 +1
+		service.plusReadCount(articleNo);
 		mv.addObject("list",list);
 		mv.setViewName("auction/auctionView");
 		
@@ -148,4 +150,5 @@ public class AuctionController {
 	return mv;
 	
 	}
+
 }
