@@ -1,12 +1,24 @@
 package com.col.domein;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.List;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
+
+import com.col.domein.ads.model.service.AdsService;
+import com.col.domein.ads.model.vo.BannerAds;
+
+import net.sf.json.JSONArray;
+import net.sf.json.JSONObject;
 
 /**
  * Handles requests for the application home page.
@@ -15,13 +27,34 @@ import org.springframework.web.bind.annotation.RequestParam;
 public class HomeController {
 
 	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
-
+	
+	@Autowired
+	AdsService service;
+	
 	/**
 	 * Simply selects the home view to render by returning its name.
 	 */
 	@RequestMapping(value = "/", method = RequestMethod.GET)
-	public String home() {
-		return "index";
+	public ModelAndView home(ModelAndView mv) {
+		Date day=new Date();
+		SimpleDateFormat sdf=new SimpleDateFormat("yyyy/MM/dd");
+		String today=sdf.format(day);		
+		System.out.println("오늘의 날짜: "+today);		
+		List<BannerAds> accept=service.selectBannerAccept(today);
+		JSONArray jAccept=JSONArray.fromObject(accept);
+		
+		for(BannerAds b:accept) {
+			JSONObject jo=new JSONObject();
+			jo.put("adsKey",b.getAdsKey());
+			jo.put("applicantKey",b.getApplicantKey());			
+			jo.put("adsRenamedFileName",b.getAdsRenamedFileName());			
+			jo.put("urlLink",b.getUrlLink());			
+			jo.put("adsTitle",b.getAdsTitle());			
+			jAccept.add(jo);
+		}
+		mv.addObject("accept",jAccept);
+		mv.setViewName("index");
+		return mv;		
 	}
 
 	@RequestMapping("/error.do")
