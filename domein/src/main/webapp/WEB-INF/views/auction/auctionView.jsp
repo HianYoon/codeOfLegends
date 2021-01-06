@@ -44,14 +44,12 @@
                         <div class="Oction-text-items">
                             
                             <div class="slideshow-container">
-                             	
-                             	<c:forEach items="${list.RENAMED_FILE_NAME }" var="listImg">  
+                
 	                                <div class="mySlides fade">
 	                                    <div class="numbertext">1 / 5</div>
-	                                    <img src="${path }/resources/boardauction/file/${listImg}" class="slideImg"  style="width:100%">
+	                                    <img src="${path}/resources/upload/boardauction/file/${list.RENAMED_FILE_NAME}" class="slideImg"  style="width:100%;heigth:200px;">
 	                                    <div class="text">Caption Text</div>
 	                                </div>
-                                </c:forEach>  
                                 
                                 
                             </div>
@@ -85,7 +83,7 @@
                         <div class="OctionBuyerBar">
                              <ul>
                                  <li><a href="">Auction</a></li>
-                                 <li><a href="">Q & A</a></li>
+                                 <li><a href="#review-container"  id="QnA">Q & A</a></li>
                                  <li><a href="">조회수</a></li>
                                  <li><a href="">참여수</a></li>
                              </ul>
@@ -93,7 +91,7 @@
 
                         <div class="choice-company-container">
                             <form action="">
-                                <div class="choice-conpany-container">
+                                <div class="choice-conpany-container" style="display:none;">
                                     
                                     <ul>
                                         <li>
@@ -128,24 +126,34 @@
                                
                               
                             </form>
+                             <div id="review-container" class="review-container" style="display:none;">
+                                <div style="margin-top: 20px" >
                               
-                             <form action="" method="post" >
-                                <div class="review-container">
-                                         <!-- //점 이미지 -->
-                                    <div class="top-comment"><span>업체</span><span><img src="" alt=""></span></div>
-                                    <textarea name="" id="reviewComment" cols="30" rows="10" placeholder="문의사항을 남겨보세요!"></textarea>
-                                    <div class="comment-group">
-                                        <div >
-                                            <span><img src="" alt="" class="comment-img"></span>
-                                            <span><img src="" alt=""class="comment-img"></span>
-                                        </div>
-                                        <div>
-                                           <p>등록</p>
-                                        </div>
-                                    </div>
+		                                   <button type="button" class="btn btn-primary" id="CommentUpdate">수정</button>
+		                                   <button type="button" class="btn btn-primary" id="Commentdelete">삭제</button>
+		                                   <button type="button" class="btn btn-primary" id="Commentlist">목록</button>
                                 </div>
-
-                             </form>
+								<div class="my-3 p-3 bg-white rounded shadow-sm=" style="padding-top:10px">
+		                             <form:form name="form" id="form" role="form" modelAttribute="replayVO" action="" method="post" >
+										
+		                             <form:hidden path="bid" id="bid"/>
+		                             <div class="row">
+		                             	<div class="col-sm-10">
+		                             		<textarea path="content" id="content" class="form-control" row="3" placeholder="댓글을 입력해주세요."></textarea>
+		                             	</div>
+		                             	<div class="col-sm-2">
+		                             		<form:input path="reg_id" class="form-control" id="reg_id" placeholder="댓글 작성자"></form:input>
+		                             		<button type="button" class="btn btn-primary" id="btnReplaSave">저장</button>
+		                             		
+		                             	</div>
+		                             </div>
+									</form:form>
+								</div>
+									<div class="my-3 p-3 bg-white rounded shadow-sm" style="padding-top: 10px">
+										<h6 class="border-bottom pb-2 mb-0">Reply list</h6>
+										<div id="replyList"></div>
+									</div> 
+							</div>
 
             </div>
         </div>
@@ -153,4 +161,59 @@
 	</div>
 </div>
 </section>
+<script type="text/javascript" src="http://code.jquery.com/jquery-1.11.3.js" defer></script>
+<script type="text/javascript">
+	$(document).ready(function(){
+		$("#QnA").click(function(){
+			
+			$("#review-container").slideDown();
+			$("#review-container").show();
+		},function(){
+			$("#review-container").slideUp();
+			$("#review-container").css("display","block");
+		});
+	})
+	
+	$(function(){
+		showReplayList(){
+	
+		const url="${path}/restBoard/getReplyList",
+		const paramData={"bid":"${boardContent.bid}"};
+		$.ajax({
+			type:"POST",
+			url: url,
+			data:paramData,
+			dataType:'json',
+			success:function(result){
+				let htmls="";
+				if(result.length < 1){
+					htmls.push("등록된 댓글이 없습니다.");
+				}else{
+					$(result).each(function(){
+						htmls +='<div class="media text-muted pt-3" id="rid'+this.rid+'">';
+						htmls +='<svg class="bd-placeholder-img mr-2 rounded" width="32" height="32" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice"
+						focusable="false" role="img" aria-label="Placeholder:32x32">';
+						htmls +='<title>Placeholder</title>';
+						htmls +='<rect width="100%" height="100%" fill="#007bff"></rect>';
+						htmls +='<text x="50%" fill="#007bff" dy = ".3em">32x32</text>';
+						htmls +='</svg>';
+						htmls +='<p class="media-body pb-3 mb-0 small Ih-125 border-bottom horder-gray">';
+						htmls +='<span class="d-block">';
+						htmls +='<strong class="text-gray-dark">'+this.reg_id+'</strong>';
+						htmls +='<span style="padding-left: 7px; font-size:9pt">';
+						htmls +='<a href="javascript:void(0)" onclick="fn-editReply('+this.rid+',\''+this.reg_id+'\',\''+this.content+'\')" style="padding-right:5px">수정</a>';
+						htmls +='<a href="javascript:void(0)" onclick="fn_deleteReplay('+this.rid+')">삭제</a>';
+						htmls +='</span>';
+						htmls +='</span>';
+						htmls +='</p>';
+						htmls +='</div>';
+						
+					});
+				
+				}
+				$("#replayList").html(htmls);
+			};
+		});
+		});
+</script>
 <jsp:include page="/WEB-INF/views/common/footer.jsp"/>

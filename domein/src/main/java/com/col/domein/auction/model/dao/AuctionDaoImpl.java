@@ -56,5 +56,10 @@ public class AuctionDaoImpl implements AuctionDao {
 		// TODO Auto-generated method stub
 		return session.selectList("boardAuction.selectAuctionView",articleNo);
 	}
+	@Override
+	public List<BoardAuction> getReplyList(SqlSession session, int bid) {
+		// TODO Auto-generated method stub
+		return session.selectList("boardAuction.getReplyList",bid);
+	}
 
 }

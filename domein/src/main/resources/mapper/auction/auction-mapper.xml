@@ -42,4 +42,7 @@
 		select * from board_auction ba join business b on ba.writer_key=b.business_key inner join ba_attached_image bi on ba.article_no=bi.article_no
 		where ba.article_no=#{articleNo}
 	</select>
+	<select id="getReplyList" resultType="boardAuction">
+		select * from board_Auction where writerKey = #{bid}
+	</select>
 </mapper>

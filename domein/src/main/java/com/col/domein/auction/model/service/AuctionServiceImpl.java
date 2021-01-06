@@ -77,6 +77,11 @@ public class AuctionServiceImpl implements AuctionService {
 		// TODO Auto-generated method stub
 		return dao.selectCount(session);
 	}
+	@Override
+	public List<BoardAuction> getReplyList(int bid) {
+		// TODO Auto-generated method stub
+		return dao.getReplyList(session,bid);
+	}
 
 
 	
