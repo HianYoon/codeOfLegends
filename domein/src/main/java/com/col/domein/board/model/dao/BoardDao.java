@@ -25,6 +25,6 @@ public interface BoardDao {
 
 	List<Map> selectBkbArticles(SqlSession session,int threadKey);
 
-	BoardKnowBattle selectBoardOne(SqlSession session,int boardNo);
+	Board selectBoardOne(SqlSession session,int threadKey);
 	
 }

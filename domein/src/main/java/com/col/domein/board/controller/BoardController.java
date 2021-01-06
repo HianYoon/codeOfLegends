@@ -1,18 +1,18 @@
 package com.col.domein.board.controller;
 
-import java.io.ByteArrayOutputStream;
+import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.io.PrintWriter;
+import java.net.URLEncoder;
 //github.com/HianYoon/codeOfLegends.git
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
-import javax.servlet.ServletException;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -21,6 +21,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestHeader;
 //github.com/HianYoon/codeOfLegends.git
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -131,52 +132,52 @@ public class BoardController {
 		return "community/profile";
 	}
 	
-    @RequestMapping(value = "/community/imageUpload", method = RequestMethod.POST)
-    public void communityImageUpload(HttpServletRequest request, HttpServletResponse response, @RequestParam MultipartFile upload, HttpSession session) {
- 
-        OutputStream out = null;
-        PrintWriter printWriter = null;
-        response.setCharacterEncoding("utf-8");
-        response.setContentType("text/html;charset=utf-8");
- 
-        try{
- 
-            String fileName = upload.getOriginalFilename();
-            byte[] bytes = upload.getBytes();
-            String uploadPath = session.getServletContext().getRealPath("/resources/upload/product") + fileName;//저장경로
- 
-            out = new FileOutputStream(new File(uploadPath));
-            out.write(bytes);
-            String callback = request.getParameter("CKEditorFuncNum");
- 
-            printWriter = response.getWriter();
-            String fileUrl = "${pageContext.request.contextPath }/community/imageUpload.do" + fileName;//url경로
- 
-            printWriter.println("<script type='text/javascript'>window.parent.CKEDITOR.tools.callFunction("
-                    + callback
-                    + ",'"
-                    + fileUrl
-                    + "','이미지를 업로드 하였습니다.'"
-                    + ")</script>");
-            printWriter.flush();
- 
-        }catch(IOException e){
-            e.printStackTrace();
-        } finally {
-            try {
-                if (out != null) {
-                    out.close();
-                }
-                if (printWriter != null) {
-                    printWriter.close();
-                }
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
- 
-        return;
-    }
+//    @RequestMapping(value = "/community/imageUpload", method = RequestMethod.POST)
+//    public void communityImageUpload(HttpServletRequest request, HttpServletResponse response, @RequestParam MultipartFile upload, HttpSession session) {
+// 
+//        OutputStream out = null;
+//        PrintWriter printWriter = null;
+//        response.setCharacterEncoding("utf-8");
+//        response.setContentType("text/html;charset=utf-8");
+// 
+//        try{
+// 
+//            String fileName = upload.getOriginalFilename();
+//            byte[] bytes = upload.getBytes();
+//            String uploadPath = session.getServletContext().getRealPath("/resources/upload/community") + fileName;//저장경로
+// 
+//            out = new FileOutputStream(new File(uploadPath));
+//            out.write(bytes);
+//            String callback = request.getParameter("CKEditorFuncNum");
+// 
+//            printWriter = response.getWriter();
+//            String fileUrl = session.getServletContext().getRealPath("/resources/upload/community") + fileName;//url경로
+// 
+//            printWriter.println("<script type='text/javascript'>window.parent.CKEDITOR.tools.callFunction("
+//                    + callback
+//                    + ",'"
+//                    + fileUrl
+//                    + "','이미지를 업로드 하였습니다.'"
+//                    + ")</script>");
+//            printWriter.flush();
+// 
+//        }catch(IOException e){
+//            e.printStackTrace();
+//        } finally {
+//            try {
+//                if (out != null) {
+//                    out.close();
+//                }
+//                if (printWriter != null) {
+//                    printWriter.close();
+//                }
+//            } catch (IOException e) {
+//                e.printStackTrace();
+//            }
+//        }
+// 
+//        return;
+//    }
 
     @RequestMapping(value="/community/imageUpload.do", method = RequestMethod.POST)
     public void imageUpload(HttpServletRequest request, HttpSession session,

@@ -15,7 +15,7 @@ public interface BoardService {
 	List<Map> selectBoardList(int cPage, int numPerpage);
 	List<Map> selectBkbArticles(int threadKey);
 	int selectCount();
-	Board selectBoardOne(int articleNo);
-	int insertBoard(Board board,List<Attachment> files);
+	Board selectBoardOne(int threadKey);
+	int write(Board board,List<Attachment> files);
 
 }

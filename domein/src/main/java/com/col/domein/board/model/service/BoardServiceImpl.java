@@ -31,7 +31,7 @@ public class BoardServiceImpl implements BoardService{
 	}
 
 	@Override
-	public int insertBoard(Board board, List<Attachment> files) {
+	public int write(Board board, List<Attachment> files) {
 		// TODO Auto-generated method stub
 		/* return dao.insertBoard(session, board); */
 		int result=dao.insertBoard(session,  board);

@@ -64,15 +64,15 @@
 			                    		</td>
 		                    	</tr>
 		                    </c:forEach>
-				        <div class="pageBar">
-						${pageBar }
-				        </div>
 		                </table>
 	                	<div class="community-bottom-right-button">
 	                    <img src="${path }/resources/images/profile/search.png" alt="" width="20px">
 	                    
 	                    <input type="button" class="write" value="글쓰기">
 	                	</div>
+				        <div class="pageBar">
+						${pageBar }
+				        </div>
 	                </form>
 	            </div>
 	        </div>
