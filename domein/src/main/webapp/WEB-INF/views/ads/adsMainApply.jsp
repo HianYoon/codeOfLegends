@@ -19,7 +19,7 @@
 </script>
 
 <!-- css파일 소환 -->
-<link rel="stylesheet" href="${path }/resources/css/ads/adsMainApply.css" />
+<link rel="stylesheet" href="${path }/resources/css/ads/adsMainApply.css?after" />
 
 <section id="content">
 	<div id="wholeback">
@@ -30,8 +30,8 @@
 	        </ul>
 	    </div>
 	    <div id="container">
-	        <h2>광고신청 페이지</h2>
-	        <hr>
+	        <!-- <h2>광고신청 페이지</h2>
+	        <hr> -->
 	        <div class="div_info">
 	            <h3><u>알림메시지</u></h3>
 	            <br>
