@@ -2,9 +2,12 @@ package com.col.domein.auction.model.dao;
 
 import java.util.List;
 import java.util.Map;
+import java.util.TreeMap;
 
 import org.apache.ibatis.session.SqlSession;
 
+import com.col.domein.auction.model.vo.AuctionBid;
+import com.col.domein.auction.model.vo.BidContent;
 import com.col.domein.auction.model.vo.BoardAttachementFile;
 import com.col.domein.auction.model.vo.BoardAttachementImage;
 import com.col.domein.auction.model.vo.BoardAuction;
@@ -31,5 +34,18 @@ public interface AuctionDao {
 	List<BoardAuction> getReplyList(SqlSession session, int bid);
 	//조회수 증가 
 	void plusReadCount(SqlSession session, int articleNo);
+	//bid
+	int updateAuctionBid(SqlSession session, int articleNo, int writerKey);
+	//insertBid
+	int insertAuctionBid(SqlSession session, int articleNo, int writerKey, int bidStatusNo);
+	
+	//checkLike
+	List<Map> checkLike(SqlSession session, int articleNo, int writerKey);
+	//AuctionOne
+	List<Map> selectAuctionOne(SqlSession session, int articleNo);
+	//auction join Enllo
+	int insertJoinAuctionList(SqlSession session, AuctionBid bid );
+	//auction bidContent 등록
+	int insertJoinEnlloBidContent(SqlSession session,BidContent bc);
 
 }

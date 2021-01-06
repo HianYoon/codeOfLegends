@@ -3,6 +3,8 @@ package com.col.domein.auction.model.service;
 import java.util.List;
 import java.util.Map;
 
+import com.col.domein.auction.model.vo.AuctionBid;
+import com.col.domein.auction.model.vo.BidContent;
 import com.col.domein.auction.model.vo.BoardAttachementFile;
 import com.col.domein.auction.model.vo.BoardAttachementImage;
 import com.col.domein.auction.model.vo.BoardAuction;
@@ -23,6 +25,17 @@ public interface AuctionService {
 	List<BoardAuction> getReplyList(int bid);
 	//조회수 증가 
 	void plusReadCount(int articleNo);
+	//bid 증가 
+	int updateAuctionBid(int articleNo, int writerKey, int bidStatusNo);
+	//insert bid
+	int insertAuctionBid(int articleNo, int writerKey, int bidStatusNo);
+	//checklike
+	List<Map> checkLike(int articleNo, int writerKey);
+	//옥션 정보 불러오기 
+	List<Map> selectAuctionOne(int articleNo);
+	//옥션 joinEnlloList
+	int insertJoinAuctionList(AuctionBid bid, BidContent bc);
+
 
 
 

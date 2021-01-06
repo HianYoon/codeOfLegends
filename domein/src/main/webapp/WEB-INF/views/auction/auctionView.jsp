@@ -79,15 +79,19 @@
                                 
                             </div>
                         </div>
-					</c:forEach>
                         <div class="OctionBuyerBar">
                              <ul>
-                                 <li><a href="">Auction</a></li>
+                         
+                             <c:if test="${signedInMember !=null && list.BUSINESS_KEY !=null}">
+                      
+                                 <li><a href="${path }/auction/joinEnllo.do?articleNo=${list.ARTICLE_NO}">Auction</a></li>
+                    		</c:if>
                                  <li><a href="#review-container"  id="QnA">Q & A</a></li>
-                                 <li><a href="">조회수</a></li>
+                                 <li><a href="">조회수:<c:out value="${list.READ_COUNT}"/></a></li>
                                  <li><a href="">참여수</a></li>
                              </ul>
                         </div>
+					</c:forEach>
 
                         <div class="choice-company-container">
                             <form action="">

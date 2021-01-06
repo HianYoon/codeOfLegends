@@ -85,7 +85,14 @@ textarea#AuctionContent {
 }
 
   <!-- ------- auction join 참여form-------- -->
-  
+
+.joinImg img{
+    width: 400px;
+    height: 250px;
+    border: 1px solid red;  
+	
+}
+
   
   .slideshow-container{
     display: none;
@@ -149,15 +156,17 @@ textarea#AuctionContent {
 
 .join-container{
     display:flex;
-    margin-bottom: 15px;
+    margin: 15px 0px;
   
 }
-.input-joingroup input{
-    width: 190px;
+.input-joingroup input {
+    position: relative;
+    width: 40%;
     height: 40px;
     margin-left: 5px;
     margin-bottom: 10px;
- border-bottom: 1px solid #333;
+    border-bottom: 1px solid #333;
+    margin-left: 50px;
 }
 .input-container{
     width: 800px;

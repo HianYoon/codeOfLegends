@@ -18,11 +18,12 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.col.domein.auction.model.service.AuctionService;
+import com.col.domein.auction.model.vo.AuctionBid;
+import com.col.domein.auction.model.vo.BidContent;
 import com.col.domein.auction.model.vo.BoardAttachementFile;
 import com.col.domein.auction.model.vo.BoardAttachementImage;
 import com.col.domein.auction.model.vo.BoardAuction;
 import com.col.domein.common.pageBar.PageBarFactory;
-import com.col.domein.product.model.vo.Attachement;
 
 @Controller
 public class AuctionController {
@@ -103,15 +104,13 @@ public class AuctionController {
 		return mv;
 	}
 	
-	//옥션등록 수정
-	@RequestMapping("/auction/auctionEnlloUpdate.do")
-	public String auctionEnlloUpdate() {
-		return "auction/auctionUpdate";
-	}
-	//옥션 참여
-	@RequestMapping("/auction/auctionJoin.do")
-	public String auctionJoin() {
-		return "auction/auctionJoinEnllo";
+	//옥션 join 등록 ajax
+	@RequestMapping("/auction/joinWriter.do")
+	public ModelAndView auctionEnlloUpdate(ModelAndView mv,AuctionBid bid,BidContent bc) {
+		System.out.println(""+bid+""+bc);
+		int result=service.insertJoinAuctionList(bid,bc);
+		mv.setViewName("auction/auctionJoinEnllo");
+		return mv;
 	}
 	//옥션 참여수정
 	@RequestMapping("/auction/auctionJoinUpdate.do")
@@ -149,6 +148,16 @@ public class AuctionController {
 	mv.setViewName("auction/auctionList");
 	return mv;
 	
+	}
+	// 참여자 == 등록 /상품 불러오기 
+	@RequestMapping("/auction/joinEnllo.do")
+	public ModelAndView gotoJoinEnllo(ModelAndView mv,int articleNo) {
+		
+		List<Map> map=service.selectAuctionOne(articleNo);
+		mv.addObject("auction",map);
+		mv.setViewName("auction/auctionJoinEnllo");
+		
+		return mv;
 	}
 
 }

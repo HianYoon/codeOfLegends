@@ -2,11 +2,14 @@ package com.col.domein.auction.model.dao;
 
 import java.util.List;
 import java.util.Map;
+import java.util.TreeMap;
 
 import org.apache.ibatis.session.RowBounds;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
+import com.col.domein.auction.model.vo.AuctionBid;
+import com.col.domein.auction.model.vo.BidContent;
 import com.col.domein.auction.model.vo.BoardAttachementFile;
 import com.col.domein.auction.model.vo.BoardAttachementImage;
 import com.col.domein.auction.model.vo.BoardAuction;
@@ -67,5 +70,53 @@ public class AuctionDaoImpl implements AuctionDao {
 		// TODO Auto-generated method stub
 		session.update("boardAuction.plusReadCount",articleNo);
 	}
+	//bid
+	@Override
+	public int updateAuctionBid(SqlSession session, int articleNo, int writerKey) {
+		// TODO Auto-generated method stub
+		TreeMap<String,Integer> map=new TreeMap<String,Integer>();
+		map.put("articleNo", articleNo);
+		map.put("writerKey",writerKey);
+		return session.update("boardAuction.updateAuctionBid",map);
+	}
+	//insert Bid
+	@Override
+	public int insertAuctionBid(SqlSession session, int articleNo, int writerKey, int bidStatusNo) {
+		TreeMap<String,Integer> map=new TreeMap<String,Integer>();
+		map.put("articleNo", articleNo);
+		map.put("writerKey",writerKey);
+		map.put("bidStatusNo", bidStatusNo);
+		return session.insert("boardAuction.insertAuctionBid",map);
+	}
+	@Override
+	public List<Map> checkLike(SqlSession session, int articleNo, int writerKey) {
+		// TODO Auto-generated method stub
+		TreeMap<String,Integer> map=new TreeMap<String,Integer>();
+		map.put("articleNo", articleNo);
+		map.put("writerKey",writerKey);
+		return session.selectList("boardAuction.checkLike",map);
+	}
+	//auction one
+	@Override
+	public List<Map> selectAuctionOne(SqlSession session, int articleNo) {
+		// TODO Auto-generated method stub
+		return session.selectList("boardAuction.selectAuctionOne",articleNo);
+	}
+	//auction join enllo
+	@Override
+	public int insertJoinAuctionList(SqlSession session,AuctionBid bid  ) {
+		// TODO Auto-generated method stub
+		return session.insert("boardAuction.insertJoinAuctionList",bid);
+	}
+	//BidContent 등록
+	@Override
+	public int insertJoinEnlloBidContent(SqlSession session,BidContent bc) {
+		// TODO Auto-generated method stub
+		return session.insert("boardAuction.insertJoinEnlloBidContent",bc);
+	}
+
+	
+	
+	
 
 }
