@@ -20,13 +20,17 @@
 <!-- ////////////////////////////////////////slick api 필요 script /////////////////////////////////////////////////////-->
 <style>
 .div_slickContainer{
-	display:relative;
-	border:1px #ddd solid;	
+	position:relative;
+	border:1px #ddd solid;
+	height:40vh;
 }
 .div_slickImage{
-	display:absolute;
-	margin-left:29%;
+	position:absolute;
+	display:inline-block;
+	margin-top:-20px;	
+	left:30%;
 	width:580px;	
+	height:100%;
 	border:1px #ddd solid;	
 }
 .slick-dots{
@@ -38,7 +42,6 @@
 .slick-dots li.slick-active button:before {
     color:red !important;
 }
-
 </style>
 
 
