@@ -14,6 +14,14 @@
 		<org.aspectj-version>1.9.4</org.aspectj-version>
 		<org.slf4j-version>1.7.28</org.slf4j-version>
 	</properties>
+
+	<repositories>
+		<repository>
+			<id>jitpack.io</id>
+			<url>https://jitpack.io</url>
+		</repository>
+	</repositories>
+
 	<dependencies>
 		<!-- Spring -->
 		<dependency>
@@ -34,6 +42,11 @@
 			<version>${org.springframework-version}</version>
 		</dependency>
 
+		<dependency>
+			<groupId>com.github.iamport</groupId>
+			<artifactId>iamport-rest-client-java</artifactId>
+			<version>0.2.13</version>
+		</dependency>
 		<!-- AspectJ -->
 		<dependency>
 			<groupId>org.aspectj</groupId>
@@ -48,6 +61,8 @@
 			<version>${org.aspectj-version}</version>
 			<scope>runtime</scope>
 		</dependency>
+
+
 
 		<dependency>
 			<groupId>com.google.api-client</groupId>
@@ -247,17 +262,17 @@
 			<artifactId>commons-io</artifactId>
 			<version>2.6</version>
 		</dependency>
-		
+
 		<!-- 웹소켓 -->
 		<!-- https://mvnrepository.com/artifact/javax.websocket/javax.websocket-api/1.1 -->
 		<dependency>
-		    <groupId>javax.websocket</groupId>
-		    <artifactId>javax.websocket-api</artifactId>
-		    <version>1.1</version>
-		    <scope>provided</scope>
+			<groupId>javax.websocket</groupId>
+			<artifactId>javax.websocket-api</artifactId>
+			<version>1.1</version>
+			<scope>provided</scope>
 		</dependency>
-			
-			
+
+
 		<!-- Test -->
 		<dependency>
 			<groupId>junit</groupId>
