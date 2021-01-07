@@ -47,5 +47,7 @@ public interface AuctionDao {
 	int insertJoinAuctionList(SqlSession session, AuctionBid bid );
 	//auction bidContent 등록
 	int insertJoinEnlloBidContent(SqlSession session,BidContent bc);
+	//join목록 
+	List<Map> selectselectBidContent(SqlSession session, int articleNo, int writerKey);
 
 }

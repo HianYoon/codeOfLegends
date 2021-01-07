@@ -76,4 +76,8 @@
 	<insert id="insertJoinEnlloBidContent" parameterType="bidContent">
 		insert into BID_CONTENT values(#{bidKey},#{productName},#{productQuality},#{productOrigin},#{Quantity},#{measureUnit},#{price})
 	</insert>
+		<!--  bid content 목록 불러오기   -->
+		<select id="selectselectBidContent" resultType="map">
+			select * from auction_bid ab inner join bid_content bc on ab.bid_key=bc.bid_key where ab.article_no=#{articleNo} and ab.writer_key=#{writerKey}
+		</select>
 </mapper>

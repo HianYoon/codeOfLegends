@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -106,11 +107,15 @@ public class AuctionController {
 	
 	//옥션 join 등록 ajax
 	@RequestMapping("/auction/joinWriter.do")
-	public ModelAndView auctionEnlloUpdate(ModelAndView mv,AuctionBid bid,BidContent bc) {
+	@ResponseBody
+	public List<Map> auctionEnlloUpdate(ModelAndView mv,AuctionBid bid,BidContent bc) {
 		System.out.println(""+bid+""+bc);
+		int articleNo=bid.getArticleNo();
+		int writerKey=bid.getWriterKey(); 
 		int result=service.insertJoinAuctionList(bid,bc);
-		mv.setViewName("auction/auctionJoinEnllo");
-		return mv;
+		List<Map> list=service.selectBidContent(articleNo,writerKey);//목록 불러오기 
+	System.out.println(""+list);
+		return list;
 	}
 	//옥션 참여수정
 	@RequestMapping("/auction/auctionJoinUpdate.do")

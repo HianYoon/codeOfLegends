@@ -114,6 +114,15 @@ public class AuctionDaoImpl implements AuctionDao {
 		// TODO Auto-generated method stub
 		return session.insert("boardAuction.insertJoinEnlloBidContent",bc);
 	}
+	//join목록
+	@Override
+	public List<Map> selectselectBidContent(SqlSession session, int articleNo, int writerKey) {
+		// TODO Auto-generated method stub
+		TreeMap<String,Integer> map=new TreeMap<String,Integer>();
+		map.put("articleNo", articleNo);
+		map.put("writerKey",writerKey);
+		return session.selectList("boardAuction.selectselectBidContent",map);
+	}
 
 	
 	

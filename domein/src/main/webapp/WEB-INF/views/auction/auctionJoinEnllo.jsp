@@ -64,11 +64,11 @@
                                 <div class="User-container">
                                     <div class="oction--img-joinform">
                                         <div class="joinImg">
-                                            <img src="${path}/resources/boardauction/file/${auction.RENAMED_FILE_NAME}" alt="이미지" style="width:400px;height:250px; border: 1px solid red;">
+                                            <img src="${path}/resources/upload/boardauction/file/${auction.RENAMED_FILE_NAME}" alt="이미지" style="width:400px;height:250px; border: 1px solid red;">
                                             
                                             <p>
                                              <span class="small-img">
-                                            	<img src="${path}/resources/boardauction/file/${auction.RENAMED_FILE_NAME}" alt="">
+                                            	<img src="${path}/resources/upload/boardauction/file/${auction.RENAMED_FILE_NAME}" alt="">
                                             </span>
                                             </p>
                                             
@@ -82,7 +82,7 @@
                                             <li><span >시작일:<fmt:formatDate value="${auction.START_DATE}" pattern="yyyy-MM-dd"/></span>
                                             <span >마감일:<fmt:formatDate value="${auction.END_DATE}" pattern="yyyy-MM-dd"/></span></li>
                                            
-                                            <li >내용:${auction.CONTENT}</li>
+                                            <li >${auction.CONTENT}</li>
                                         </ul>
 
                                     </div>
@@ -100,7 +100,7 @@
                                            
 						</c:forEach>
                                                <input type="text" id="productName" name="products" class="input--text" placeholder="품명" required>
-                                               <input type="text" id="productQuality" name="products" class="input--text" placeholder="등급" required>
+                                               <input type="text" id="productQuality" name="products" class="input--text" placeholder="등급/없으면 무"  value="" required>
                                                <input type="text" id="productOrigin" name="products" class="input--text" placeholder="원산지"  required>
                                                <input type="text" id="Quantity" name="products"class="input--text" placeholder="양"  required>
                                                
@@ -119,7 +119,11 @@
                                     </div>
                                     <div>
                                         <h3>품목명</h3>
-                                        <div id="log"></div>
+                                        <div id="log">
+                                        	<table>
+                                        		<tbody></tbody>
+                                        	</table>
+                                        </div>
                                     </div>
                                     <div class="joinformBtn">
                                          <button type="submit" class="btn btn--primary">등록</button>
@@ -140,7 +144,12 @@
 <script type="text/javascript">
 //
 $(document).ready(function(){
-	listReply2();//json리턴방식
+	if($("#productQuality").val() == null){
+		let non= "없음";
+		$("#productQuality").val(non);
+	}
+	
+	//listReply2();//json리턴방식
 	$("#addList").click(function(){
 		let articleNo=$("#articleNo").val();
 		console.log(articleNo);
@@ -155,19 +164,54 @@ $(document).ready(function(){
 		const bid="articleNo="+articleNo+"&writerKey="+writerKey+"&bidStatusNo="+bidStatusNo+
 		"&productName="+productName+"&productQuality="+productQuality+"&productOrigin="+productOrigin+"&Quantity="+Quantity+
 		"&measureUnit="+measureUnit+"&price="+price;
+		
 		$.ajax({
-			type:"post",
+			type:"get",
 			url:"${path}/auction/joinWriter.do",
+			contentType:"application/json",
+			dataType:"json",
 			data:bid,
-			success: function(){
+			success: function(result){
 				alert("추가되었습니다.");
-				listReply2();
+				//listReply2();
+				console.log(result);
+				let output="<table id='joinCheck'>";
+				output="<tbody>";
+				output="<tr>";
+				output="<th>번호</th>";
+				output="<th>상품명</th>";
+				output="<th>원산지</th>";
+				output="<th>등급</th>";
+				output="<th>양/갯수</th>";
+				output="<th>단위</th>";
+				output="<th>가격</th>";
+				output="</tr>";
+				//arrayList로 출력할시에는 for in문이 아닌 for문으로 해야한다.
+				//불러올시에는 bd컬럼명하고 똑같아야한다.
+				for(let i =0;i <result.length; i++){
+					output += "<tr>";
+					
+					output +="<td>"+result[i].BID_KEY+"</td>";
+					output +="<td>"+result[i].PRODUCT_NAME+"</td>";
+					output +="<td>"+result[i].PRODUCT_ORIGIN+"</td>";
+					output +="<td>"+result[i].PRODUCT_QUALITY+"</td>";
+					output +="<td>"+result[i].PRODUCT_QUANTITY+"</td>";
+					output +="<td>"+result[i].MEASURE_UNIT+"</td>";
+					output +="<td>"+result[i].PRICE+"</td>";
+					output +="<td><input type='button' class='btn btn-Primary2' onclick='listUpdate();' value='수정'>";
+					output +="<td><input type='button' class='btn btn-Primary2' onclick='listdelete();' value='삭제' >";
+					output +="</tr>";	
+				}
+				output +="</tbody>";
+				output += "</table>";
+				$("#log").html(output);
 			}
 		});
 		
 	});
+	$("")
 	//Controller방식
-	function listReply(){
+/* 	function listReply(){
 		$.ajax({
 			type:"get",
 			url:"${path}/auction/joinList.do",
@@ -176,8 +220,8 @@ $(document).ready(function(){
 				$("#log").html(data);
 			}
 		});
-	}
-	function listReply2(){
+	} */
+/* 	function listReply2(){
 		$.ajax({
 			type:"get",
 			contentType:"application/json",//RestController이면 생략가능
@@ -202,7 +246,8 @@ $(document).ready(function(){
 				$("#log").html(output);
 			}
 		});
-	}
+	} */
+	
 });
 
 </script>

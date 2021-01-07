@@ -151,6 +151,13 @@ textarea#AuctionContent {
     border:1px solid red;
     box-sizing: border-box;
 }
+div#log {
+    display: flex;
+    justify-content: center;
+    align-items: baseline;
+    width: 100%;
+    height: auto;
+}
 
 /* Oction-joinform참여 */
 

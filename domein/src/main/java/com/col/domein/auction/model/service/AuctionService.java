@@ -35,6 +35,8 @@ public interface AuctionService {
 	List<Map> selectAuctionOne(int articleNo);
 	//옥션 joinEnlloList
 	int insertJoinAuctionList(AuctionBid bid, BidContent bc);
+	//join 목록 불러오기 
+	List<Map> selectBidContent(int articleNo, int writerKey);
 
 
 

@@ -128,6 +128,12 @@ public class AuctionServiceImpl implements AuctionService {
 		}
 		return result;
 	}
+	//join목록
+	@Override
+	public List<Map> selectBidContent(int articleNo, int writerKey) {
+		// TODO Auto-generated method stub
+		return dao.selectselectBidContent(session,articleNo,writerKey);
+	}
 
 
 	
