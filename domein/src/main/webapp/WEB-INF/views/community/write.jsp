@@ -16,22 +16,22 @@
 	<table width=100%>
 		<tr>
 			<td>제목</td>
-			<td><input type="text" name="title" id="title" placeholder="제목을 입력해주세요"></td>
+			<td><input type="text" name="title" id="title" placeholder="제목을 입력해주세요" required></td>
 		</tr>
 		<tr>
 			<td>파일</td>
 			<td>
-				<input type="file" name="file1" id="file1">
+				<input type="file" name="upFile" id="upFile1">
 			</td>
 		</tr>
 		<tr>
 			<td>내용</td>
-			<td><textarea rows="5" cols="60" name="ckeditor" id="ckeditor" placeholder="내용을 입력해주세요"></textarea>
+			<td><textarea rows="5" cols="60" name="ckeditor" id="ckeditor" placeholder="내용을 입력해주세요" required></textarea>
 			</td>
 		</tr>
 	</table>
 	    <div class="sbm">
-            <input type="button" class="btn" id="btnSave" value="확인" />
+            <input type="submit" class="btn" id="btnSave" value="저장" />
             <input type="button" class="btn" id="btnR" value="취소"/>
         </div>
     </form>

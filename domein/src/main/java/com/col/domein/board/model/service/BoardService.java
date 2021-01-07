@@ -17,5 +17,6 @@ public interface BoardService {
 	int selectCount();
 	Board selectBoardOne(int threadKey);
 	int write(Board board,List<Attachment> files);
+	List<Attachment> selectAttach(int threadKey);
 
 }
