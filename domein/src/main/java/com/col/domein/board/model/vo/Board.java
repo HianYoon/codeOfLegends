@@ -4,6 +4,7 @@ import java.sql.Date;
 
 import org.springframework.stereotype.Component;
 
+
 @Component
 public class Board {
 	
@@ -12,6 +13,7 @@ public class Board {
 	private String threadTitle;
 	private String articleContent;
 	private int writerKey;
+	private int actorKey;
 	private Date writtenDate;
 	private Date modifiedDate;
 	private int readCount;
@@ -21,7 +23,7 @@ public class Board {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Board(int articleNo, int threadKey, String threadTitle, String articleContent, int writerKey,
+	public Board(int articleNo, int threadKey, String threadTitle, String articleContent, int writerKey, int actorKey,
 			Date writtenDate, Date modifiedDate, int readCount, int threadStatusNo) {
 		super();
 		this.articleNo = articleNo;
@@ -29,6 +31,7 @@ public class Board {
 		this.threadTitle = threadTitle;
 		this.articleContent = articleContent;
 		this.writerKey = writerKey;
+		this.actorKey = actorKey;
 		this.writtenDate = writtenDate;
 		this.modifiedDate = modifiedDate;
 		this.readCount = readCount;
@@ -75,6 +78,14 @@ public class Board {
 		this.writerKey = writerKey;
 	}
 
+	public int getActorKey() {
+		return actorKey;
+	}
+
+	public void setActorKey(int actorKey) {
+		this.actorKey = actorKey;
+	}
+
 	public Date getWrittenDate() {
 		return writtenDate;
 	}
@@ -107,10 +118,20 @@ public class Board {
 		this.threadStatusNo = threadStatusNo;
 	}
 
+	
+	@Override
+	public String toString() {
+		return "Board [articleNo=" + articleNo + ", threadKey=" + threadKey + ", threadTitle=" + threadTitle
+				+ ", articleContent=" + articleContent + ", writerKey=" + writerKey + ", actorKey=" + actorKey
+				+ ", writtenDate=" + writtenDate + ", modifiedDate=" + modifiedDate + ", readCount=" + readCount
+				+ ", threadStatusNo=" + threadStatusNo + "]";
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
+		result = prime * result + actorKey;
 		result = prime * result + ((articleContent == null) ? 0 : articleContent.hashCode());
 		result = prime * result + articleNo;
 		result = prime * result + ((modifiedDate == null) ? 0 : modifiedDate.hashCode());
@@ -132,6 +153,8 @@ public class Board {
 		if (getClass() != obj.getClass())
 			return false;
 		Board other = (Board) obj;
+		if (actorKey != other.actorKey)
+			return false;
 		if (articleContent == null) {
 			if (other.articleContent != null)
 				return false;
@@ -166,7 +189,4 @@ public class Board {
 	}
 	
 	
-	
 }
-
-

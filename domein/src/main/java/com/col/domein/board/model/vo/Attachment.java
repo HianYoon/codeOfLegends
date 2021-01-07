@@ -65,6 +65,13 @@ public class Attachment {
 		this.renamedFileName = renamedFileName;
 	}
 
+	
+	@Override
+	public String toString() {
+		return "Attachment [fileKey=" + fileKey + ", imageKey=" + imageKey + ", articleNo=" + articleNo
+				+ ", originalFileName=" + originalFileName + ", renamedFileName=" + renamedFileName + "]";
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -103,6 +110,11 @@ public class Attachment {
 		} else if (!renamedFileName.equals(other.renamedFileName))
 			return false;
 		return true;
+	}
+
+	public static Object builder() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 	
 	
