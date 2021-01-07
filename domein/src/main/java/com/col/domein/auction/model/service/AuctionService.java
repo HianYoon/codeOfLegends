@@ -37,6 +37,12 @@ public interface AuctionService {
 	int insertJoinAuctionList(AuctionBid bid, BidContent bc);
 	//join 목록 불러오기 
 	List<Map> selectBidContent(int articleNo, int writerKey);
+	//joinList목록  지우기
+	int auctionJoinListdelete(int bidKey);
+	//업체 갯수 정보 불러오기 
+	int selectAuctionJoinCount(int articleNo);
+	//참여업체 정보
+	List<Map> selectJoinCompany(int writerKey);
 
 
 

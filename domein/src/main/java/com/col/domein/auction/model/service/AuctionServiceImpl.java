@@ -134,6 +134,24 @@ public class AuctionServiceImpl implements AuctionService {
 		// TODO Auto-generated method stub
 		return dao.selectselectBidContent(session,articleNo,writerKey);
 	}
+	//join목록 list삭제
+	@Override
+	public int auctionJoinListdelete(int bidKey) {
+		// TODO Auto-generated method stub
+		return dao.auctionJoinListdelete(session,bidKey);
+	}
+	//join업체 수 및 정보가져오기 
+	@Override
+	public int selectAuctionJoinCount(int articleNo) {
+		// TODO Auto-generated method stub
+		return dao.selectAuctionJoinCount(session,articleNo);
+	}
+	//참여업체 정보가져오기 
+	@Override
+	public List<Map> selectJoinCompany(int writerKey) {
+		// TODO Auto-generated method stub
+		return dao.selectJoinCompany(session,writerKey);
+	}
 
 
 	

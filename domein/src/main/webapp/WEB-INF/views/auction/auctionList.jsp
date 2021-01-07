@@ -4,6 +4,7 @@
     <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
     <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
      <c:set var="path" value="${pageContext.request.contextPath }"/>
+     <c:set var="business" value="${signedInMember.businesses }"/>
     
 <link rel="stylesheet"
 	href="${path }/resources/css/auction/auction.css" />
@@ -67,10 +68,10 @@
                                     <!-- 절제선 -->
                                     <div class="oction--grid--container">
                        
-                                        <a href="${path }/auction/auctionView.do?articleNo=${auction.ARTICLE_NO}"class="oction-img-group">
+                                        <a href="${path }/auction/auctionView.do?articleNo=${auction.ARTICLE_NO}&writerKey=${auction.WRITER_KEY}"class="oction-img-group">
                                             <img id="big-target" src="${path }/resources/upload/boardauction/file/${auction.RENAMED_FILE_NAME}" alt="이미지" data-zoom="3"/>
                                             <input type="hidden" id="articleNo" name="articleNo" value="${auction.ARTICLE_NO}"/>
-                                            <input type="hidden" id="writerKey" name="memberKey" value="${signedInMember.memberKey}"/>
+                                            <input type="hidden" id="memberKey" name="memberKey" value="${signedInMember.memberKey}"/>
                                         </a>
                                         <div>
             
@@ -104,9 +105,11 @@
 </section>
 <script src="${path }/resources/js/auction/auctionList.js" defer></script>
 <script>
+		const writer=$("#writerKey").val();
+		console.log("없니?"+writer);
 $(document).ready('click',"#auctionlike",function(){
 		const articleNo=$("#articleNo").val();
-		const writerKey=$("#writerKey").val();
+		const writerKey=$("#memberKey").val();
 		var form={
 				aricleNo:articleNo,
 				writerKey:writerKey

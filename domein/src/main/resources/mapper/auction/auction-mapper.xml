@@ -80,4 +80,18 @@
 		<select id="selectselectBidContent" resultType="map">
 			select * from auction_bid ab inner join bid_content bc on ab.bid_key=bc.bid_key where ab.article_no=#{articleNo} and ab.writer_key=#{writerKey}
 		</select>
+		
+		<!-- join목록 삭제  -->
+		<delete id="auctionJoinListdelete" parameterType="_int">
+			delete from auction_bid a where exists(SELECT * FROM bid_content bc where a.bid_key=#{bidKey})
+		</delete>
+		<!--참여업체수   -->
+		<select id="selectAuctionJoinCount" resultType="_int">
+			select count(DISTINCT ab.writer_key) from auction_bid ab where ab.article_no=#{writerKey}
+		</select>
+		
+		<!--참여업체수   -->
+		<select id="selectJoinCompany" resultType="auctionBid">
+			select writer_key from auction_bid where writer_key=#{writerKey} group by writer_key
+		</select>
 </mapper>

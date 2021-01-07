@@ -123,6 +123,25 @@ public class AuctionDaoImpl implements AuctionDao {
 		map.put("writerKey",writerKey);
 		return session.selectList("boardAuction.selectselectBidContent",map);
 	}
+	//joinList목록 삭제 
+	@Override
+	public int auctionJoinListdelete(SqlSession session, int bidKey) {
+		// TODO Auto-generated method stub
+		return session.delete("boardAuction.auctionJoinListdelete",bidKey);
+	}
+	//joinList업체 가져오기 
+	@Override
+	public int selectAuctionJoinCount(SqlSession session, int articleNo) {
+		// TODO Auto-generated method stub
+		return session.selectOne("boardAuction.selectAuctionJoinCount",articleNo);
+	}
+	//참여업체 정보가져오기 
+	@Override
+	public List<Map> selectJoinCompany(SqlSession session,int writerKey) {
+		// TODO Auto-generated method stub
+		return session.selectList("boardAuction.selectJoinCompany",writerKey);
+	}
+	
 
 	
 	
