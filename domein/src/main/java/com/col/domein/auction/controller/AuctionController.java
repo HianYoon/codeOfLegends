@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -106,11 +107,31 @@ public class AuctionController {
 	
 	//옥션 join 등록 ajax
 	@RequestMapping("/auction/joinWriter.do")
-	public ModelAndView auctionEnlloUpdate(ModelAndView mv,AuctionBid bid,BidContent bc) {
+	@ResponseBody
+	public List<Map> auctionEnlloUpdate(AuctionBid bid,BidContent bc) {
 		System.out.println(""+bid+""+bc);
+		int articleNo=bid.getArticleNo();
+		int writerKey=bid.getWriterKey(); 
 		int result=service.insertJoinAuctionList(bid,bc);
-		mv.setViewName("auction/auctionJoinEnllo");
-		return mv;
+		List<Map> list=service.selectBidContent(articleNo,writerKey);//목록 불러오기 
+	System.out.println(""+list);
+		return list;
+	}
+	//옥션join목록 삭제 
+	@RequestMapping("/auction/joinEnllo")
+	@ResponseBody
+	public int auctionJoinListdelete(AuctionBid bid) {
+		int bidKey=bid.getBidKey();
+		int data=service.auctionJoinListdelete(bidKey);
+		return data;
+	}
+//옥션 joinList불러오기
+	@RequestMapping("/auction/Selectlist")
+	@ResponseBody
+	public List<Map> auctionEnlloUpdate(int articleNo,int writerKey ){
+		
+		List<Map> joinList=service.selectBidContent(articleNo,writerKey);
+		return joinList;
 	}
 	//옥션 참여수정
 	@RequestMapping("/auction/auctionJoinUpdate.do")
@@ -124,11 +145,16 @@ public class AuctionController {
 	}
 	//옥션 view페이지
 	@RequestMapping("/auction/auctionView.do")
-	public ModelAndView auctionView(ModelAndView mv, int articleNo) {
+	public ModelAndView auctionView(ModelAndView mv, int articleNo,int writerKey) {
+		System.out.println("writerKey"+writerKey);
 		List<Map> list=service.selectAuctionView(articleNo);
+		List<Map> company=service.selectJoinCompany(articleNo);//
+		int count=service.selectAuctionJoinCount(articleNo);//참여업체수 
 		//조회수 +1
 		service.plusReadCount(articleNo);
 		mv.addObject("list",list);
+		mv.addObject("count",count);
+		mv.addObject("company",company);
 		mv.setViewName("auction/auctionView");
 		
 		return mv;

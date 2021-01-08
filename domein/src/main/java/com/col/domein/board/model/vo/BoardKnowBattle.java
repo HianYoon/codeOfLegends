@@ -4,6 +4,7 @@ import java.sql.Date;
 
 import org.springframework.stereotype.Component;
 
+
 @Component
 public class BoardKnowBattle {
 	
@@ -111,7 +112,7 @@ public class BoardKnowBattle {
 				+ ", threadStatusNo=" + threadStatusNo + "]";
 	}
 
-
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;

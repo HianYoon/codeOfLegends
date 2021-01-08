@@ -1,5 +1,5 @@
 .myPageHeader {
-	background-color: var(--main-yellow);
+	/* background-color: var(--main-yellow); */
 	display: flex;
 	flex-direction: column;
 	justify-content: space-around;

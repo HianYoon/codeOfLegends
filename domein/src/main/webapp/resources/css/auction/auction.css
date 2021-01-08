@@ -48,7 +48,7 @@ textarea#AuctionContent {
     width: 80%;
     height: 100px;
 }
-@media(max-width:700px){
+@media(max-width:768px){
     div#tab2{
         width:700px;
         height: auto;
@@ -151,6 +151,13 @@ textarea#AuctionContent {
     border:1px solid red;
     box-sizing: border-box;
 }
+div#log {
+    display: flex;
+    justify-content: center;
+    align-items: baseline;
+    width: 100%;
+    height: auto;
+}
 
 /* Oction-joinform참여 */
 
@@ -182,7 +189,7 @@ textarea#AuctionContent {
     display:flex;
     margin-bottom: 10px;
 }
-@media(max-width: 700px){
+@media(max-width: 768px){
   
     div#tab3{
         width:700px;
@@ -328,15 +335,18 @@ textarea#AuctionContent {
     margin: 20px 0;
 
 }
-.choice-conpany-container ul{
+.choice-conpany-container ul {
     display: flex;
-    width: auto;
-    height:30px;
-    padding: 15px;
+    width: 100%;
+    height: 130px;
     justify-content: space-around;
-    
-    background: orange;
+   background:url('/domein/resources/images/auction/auction.jpg')no-repeat 0 0;;
     border-radius: 5px;
+    margin: 20px;
+    background-position: center;
+}
+.choice-conpany-container ul:hover{
+	filter: grayscale(1);
 }
 .modal-btn {
     display: flex;

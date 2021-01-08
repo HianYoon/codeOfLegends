@@ -3,12 +3,13 @@
     <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
     <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
     <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
-     <c:set var="path" value="${pageContext.request.contextPath }"/>
-    
+     <c:set var="path" value="${pageContext.request.contextPath }"/>    
 <link rel="stylesheet"
 	href="${path }/resources/css/auction/auction.css" />
   <link rel="stylesheet" href="${path }/resources/css/jihunTab/TabMedia.css"/>
-  
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 <jsp:include page="/WEB-INF/views/common/header.jsp">
 	<jsp:param name="title" value=""/>
 </jsp:include>
@@ -36,16 +37,6 @@
 
  <div id="octionPage">
 
-        <div id="wrapper">    
-            <!--탭 메뉴 영역 -->
-            <ul class="tabs">
-                <li><a href="#tab1">입찰목록</a></li>
-                <li><a href="#tab2">입찰등록</a></li>
-                <li><a href="#tab3">입찰참여</a></li>
-                <li><a href="#tab5">myOction<br>(판매자)</a></li>
-               
-            </ul>
-        </div>
         <div class="tab-container-group">
 
        
@@ -64,11 +55,11 @@
                                 <div class="User-container">
                                     <div class="oction--img-joinform">
                                         <div class="joinImg">
-                                            <img src="${path}/resources/boardauction/file/${auction.RENAMED_FILE_NAME}" alt="이미지" style="width:400px;height:250px; border: 1px solid red;">
+                                            <img src="${path}/resources/upload/boardauction/file/${auction.RENAMED_FILE_NAME}" alt="이미지" style="width:400px;height:250px; border: 1px solid red;">
                                             
                                             <p>
                                              <span class="small-img">
-                                            	<img src="${path}/resources/boardauction/file/${auction.RENAMED_FILE_NAME}" alt="">
+                                            	<img src="${path}/resources/upload/boardauction/file/${auction.RENAMED_FILE_NAME}" alt="">
                                             </span>
                                             </p>
                                             
@@ -77,12 +68,12 @@
                                     </div>
                                     <div class="buyerList">
                                         <ul class="usercontent">
-                                            <li >${auction.TITLE}</li>
-                                            <li >${auction.BUSINESS_NAME}</li>
+                                            <li >제목: ${auction.TITLE}</li>
+                                            <li >사업자명: ${auction.BUSINESS_NAME}</li>
                                             <li><span >시작일:<fmt:formatDate value="${auction.START_DATE}" pattern="yyyy-MM-dd"/></span>
                                             <span >마감일:<fmt:formatDate value="${auction.END_DATE}" pattern="yyyy-MM-dd"/></span></li>
                                            
-                                            <li >내용:${auction.CONTENT}</li>
+                                            <li >${auction.CONTENT}</li>
                                         </ul>
 
                                     </div>
@@ -98,9 +89,9 @@
                                            		<input type="hidden" id="writerKey" name="writerKey" value="${auction.BUSINESS_KEY}"/>
                                            		<input type="hidden" id="bidStatusNo" name="bidStatusNo" value="1"/>
                                            
-						</c:forEach>
+									</c:forEach>
                                                <input type="text" id="productName" name="products" class="input--text" placeholder="품명" required>
-                                               <input type="text" id="productQuality" name="products" class="input--text" placeholder="등급" required>
+                                               <input type="text" id="productQuality" name="products" class="input--text" placeholder="등급/없으면 무"  value="" required>
                                                <input type="text" id="productOrigin" name="products" class="input--text" placeholder="원산지"  required>
                                                <input type="text" id="Quantity" name="products"class="input--text" placeholder="양"  required>
                                                
@@ -114,12 +105,28 @@
                                         <div>
                                             
                                             <button type="button" id="addList" class="btn btn--primary2">추가</button>
-                                            <button type="button" id="resetInput" class="btn btn--primary2">초기화</button>
+                                            <button type="button" id="selectList" class="btn btn--primary2">목록불러오기</button>
                                         </div>
                                     </div>
                                     <div>
                                         <h3>품목명</h3>
-                                        <div id="log"></div>
+                                        <div id="log">
+                                        	<table class="table table-striped">
+                                        		<thead>
+                                        			 <tr>
+													    <th>번호</th>
+														<th>상품명</th>
+														<th>원산지</th>
+														<th>등급</th>
+														<th>양/갯수</th>
+														<th>단위</th>
+														<th>가격</th>
+													 </tr>
+                                        		</thead>
+                                        		<tbody id="appendTo">
+                                        		</tbody>
+                                        	</table>
+                                        </div>
                                     </div>
                                     <div class="joinformBtn">
                                          <button type="submit" class="btn btn--primary">등록</button>
@@ -140,7 +147,12 @@
 <script type="text/javascript">
 //
 $(document).ready(function(){
-	listReply2();//json리턴방식
+	if($("#productQuality").val() == null){
+		let non= "없음";
+		$("#productQuality").val(non);
+	}
+	
+	//listReply2();//json리턴방식
 	$("#addList").click(function(){
 		let articleNo=$("#articleNo").val();
 		console.log(articleNo);
@@ -155,55 +167,120 @@ $(document).ready(function(){
 		const bid="articleNo="+articleNo+"&writerKey="+writerKey+"&bidStatusNo="+bidStatusNo+
 		"&productName="+productName+"&productQuality="+productQuality+"&productOrigin="+productOrigin+"&Quantity="+Quantity+
 		"&measureUnit="+measureUnit+"&price="+price;
+		
 		$.ajax({
-			type:"post",
+			type:"get",
 			url:"${path}/auction/joinWriter.do",
+			contentType:"application/json",
+			dataType:"json",
 			data:bid,
-			success: function(){
+			success: function(result){
 				alert("추가되었습니다.");
-				listReply2();
+				//listReply2();
+				console.log(result);
+				let output="";
+				/* output="<table class='table table-striped'";
+				output="<thead>";
+				output="<tr>";
+				output="<th>번호</th>";
+				output="<th>상품명</th>";
+				output="<th>원산지</th>";
+				output="<th>등급</th>";
+				output="<th>양/갯수</th>";
+				output="<th>단위</th>";
+				output="<th>가격</th>";
+				output="</tr>";
+				output="</thead>"; */
+				//arrayList로 출력할시에는 for in문이 아닌 for문으로 해야한다.
+				//불러올시에는 bd컬럼명하고 똑같아야한다.
+				for(let i =0;i <result.length; i++){
+					output += "<tr>";
+					
+					output +="<td><input type='text' id='SbidKey' name='bidKey'value='"+result[i].BID_KEY+"'/></td>";
+					output +="<td>"+result[i].PRODUCT_NAME+"</td>";
+					output +="<td>"+result[i].PRODUCT_ORIGIN+"</td>";
+					output +="<td>"+result[i].PRODUCT_QUALITY+"</td>";
+					output +="<td>"+result[i].PRODUCT_QUANTITY+"</td>";
+					output +="<td>"+result[i].MEASURE_UNIT+"</td>";
+					output +="<td>"+result[i].PRICE+"</td>";
+					output +="<td><input type='button' class='btn btn-Primary2' onclick='listUpdate();' value='수정'>";
+					output +="<td><input type='button' class='btn btn-Primary2' onclick='listdelete();' value='삭제' >";
+					output +="</tr>";	
+				}
+			/* 	output +="</tbody>";
+				output += "</table>"; */
+				$("#appendTo").html(output);
 			}
 		});
 		
 	});
-	//Controller방식
-	function listReply(){
+	function listdelete(){
+		let bidKey=$("#SbidKey").val();
+		const bid1="bidKey="+bidKey;
+		console.log("bid:"+bid1);
 		$.ajax({
 			type:"get",
-			url:"${path}/auction/joinList.do",
-			success: function(data){
-				//responseText가 result에 저장됨.
-				$("#log").html(data);
+			url:"${path}/auction/joinEnllo",
+			contentType: "aplication/json",
+			dataType:"json",
+			data:bid1,
+			success:function(data){
+				alert("삭제되었습니다.");
+				
+				
 			}
 		});
 	}
-	function listReply2(){
-		$.ajax({
-			type:"get",
-			contentType:"application/json",//RestController이면 생략가능
-			url:"${path}/auction/joinList.do",
-			success: function(result){
-				console.log(result);
-				let output="<table id='joinCheck'>";
-				for(let i in result){
-					output += "<tr>";
-					
-					output +="<td><input type='checkbox' name='checkList' id='checkList' value=''/></td>";
-					output +="<td>"+result[i].bidKey+"</td>";
-					output +="<td>"+result[i].productName+"</td>";
-					output +="<td>"+result[i].productQuality+"</td>";
-					output +="<td>"+result[i].productOrigin+"</td>";
-					output +="<td>"+result[i].Quantity+"</td>";
-					output +="<td>"+result[i].measureUnit+"</td>";
-					output +="<td>"+result[i].price+"</td>";
-					output +="</tr>";	
+		$("#selectList").click(function(){
+			let articleNo=$("#articleNo").val();
+			console.log(articleNo);
+			let writerKey=$("#writerKey").val();
+			const list="articleNo="+articleNo+"&writerKey="+writerKey;
+			$.ajax({
+				type:"get",
+				url:"${path}/auction/Selectlist",
+				contentType:"alication/json",
+				dataType:"json",
+				data:list,
+				success:function(data){
+					console.log(data);
+					let output="";
+				//	output="<table class='table table-striped'>";
+		/* 			output="<thead>";
+					output="<tr>";
+					output="<th>번호</th>";
+					output="<th>상품명</th>";
+					output="<th>원산지</th>";
+					output="<th>등급</th>";
+					output="<th>양/갯수</th>";
+					output="<th>단위</th>";
+					output="<th>가격</th>";
+					output="</tr>";
+					output="</thead>"; */
+					//output="<tbody>";
+					//arrayList로 출력할시에는 for in문이 아닌 for문으로 해야한다.
+					//불러올시에는 bd컬럼명하고 똑같아야한다.
+					for(let i =0;i <data.length; i++){
+						output += "<tr>";
+						output +="<td>"+data[i].BID_KEY+"</td>";
+						output +="<td>"+data[i].PRODUCT_NAME+"</td>";
+						output +="<td>"+data[i].PRODUCT_ORIGIN+"</td>";
+						output +="<td>"+data[i].PRODUCT_QUALITY+"</td>";
+						output +="<td>"+data[i].PRODUCT_QUANTITY+"</td>";
+						output +="<td>"+data[i].MEASURE_UNIT+"</td>";
+						output +="<td>"+data[i].PRICE+"</td>";
+						output +="<td><input type='button' class='btn btn-Primary2' onclick='listUpdate();' value='수정'><input type='button' class='btn btn-Primary2' onclick='listdelete();' value='삭제' ></td>";
+						output +="</tr>";
+					}
+					//output +="</tbody>";
+				//	output += "</table>";
+					$("#appendTo").html(output);
 				}
-				output += "</table>";
-				$("#log").html(output);
-			}
-		});
-	}
-});
+			})
+		})
+	});
+	
+
 
 </script>
 <jsp:include page="/WEB-INF/views/common/footer.jsp"/>
