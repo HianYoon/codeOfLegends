@@ -94,4 +94,14 @@
 		<select id="selectJoinCompany" resultType="auctionBid">
 			select writer_key from auction_bid where writer_key=#{writerKey} group by writer_key
 		</select>
+		<!-- join목록 list수정 -->
+		<update id="auctionJoinUpdate" parameterType="_int">
+			update BID_CONTENT set PRODUCT_NAME=#{productName},PRODUCT_QUALITY=#{productQuality},PRODUCT_ORIGIN=#{productOrigin},
+			PRODUCT_QUANTITY=#{Quantity},MEASURE_UNIT=#{measureUnit},PRICE=#{price} where BID_KEY=#{bidKey}
+		</update>
+		
+		<select id="selectJoinList" resultType="map">
+			select * from BID_CONTENT where BID_KEY=#{bidKey}
+		</select>
+
 </mapper>

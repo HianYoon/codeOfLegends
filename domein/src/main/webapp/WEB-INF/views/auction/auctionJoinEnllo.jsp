@@ -145,12 +145,7 @@
 </div>
 </section>
 <script type="text/javascript">
-//
-$(document).ready(function(){
-	if($("#productQuality").val() == null){
-		let non= "없음";
-		$("#productQuality").val(non);
-	}
+
 	
 	//listReply2();//json리턴방식
 	$("#addList").click(function(){
@@ -196,7 +191,7 @@ $(document).ready(function(){
 				for(let i =0;i <result.length; i++){
 					output += "<tr>";
 					
-					output +="<td><input type='text' id='SbidKey' name='bidKey'value='"+result[i].BID_KEY+"'/></td>";
+					output +="<td>"+result[i].BID_KEY+"</td>";
 					output +="<td>"+result[i].PRODUCT_NAME+"</td>";
 					output +="<td>"+result[i].PRODUCT_ORIGIN+"</td>";
 					output +="<td>"+result[i].PRODUCT_QUALITY+"</td>";
@@ -204,7 +199,7 @@ $(document).ready(function(){
 					output +="<td>"+result[i].MEASURE_UNIT+"</td>";
 					output +="<td>"+result[i].PRICE+"</td>";
 					output +="<td><input type='button' class='btn btn-Primary2' onclick='listUpdate();' value='수정'>";
-					output +="<td><input type='button' class='btn btn-Primary2' onclick='listdelete();' value='삭제' >";
+					output +="<td><input type='button' class='btn btn-Primary2' id='listdelete' value='삭제' >";
 					output +="</tr>";	
 				}
 			/* 	output +="</tbody>";
@@ -214,23 +209,8 @@ $(document).ready(function(){
 		});
 		
 	});
-	function listdelete(){
-		let bidKey=$("#SbidKey").val();
-		const bid1="bidKey="+bidKey;
-		console.log("bid:"+bid1);
-		$.ajax({
-			type:"get",
-			url:"${path}/auction/joinEnllo",
-			contentType: "aplication/json",
-			dataType:"json",
-			data:bid1,
-			success:function(data){
-				alert("삭제되었습니다.");
-				
-				
-			}
-		});
-	}
+ 
+
 		$("#selectList").click(function(){
 			let articleNo=$("#articleNo").val();
 			console.log(articleNo);
@@ -261,15 +241,15 @@ $(document).ready(function(){
 					//arrayList로 출력할시에는 for in문이 아닌 for문으로 해야한다.
 					//불러올시에는 bd컬럼명하고 똑같아야한다.
 					for(let i =0;i <data.length; i++){
-						output += "<tr>";
-						output +="<td>"+data[i].BID_KEY+"</td>";
+						output += "<tr id='updateList'>";
+						output +="<td id='SbidKey'>"+data[i].BID_KEY+"</td>";
 						output +="<td>"+data[i].PRODUCT_NAME+"</td>";
 						output +="<td>"+data[i].PRODUCT_ORIGIN+"</td>";
 						output +="<td>"+data[i].PRODUCT_QUALITY+"</td>";
 						output +="<td>"+data[i].PRODUCT_QUANTITY+"</td>";
 						output +="<td>"+data[i].MEASURE_UNIT+"</td>";
 						output +="<td>"+data[i].PRICE+"</td>";
-						output +="<td><input type='button' class='btn btn-Primary2' onclick='listUpdate();' value='수정'><input type='button' class='btn btn-Primary2' onclick='listdelete();' value='삭제' ></td>";
+						output +="<td><input type='button' class='btn btn-Primary2' id='listUpdate' value='수정'><input type='button' class='btn btn-Primary2' id='listdelete' value='삭제' ></td>";
 						output +="</tr>";
 					}
 					//output +="</tbody>";
@@ -278,8 +258,122 @@ $(document).ready(function(){
 				}
 			})
 		})
+
+	//데이터 삭제 
+$(document.body).on("click","#listdelete",function(){
+		const tbody=$(this).closest("#appendTo");
+			let bidK=tbody.find("#SbidKey").text();
+			let bidKey=Number(bidK);
+			console.log(bidKey);
+		const bik="bidKey="+bidKey;
+		
+	if(confirm("삭제하시겠습니까?")){
+		console.log("bik:"+bik);
+		
+	}
+	console.log("bik:"+bik);
+	$.ajax({
+		type:"get",
+		url:"${path}/auction/joinEnllo",
+		contentType: "aplication/json",
+		dataType:"json",
+		data:bik,
+		success:function(data){
+			alert("삭제되었습니다.");
+			$("#SbidKey").parent().remove();
+			
+		}
 	});
+}); 
+//수정 
+$(document.body).on("click","#listUpdate",function(){ 
+	const tbody=$(this).closest("#appendTo");
+	let bidK=tbody.find("#SbidKey").text();
+	let bidKey= Number(bidK);
+	const bidOne="bidKey="+bidKey;
+	if(confirm("수정하시겠습니까?")){
+	}
+	$.ajax({
+		type:"get",
+		url:"${path}/auction/auctionJoinUpdate.do",
+		contentType:"aplication/json",
+		dataType:"json",
+		data:bidOne,
+		success:function(data){
+			alert("나오냐?");
+			let out="";
+			out="<form id='updateForm'>";
+			for(let i = 0 ; i<data.length;i++){
+				
+			out +="<tr id='update'>";
+			out +="<td><input type='text' id='update' class='input--text' name='bidKey' value='"+data[i].BID_KEY+"' readonly/></td>";
+			out +="<td><input type='text' id='update' class='input--text' name='productName' value='"+data[i].PRODUCT_NAME+"'/></td>";
+			out +="<td><input type='text' id='update' class='input--text' name='productOrigin' value='"+data[i].PRODUCT_ORIGIN+"'/></td>";
+			out +="<td><input type='text' id='update' class='input--text' name='productQuality' value='"+data[i].PRODUCT_QUALITY+"'/></td>";
+			out +="<td><input type='text' id='update' class='input--text' name='Quantity' value='"+data[i].PRODUCT_QUANTITY+"'/></td>";
+			out +="<td><input type='text' id='update' class='input--text' name='measureUnit' value='"+data[i].MEASURE_UNIT+"'/></td>";
+			out +="<td><input type='text' id='update' class='input--text' name='price' value='"+data[i].PRICE+"'/></td>";
+			out +="<td><button type='button' id='uploadBtn' class='btn btn-primary2'>버튼</button></td> ";
+			out +="</tr>";
+			}
+			out +="</form>";
+		$("#updateList").html(out);
+		}
+	});
+});
+//form 데이터로로 보낼때 @RequestBody로 받지못하고 메시지컨버트예외가 발생하게되는데 이럴경우
+//form data를 json으로 보낼수만 있다면 모두 해결되고 엘리먼트를 하나씩뽑아서json형태로 보내지않기위해서 
+jQuery.fn.serializeObject= function(){
+	var obj= null;
+	try{
+		if(this[0].tagName && this[0].tagName.toUpperCase() == "FORM"){
+			var arr = this.serializeArray();
+			if(arr){obj = {};
+				JQuery.each(arr, function(){
+					obj[this.name] = this.value;
+				});
+			}
+		}
+	}catch(e){
+		alert(e.message);
+	}finally{}
+	return obj;
+}
+
+//form 데이터 형식으로 보내기 
+$(document.body).on("click","#listUpdate",function(){
 	
+	var form=$(this).closest("#updateForm").serializeObject();
+		$.ajax({
+			url:'${path}/auction/auctionJoinUpdateEnllo.do',
+			type:'POST',
+			contentType:'application/json',
+			data:JSON.stringify(form),//객체형태로 
+			dataType:"json",
+			success:function(data){
+				alert(data);
+				let form="";
+				
+				for(let i =0;i <data.length; i++){
+					form += "<tr id='updateList'>";
+					form +="<td id='SbidKey'>"+data[i].BID_KEY+"</td>";
+					form +="<td>"+data[i].PRODUCT_NAME+"</td>";
+					form +="<td>"+data[i].PRODUCT_ORIGIN+"</td>";
+					form +="<td>"+data[i].PRODUCT_QUALITY+"</td>";
+					form +="<td>"+data[i].PRODUCT_QUANTITY+"</td>";
+					form +="<td>"+data[i].MEASURE_UNIT+"</td>";
+					form +="<td>"+data[i].PRICE+"</td>";
+					form +="<td><input type='button' class='btn btn-Primary2' id='listUpdate' value='수정'><input type='button' class='btn btn-Primary2' id='listdelete' value='삭제' ></td>";
+					form +="</tr>";
+				}
+				$("#appendTo").html(form);
+			},
+			  error: function(){
+	                alert("serialize err");
+		}
+		});
+});
+
 
 
 </script>

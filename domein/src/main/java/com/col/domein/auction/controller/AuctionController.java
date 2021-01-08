@@ -135,8 +135,24 @@ public class AuctionController {
 	}
 	//옥션 참여수정
 	@RequestMapping("/auction/auctionJoinUpdate.do")
-	public String auctionJoinUpdate() {
-		return "auction/auctionJoinUpdate";
+	@ResponseBody
+	public List<Map> auctionJoinUpdate(BidContent bid) {
+			int bidKey=bid.getBidKey();
+			System.out.println("bid:"+bid);
+			System.out.println(bidKey);
+		
+			List<Map> list=service.selectJoinList(bidKey);
+			System.out.println("list:"+list);
+			
+		return list;
+	}
+	//옥션 join list 수정 등록
+	@RequestMapping("/auction/auctionJoinUpdateEnllo.do")
+	@ResponseBody
+	public int JoinListUpdate (BidContent bid) {
+		System.out.println("수정from bid:"+bid);
+		int result=service.auctionJoinUpdate(bid);
+		return result;
 	}
 	//옥션 my페이지
 	@RequestMapping("/auction/auction.do")
@@ -159,7 +175,7 @@ public class AuctionController {
 		
 		return mv;
 	}
-	//
+	//list
 	@RequestMapping("/auction/auctionList.do")
 	public ModelAndView selectAuctionList(ModelAndView mv,
 			@RequestParam(value="cPage",defaultValue="1") int cPage,
