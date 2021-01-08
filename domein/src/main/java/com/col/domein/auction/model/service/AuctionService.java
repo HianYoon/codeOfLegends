@@ -44,12 +44,9 @@ public interface AuctionService {
 	//참여업체 정보
 	List<Map> selectJoinCompany(int writerKey);
 	//joinList수정
-	int auctionJoinUpdate(AuctionBid bid);
+	int auctionJoinUpdate(BidContent bid);
 	//joinlist수정된 목록가져오기
-	BidContent selectJoinList(int bidKey);
-
-
-
+	List<Map> selectJoinList(int bidKey);
 
 
 }

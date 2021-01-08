@@ -57,8 +57,8 @@ public interface AuctionDao {
 	List<Map> selectJoinCompany(SqlSession session, int writerKey);
 	
 	//join목록List 수정
-	int auctionJoinUpdate(SqlSession session, AuctionBid bid);
+	int auctionJoinUpdate(SqlSession session, BidContent bid);
 	//join수정할 list불러오기 
-	BidContent selectJoinList(SqlSession session, int bidKey);
+	List<Map> selectJoinList(SqlSession session, int bidKey);
 
 }

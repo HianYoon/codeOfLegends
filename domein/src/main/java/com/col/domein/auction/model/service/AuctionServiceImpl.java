@@ -155,17 +155,16 @@ public class AuctionServiceImpl implements AuctionService {
 	
 	//join목록List수정
 	@Override
-	public int auctionJoinUpdate(AuctionBid bid) {
+	public int auctionJoinUpdate(BidContent bid) {
 		// TODO Auto-generated method stub
 		return dao.auctionJoinUpdate(session,bid);
 	}
 	//수정할 joinlist불러오기
 	@Override
-	public BidContent selectJoinList(int bidKey) {
+	public List<Map> selectJoinList(int bidKey) {
 		// TODO Auto-generated method stub
 		return dao.selectJoinList(session,bidKey);
 	}
-
 
 	
 }
