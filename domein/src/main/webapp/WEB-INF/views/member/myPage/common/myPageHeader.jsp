@@ -6,7 +6,7 @@
 <c:set var="path" value="${pageContext.request.contextPath }" />
 <script src="http://code.jquery.com/jquery-3.5.1.min.js"></script>
 <link rel="stylesheet"
-	href="${path}/resources/css/member/myPage/common/myPageHeader.css">
+	href="${path}/resources/css/member/myPage/common/myPageHeader.css?after">
 <script>
 	<%
 	if(session.getAttribute("signedInMember") == null){ %>

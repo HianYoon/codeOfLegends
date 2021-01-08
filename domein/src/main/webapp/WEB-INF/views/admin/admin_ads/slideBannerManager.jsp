@@ -45,39 +45,53 @@
 	    <div id="container">
 	        <h2>슬라이드 배너 관리</h2>
 	        <hr>
-	        <div class="div_application">
-	            <div class="div_dailyInfo">오늘의 광고: <span><></span> 건 / 내일의 광고: <span><></span> 건</div>
-	            <div class="div_slickContainer">
-	                <h4>Preview(미리보기)</h4><br>
-	                <div class="div_slickImage">
-	                <c:forEach items="${accept }" var="banner" > 
-	                    <div><img src="${path }/resources/upload/bannerAds/${banner.adsRenamedFileName }" alt="image" href="${banner.urlLink }"></div>		                   
-	                </c:forEach>
-	                </div>                                                
+	        <form action="${path }/admin/admin_ads/slideBannerManageEnd.do" method="post">
+		        <div class="div_application">
+		            <div class="div_dailyInfo">오늘의 광고: <span style="color:red"><c:out value="${todayAds }"/></span> 건 / 내일의 광고: <span><c:out value="${tmrwAds }"/></span> 건</div>
+		            <div class="div_slickContainer">
+		                <h4>Preview(미리보기)</h4><br>
+		                <div class="div_slickImage">
+		                <c:forEach items="${accept }" var="banner" > 
+		                	<!-- name이나, class 를 ${banner.urlLink }로 줘서 onclick=function()으로 주소 이동할 수 있게 업그레이드 해도됨 -->
+		                    <div><img src="${path }/resources/upload/bannerAds/${banner.adsRenamedFileName }" alt="image" onclick="location.assign('${banner.urlLink }')"></div>		                   
+		                </c:forEach>
+		                </div>                                                
+		            </div>
+		        </div>
+		        <div class="div_parent">	            
+		            <br>
+		            <input type="button" class="btn btn--primary" id="ads_Add" value="추가" onclick="fn_addAds();">&nbsp;&nbsp;
+		            <%-- <input type="button" value="   <   " onclick="fn_toleft(event);"/>&nbsp;&nbsp;&nbsp; --%>
+		            <div>
+		            <c:forEach items="${accept }" var="banner" varStatus="vs">
+		            	<img src="${path }/resources/upload/bannerAds/${banner.adsRenamedFileName }" class="notSelected" width=50 height=30 style="border-radius:3px;" onclick="fn_selected(event);"/>            			            	
+		            </c:forEach>
+		            </div>	            
+		            <!-- &nbsp;&nbsp;&nbsp;<input type="button" value="   >   " onclick="fn_toright(event);"/>&nbsp; -->
+		            &nbsp;&nbsp;<input type="button" class="btn btn--primary2" value="삭제" onclick="fn_deleteAds();">
+		        </div>
+		        <br>
+		        <div class="div_submit">
+		            <input type="submit" class="btn btn--primary" value="등록완료">
+		        </div>
+		        <div class="div_msg">
+		        	<span id="msg"></span>	            	
 	            </div>
-	        </div>
-	        <div class="div_parent">	            
-	            <br>
-	            <input type="button" class=".btn.btn--primary" id="ads_Add" value="추가" onclick="fn_addAds();">&nbsp;
-	            <c:forEach items="${accept }" var="banner" >
-	            	<div><img src="${path }/resources/upload/bannerAds/${banner.adsRenamedFileName }" width=50 height=30></div>
-	            </c:forEach>	            
-	            <input type="button" class=".btn.btn--primary2" value="삭제" onclick="fn_deleteAds();">
-	        </div>
-	        <br>
-	        <div class="div_submit">
-	            <input type="submit" value="등록완료">
-	        </div>
+	        </form>
 	        <hr>
-	        <h4><u>승인된 광고</u></h4>
-	        <!-- 이미지 호버 시 크게 확대되서 div_preview에 출력 -->
-	        <%-- <c:if>
-	
-	        </c:if> --%>
-            <div class="div_preview">
-                <img src="" alt="" id="image_preview" width="100%" height="100%">
+	        <h4><u>현재 승인된 광고</u></h4>
+	        <br>
+	        <!-- 이미지 호버 시 크게 확대되서 div_preview에 출력 -->	      
+            <div class="div_preview">            	
+                <img src="${path }/resources/upload/bannerAds/${totalAccept[0].adsRenamedFileName }" alt="" id="image_preview" width="100%" height="100%">
+                <br><br>
+                <div>
+		            <c:forEach items="${totalAccept }" var="total" varStatus="vs">
+		            	<img src="${path }/resources/upload/bannerAds/${total.adsRenamedFileName }" class="totalImage" width=50 height=30 style="border-radius:3px;" />&nbsp;            			            	
+		            </c:forEach>
+	            </div>
             </div>
-            <br><br>
+            <br><br><br>
         </div>
     </div>
 </section>
@@ -114,7 +128,45 @@
                 }
             ]                               
         });
+        $(".totalImage").on("mouseenter",e=>{
+        	e.target.style.border="5px lime solid";        	
+        	$("#image_preview").attr("src",$(e.target).attr("src"));
+        });
+        $(".totalImage").on("mouseleave",e=>{
+        	e.target.style.border="none";
+        });
     })
+    
+    /* function fn_toleft(e){
+    	$(e.target).next().append($(e.target).next().children().first());
+    	$('.div_slickImage').append($('.div_slickImage').children().first());
+    }
+    function fn_toright(e){
+    	$(e.target).prev().prepend($(e.target).prev().children().last());
+    } */
+    function fn_selected(e){
+    	if(e.target.className!="imgSelected"){
+	    	e.target.className="imgSelected";
+	    	e.target.style.border="5px orange solid";
+	    	/* $(.div_submit).prepend($("<input>").attr({"type":"hidden","value":${param.accept.adsKey}})); */
+    	}else{
+    		e.target.className="notSelected";
+    		e.target.style.border="none";
+    	}
+    }
+    function fn_deleteAds(){
+    	let confirm_test=confirm("선택하신 광고가 삭제됩니다."); 
+		if(confirm_test==true){
+	    	$(".imgSelected").remove();	
+	    	$("#msg").html("[등록완료]를 확인하셔야 수정이 완료됩니다.").css("color","green");
+		}else if(confirm_test==false){
+			alert("취소되었습니다.");
+			console.log($(".imgSelected"));
+			$(".imgSelected").css("border","none");
+			$(".imgSelected").toggleClass();
+			console.log($(".imgSelected"));			
+		}
+    }
 </script>
 
 <jsp:include page="/WEB-INF/views/common/footer.jsp"/>
