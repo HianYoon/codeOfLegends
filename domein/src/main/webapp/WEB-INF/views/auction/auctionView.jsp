@@ -79,31 +79,35 @@
                                 
                             </div>
                         </div>
-					</c:forEach>
                         <div class="OctionBuyerBar">
                              <ul>
-                                 <li><a href="">Auction</a></li>
+                         
+                             <c:if test="${signedInMember !=null && list.BUSINESS_KEY !=null}">
+                      
+                                 <li><a href="${path }/auction/joinEnllo.do?articleNo=${list.ARTICLE_NO}">Auction</a></li>
+                    		</c:if>
                                  <li><a href="#review-container"  id="QnA">Q & A</a></li>
-                                 <li><a href="">조회수</a></li>
-                                 <li><a href="">참여수</a></li>
+                                 <li>조회수:<c:out value="${list.READ_COUNT}"/></li>
+                                 <c:set value="${count}" var="count"/>
+                                 <li>참여수:<c:out value="${count}"/></li>
                              </ul>
                         </div>
+					</c:forEach>
 
                         <div class="choice-company-container">
                             <form action="">
-                                <div class="choice-conpany-container" style="display:none;">
-                                    
+                                <div class="choice-conpany-container">
+                                    <c:forEach items="${company}" var="company">
                                     <ul>
                                         <li>
-                                            <input type="radio" name="chocieCompany" value="" />
+                                            <input type="radio" name="chocieCompany" value="${compony.WRITER_KEY }" />
                                             
                                         </li>
-                                        <li>A업체</li>
-                                        <li>품목갯수:10개</li>
-                                        <li>총가격: 2000원</li>
-                                        <li>등록일자:</li>
+                                        <li><input type="hidden" name="writerKey" value="${compony.WRITER_KEY }"/></li>
+                                      
                                         
                                     </ul>
+                                    </c:forEach>
                                 </div>
 
                                 

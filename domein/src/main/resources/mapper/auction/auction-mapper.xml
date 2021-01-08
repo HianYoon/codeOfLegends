@@ -48,4 +48,50 @@
 	<update id="plusReadCount" parameterType="boardAuction">
 		update board_Auction set READ_COUNT = READ_COUNT + 1 where ARTICLE_NO=#{articleNo}
 	</update>
+	<!-- auction bidLike -->
+	<update id="updateAuctionBid" parameterType="map">
+		update AUCTION_BID set bid_Status_No=#{bidStatusNo} where article_no=#{articleNo} and writer_Key=#{writerKey}
+	</update>
+	<!-- 좋아요!check -->
+	<insert id="insertAuctionBid" parameterType="map">
+		insert into AUCTION_BID  values(SEQ_BID_KEY.NEXTVAL,#{articleNo},#{writerKey},'1') where where article_no=#{articleNo} and writer_Key=#{writerKey}
+	</insert>
+	<!-- 좋아요!check -->
+	<select id="checkLike" resultType="map">
+		select BID_STATUS_NO from AUCTION_BID where ARTICLE_NO = #{articleNo} and WRITER_KEY=#{writerKey}
+	</select>
+	<!-- 조회수 -->
+	<select id="selectAuctionOne" resultType="map">
+		select * from board_auction ba join business b on ba.writer_key=b.business_key inner join ba_attached_image bi on ba.article_no=bi.article_no
+		where ba.article_no=#{articleNo}
+	</select>
+	<!-- auction bid등록  -->
+	<insert id="insertJoinAuctionList" parameterType="auctionBid">
+		insert into AUCTION_BID values(SEQ_BID_KEY.NEXTVAL,#{articleNo},#{writerKey},#{bidStatusNo},SYSDATE) 
+		<selectKey order="AFTER" resultType="_int" keyProperty="bidKey">
+			select SEQ_BID_KEY.currval from dual
+		</selectKey>
+	</insert>
+	<!--  bid content 등록  -->
+	<insert id="insertJoinEnlloBidContent" parameterType="bidContent">
+		insert into BID_CONTENT values(#{bidKey},#{productName},#{productQuality},#{productOrigin},#{Quantity},#{measureUnit},#{price})
+	</insert>
+		<!--  bid content 목록 불러오기   -->
+		<select id="selectselectBidContent" resultType="map">
+			select * from auction_bid ab inner join bid_content bc on ab.bid_key=bc.bid_key where ab.article_no=#{articleNo} and ab.writer_key=#{writerKey}
+		</select>
+		
+		<!-- join목록 삭제  -->
+		<delete id="auctionJoinListdelete" parameterType="_int">
+			delete from auction_bid a where exists(SELECT * FROM bid_content bc where a.bid_key=#{bidKey})
+		</delete>
+		<!--참여업체수   -->
+		<select id="selectAuctionJoinCount" resultType="_int">
+			select count(DISTINCT ab.writer_key) from auction_bid ab where ab.article_no=#{writerKey}
+		</select>
+		
+		<!--참여업체수   -->
+		<select id="selectJoinCompany" resultType="auctionBid">
+			select writer_key from auction_bid where writer_key=#{writerKey} group by writer_key
+		</select>
 </mapper>

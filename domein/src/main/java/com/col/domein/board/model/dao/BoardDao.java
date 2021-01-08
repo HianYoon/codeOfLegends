@@ -19,12 +19,14 @@ public interface BoardDao {
 	
 	/* Board selectBoardOne(SqlSession session,int boardNo); */
 	
-	int insertBoard(SqlSession session, Board board);
+	int write(SqlSession session, Board board);
 
 	int insertAttachment(SqlSession session, Attachment a);
 
 	List<Map> selectBkbArticles(SqlSession session,int threadKey);
 
-	BoardKnowBattle selectBoardOne(SqlSession session,int boardNo);
+	Board selectBoardOne(SqlSession session,int threadKey);
+
+	List<Attachment> selectAttach(SqlSession session, int threadKey);
 	
 }

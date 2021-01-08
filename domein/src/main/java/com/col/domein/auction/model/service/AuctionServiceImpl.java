@@ -2,16 +2,18 @@ package com.col.domein.auction.model.service;
 
 import java.util.List;
 import java.util.Map;
+import java.util.TreeMap;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.col.domein.auction.model.dao.AuctionDao;
+import com.col.domein.auction.model.vo.AuctionBid;
+import com.col.domein.auction.model.vo.BidContent;
 import com.col.domein.auction.model.vo.BoardAttachementFile;
 import com.col.domein.auction.model.vo.BoardAttachementImage;
 import com.col.domein.auction.model.vo.BoardAuction;
-import com.col.domein.business.model.vo.Business;
 
 @Service
 public class AuctionServiceImpl implements AuctionService {
@@ -87,6 +89,68 @@ public class AuctionServiceImpl implements AuctionService {
 	public void plusReadCount(int articleNo) {
 		// TODO Auto-generated method stub
 		dao.plusReadCount(session,articleNo);
+	}
+	//bid 업데이트 
+	@Override
+	public int updateAuctionBid(int articleNo, int writerKey,int bidStatusNo) {
+		
+		return dao.updateAuctionBid(session,articleNo,writerKey);
+	}
+	//insert Bid
+	@Override
+	public int insertAuctionBid(int articleNo, int writerKey, int bidStatusNo) {
+		// TODO Auto-generated method stub
+		return dao.insertAuctionBid(session,articleNo,writerKey,bidStatusNo);
+	}
+	//좋아요 체크
+	@Override
+	public List<Map> checkLike(int articleNo, int writerKey) {
+		// TODO Auto-generated method stub
+		return dao.checkLike(session,articleNo,writerKey);
+	}
+	//옥션 정보 불러오기 
+	@Override
+	public List<Map> selectAuctionOne(int articleNo) {
+		// TODO Auto-generated method stub
+		return dao.selectAuctionOne(session,articleNo);
+	}
+	
+	//옥션  join Enllo list
+	@Override
+	public int insertJoinAuctionList(AuctionBid bid, BidContent bc) {
+		// TODO Auto-generated method stub
+	
+		int result=dao.insertJoinAuctionList(session,bid);
+		if(result > 0) {
+				int bidKey=bid.getBidKey();
+				bc.setBidKey(bidKey);
+			int resul=	dao.insertJoinEnlloBidContent(session,bc);
+		}
+		return result;
+	}
+	//join목록
+	@Override
+	public List<Map> selectBidContent(int articleNo, int writerKey) {
+		// TODO Auto-generated method stub
+		return dao.selectselectBidContent(session,articleNo,writerKey);
+	}
+	//join목록 list삭제
+	@Override
+	public int auctionJoinListdelete(int bidKey) {
+		// TODO Auto-generated method stub
+		return dao.auctionJoinListdelete(session,bidKey);
+	}
+	//join업체 수 및 정보가져오기 
+	@Override
+	public int selectAuctionJoinCount(int articleNo) {
+		// TODO Auto-generated method stub
+		return dao.selectAuctionJoinCount(session,articleNo);
+	}
+	//참여업체 정보가져오기 
+	@Override
+	public List<Map> selectJoinCompany(int writerKey) {
+		// TODO Auto-generated method stub
+		return dao.selectJoinCompany(session,writerKey);
 	}
 
 

@@ -4,6 +4,7 @@
     <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
     <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
      <c:set var="path" value="${pageContext.request.contextPath }"/>
+     <c:set var="business" value="${signedInMember.businesses }"/>
     
 <link rel="stylesheet"
 	href="${path }/resources/css/auction/auction.css" />
@@ -67,22 +68,21 @@
                                     <!-- 절제선 -->
                                     <div class="oction--grid--container">
                        
-                                        <a href="${path }/auction/auctionView.do?articleNo=${auction.ARTICLE_NO}"class="oction-img-group">
+                                        <a href="${path }/auction/auctionView.do?articleNo=${auction.ARTICLE_NO}&writerKey=${auction.WRITER_KEY}"class="oction-img-group">
                                             <img id="big-target" src="${path }/resources/upload/boardauction/file/${auction.RENAMED_FILE_NAME}" alt="이미지" data-zoom="3"/>
-                                            
+                                            <input type="hidden" id="articleNo" name="articleNo" value="${auction.ARTICLE_NO}"/>
+                                            <input type="hidden" id="memberKey" name="memberKey" value="${signedInMember.memberKey}"/>
                                         </a>
                                         <div>
             
                                             <ul class="grid-text-group" style="padding:0">
                                                 <li>제목:<c:out value="${auction.TITLE }"/></li>
-                                                <li>상호명:<span>상호명:<c:out value="${auction.BUSINESS_NAME }"/></li>
+                                                <li><span>상호명:<c:out value="${auction.BUSINESS_NAME }"/></li>
                                                  <li class="oction-dateBox"><span class="Oction-date">시작일:<fmt:formatDate value="${auction.START_DATE}" pattern="yyyy-MM-dd HH:mm"/></span><span class="Oction-date">마감일:<fmt:formatDate value="${auction.END_DATE}" pattern="yyyy-MM-dd HH:mm"/></span></li>
                                                 <li>조회수: <c:out value="${auction.READ_COUNT}"/>
                                                 </li>
                                                   <li>
-                                                    <span><a href="${path}"><img src="${path }/resources/images/profile/jjim.png" alt="찜" style="width: 15px;height:15px;"></a></span>
-                                           			<span><a href="${path}"><img src="${path }/resources/images/profile/add-to-basket.png" alt="like" style="width: 15px;height:15px;"></a></span>
-                            
+                                                    <span><div><img  src="${path }/resources/images/profile/jjim.png" alt="찜" style="width: 15px;height:15px;"></div></span>
                                                </li>
                                                 
                                             </ul>
@@ -105,19 +105,32 @@
 </section>
 <script src="${path }/resources/js/auction/auctionList.js" defer></script>
 <script>
-/* $(document).ready(function(){
- 	$(".oction-list-container").hide();
- 	$("ul.grid li:first").addClass("active").show();
- 	$(".oction-list-container").show();
- });
- $("ul.grid li").click(function(){
- 	$("ul.grid li").removeClass("active");
- 	$(this).addClass("active");
- 	$(".oction-list-container").hide();
- 	let activeList=$(this).find('a').attr('href');
- 	$(activeList).fadeIn();
- 	return false;
- 
- }) */
+		const writer=$("#writerKey").val();
+		console.log("없니?"+writer);
+$(document).ready('click',"#auctionlike",function(){
+		const articleNo=$("#articleNo").val();
+		const writerKey=$("#memberKey").val();
+		var form={
+				aricleNo:articleNo,
+				writerKey:writerKey
+		}
+		
+	$.ajax({
+		url:"${path}/auction/bid.do",
+		type:"POST",
+		data:JSON.stringify(form),
+		contentType:"application/json; charset=utf-8;",
+		dataType:"json",
+		success:function(data){
+			$('#auctionlike').css("color","red");
+		},
+		error:function(){
+			alert("stringify err");
+		}
+		
+		
+	});
+	});
+
 </script>
 <jsp:include page="/WEB-INF/views/common/footer.jsp"/>

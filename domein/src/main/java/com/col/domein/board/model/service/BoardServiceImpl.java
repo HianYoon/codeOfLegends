@@ -31,10 +31,10 @@ public class BoardServiceImpl implements BoardService{
 	}
 
 	@Override
-	public int insertBoard(Board board, List<Attachment> files) {
+	public int write(Board board, List<Attachment> files) {
 		// TODO Auto-generated method stub
 		/* return dao.insertBoard(session, board); */
-		int result=dao.insertBoard(session,  board);
+		int result=dao.write(session,  board);
 		if(result>0) {
 			if(files!=null) {
 				for(Attachment a:files) {
@@ -46,15 +46,21 @@ public class BoardServiceImpl implements BoardService{
 	}
 
 	@Override
-	public Board selectBoardOne(int boardNo) {
+	public Board selectBoardOne(int threadKey) {
 		// TODO Auto-generated method stub
-		return null;
+		return dao.selectBoardOne(session,threadKey);
 	}
 
 	@Override
 	public List<Map> selectBkbArticles(int threadKey) {
 		// TODO Auto-generated method stub
 		return dao.selectBkbArticles(session,threadKey);
+	}
+
+	@Override
+	public List<Attachment> selectAttach(int threadKey) {
+		// TODO Auto-generated method stub
+		return dao.selectAttach(session,threadKey);
 	}
 	
 }

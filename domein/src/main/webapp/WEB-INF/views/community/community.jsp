@@ -26,7 +26,7 @@
 	                <a href="">노하우</a>
 	            </div>
 	            <div class="community-bottom-right">
-	            	<form action="${path }/community/communityList.do" method="post">
+	            	<%-- <form action="${path }/community/communityList.do" method="post"> --%>
 		                <table class="board_list">
 		                    <thead>
 		                        <tr>
@@ -40,9 +40,6 @@
 		                    </thead>
 	 	                    <c:forEach items="${list }" var="b">
 		                    	<tr>
-<%-- 		                    			<td class="tit">
-		                    					<c:out value="${b.ARTICLE_NO }"/>
-		                    			</td> --%>
  			                    		<td class="tit" style="padding-left:4.5%">
 			                    				<c:out value="${b.THREAD_KEY}"/>
 			                    		</td>
@@ -64,15 +61,15 @@
 			                    		</td>
 		                    	</tr>
 		                    </c:forEach>
-				        <div class="pageBar">
-						${pageBar }
-				        </div>
 		                </table>
 	                	<div class="community-bottom-right-button">
 	                    <img src="${path }/resources/images/profile/search.png" alt="" width="20px">
 	                    
 	                    <input type="button" class="write" value="글쓰기">
 	                	</div>
+				        <div class="pageBar">
+						${pageBar }
+				        </div>
 	                </form>
 	            </div>
 	        </div>
