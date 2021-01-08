@@ -196,7 +196,7 @@ $(document).ready(function(){
 				for(let i =0;i <result.length; i++){
 					output += "<tr>";
 					
-					output +="<td><input type='text' id='SbidKey' name='bidKey'value='"+result[i].BID_KEY+"'/></td>";
+					output +="<td>"+result[i].BID_KEY+"</td>";
 					output +="<td>"+result[i].PRODUCT_NAME+"</td>";
 					output +="<td>"+result[i].PRODUCT_ORIGIN+"</td>";
 					output +="<td>"+result[i].PRODUCT_QUALITY+"</td>";
@@ -204,7 +204,7 @@ $(document).ready(function(){
 					output +="<td>"+result[i].MEASURE_UNIT+"</td>";
 					output +="<td>"+result[i].PRICE+"</td>";
 					output +="<td><input type='button' class='btn btn-Primary2' onclick='listUpdate();' value='수정'>";
-					output +="<td><input type='button' class='btn btn-Primary2' onclick='listdelete();' value='삭제' >";
+					output +="<td><input type='button' class='btn btn-Primary2' id='listdelete' value='삭제' >";
 					output +="</tr>";	
 				}
 			/* 	output +="</tbody>";
@@ -214,23 +214,8 @@ $(document).ready(function(){
 		});
 		
 	});
-	function listdelete(){
-		let bidKey=$("#SbidKey").val();
-		const bid1="bidKey="+bidKey;
-		console.log("bid:"+bid1);
-		$.ajax({
-			type:"get",
-			url:"${path}/auction/joinEnllo",
-			contentType: "aplication/json",
-			dataType:"json",
-			data:bid1,
-			success:function(data){
-				alert("삭제되었습니다.");
-				
-				
-			}
-		});
-	}
+ 
+
 		$("#selectList").click(function(){
 			let articleNo=$("#articleNo").val();
 			console.log(articleNo);
@@ -262,14 +247,14 @@ $(document).ready(function(){
 					//불러올시에는 bd컬럼명하고 똑같아야한다.
 					for(let i =0;i <data.length; i++){
 						output += "<tr>";
-						output +="<td>"+data[i].BID_KEY+"</td>";
+						output +="<td id='SbidKey'>"+data[i].BID_KEY+"</td>";
 						output +="<td>"+data[i].PRODUCT_NAME+"</td>";
 						output +="<td>"+data[i].PRODUCT_ORIGIN+"</td>";
 						output +="<td>"+data[i].PRODUCT_QUALITY+"</td>";
 						output +="<td>"+data[i].PRODUCT_QUANTITY+"</td>";
 						output +="<td>"+data[i].MEASURE_UNIT+"</td>";
 						output +="<td>"+data[i].PRICE+"</td>";
-						output +="<td><input type='button' class='btn btn-Primary2' onclick='listUpdate();' value='수정'><input type='button' class='btn btn-Primary2' onclick='listdelete();' value='삭제' ></td>";
+						output +="<td><input type='button' class='btn btn-Primary2' id='listUpdate' value='수정'><input type='button' class='btn btn-Primary2' id='listdelete' value='삭제' ></td>";
 						output +="</tr>";
 					}
 					//output +="</tbody>";
@@ -279,8 +264,67 @@ $(document).ready(function(){
 			})
 		})
 	});
-	
-
+	//데이터 삭제 
+$(document.body).on("click","#listdelete",function(){
+		const tbody=$("#appendTo");
+			let bidK=tbody.find("#SbidKey").text();
+			let bidKey=Number(bidK);
+			console.log(bidKey);
+		const bik="bidKey="+bidKey;
+		
+	if(confirm("삭제하시겠습니까?")){
+		console.log("bik:"+bik);
+		
+	}
+	console.log("bik:"+bik);
+	$.ajax({
+		type:"get",
+		url:"${path}/auction/joinEnllo",
+		contentType: "aplication/json",
+		dataType:"json",
+		data:bik,
+		success:function(data){
+			alert("삭제되었습니다.");
+			$("#SbidKey").parent().remove();
+			
+		}
+	});
+}) 
+//수정 
+$(document.body).on("click","#listUpdate",function(){
+	const tbody=$("#appendTo");
+	let bidK=tbody.find("#SbidKey").text();
+	let bidKey= Number(bidK);
+	const bidOne="bidKey="+bidKey;
+	if(confirm("수정하시겠습니까?")){
+	}
+	$.ajax({
+		type:"get",
+		url:"${path}/auction/auctionJoinUpdate.do",
+		contentType:"aplication/json",
+		dataType:"json",
+		data:bidOne,
+		success:function(data){
+			let output="";
+				output="<form id='updateForm' action='${path}/auction/auctionJoinUpdate.do' method='post'>";
+				output ="<tr>";
+				output ="<td><input type='text' class='input--text' name='bidKey' value='"+data.BID_KEY+"'/></td>";
+				output ="<td><input type='text' class='input--text' name='productName' value='"+data.PRODUCT_NAME+"'/></td>";
+				output ="<td><input type='text' class='input--text' name='productOrigin' value='"+data.PRODUCT_ORIGIN+"'/></td>";
+				output ="<td><input type='text' class='input--text' name='productQuality' value='"+data.PRODUCT_QUALITY+"'/></td>";
+				output ="<td><input type='text' class='input--text' name='Quantity' value='"+data.PRODUCT_QUANTITY+"'/></td>";
+				output ="<td><input type='text' class='input--text' name='measureUnit' value='"+data.MEASURE_UNIT+"'/></td>";
+				output ="<td><input type='text' class='input--text' name='price' value='"+data.PRICE+"'/></td>";
+				output ="<td><button type='submit' class='btn btn-primary2'>버튼</button></td> ";
+				output ="</tr>";
+				output ="</form>";
+		}
+		$("#appendTo").prependTo(output);
+		
+		
+	});
+});
+	});
 
 </script>
 <jsp:include page="/WEB-INF/views/common/footer.jsp"/>

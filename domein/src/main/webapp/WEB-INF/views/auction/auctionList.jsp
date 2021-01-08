@@ -107,7 +107,7 @@
 <script>
 		const writer=$("#writerKey").val();
 		console.log("없니?"+writer);
-$(document).ready('click',"#auctionlike",function(){
+$(document.body).on('click',"#auctionlike",function(){
 		const articleNo=$("#articleNo").val();
 		const writerKey=$("#memberKey").val();
 		var form={

@@ -55,5 +55,10 @@ public interface AuctionDao {
 	int selectAuctionJoinCount(SqlSession session, int articleNo);
 	//참여업체 정보가져오기 
 	List<Map> selectJoinCompany(SqlSession session, int writerKey);
+	
+	//join목록List 수정
+	int auctionJoinUpdate(SqlSession session, AuctionBid bid);
+	//join수정할 list불러오기 
+	BidContent selectJoinList(SqlSession session, int bidKey);
 
 }
