@@ -58,6 +58,10 @@ public interface AdsDao {
 	
 	int selectCountAll(SqlSession session);
 	
-	List selectBannerWhole(SqlSession session);
+	BannerAds selectBannerWhole(SqlSession session, int adsKey);
+	
+	int updateAccept(SqlSession session, int adsKey);
+	
+	int updateDeny(SqlSession session, int adsKey);
 	
 }

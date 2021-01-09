@@ -56,6 +56,10 @@ public interface AdsService {
 	
 	int selectCountAll();
 	
-	List selectBannerWhole();
+	BannerAds selectBannerWhole(int adsKey);
+	
+	int updateAccept(int adsKey);
+	
+	int updateDeny(int adsKey);
 	
 }

@@ -179,9 +179,21 @@ public class AdsDaoImpl implements AdsDao {
 	}
 
 	@Override
-	public List selectBannerWhole(SqlSession session) {
-		return session.selectList("bannerAds.selectBannerWhole");
+	public BannerAds selectBannerWhole(SqlSession session, int adsKey) {
+		return session.selectOne("bannerAds.selectBannerWhole",adsKey);
 	}
+
+	@Override
+	public int updateAccept(SqlSession session, int adsKey) {
+		return session.update("bannerAds.updateAccept",adsKey);
+	}
+
+	@Override
+	public int updateDeny(SqlSession session, int adsKey) {
+		return session.update("bannerAds.updateDeny",adsKey);
+	}
+	
+	
 	
 	
 	

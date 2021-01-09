@@ -1,15 +1,18 @@
 package com.col.domein.admin.controller;
 
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
@@ -136,11 +139,36 @@ public class AdminAdsController {
 	
 	//배너광고 요청게시판에서 -> 글 상세보기
 	@RequestMapping("/admin/admin_ads/adminBannerView.do")
-	public ModelAndView viewBannerRequest(ModelAndView mv) {
-		//list로 받지 말고 one으로 받았어야함!!!!!!!
-		mv.addObject("picked",service.selectBannerWhole());
+	public ModelAndView viewBannerRequest(ModelAndView mv, int adsKey) {		
+		mv.addObject("picked",service.selectBannerWhole(adsKey));
 		mv.setViewName("/admin/admin_ads/slideBannerRequestView");
 		return mv;
+	}
+	
+	@RequestMapping("/admin/admin_ads/adminBannerDecision.do")
+	public void adminBannerDeciseion(HttpServletResponse response,
+			@RequestParam(value="decision",defaultValue="0") int decision,
+			@RequestParam(value="adsKey",defaultValue="0") int adsKey) throws IOException {
+		String msg="";
+		if(decision==1) {
+			int result=service.updateAccept(adsKey);
+			if(result>0) {
+				msg="승인처리 되었습니다.";
+			}else {
+				msg="처리도중 오류가 발생했습니다! \\n 다시 시도해주세요.";
+			}			
+			response.setContentType("text/html;charset=utf-8");
+			response.getWriter().print(msg);
+		}else {
+			int result=service.updateDeny(adsKey);
+			if(result>0) {
+				msg="반려처리 되었습니다.";				
+			}else {
+				msg="처리도중 오류가 발생했습니다! \\n 다시 시도해주세요.";
+			}
+			response.setContentType("text/html;charset=utf-8");
+			response.getWriter().print(msg);
+		}
 	}
 	
 	

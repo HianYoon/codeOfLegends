@@ -96,11 +96,22 @@
 		SELECT COUNT(*) FROM BANNER_ADS_APPLICATION
 	</select>
 	
-	<select id="selectBannerWhole" resultMap="bannerAdsMap">
+	<!-- 관리자 게시판 글 조회시 data (slideBannerRequestView) -->
+	<select id="selectBannerWhole" parameterType="int" resultMap="bannerAdsMap">
 		SELECT ADS_KEY, ADS_ORIGINAL_FILE_NAME, ADS_RENAMED_FILE_NAME, START_DATE, END_DATE, APPLY_DATE, URL_LINK, ADS_DESCRIPTION, ADS_MEMO, ADS_TITLE, ADS_PRICE, NICKNAME 
-		FROM BANNER_ADS_APPLICATION 		
-		LEFT JOIN MEMBER ON BANNER_ADS_APPLICATION.APPLICANT_KEY=MEMBER.MEMBER_KEY
+		FROM BANNER_ADS_APPLICATION LEFT JOIN MEMBER ON BANNER_ADS_APPLICATION.APPLICANT_KEY=MEMBER.MEMBER_KEY
+		WHERE ADS_KEY=#{adsKey}
 	</select>
+	
+	<!-- 관리자 승인 시, 광고 승인처리 -->
+	<update id="updateAccept" parameterType="int">
+		UPDATE BANNER_ADS_APPLICATION SET ADS_STATUS_NO=1 WHERE ADS_KEY=#{adsKey}
+	</update>
+	
+	<!-- 관리자 반려 시, 광고 반려처리 -->
+	<update id="updateDeny" parameterType="int">
+		UPDATE BANNER_ADS_APPLICATION SET ADS_STATUS_NO=6 WHERE ADS_KEY=#{adsKey}
+	</update>
 	
 	<select id="selectBannerDeny" resultType="int">
 		SELECT COUNT(ADS_STATUS_NO) FROM BANNER_ADS_APPLICATION WHERE ADS_STATUS_NO=6 AND APPLY_DATE BETWEEN '210101' AND '211231' GROUP BY SUBSTR(APPLY_DATE,4,2)

@@ -142,8 +142,18 @@ public class AdsServiceImpl implements AdsService {
 	}
 
 	@Override
-	public List selectBannerWhole() {
-		return dao.selectBannerWhole(session);
+	public BannerAds selectBannerWhole(int adsKey) {
+		return dao.selectBannerWhole(session,adsKey);
+	}
+
+	@Override
+	public int updateAccept(int adsKey) {
+		return dao.updateAccept(session,adsKey);
+	}
+
+	@Override
+	public int updateDeny(int adsKey) {
+		return dao.updateDeny(session,adsKey);
 	}
 
 	
