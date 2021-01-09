@@ -52,13 +52,18 @@
 }
 .div_parent{
 	display:flex;
+	position:relative;
 }
-#ads_Add{	
-	margin-left:14%;
+#ads_Add{		
+	margin-left:12%;
 }
 .div_submit{
     margin-left:38%;
-    margin-bottom: 12px;
+    margin-bottom: 5px;
+}
+.div_msg>span{
+	margin-left:28%;
+	margin-bottom:12px;
 }
 .div_preview{
     width:580px;

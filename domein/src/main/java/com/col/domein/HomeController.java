@@ -42,16 +42,7 @@ public class HomeController {
 		System.out.println("오늘의 날짜: "+today);		
 		List<BannerAds> accept=service.selectBannerAccept(today);
 		JSONArray jAccept=JSONArray.fromObject(accept);
-		
-		for(BannerAds b:accept) {
-			JSONObject jo=new JSONObject();
-			jo.put("adsKey",b.getAdsKey());
-			jo.put("applicantKey",b.getApplicantKey());			
-			jo.put("adsRenamedFileName",b.getAdsRenamedFileName());			
-			jo.put("urlLink",b.getUrlLink());			
-			jo.put("adsTitle",b.getAdsTitle());			
-			jAccept.add(jo);
-		}
+				
 		mv.addObject("accept",jAccept);
 		mv.setViewName("index");
 		return mv;		

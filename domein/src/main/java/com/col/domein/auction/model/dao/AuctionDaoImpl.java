@@ -143,20 +143,15 @@ public class AuctionDaoImpl implements AuctionDao {
 	}
 	//join목록list수정
 	@Override
-	public int auctionJoinUpdate(SqlSession session, AuctionBid bid) {
+	public int auctionJoinUpdate(SqlSession session, BidContent bid) {
 		// TODO Auto-generated method stub
 		return session.update("boardAuction.auctionJoinUpdate",bid);
 	}
 	//joinlist수정할 목록불러오기
 	@Override
-	public BidContent selectJoinList(SqlSession session, int bidKey) {
+	public List<Map> selectJoinList(SqlSession session, int bidKey) {
 		// TODO Auto-generated method stub
-		return session.selectOne("boardAuction.selectJoinList",bidKey);
+		return session.selectList("boardAuction.selectJoinList",bidKey);
 	}
-	
-
-	
-	
-	
 
 }

@@ -108,13 +108,11 @@ public class AdsDaoImpl implements AdsDao {
 	}
 
 	@Override
-	public List selectBannerPending(SqlSession session) {
-		List<Integer> pending=new ArrayList();
-		pending.add(0);
-		if(session.selectList("bannerAds.selectBannerPending")==null) {
-			return pending;
+	public int selectBannerPending(SqlSession session) {		
+		if(session.selectOne("bannerAds.selectBannerPending")==null) {
+			return 0;
 		}else {
-			return session.selectList("bannerAds.selectBannerPending");
+			return session.selectOne("bannerAds.selectBannerPending");
 		}
 	}
 
@@ -161,6 +159,21 @@ public class AdsDaoImpl implements AdsDao {
 		}else {
 			return session.selectList("bannerAds.selectPending");
 		}
+	}
+
+	@Override
+	public int selectAdsCountByDay(SqlSession session, String day) {
+		return session.selectOne("bannerAds.selectAdsCountByDay",day);
+	}
+
+	@Override
+	public List selectBannerTotalAccept(SqlSession session) {
+		return session.selectList("bannerAds.selectBannerTotalAccept");
+	}
+
+	@Override
+	public List selectAll(SqlSession session) {
+		return session.selectList("bannerAds.selectAll");
 	}
 	
 	

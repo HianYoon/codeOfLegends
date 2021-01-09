@@ -68,13 +68,13 @@
                         <p>미리보기가 표시됩니다.</p>
                         <!-- <img src="C:\Users\Sungbin\Desktop\images\img_preview.png" alt="미리보기가 표시됩니다." id="preImage" width="100%" height="100%"><br> -->
                     </div>
-                    <input type="file" class=".btn.btn--primary" name="upFile" accept="image/*" onchange="fn_readImage(event);" required>
+                    <input type="file" class=".btn.btn--primary" id="upload" name="upFile" accept="image/*" onchange="fn_readImage(event);" required>
                     <input type="button" class=".btn.btn--primary2" name="deleteFile" value="삭제" onclick="fn_deleteFile();">                
                 </div>
                 <br>
                 <div class="div_url">
                     <span id="msg_url"></span><br>
-                    <label for="urlLink"><span><u>url</u></span></label>&nbsp;&nbsp;<input type="text" name="urlLink" id="urlLink" placeholder="이미지 클릭 시, 이동할 주소입력" required>                      
+                    <label for="urlLink"><span><u>url</u></span></label>&nbsp;&nbsp;<input type="text" name="urlLink" id="urlLink" value="http://" required>                      
                 </div>
                 <br>
                 <div class="div_period">
@@ -86,8 +86,8 @@
                 </div>
                 <br><br>
                 <div class="div_submit">
-                    <input type="submit" class=".btn.btn--primary" value="결제화면으로 이동">&nbsp;
-                    <input type="reset" class=".btn.btn--primary2" value="취소">
+                    <input type="submit" class="btn btn--primary" value="결제화면으로 이동">&nbsp;
+                    <input type="reset" class="btn btn--primary2" value="취소">
                     <br><br><br><br>
                 </div>
             </form>
@@ -98,7 +98,7 @@
     $(function(){
 		/* url위 안내메시지 출력 */
         $("#urlLink").focus(e=>{
-            $("#msg_url").html("[이미지 클릭 시, 이동할 주소를 입력해주세요. 요청주소가 없을 시, -입력]").css("color","green");
+            $("#msg_url").html("[이미지 클릭 시, 이동할 주소를 입력해주세요(\"http://\" 포함). 요청주소가 없을 시, -입력]").css("color","red");
         });
         $("#urlLink").blur(e=>{
             $("#msg_url").html("");

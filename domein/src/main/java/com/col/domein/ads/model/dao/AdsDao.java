@@ -40,7 +40,7 @@ public interface AdsDao {
 	
 	List selectDirectDeny(SqlSession session);
 	
-	List selectBannerPending(SqlSession session);
+	int selectBannerPending(SqlSession session);
 	
 	List selectDirectPending(SqlSession session);
 	
@@ -49,5 +49,11 @@ public interface AdsDao {
 	List selectDeny(SqlSession session);
 	
 	List selectPending(SqlSession session);
+	
+	int selectAdsCountByDay(SqlSession session,String day);
+	
+	List selectBannerTotalAccept(SqlSession session);
+	
+	List selectAll(SqlSession session);
 	
 }
