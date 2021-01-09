@@ -628,7 +628,7 @@ img#big-target {
     
 }
 .oction-img-group #big-target {
-    width: 220px;
+    width: 200px;
     height: 150px;
 }
 .grid-text-group li{
@@ -674,7 +674,6 @@ img#big-target {
             margin-bottom: 5px;
             font-size: 15px;
             font-weight: 400;
-            border: 1px solid red;
             box-sizing: border-box;
         }
         .grid2-container {
