@@ -108,12 +108,8 @@ public class AdsDaoImpl implements AdsDao {
 	}
 
 	@Override
-	public int selectBannerPending(SqlSession session) {		
-		if(session.selectOne("bannerAds.selectBannerPending")==null) {
-			return 0;
-		}else {
-			return session.selectOne("bannerAds.selectBannerPending");
-		}
+	public int selectBannerPending(SqlSession session) {				
+		return session.selectOne("bannerAds.selectBannerPending");		
 	}
 
 	@Override

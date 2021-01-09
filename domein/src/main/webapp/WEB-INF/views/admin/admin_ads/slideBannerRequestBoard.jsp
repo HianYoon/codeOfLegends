@@ -60,14 +60,14 @@
                         </tr>
                     </thead>
                     <tbody>
-                    <c:forEach items="${boardContent }" var="bc" varStatus="vs">
-                        <%-- <tr>                        	
-                            <td><c:out value="${bc.adsStatus}"/></td>
+                    <%-- <c:forEach items="${boardContent }" var="bc" varStatus="vs">
+                        <tr>                       	
+                            <td><c:out value="${bc.statusDesc}"/></td>
                             <td><c:out value="${bc.adsTitle }"/></td>
                             <td><c:out value="${bc.nickName }"/></td>
                             <td><c:out value="${bc.applyDate }"/></td>
-                        </tr>     --%>                    
-                    </c:forEach>
+                        </tr>                 
+                    </c:forEach> --%>
                     </tbody>             
                 </table>
             </div>
@@ -80,15 +80,20 @@
 </section>
 <script>
 	$(function(){
-		$.ajax({
-			url:"${path}/admin/admin_ads/adminBannerView.do",
-			type:"get",
-			dataType:"html",
+		$.ajax({					
 			success:data=>{
-				let board=JSON.parse("${boardContent}");	
+				let board=${boardContent};
+				console.log(board);
+				for(let i=0;i<board.length;i++){
+					let tr=$("<tr>").append($("<td>").html(board[i].statusDesc))					
+						.append($("<td>").html(board[i].adsTitle))
+						.append($("<td>").html(board[i].nickName))
+						.append($("<td>").html(board[i].applyDate));
+					$("#table_requestBoard").children().last().append(tr);
+				}
 			}				
-		})
-	})
+		});
+	});
 </script>
 
 <jsp:include page="/WEB-INF/views/common/footer.jsp"/>

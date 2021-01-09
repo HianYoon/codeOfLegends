@@ -17,7 +17,7 @@ public class BannerAds {
 	private Date startDate;
 	//@JsonFormat(shape=JsonFormat.Shape.STRING, pattern="yyyy-MM-dd")
 	private Date endDate;
-	//@JsonFormat(shape=JsonFormat.Shape.STRING, pattern="yyyy-MM-dd")
+	@JsonFormat(shape=JsonFormat.Shape.STRING, pattern="yyyy-MM-dd")
 	private Date applyDate;
 	private String urlLink;
 	private String adsDescription;

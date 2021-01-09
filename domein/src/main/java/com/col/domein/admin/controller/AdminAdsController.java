@@ -104,7 +104,7 @@ public class AdminAdsController {
 		//게시판 모두 불러오기
 		List<BannerAds> board=service.selectAll();
 		//JSONArray boardContent=JSONArray.fromObject(board);
-		String boardContent=new Gson().toJson(board);
+		String boardContent=new Gson().toJson(board);//Date객체가 포함됨!
 		mv.addObject("boardContent",boardContent);
 		
 		//검토대기 중인 요청수
