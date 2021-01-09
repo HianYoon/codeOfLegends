@@ -3,6 +3,7 @@ package com.col.domein.ads.model.dao;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.ibatis.session.RowBounds;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
@@ -108,14 +109,8 @@ public class AdsDaoImpl implements AdsDao {
 	}
 
 	@Override
-	public List selectBannerPending(SqlSession session) {
-		List<Integer> pending=new ArrayList();
-		pending.add(0);
-		if(session.selectList("bannerAds.selectBannerPending")==null) {
-			return pending;
-		}else {
-			return session.selectList("bannerAds.selectBannerPending");
-		}
+	public int selectBannerPending(SqlSession session) {				
+		return session.selectOne("bannerAds.selectBannerPending");		
 	}
 
 	@Override
@@ -162,6 +157,43 @@ public class AdsDaoImpl implements AdsDao {
 			return session.selectList("bannerAds.selectPending");
 		}
 	}
+
+	@Override
+	public int selectAdsCountByDay(SqlSession session, String day) {
+		return session.selectOne("bannerAds.selectAdsCountByDay",day);
+	}
+
+	@Override
+	public List selectBannerTotalAccept(SqlSession session) {
+		return session.selectList("bannerAds.selectBannerTotalAccept");
+	}
+
+	@Override
+	public List selectAll(SqlSession session, int cPage, int numPerpage) {
+		return session.selectList("bannerAds.selectAll",null,new RowBounds((cPage-1)*numPerpage, numPerpage));
+	}
+
+	@Override
+	public int selectCountAll(SqlSession session) {
+		return session.selectOne("bannerAds.selectCountAll");
+	}
+
+	@Override
+	public BannerAds selectBannerWhole(SqlSession session, int adsKey) {
+		return session.selectOne("bannerAds.selectBannerWhole",adsKey);
+	}
+
+	@Override
+	public int updateAccept(SqlSession session, int adsKey) {
+		return session.update("bannerAds.updateAccept",adsKey);
+	}
+
+	@Override
+	public int updateDeny(SqlSession session, int adsKey) {
+		return session.update("bannerAds.updateDeny",adsKey);
+	}
+	
+	
 	
 	
 	

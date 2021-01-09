@@ -25,7 +25,7 @@
 
 		<div class="account-nav-list">
 			<a href="${path }/member/myPage/account/changeProfilePic.do"> <i class="fas fa-camera-retro" id="account-user-icon"></i>
-				회원정보 수정
+				회원사진 수정
 			</a>
 		</div>
 		<div class="account-nav-list">

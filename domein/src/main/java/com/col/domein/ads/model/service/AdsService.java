@@ -38,7 +38,7 @@ public interface AdsService {
 	
 	List selectDirectDeny();
 	
-	List selectBannerPending();
+	int selectBannerPending();
 	
 	List selectDirectPending();
 	
@@ -47,5 +47,19 @@ public interface AdsService {
 	List selectDeny();
 	
 	List selectPending();
+	
+	int selectAdsCountByDay(String day);
+	
+	List selectBannerTotalAccept();
+	
+	List selectAll(int cPage,int numPerpage);
+	
+	int selectCountAll();
+	
+	BannerAds selectBannerWhole(int adsKey);
+	
+	int updateAccept(int adsKey);
+	
+	int updateDeny(int adsKey);
 	
 }

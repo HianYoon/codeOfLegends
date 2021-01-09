@@ -97,7 +97,7 @@ public class AdsServiceImpl implements AdsService {
 	}
 
 	@Override
-	public List selectBannerPending() {
+	public int selectBannerPending() {
 		return dao.selectBannerPending(session);
 	}
 
@@ -119,6 +119,41 @@ public class AdsServiceImpl implements AdsService {
 	@Override
 	public List selectPending() {
 		return dao.selectPending(session);
+	}
+
+	@Override
+	public int selectAdsCountByDay(String day) {
+		return dao.selectAdsCountByDay(session,day);
+	}
+
+	@Override
+	public List selectBannerTotalAccept() {
+		return dao.selectBannerTotalAccept(session);
+	}
+
+	@Override
+	public List selectAll(int cPage,int numPerpage) {
+		return dao.selectAll(session,cPage,numPerpage);
+	}
+
+	@Override
+	public int selectCountAll() {
+		return dao.selectCountAll(session);
+	}
+
+	@Override
+	public BannerAds selectBannerWhole(int adsKey) {
+		return dao.selectBannerWhole(session,adsKey);
+	}
+
+	@Override
+	public int updateAccept(int adsKey) {
+		return dao.updateAccept(session,adsKey);
+	}
+
+	@Override
+	public int updateDeny(int adsKey) {
+		return dao.updateDeny(session,adsKey);
 	}
 
 	

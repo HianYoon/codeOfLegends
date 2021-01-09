@@ -64,6 +64,7 @@ public class HomeController {
 		System.out.println(""+list);
 		mv.addObject("auction",auction);
 		mv.addObject("list",list);
+
 		mv.addObject("accept",jAccept);
 		mv.setViewName("index");
 		return mv;		
