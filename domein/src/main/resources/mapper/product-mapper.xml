@@ -142,5 +142,7 @@
 		<select id="selectBusinessOne" resultType="_int">
 			select * from BUSINESS where MEMBER_KEY=#{signedInMember.memberKey}
 		</select>
-		
+		<select id="selecProductListAll" resultType="map">
+			select * from BOARD_DIRECT_SALE b inner join DIRECT_SALE_PRODUCT d on b.article_no=d.article_no inner join BDS_ATTACHED_IMAGE a on d.product_no=a.product_no
+		</select>
 </mapper>

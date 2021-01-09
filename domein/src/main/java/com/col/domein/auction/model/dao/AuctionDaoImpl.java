@@ -153,5 +153,28 @@ public class AuctionDaoImpl implements AuctionDao {
 		// TODO Auto-generated method stub
 		return session.selectList("boardAuction.selectJoinList",bidKey);
 	}
-
+	//옥션 취소시 데이터 삭제 
+	@Override
+	public int listAlldelete(SqlSession session, int articleNo, int writerKey) {
+		TreeMap<String,Integer> map=new TreeMap<String,Integer>();
+		map.put("articleNo", articleNo);
+		map.put("writerKey",writerKey);
+		// TODO Auto-generated method stub
+		return session.delete("boardAuction.listAlldelete",map);
+	}
+	
+	//옥션joinlist
+	@Override
+	public int checkAuctionBid(SqlSession session, int articleNo, int writerKey) {
+		TreeMap<String,Integer> map=new TreeMap<String,Integer>();
+		map.put("articleNo", articleNo);
+		map.put("writerKey",writerKey);
+		// TODO Auto-generated method stub
+		return session.selectOne("boardAuction.checkAuctionBid",map);
+	}
+	@Override
+	public List<Map> selectAuctionListAll(SqlSession session) {
+		// TODO Auto-generated method stub
+		return session.selectList("boardAuction.selectAuctionListAll");
+	}
 }

@@ -47,7 +47,7 @@
                 
 	                                <div class="mySlides fade">
 	                                    <div class="numbertext">1 / 5</div>
-	                                    <img src="${path}/resources/upload/boardauction/file/${list.RENAMED_FILE_NAME}" class="slideImg"  style="width:100%;heigth:200px;">
+	                                    	<img src="${path}/resources/upload/boardauction/file/${list.RENAMED_FILE_NAME}" class="slideImg"  style="width:100%;heigth:200px;">
 	                                    <div class="text">Caption Text</div>
 	                                </div>
                                 
@@ -73,7 +73,7 @@
                                 <li><h4>요구사항</h4></li>
                                 <li>
                                     
-                                    <textarea name="content" id="textarea" cols="20" rows="7" readonly><c:out value="${list.CONTENT}"/></textarea></li>
+                                    <textarea name="content" id="textarea" cols="10" rows="4" readonly><c:out value="${list.CONTENT}"/></textarea></li>
                                 </ul>
                                 
                                 
@@ -178,10 +178,10 @@
 		});
 	})
 	
-	$(document).on(function showReplayList(){
+	/* $(document).on(function showReplayList(){
 	
 		const url="${path}/restBoard/getReplyList",
-		const paramData={"bid":"${boardContent.bid}"};
+		const paramData={"bid":${boardContent.bid}};
 		$.ajax({
 			type:"POST",
 			url: url,
@@ -217,6 +217,6 @@
 				$("#replayList").html(htmls);
 			};
 		});
-		});
+		}); */
 </script>
 <jsp:include page="/WEB-INF/views/common/footer.jsp"/>

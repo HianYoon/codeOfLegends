@@ -129,8 +129,10 @@
                                         </div>
                                     </div>
                                     <div class="joinformBtn">
-                                         <button type="submit" class="btn btn--primary">등록</button>
-                                         <button type="reset" class="btn btn--primary">취소</button>
+                                         <button type="button" class="btn btn--primary" onclick="location.href='${path}/auction/auctionList.do'">완료</button>
+                                          <c:forEach items="${auction}" var="auction">
+                                        	 <button type="reset" class="btn btn--primary" onclick="location.href='${path}/auction/listAlldelete.do?articleNo=${auction.ARTICLE_NO}&writerKey=${auction.BUSINESS_KEY}'">취소</button>
+                                  		</c:forEach>
                                     </div>
                       
                                 </form>
@@ -291,6 +293,7 @@ $(document.body).on("click","#listUpdate",function(){
 	let bidK=tbody.find("#SbidKey").text();
 	let bidKey= Number(bidK);
 	const bidOne="bidKey="+bidKey;
+	console.log("bidOne:"+bidOne);
 	if(confirm("수정하시겠습니까?")){
 	}
 	$.ajax({
@@ -305,15 +308,15 @@ $(document.body).on("click","#listUpdate",function(){
 			out="<form id='updateForm'>";
 			for(let i = 0 ; i<data.length;i++){
 				
-			out +="<tr id='update'>";
-			out +="<td><input type='text' id='update' class='input--text' name='bidKey' value='"+data[i].BID_KEY+"' readonly/></td>";
-			out +="<td><input type='text' id='update' class='input--text' name='productName' value='"+data[i].PRODUCT_NAME+"'/></td>";
-			out +="<td><input type='text' id='update' class='input--text' name='productOrigin' value='"+data[i].PRODUCT_ORIGIN+"'/></td>";
-			out +="<td><input type='text' id='update' class='input--text' name='productQuality' value='"+data[i].PRODUCT_QUALITY+"'/></td>";
-			out +="<td><input type='text' id='update' class='input--text' name='Quantity' value='"+data[i].PRODUCT_QUANTITY+"'/></td>";
-			out +="<td><input type='text' id='update' class='input--text' name='measureUnit' value='"+data[i].MEASURE_UNIT+"'/></td>";
-			out +="<td><input type='text' id='update' class='input--text' name='price' value='"+data[i].PRICE+"'/></td>";
-			out +="<td><button type='button' id='uploadBtn' class='btn btn-primary2'>버튼</button></td> ";
+			out +="<tr id='updatetr'>";
+			out +="<td><input type='text' id='update' class='bidKey' name='bidKey' value='"+data[0].BID_KEY+"' readonly/></td>";
+			out +="<td><input type='text' id='update' class='productName' name='productName' value='"+data[0].PRODUCT_NAME+"'/></td>";
+			out +="<td><input type='text' id='update' class='productOrigin' name='productOrigin' value='"+data[0].PRODUCT_ORIGIN+"'/></td>";
+			out +="<td><input type='text' id='update' class='productQuality' name='productQuality' value='"+data[0].PRODUCT_QUALITY+"'/></td>";
+			out +="<td><input type='text' id='update' class='Quantity' name='Quantity' value='"+data[0].PRODUCT_QUANTITY+"'/></td>";
+			out +="<td><input type='text' id='update' class='measureUnit' name='measureUnit' value='"+data[0].MEASURE_UNIT+"'/></td>";
+			out +="<td><input type='text' id='update' class='price' name='price' value='"+data[0].PRICE+"'/></td>";
+			out +="<td><button type='button' id='uploadBtn' class='btn btn-primary2'>등록</button></td> ";
 			out +="</tr>";
 			}
 			out +="</form>";
@@ -341,17 +344,36 @@ jQuery.fn.serializeObject= function(){
 }
 
 //form 데이터 형식으로 보내기 
-$(document.body).on("click","#listUpdate",function(){
+$(document.body).on("click","#uploadBtn",function(){
 	
-	var form=$(this).closest("#updateForm").serializeObject();
+	//var form=$(this).closest("#updateForm").serializeObject();
+	let update=$("#updatetr");
+	let bidK=$(".bidKey").val();
+	let bidKey=Number(bidK);
+	console.log("bidK"+bidKey);
+	let productName=$(".productName").val();
+	let productOrigin=$(".productOrigin").val();
+	let productQuality=$(".productQuality").val();
+	let Quanti=$(".Quantity").val();
+	let Quantity=Number(Quanti);
+	let measureUnit=$(".measureUnit").val();
+	let price1=$(".price").val();
+	let price=Number(price1);
+	let article=$("#articleNo").val();
+	let articleNo=Number(article);
+	let writer=$("#writerKey").val();
+	let writerKey=Number(writer);
+	const list="articleNo="+articleNo+"&writerKey="+writerKey;
+	let frm="bidKey="+bidKey+"&productName="+productName+"&productOrigin="+productOrigin+
+	"&productQuality="+productQuality+"&Quantity="+Quantity+"&measureUnit="+measureUnit+"&price="+price+"&articleNo="+articleNo+"&writerKey="+writerKey;
+	console.log(""+frm);
 		$.ajax({
-			url:'${path}/auction/auctionJoinUpdateEnllo.do',
-			type:'POST',
+			url:"${path}/auction/auctionJoinUpdateEnllo.do",
+			type:"get",
 			contentType:'application/json',
-			data:JSON.stringify(form),//객체형태로 
+			data:frm,
 			dataType:"json",
 			success:function(data){
-				alert(data);
 				let form="";
 				
 				for(let i =0;i <data.length; i++){
@@ -369,7 +391,7 @@ $(document.body).on("click","#listUpdate",function(){
 				$("#appendTo").html(form);
 			},
 			  error: function(){
-	                alert("serialize err");
+	                alert("update err");
 		}
 		});
 });
