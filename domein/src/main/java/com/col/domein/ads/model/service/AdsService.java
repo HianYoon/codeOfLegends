@@ -52,6 +52,10 @@ public interface AdsService {
 	
 	List selectBannerTotalAccept();
 	
-	List selectAll();
+	List selectAll(int cPage,int numPerpage);
+	
+	int selectCountAll();
+	
+	List selectBannerWhole();
 	
 }

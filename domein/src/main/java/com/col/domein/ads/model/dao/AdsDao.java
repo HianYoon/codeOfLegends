@@ -54,6 +54,10 @@ public interface AdsDao {
 	
 	List selectBannerTotalAccept(SqlSession session);
 	
-	List selectAll(SqlSession session);
+	List selectAll(SqlSession session,int cPage,int numPerPage);
+	
+	int selectCountAll(SqlSession session);
+	
+	List selectBannerWhole(SqlSession session);
 	
 }

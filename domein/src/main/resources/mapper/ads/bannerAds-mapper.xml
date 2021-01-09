@@ -86,9 +86,20 @@
 		LEFT JOIN MEMBER ON BANNER_ADS_APPLICATION.APPLICANT_KEY=MEMBER.MEMBER_KEY
 	</select>
 	
-	<!-- 관리자 게시판 검토대기중인 요청수 -->
-	<select id="selectBannerPending" resultType="int">
+	<!-- 관리자 게시판 검토대기중인 요청수(count) -->
+	<select id="selectBannerPending" resultType="_int">
 		SELECT COUNT(ADS_STATUS_NO) FROM BANNER_ADS_APPLICATION WHERE ADS_STATUS_NO=0
+	</select>
+	
+	<!-- 관리자 게시판 - 총 요청수(count) -->
+	<select id="selectCountAll" resultType="_int">
+		SELECT COUNT(*) FROM BANNER_ADS_APPLICATION
+	</select>
+	
+	<select id="selectBannerWhole" resultMap="bannerAdsMap">
+		SELECT ADS_KEY, ADS_ORIGINAL_FILE_NAME, ADS_RENAMED_FILE_NAME, START_DATE, END_DATE, APPLY_DATE, URL_LINK, ADS_DESCRIPTION, ADS_MEMO, ADS_TITLE, ADS_PRICE, NICKNAME 
+		FROM BANNER_ADS_APPLICATION 		
+		LEFT JOIN MEMBER ON BANNER_ADS_APPLICATION.APPLICANT_KEY=MEMBER.MEMBER_KEY
 	</select>
 	
 	<select id="selectBannerDeny" resultType="int">
