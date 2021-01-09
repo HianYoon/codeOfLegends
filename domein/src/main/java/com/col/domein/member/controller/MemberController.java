@@ -793,6 +793,13 @@ public class MemberController {
 		loadMemberAgain(session);
 		return "redirect: " + request.getContextPath() + "/member/myPage/account.do";
 	}
+	
+	@RequestMapping("/myPage/account/changeProfilePic.do")
+	public String changeProfilePic() {
+		return "member/myPage/account/changeProfilePic";
+	}
+	
+	
 /////////////////////////////////////////////////////////
 //	아이디 비밀번호 찾기
 	@RequestMapping("/idPwFind.do")
