@@ -1,5 +1,13 @@
 @charset "UTF-8";
 
+.addview{
+	width:auto;
+	height:40px;
+}
+h3.auctionAdd {
+    width: auto;
+    text-align: end;
+}
   <!-- --------------auction register  ---------------- -->
 .oction--register--img {
     width: 900px;
@@ -185,8 +193,10 @@ div#log {
     text-align: center;
 
 }
-.joinformBtn{
-    display:flex;
+
+.joinformBtn {
+    display: flex;
+    justify-content: center;
     margin-bottom: 10px;
 }
 @media(max-width: 768px){
@@ -297,6 +307,10 @@ div#log {
     font-size: 20px;
     font-weight: 500;
 
+}
+textarea#content {
+    width: 100%;
+    border-block-style: none;
 }
 .OctionBuyerBar{
     width:1000px;
@@ -613,8 +627,7 @@ img#big-target {
     box-sizing: border-box;
     
 }
-.oction-img-group #big-target{
-
+.oction-img-group #big-target {
     width: 200px;
     height: 150px;
 }
@@ -661,7 +674,6 @@ img#big-target {
             margin-bottom: 5px;
             font-size: 15px;
             font-weight: 400;
-            border: 1px solid red;
             box-sizing: border-box;
         }
         .grid2-container {

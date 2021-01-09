@@ -47,6 +47,12 @@ public interface AuctionService {
 	int auctionJoinUpdate(BidContent bid);
 	//joinlist수정된 목록가져오기
 	List<Map> selectJoinList(int bidKey);
+	//옥션 join취소시 등록 데이터 삭제 
+	int listAlldelete(int articleNo, int writerKey);
+	// joinlist등록이 되잇는지 없는지 확인
+	int checkAuctionBid(int articleNo, int writerKey);
+	//메인 페이지 auctionlist 불러오기 
+	List<Map> selectAuctionListAll();
 
 
 }

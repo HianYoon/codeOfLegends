@@ -31,8 +31,8 @@
         <div class="tab_menu">
             <ul><h2>[관리자] 광고관리</h2>
                 <li><a href="${path }/admin/admin_ads/adminBannerManage.do"><h5>슬라이드 배너 관리</h5></a></li>
-                <li><a href="${path }/admin/admin_ads/adminBannerView.do"><h5>슬라이드 배너 요청 검토</h5></a></li>
-                <li><a href="${path }/admin/admin_ads/adminDirectView.do"><h5>추천 게시글 요청 검토</h5></a></li>
+                <li><a href="${path }/admin/admin_ads/adminBannerBoard.do"><h5>슬라이드 배너 요청 검토</h5></a></li>
+                <li><a href="${path }/admin/admin_ads/adminDirectBoard.do"><h5>추천 게시글 요청 검토</h5></a></li>
             </ul>
         </div>
         <div id="container">
@@ -60,26 +60,43 @@
                         </tr>
                     </thead>
                     <tbody>
-                    <%-- <c:forEach items="${boardContent }" var="bc" varStatus="vs">
-                        <tr>                       	
-                            <td><c:out value="${bc.statusDesc}"/></td>
-                            <td><c:out value="${bc.adsTitle }"/></td>
+                    <c:forEach items="${boardContent }" var="bc" varStatus="vs">
+                        <tr>                       
+                        <c:choose>	
+                        	<c:when test="${bc.statusDesc=='대기' }">
+                            	<td style="color:red;"><c:out value="${bc.statusDesc}"/></td>
+                            </c:when>
+                            <c:when test="${bc.statusDesc=='반려' }">
+                            	<td style="color:gray;"><c:out value="${bc.statusDesc}"/></td>
+                            </c:when>
+                            <c:when test="${bc.statusDesc=='승인' }">
+                            	<td style="color:lime"><c:out value="${bc.statusDesc}"/></td>
+                            </c:when>
+                            <c:otherwise>
+                            	<td style="color:#ddd;"><c:out value="${bc.statusDesc}"/></td>
+                            </c:otherwise>
+                        </c:choose>
+                            <td>
+                            	<a href="${path }/admin/admin_ads/adminBannerView.do?adsKey=${bc.adsKey}">
+                            	<c:out value="${bc.adsTitle }"/>
+                            	</a>
+                            </td>
                             <td><c:out value="${bc.nickName }"/></td>
                             <td><c:out value="${bc.applyDate }"/></td>
                         </tr>                 
-                    </c:forEach> --%>
+                    </c:forEach>
                     </tbody>             
                 </table>
             </div>
             <div class="div_pageBar">
-                <%-- ${pageBar} --%>
+                ${pageBar}
             </div>           
             <br><br><br>     
         </div>
     </div>
 </section>
 <script>
-	$(function(){
+	/* $(function(){
 		$.ajax({					
 			success:data=>{
 				let board=${boardContent};
@@ -93,7 +110,7 @@
 				}
 			}				
 		});
-	});
+	}); */
 </script>
 
 <jsp:include page="/WEB-INF/views/common/footer.jsp"/>

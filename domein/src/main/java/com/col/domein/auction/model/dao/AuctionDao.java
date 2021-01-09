@@ -60,5 +60,11 @@ public interface AuctionDao {
 	int auctionJoinUpdate(SqlSession session, BidContent bid);
 	//join수정할 list불러오기 
 	List<Map> selectJoinList(SqlSession session, int bidKey);
+	//옥션취소시 데이터 삭제 
+	int listAlldelete(SqlSession session, int articleNo, int writerKey);
+	//auctionjoinlist 체크
+	int checkAuctionBid(SqlSession session, int articleNo, int writerKey);
+	//메인페이지 auctionList
+	List<Map> selectAuctionListAll(SqlSession session);
 
 }

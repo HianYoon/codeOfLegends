@@ -74,8 +74,3 @@
     margin-top:20px;
     margin-left:33%;
 }
-
-@media (max-width:768px){
-	.tab_menu{
-		display:none;
-}

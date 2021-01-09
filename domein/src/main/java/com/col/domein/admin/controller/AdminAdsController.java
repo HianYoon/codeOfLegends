@@ -1,22 +1,26 @@
 package com.col.domein.admin.controller;
 
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.col.domein.ads.model.service.AdsService;
 import com.col.domein.ads.model.vo.BannerAds;
+import com.col.domein.common.pageBar.PageBarFactory;
 import com.col.domein.member.model.vo.Member;
-import com.google.gson.Gson;
 
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
@@ -98,20 +102,75 @@ public class AdminAdsController {
 		return mv;
 	}
 	
-	//slideBannerRequestBoard로 화면 전환(슬라이드 배너 요청 게시판)
-	@RequestMapping("/admin/admin_ads/adminBannerView.do")
-	public ModelAndView viewAdminBannerBoard(ModelAndView mv) {
+	//슬라이드 배너 요청 게시판 보기 (slideBannerRequestBoard로 화면 전환)
+	@RequestMapping("/admin/admin_ads/adminBannerBoard.do")
+	public ModelAndView viewAdminBannerBoard(ModelAndView mv,
+			@RequestParam(value="cPage",defaultValue="1") int cPage,
+			@RequestParam(value="numPerPage",defaultValue="10") int numPerpage) {		
+		
+		int totalCount=service.selectCountAll();
+		
 		//게시판 모두 불러오기
-		List<BannerAds> board=service.selectAll();
+		List<BannerAds> board=service.selectAll(cPage,numPerpage);
+		SimpleDateFormat sdf=new SimpleDateFormat("yyyy.MM.dd");
+		JSONArray boardContent=new JSONArray();
+		for(BannerAds b:board) {
+			JSONObject jo=new JSONObject();
+			jo.put("adsKey",b.getAdsKey());
+			jo.put("statusDesc",b.getStatusDesc());
+			jo.put("adsTitle",b.getAdsTitle());
+			String applyDate=sdf.format(b.getApplyDate());
+			jo.put("applyDate",applyDate);
+			jo.put("nickName",b.getNickName());
+			boardContent.add(jo);
+		}
 		//JSONArray boardContent=JSONArray.fromObject(board);
-		String boardContent=new Gson().toJson(board);//Date객체가 포함됨!
+		//String boardContent=new Gson().toJson(board);//Date객체가 포함됨!
 		mv.addObject("boardContent",boardContent);
+		
+		mv.addObject("pageBar",PageBarFactory.getPageBar(totalCount, cPage, numPerpage, "adminBannerBoard.do"));
 		
 		//검토대기 중인 요청수
 		mv.addObject("pending", service.selectBannerPending());
 		mv.setViewName("/admin/admin_ads/slideBannerRequestBoard");
 		return mv;
 	}
+	
+	
+	//배너광고 요청게시판에서 -> 글 상세보기
+	@RequestMapping("/admin/admin_ads/adminBannerView.do")
+	public ModelAndView viewBannerRequest(ModelAndView mv, int adsKey) {		
+		mv.addObject("picked",service.selectBannerWhole(adsKey));
+		mv.setViewName("/admin/admin_ads/slideBannerRequestView");
+		return mv;
+	}
+	
+	@RequestMapping("/admin/admin_ads/adminBannerDecision.do")
+	public void adminBannerDeciseion(HttpServletResponse response,
+			@RequestParam(value="decision",defaultValue="0") int decision,
+			@RequestParam(value="adsKey",defaultValue="0") int adsKey) throws IOException {
+		String msg="";
+		if(decision==1) {
+			int result=service.updateAccept(adsKey);
+			if(result>0) {
+				msg="승인처리 되었습니다.";
+			}else {
+				msg="처리도중 오류가 발생했습니다! \\n 다시 시도해주세요.";
+			}			
+			response.setContentType("text/html;charset=utf-8");
+			response.getWriter().print(msg);
+		}else {
+			int result=service.updateDeny(adsKey);
+			if(result>0) {
+				msg="반려처리 되었습니다.";				
+			}else {
+				msg="처리도중 오류가 발생했습니다! \\n 다시 시도해주세요.";
+			}
+			response.setContentType("text/html;charset=utf-8");
+			response.getWriter().print(msg);
+		}
+	}
+	
 	
 	//directAdsRequestBoard로 화면 전환(추천게시글 요청 검토)
 	@RequestMapping("/admin/admin_ads/adminDirectView.do")

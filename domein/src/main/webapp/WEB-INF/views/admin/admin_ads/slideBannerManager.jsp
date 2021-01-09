@@ -38,8 +38,8 @@
 	    <div class="tab_menu">
 	        <ul><h2>[관리자] 광고관리</h2>
 	            <li><a href="${path }/admin/admin_ads/adminBannerManage.do"><h5>슬라이드 배너 관리</h5></a></li>
-	            <li><a href="${path }/admin/admin_ads/adminBannerView.do"><h5>슬라이드 배너 요청 검토</h5></a></li>
-	            <li><a href="${path }/admin/admin_ads/adminDirectView.do"><h5>추천 게시글 요청 검토</h5></a></li>
+	            <li><a href="${path }/admin/admin_ads/adminBannerBoard.do"><h5>슬라이드 배너 요청 검토</h5></a></li>
+	            <li><a href="${path }/admin/admin_ads/adminDirectBoard.do"><h5>추천 게시글 요청 검토</h5></a></li>
 	        </ul>
 	    </div>
 	    <div id="container">

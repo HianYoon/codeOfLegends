@@ -95,7 +95,7 @@
 			select writer_key from auction_bid where writer_key=#{writerKey} group by writer_key
 		</select>
 		<!-- join목록 list수정 -->
-		<update id="auctionJoinUpdate" parameterType="_int">
+		<update id="auctionJoinUpdate" parameterType="map">
 			update BID_CONTENT set PRODUCT_NAME=#{productName},PRODUCT_QUALITY=#{productQuality},PRODUCT_ORIGIN=#{productOrigin},
 			PRODUCT_QUANTITY=#{Quantity},MEASURE_UNIT=#{measureUnit},PRICE=#{price} where BID_KEY=#{bidKey}
 		</update>
@@ -103,5 +103,16 @@
 		<select id="selectJoinList" resultType="map">
 			select * from BID_CONTENT where BID_KEY=#{bidKey}
 		</select>
-
+		
+		<!-- deletejoinlistAll -->
+		<delete id="listAlldelete" parameterType="_int">
+			delete from auction_bid  where article_no=#{articleNo} and writer_key=#{writerKey};
+		</delete>
+		<!-- auctionjoinlist check -->
+		<select id="checkAuctionBid" resultType="_int">
+			select count(*) from auction_bid where article_no=#{articleNo} and writer_key=#{writerKey} 
+		</select>
+		<select id="selectAuctionListAll" resultType="map">
+			select * from board_auction b inner join BA_ATTACHED_IMAGE a on b.article_no=a.article_no inner join BUSINESS bs on b.writer_key=bs.business_key 
+		</select>
 </mapper>

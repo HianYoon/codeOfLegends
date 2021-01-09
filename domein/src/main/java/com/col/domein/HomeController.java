@@ -3,6 +3,7 @@ package com.col.domein;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -16,6 +17,8 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.col.domein.ads.model.service.AdsService;
 import com.col.domein.ads.model.vo.BannerAds;
+import com.col.domein.auction.model.service.AuctionService;
+import com.col.domein.product.model.service.ProductService;
 
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
@@ -30,7 +33,10 @@ public class HomeController {
 	
 	@Autowired
 	AdsService service;
-	
+	@Autowired
+	AuctionService Aservice;
+	@Autowired
+	ProductService Pservice;
 	/**
 	 * Simply selects the home view to render by returning its name.
 	 */
@@ -42,7 +48,23 @@ public class HomeController {
 		System.out.println("오늘의 날짜: "+today);		
 		List<BannerAds> accept=service.selectBannerAccept(today);
 		JSONArray jAccept=JSONArray.fromObject(accept);
-				
+		
+		for(BannerAds b:accept) {
+			JSONObject jo=new JSONObject();
+			jo.put("adsKey",b.getAdsKey());
+			jo.put("applicantKey",b.getApplicantKey());			
+			jo.put("adsRenamedFileName",b.getAdsRenamedFileName());			
+			jo.put("urlLink",b.getUrlLink());			
+			jo.put("adsTitle",b.getAdsTitle());			
+			jAccept.add(jo);
+		}
+		List<Map> auction=Aservice.selectAuctionListAll();
+		System.out.println(""+auction);
+		List<Map> list=Pservice.selecProductListAll();
+		System.out.println(""+list);
+		mv.addObject("auction",auction);
+		mv.addObject("list",list);
+
 		mv.addObject("accept",jAccept);
 		mv.setViewName("index");
 		return mv;		

@@ -59,5 +59,7 @@ public interface ProductService {
 	int updateAuctionStatusToStoppedByBusinessKey(int businessKey);
 	//
 	List<Map> selectBusinessOne(int memberKey);
+	//index 페이지 
+	List<Map> selecProductListAll();
 
 }	
