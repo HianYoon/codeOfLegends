@@ -98,7 +98,7 @@
 							</ul>
 						</li>
 					</ul>
-					<a href="${path }/community/communityList.do" class="link-forum"><i class="icon-forum"></i><span><small>도매인</small><br>지식포럼</span></a>
+					<a href="${path }/community/community.do" class="link-forum"><i class="icon-forum"></i><span><small>도매인</small><br>지식포럼</span></a>
 				</div>
 			</nav>
 			<button class="button-close">닫기</button>
@@ -133,7 +133,7 @@
 					</a>
 				</div>
 				<div>
-					<a href="${path }/community/communitylist.do">
+					<a href="${path }/community/community.do">
 						<div>
 							<img src="${path }/resources/images/profile/talk.png" alt="" />
 						</div>

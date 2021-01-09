@@ -1,21 +1,15 @@
 package com.col.domein.board.controller;
 
-import java.io.BufferedInputStream;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.io.PrintWriter;
-import java.net.URLEncoder;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 //github.com/HianYoon/codeOfLegends.git
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
-import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -23,7 +17,6 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -32,73 +25,79 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.col.domein.board.model.service.BoardService;
-import com.col.domein.board.model.vo.Attachment;
 import com.col.domein.board.model.vo.Board;
 import com.col.domein.common.pageBar.PageBarFactory;
+import com.col.domein.member.model.vo.Member;
 
 @Controller
 public class BoardController {
 
 	@Autowired
 	private BoardService service;
-
-	@RequestMapping("/community/insert.do")
+	@Autowired
+	private Member m;
+	
+//	@RequestMapping("/community/community.do")
+//	public ModelAndView selectboardList(ModelAndView mv,
+//			@RequestParam(value="cPage", defaultValue="1") int cPage, 
+//			@RequestParam(value="numPerpage", defaultValue="10") int numPerpage) {
+//			
+//		mv.addObject("list",service.selectBoardList(cPage,numPerpage));
+//        System.out.println(service.selectBoardList(cPage,numPerpage));
+//		
+//		int totalData=service.selectCount();
+//		mv.addObject("pageBar",PageBarFactory.getPageBar(totalData, cPage, numPerpage, "community.do"));
+//		mv.addObject("totalData",totalData);
+//		mv.setViewName("community/community");
+//		
+//		return mv;
+//	}
+	@RequestMapping("/community/community.do")
 	public String community() {
-		return "community/communityList";
+		return "community/community";
 	}
-	@RequestMapping("/community/communityList.do")
-	public ModelAndView selectboardList(ModelAndView mv,
-			@RequestParam(value="cPage", defaultValue="1") int cPage, 
-			@RequestParam(value="numPerpage", defaultValue="10") int numPerpage) {
-			
-		mv.addObject("list",service.selectBoardList(cPage,numPerpage));
-        System.out.println(service.selectBoardList(cPage,numPerpage));
+	@RequestMapping("/community/write.do")
+	public String write() {
+		return "community/write";
+	}
+//	@RequestMapping("/community/bkbDetail.do")
+//	public String bkbDetail(Model m,int threadKey) {
+//		
+//		List<Map> list = service.selectBkbArticles(threadKey);
+//		m.addAttribute("list",list);
+//		return "community/bkbDetail";
+//	}
+	@RequestMapping("/community/insertBoard.do")
+	public ModelAndView insertBoard(Board board, ModelAndView mv) {
 		
-		int totalData=service.selectCount();
-		mv.addObject("pageBar",PageBarFactory.getPageBar(totalData, cPage, numPerpage, "communityList.do"));
-		mv.addObject("totalData",totalData);
-		mv.setViewName("community/community");
-		
+		int result=service.insertBoard(board);
+		mv.addObject("msg", result>0?"입력성공":"입력실패");
+		mv.addObject("loc", "/community/community.do");
+		mv.setViewName("common/msg");
 		return mv;
 	}
-//	@RequestMapping("/community/write.do")
-//	public ModelAndView write(Board board, ModelAndView mv, 
-//			@RequestParam(value="upFile", required=false) MultipartFile[] upFile,
-//			HttpSession session) {
+//	@RequestMapping("/community/insertBoard.do")
+//	public ModelAndView insertBoard(Board board,ModelAndView mv) {
 //		
-//		//upload실제 경로를 가져와야함.
-//		String path=session.getServletContext().getRealPath("/resources/upload/community");
+//		System.out.println(""+board);
 //		
-//		File dir=new File(path);
-//		if(!dir.exists()) dir.mkdirs();//폴더를 생성
-//		List<Attachment> files=new ArrayList();
-//		//다중파일 업로드하기 MultipartFile객체의 transferTo()메소드이용 파일을 저장
-//		//renamed처리 해줘야함 -> file명을 재정의하는 것
-//		for(MultipartFile f : upFile) {
-//			if(!f.isEmpty()) {
-//				//파일명생성하기
-//				String originalName=f.getOriginalFilename();
-//				String ext=originalName.substring(originalName.lastIndexOf(".")+1);
-//				
-//				//리네임규칙
-//				SimpleDateFormat sdf=new SimpleDateFormat("yyyyMMdd_HHmmssSSS");
-//				int rndValue=(int)(Math.random()*10000);
-//				String reName=sdf.format(System.currentTimeMillis())+"_"+rndValue+"."+ext;
-//				try {
-//					f.transferTo(new File(path+"/"+reName));
-//				}catch(IOException e) {
-//					e.printStackTrace();
-//				}
-//			}
-//		}		
-//		
-//		
-//		int result=service.write(board,files);
-//		mv.addObject("msg", result>0?"입력성공":"입력실패");
-//		mv.addObject("loc", "/community/insert.do");
+//		int result=service.insertBoard(board);
+//		mv.addObject("articleContent",board);
+//		mv.addObject("loc","/community/communityList.do");
 //		mv.setViewName("common/msg");
 //		return mv;
+//	}
+//	
+//	@RequestMapping("/community/insertBoard.do")
+//	public ModelAndView insertBoard(Board board, ModelAndView mv) 
+//			{
+//			
+//		int result=service.insertBoard(board);
+//		mv.addObject("msg", result>0?"입력성공":"입력실패");
+//		mv.addObject("loc", "/community/communityList.do");
+//		mv.setViewName("common/msg");
 //		
+//	return mv;	
 //	}
 //	@RequestMapping("/community/write.do")
 //	public void fileDownload(String oriname, String rename,
@@ -175,11 +174,6 @@ public class BoardController {
 //				+ "','이미지가 업로드되었습니다.')" + "</script>");
 //		printWriter.flush();
 //	}
-
-	@RequestMapping("/community/write.do")
-	public String write() {
-		return "community/write";
-	}
 
 	@RequestMapping("/community/profile.do")
 	public String profile() {

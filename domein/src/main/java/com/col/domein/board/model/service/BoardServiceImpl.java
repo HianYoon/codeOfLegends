@@ -30,21 +30,27 @@ public class BoardServiceImpl implements BoardService{
 		return dao.selectCount(session);
 	}
 
+//	@Override
+//	public int write(Board board, List<Attachment> files) {
+//		// TODO Auto-generated method stub
+//		/* return dao.insertBoard(session, board); */
+//		int result=dao.write(session,  board);
+//		if(result>0) {
+//			if(files!=null) {
+//				for(Attachment a:files) {
+//					result=dao.insertAttachment(session,a);
+//				}
+//			}
+//		}
+//		return result;
+//	}
+
 	@Override
-	public int write(Board board, List<Attachment> files) {
+	public int insertBoard(Board board) {
 		// TODO Auto-generated method stub
 		/* return dao.insertBoard(session, board); */
-		int result=dao.write(session,  board);
-		if(result>0) {
-			if(files!=null) {
-				for(Attachment a:files) {
-					result=dao.insertAttachment(session,a);
-				}
-			}
-		}
-		return result;
+		return dao.insertBoard(session,  board);
 	}
-
 	@Override
 	public Board selectBoardOne(int threadKey) {
 		// TODO Auto-generated method stub

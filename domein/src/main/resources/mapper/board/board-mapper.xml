@@ -2,19 +2,35 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="board">
 
- 	<insert parameterType="board" id="write">
-		INSERT INTO BOARD_KNOW_BATTLE VALUES(SEQ_THREAD_KEY.NEXTVAL,
-			#{threadTitle},
-			#{writerKey},
-			#{acotrKey},
-			#{articleContent},
-			#{readCount},
-			#{writtenDate}
-			)
+	<resultMap type="board" id="boardMap">
+		<id column="THREAD_KEY" property="threadKey"/>
+		<result column="THREAD_TITLE" property="threadTitle"/>
+		<result column="WRITER_KEY" property="writerKey"/>
+		<result column="WRITTEN_DATE" property="writtenDate"/>
+		<result column="MODIFIED_DATE" property="modifiedDate"/>
+		<result column="READ_COUNT" property="readCount"/>
+		<result column="THREAD_STATUS_NO" property="threadStatusNo"/>				
+	</resultMap>
+	<insert id="insertBoard" parameterType="board">
+		INSERT INTO BOARD_KNOW_BATTLE VALUES(SEQ_THREAD_KEY.NEXTVAL, #{threadTitle},
+		#{writerKey},default,default,default)
 				<selectKey order="AFTER" resultType="_int" keyProperty="threadKey">
 					SELECT SEQ_THREAD_KEY.CURRVAL FROM DUAL
 				</selectKey>
 	</insert>
+<!--  	<insert parameterType="board" id="write">
+		INSERT INTO BOARD_KNOW_BATTLE VALUES(SEQ_THREAD_KEY.NEXTVAL,
+			#{threadTitle},
+			#{writerKey},
+			#{writtenDate},
+			#{modifiedDate},
+			#{readCount},
+			${threadStatusNo}
+			)
+ 				<selectKey order="AFTER" resultType="_int" keyProperty="threadKey">
+					SELECT SEQ_THREAD_KEY.CURRVAL FROM DUAL
+				</selectKey>
+	</insert> -->
 	
 	<insert parameterType="attachment" id="insertAttachment">
 		INSERT INTO BKB_ATTACHED_IMAGE VALUES(

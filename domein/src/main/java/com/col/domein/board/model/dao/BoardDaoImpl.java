@@ -35,9 +35,9 @@ public class BoardDaoImpl implements BoardDao{
 	 */
 
 	@Override
-	public int write(SqlSession session, Board board) {
+	public int insertBoard(SqlSession session, Board board) {
 		// TODO Auto-generated method stub
-		return session.insert("board.write",board);
+		return session.insert("board.insertBoard",board);
 	}
 
 	@Override
