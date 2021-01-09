@@ -47,7 +47,7 @@
 }
 #table_requestBoard th:first-child{
     /* position:absolute; */
-    width:2%;
+    width:5%;
 }
 #table_requestBoard th:nth-child(2){
     /* position: absolute; */

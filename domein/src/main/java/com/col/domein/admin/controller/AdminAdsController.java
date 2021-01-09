@@ -75,7 +75,6 @@ public class AdminAdsController {
 //			jo.put("urlLink",b.getUrlLink());			
 //			jo.put("adsTitle",b.getAdsTitle());			
 //			jAccept.add(jo);
-//			System.out.println("몇번?");
 //		}
 //		String jAccept=new Gson().toJson(accept);
 		mv.addObject("accept", jAccept);		
@@ -104,7 +103,8 @@ public class AdminAdsController {
 	public ModelAndView viewAdminBannerBoard(ModelAndView mv) {
 		//게시판 모두 불러오기
 		List<BannerAds> board=service.selectAll();
-		JSONArray boardContent=JSONArray.fromObject(board);
+		//JSONArray boardContent=JSONArray.fromObject(board);
+		String boardContent=new Gson().toJson(board);
 		mv.addObject("boardContent",boardContent);
 		
 		//검토대기 중인 요청수

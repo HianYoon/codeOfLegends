@@ -30,29 +30,29 @@
 	<div id="wholeback">
         <div class="tab_menu">
             <ul><h2>[관리자] 광고관리</h2>
-                <li><a href=""><h5>슬라이드 배너 관리</h5></a></li>
-                <li><a href=""><h5>슬라이드 배너 요청 검토</h5></a></li>
-                <li><a href=""><h5>추천 게시글 요청 검토</h5></a></li>
+                <li><a href="${path }/admin/admin_ads/adminBannerManage.do"><h5>슬라이드 배너 관리</h5></a></li>
+                <li><a href="${path }/admin/admin_ads/adminBannerView.do"><h5>슬라이드 배너 요청 검토</h5></a></li>
+                <li><a href="${path }/admin/admin_ads/adminDirectView.do"><h5>추천 게시글 요청 검토</h5></a></li>
             </ul>
         </div>
         <div id="container">
             <h2>슬라이드 배너 요청 검토</h2>
             <hr>
             <div class="div_boardTop">
-                <div>현재 검토 대기중인 요청이 총 <>건 있습니다.</div>
+                <div>현재 검토 대기중인 요청이 총 <b><c:out value="${pending }"/></b> 건 있습니다.</div>
                 <div class="div_search">
                     <select name="searchType" id="searchType">
                         <option value="adsApplyDate">작성일</option>
                         <option value="adsStatus">상태</option>
                         <option value="adsTitle">제목</option>
-                        <option value="adsWriter">작성자</option>
+                        <option value="nickName">작성자</option>
                     </select>
                 </div>
             </div>
             <div class="div_table">
                 <table id="table_requestBoard">
                     <thead>
-                        <tr>
+                        <tr>                        	
                             <th>상태</th>
                             <th>제목</th>
                             <th>작성자</th>
@@ -60,30 +60,36 @@
                         </tr>
                     </thead>
                     <tbody>
-                    <!-- <c:for> -->
-                        <tr>
-                            <td>{ads.adsStatus}</td>
-                            <td>{ads.adsTitle}</td>
-                            <td>{ads.adsWriter}</td>
-                            <td>{ads.adsApplyDate}</td>
-                        </tr>
-                        <tr>
-                            <td>{ads.adsStatus}</td>
-                            <td>{ads.adsTitle}</td>
-                            <td>{ads.adsWriter}</td>
-                            <td>{ads.adsApplyDate}</td>
-                        </tr>
-                    <!-- </c:for> -->
-                    </tbody>
+                    <c:forEach items="${boardContent }" var="bc" varStatus="vs">
+                        <%-- <tr>                        	
+                            <td><c:out value="${bc.adsStatus}"/></td>
+                            <td><c:out value="${bc.adsTitle }"/></td>
+                            <td><c:out value="${bc.nickName }"/></td>
+                            <td><c:out value="${bc.applyDate }"/></td>
+                        </tr>     --%>                    
+                    </c:forEach>
+                    </tbody>             
                 </table>
             </div>
             <div class="div_pageBar">
-                ${pageBar}
+                <%-- ${pageBar} --%>
             </div>           
             <br><br><br>     
         </div>
     </div>
 </section>
+<script>
+	$(function(){
+		$.ajax({
+			url:"${path}/admin/admin_ads/adminBannerView.do",
+			type:"get",
+			dataType:"html",
+			success:data=>{
+				let board=JSON.parse("${boardContent}");	
+			}				
+		})
+	})
+</script>
 
 <jsp:include page="/WEB-INF/views/common/footer.jsp"/>
 
