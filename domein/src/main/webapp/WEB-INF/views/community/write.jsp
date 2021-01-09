@@ -30,13 +30,33 @@
 			</td>
 		</tr>
 	</table>
-	    <div class="sbm">
+	    <div class="sbm" style="padding-left:50%">
             <input type="submit" class="btn" id="btnSave" value="저장" />
             <input type="button" class="btn" id="btnR" value="취소"/>
         </div>
     </form>
 </section>
     <script>
+/*     $(document).ready(function(){
+    	CKEDITOR.replace('articleContent', {
+    		filebrowserImageUploadUrl:'/image/upload',
+            width:'100%',
+            height:'400px',
+    	});
+    	
+    	CKEDITOR.on('dialogDefinition', function(e){
+    		var dialogName = e.data.name;
+    		var dialogDefinition = e.data.definition;
+    		
+    		switch(dialogName){
+    		case 'image':
+    			dialogDefinition.removeContents('info');
+    			dialogDefinition.removeContents('Link');
+    			dialogDefinition.removeContents('advanced');
+    			break;
+    		}
+    	})
+    }) */
      $(function(){
         
         CKEDITOR.replace( 'articleContent', {//해당 이름으로 된 textarea에 에디터를 적용
@@ -45,7 +65,8 @@
             filebrowserImageUploadUrl: "${path}/community/imageUpload.do" //여기 경로로 파일을 전달하여 업로드 시킨다.
         });
          
-         
+        window.parent.CKEDITOR.tools.callFunction('${ckEditorFuncNum}', '${url}', '파일 전송 완료.');
+        
         CKEDITOR.on('dialogDefinition', function( ev ){
             var dialogName = ev.data.name;
             var dialogDefinition = ev.data.definition;
@@ -62,7 +83,7 @@
     	fileborwserUploadUrl : "${path}/community/imageUpload.do"
     }); */
     $("#btnR").click(e => {
-    	location.href = "${path}/community/communityList.do";
+    	location.href = "${path}/community/community.do";
     })
 /*     $(document).on('click', 'btnSave', function(e){
     	$("#write").submit();
