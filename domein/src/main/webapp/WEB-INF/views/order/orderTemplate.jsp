@@ -107,7 +107,10 @@ location.href = '${path}/order/mustLogin.do';
 		        		"totalPrice" : sumPrice.val() - discount.val()
 		        	},
 		        	success: (data)=>{
-		        		console.log(data);
+		        		/* 데이터는 orderNo입니다. JSON 파싱 필요없이 바로 넘버로서 사용 가능 */
+		        		/* orderNo를 이용해서, 각자 필요한 order_history로 집어넣으세요. location.href 추천 */
+		        		
+		        		
 		        		}
 		        	})
 		    } else {
