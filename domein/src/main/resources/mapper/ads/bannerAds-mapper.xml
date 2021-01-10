@@ -27,6 +27,10 @@
 			#{urlLink},#{adsDescription},DEFAULT,DEFAULT,#{adsTitle},#{adsPrice})
 	</insert>
 	
+	<insert id="insertOrderNo" parameterType="int">
+		INSERT INTO ADS_ORDER_HISTORY VALUES(#{orderNo},1,DEFAULT,SYSDATE)
+	</insert>
+	
 	<select id="selectBannerHoldCount" parameterType="int" resultType="int">
 		SELECT COUNT(ADS_KEY) FROM BANNER_ADS_APPLICATION WHERE 
 		APPLICANT_KEY=#{applicantKey} AND ADS_STATUS_NO=0
@@ -80,7 +84,7 @@
 	</select>
 	
 	<!-- Banner 관리자 게시판 data -->
-	<select id="selectAll" resultMap="bannerAdsMap">
+	<select id="selectBannerBoardAll" resultMap="bannerAdsMap">
 		SELECT ADS_KEY, STATUS_DESC, ADS_TITLE, APPLY_DATE, NICKNAME FROM BANNER_ADS_APPLICATION 
 		LEFT JOIN ADS_STATUS ON BANNER_ADS_APPLICATION.ADS_STATUS_NO=ADS_STATUS.ADS_STATUS_NO 
 		LEFT JOIN MEMBER ON BANNER_ADS_APPLICATION.APPLICANT_KEY=MEMBER.MEMBER_KEY
@@ -112,6 +116,7 @@
 	<update id="updateDeny" parameterType="int">
 		UPDATE BANNER_ADS_APPLICATION SET ADS_STATUS_NO=6 WHERE ADS_KEY=#{adsKey}
 	</update>
+	
 	
 	<select id="selectBannerDeny" resultType="int">
 		SELECT COUNT(ADS_STATUS_NO) FROM BANNER_ADS_APPLICATION WHERE ADS_STATUS_NO=6 AND APPLY_DATE BETWEEN '210101' AND '211231' GROUP BY SUBSTR(APPLY_DATE,4,2)

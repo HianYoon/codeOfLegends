@@ -102,7 +102,7 @@ public class AdsServiceImpl implements AdsService {
 	}
 
 	@Override
-	public List selectDirectPending() {
+	public int selectDirectPending() {
 		return dao.selectDirectPending(session);
 	}
 
@@ -132,13 +132,13 @@ public class AdsServiceImpl implements AdsService {
 	}
 
 	@Override
-	public List selectAll(int cPage,int numPerpage) {
-		return dao.selectAll(session,cPage,numPerpage);
+	public List selectBannerBoardAll(int cPage,int numPerpage) {
+		return dao.selectBannerBoardAll(session,cPage,numPerpage);
 	}
 
 	@Override
-	public int selectCountAll() {
-		return dao.selectCountAll(session);
+	public int selectBannerCountAll() {
+		return dao.selectBannerCountAll(session);
 	}
 
 	@Override
@@ -154,6 +154,41 @@ public class AdsServiceImpl implements AdsService {
 	@Override
 	public int updateDeny(int adsKey) {
 		return dao.updateDeny(session,adsKey);
+	}
+
+	@Override
+	public List selectDirectBoardAll(int cPage, int numPerpage) {
+		return dao.selectDirectBoardAll(session,cPage,numPerpage);
+	}
+
+	@Override
+	public int selectDirectCountAll() {
+		return dao.selectDirectCountAll(session);
+	}
+
+	@Override
+	public String selectDirectSaleContent(String articleNo) {
+		return dao.selectDirectSaleContent(session, articleNo);
+	}
+
+	@Override
+	public DirectAds selectDirectWhole(int adsKey) {
+		return dao.selectDirectWhole(session,adsKey);
+	}
+
+	@Override
+	public int updateDirectAccept(int adsKey) {
+		return dao.updateDirectAccept(session,adsKey);
+	}
+
+	@Override
+	public int updateDirectDeny(int adsKey) {
+		return dao.updateDirectDeny(session,adsKey);
+	}
+
+	@Override
+	public int insertOrderNo(int orderNo) {
+		return dao.insertOrderNo(session,orderNo);
 	}
 
 	

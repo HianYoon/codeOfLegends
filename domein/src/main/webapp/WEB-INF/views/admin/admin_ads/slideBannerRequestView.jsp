@@ -84,8 +84,8 @@
                 </div>
                 <br><br>
                 <div class="div_submit">
-                    <input type="button" value="승인" onclick="fn_confirm();">&nbsp;
-                    <input type="button" value="반려" onclick="fn_deny();">
+                    <input type="button" class="btn btn--primary" value="승인" onclick="fn_confirm();">&nbsp;
+                    <input type="button" class="btn btn--primary2" value="반려" onclick="fn_deny();">
                     <br><br><br><br>
                 </div>
             </form>

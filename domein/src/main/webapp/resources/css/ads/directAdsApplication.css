@@ -36,6 +36,9 @@
 .div_intro>ul{
     padding-left:8px;
 }
+#ads_title{
+    width:90%;
+}
 .div_myArticle>p{
     padding-top:10px;
     margin-bottom:10px;
@@ -53,7 +56,7 @@
     width:36%;
 }
 .table_myArticle>thead th:last-child{
-    width:5%;
+    width:10%;
 }
 .table_myArticle th{
     border-bottom: 1px black solid;
@@ -71,10 +74,13 @@
     min-width: 240px;
     overflow:hidden;      
 }
+.div_description>textarea{
+    width:90%;
+}
 .div_period>input[type=text]{
     width:18%;
     text-align: right;
-    margin-top:10px;
+    /* margin-top:10px; */     
 }
 .div_submit{
     margin-left:33%;

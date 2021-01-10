@@ -40,7 +40,7 @@ public interface AdsService {
 	
 	int selectBannerPending();
 	
-	List selectDirectPending();
+	int selectDirectPending();
 	
 	List selectAccept();
 	
@@ -52,14 +52,28 @@ public interface AdsService {
 	
 	List selectBannerTotalAccept();
 	
-	List selectAll(int cPage,int numPerpage);
+	List selectBannerBoardAll(int cPage,int numPerpage);
 	
-	int selectCountAll();
+	int selectBannerCountAll();
 	
 	BannerAds selectBannerWhole(int adsKey);
 	
 	int updateAccept(int adsKey);
 	
 	int updateDeny(int adsKey);
+	
+	List selectDirectBoardAll(int cPage,int numPerpage);
+	
+	int selectDirectCountAll();
+	
+	String selectDirectSaleContent(String articleNo);
+	
+	DirectAds selectDirectWhole(int adsKey);
+	
+	int updateDirectAccept(int adsKey);
+	
+	int updateDirectDeny(int adsKey);
+	
+	int insertOrderNo(int orderNo);
 	
 }

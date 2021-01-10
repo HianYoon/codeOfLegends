@@ -24,7 +24,7 @@
             <h2>추천 게시글 요청 검토</h2>
             <hr>
             <div class="div_boardTop">
-                <div>현재 검토 대기중인 요청이 총 <>건 있습니다.</div>
+                <div>현재 검토 대기중인 요청이 총 <b><c:out value="${pending }"/></b> 건 있습니다.</div>
                 <div class="div_search">
                     <select name="searchType" id="searchType">
                         <option value="adsApplyDate">신청일</option>
@@ -45,25 +45,36 @@
                         </tr>
                     </thead>
                     <tbody>
-                    <!-- <c:for> -->
-                        <tr>
-                            <td>{ads.adsStatus}</td>
-                            <td>{ads.adsTitle}</td>
-                            <td>{ads.adsWriter}</td>
-                            <td>{ads.adsApplyDate}</td>
-                        </tr>
-                        <tr>
-                            <td>{ads.adsStatus}</td>
-                            <td>{ads.adsTitle}</td>
-                            <td>{ads.adsWriter}</td>
-                            <td>{ads.adsApplyDate}</td>
-                        </tr>
-                    <!-- </c:for> -->
+                    <c:forEach items="${boardContent }" var="bc" varStatus="vs">
+                        <tr>                       
+                        <c:choose>	
+                        	<c:when test="${bc.statusDesc=='대기' }">
+                            	<td style="color:red;"><c:out value="${bc.statusDesc}"/></td>
+                            </c:when>
+                            <c:when test="${bc.statusDesc=='반려' }">
+                            	<td style="color:gray;"><c:out value="${bc.statusDesc}"/></td>
+                            </c:when>
+                            <c:when test="${bc.statusDesc=='승인' }">
+                            	<td style="color:lime"><c:out value="${bc.statusDesc}"/></td>
+                            </c:when>
+                            <c:otherwise>
+                            	<td style="color:#ddd;"><c:out value="${bc.statusDesc}"/></td>
+                            </c:otherwise>
+                        </c:choose>
+                            <td>
+                            	<a href="${path }/admin/admin_ads/adminDirectView.do?adsKey=${bc.adsKey}">
+                            	<c:out value="${bc.adsTitle }"/>
+                            	</a>
+                            </td>
+                            <td><c:out value="${bc.nickName }"/></td>
+                            <td><c:out value="${bc.applyDate }"/></td>
+                        </tr>                 
+                    </c:forEach>
                     </tbody>
                 </table>
             </div>
             <div class="div_pageBar">
-                {pageBar}
+                ${pageBar}
             </div>           
             <br><br><br>     
         </div>
