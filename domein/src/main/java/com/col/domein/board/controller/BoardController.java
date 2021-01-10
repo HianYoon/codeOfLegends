@@ -1,21 +1,15 @@
 package com.col.domein.board.controller;
 
-import java.io.BufferedInputStream;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.io.PrintWriter;
-import java.net.URLEncoder;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 //github.com/HianYoon/codeOfLegends.git
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
-import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -23,7 +17,6 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -32,21 +25,19 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.col.domein.board.model.service.BoardService;
-import com.col.domein.board.model.vo.Attachment;
 import com.col.domein.board.model.vo.Board;
 import com.col.domein.common.pageBar.PageBarFactory;
+import com.col.domein.member.model.vo.Member;
 
 @Controller
 public class BoardController {
 
 	@Autowired
 	private BoardService service;
-
-	@RequestMapping("/community/insert.do")
-	public String community() {
-		return "community/communityList";
-	}
-	@RequestMapping("/community/communityList.do")
+	@Autowired
+	private Member m;
+	
+	@RequestMapping("/community/community.do")
 	public ModelAndView selectboardList(ModelAndView mv,
 			@RequestParam(value="cPage", defaultValue="1") int cPage, 
 			@RequestParam(value="numPerpage", defaultValue="10") int numPerpage) {
@@ -55,50 +46,47 @@ public class BoardController {
         System.out.println(service.selectBoardList(cPage,numPerpage));
 		
 		int totalData=service.selectCount();
-		mv.addObject("pageBar",PageBarFactory.getPageBar(totalData, cPage, numPerpage, "communityList.do"));
+		mv.addObject("pageBar",PageBarFactory.getPageBar(totalData, cPage, numPerpage, "community.do"));
 		mv.addObject("totalData",totalData);
-		mv.setViewName("community/community");
+		mv.setViewName("community/communityList");
 		
 		return mv;
 	}
-//	@RequestMapping("/community/write.do")
-//	public ModelAndView write(Board board, ModelAndView mv, 
-//			@RequestParam(value="upFile", required=false) MultipartFile[] upFile,
-//			HttpSession session) {
+	@RequestMapping("/community/write.do")
+	public String write() {
+		return "community/write";
+	}
+	@RequestMapping("/community/insertBoard.do")
+	public ModelAndView insertBoard(Board board, ModelAndView mv) {
+		
+		int result=service.insertBoard(board);
+		mv.addObject("msg", result>0?"입력성공":"입력실패");
+		mv.addObject("loc", "/community/community.do");
+		mv.setViewName("common/msg");
+		return mv;
+	}
+//	@RequestMapping("/community/insertBoard.do")
+//	public ModelAndView insertBoard(Board board,ModelAndView mv) {
 //		
-//		//upload실제 경로를 가져와야함.
-//		String path=session.getServletContext().getRealPath("/resources/upload/community");
+//		System.out.println(""+board);
 //		
-//		File dir=new File(path);
-//		if(!dir.exists()) dir.mkdirs();//폴더를 생성
-//		List<Attachment> files=new ArrayList();
-//		//다중파일 업로드하기 MultipartFile객체의 transferTo()메소드이용 파일을 저장
-//		//renamed처리 해줘야함 -> file명을 재정의하는 것
-//		for(MultipartFile f : upFile) {
-//			if(!f.isEmpty()) {
-//				//파일명생성하기
-//				String originalName=f.getOriginalFilename();
-//				String ext=originalName.substring(originalName.lastIndexOf(".")+1);
-//				
-//				//리네임규칙
-//				SimpleDateFormat sdf=new SimpleDateFormat("yyyyMMdd_HHmmssSSS");
-//				int rndValue=(int)(Math.random()*10000);
-//				String reName=sdf.format(System.currentTimeMillis())+"_"+rndValue+"."+ext;
-//				try {
-//					f.transferTo(new File(path+"/"+reName));
-//				}catch(IOException e) {
-//					e.printStackTrace();
-//				}
-//			}
-//		}		
-//		
-//		
-//		int result=service.write(board,files);
-//		mv.addObject("msg", result>0?"입력성공":"입력실패");
-//		mv.addObject("loc", "/community/insert.do");
+//		int result=service.insertBoard(board);
+//		mv.addObject("articleContent",board);
+//		mv.addObject("loc","/community/communityList.do");
 //		mv.setViewName("common/msg");
 //		return mv;
+//	}
+//	
+//	@RequestMapping("/community/insertBoard.do")
+//	public ModelAndView insertBoard(Board board, ModelAndView mv) 
+//			{
+//			
+//		int result=service.insertBoard(board);
+//		mv.addObject("msg", result>0?"입력성공":"입력실패");
+//		mv.addObject("loc", "/community/communityList.do");
+//		mv.setViewName("common/msg");
 //		
+//	return mv;	
 //	}
 //	@RequestMapping("/community/write.do")
 //	public void fileDownload(String oriname, String rename,
@@ -156,29 +144,24 @@ public class BoardController {
 //		return mv;
 //	}
 	
-//	@RequestMapping("/imageUpload.do")
-//	public void imageUpload(HttpServletRequest request, HttpServletResponse response, HttpSession session,
-//			@RequestParam MultipartFile upload) throws Exception {
-//		response.setCharacterEncoding("utf-8");
-//		response.setContentType("text/html; charset=utf-8");
-//	
-//		String fileName = upload.getOriginalFilename(); //첨부 파일 이름
-//		byte[] bytes = upload.getBytes(); 
-//		String path=session.getServletContext().getRealPath("/resources/upload/community");
-//		OutputStream out = new FileOutputStream(new File(path + fileName));
-//		out.write(bytes);
-//		String callback = request.getParameter("CKEditorFuncNum");
-//	
-//		PrintWriter printWriter = response.getWriter();
-//		String fileUrl = request.getContextPath() + "/images/" + fileName;
-//		printWriter.println("<script>window.parent.CKEDITOR.tools.callFunction(" + callback + ",'" + fileUrl
-//				+ "','이미지가 업로드되었습니다.')" + "</script>");
-//		printWriter.flush();
-//	}
-
-	@RequestMapping("/community/write.do")
-	public String write() {
-		return "community/write";
+	@RequestMapping("/community/imageUpload.do")
+	public void imageUpload(HttpServletRequest request, HttpServletResponse response, HttpSession session,
+			@RequestParam MultipartFile upload) throws Exception {
+		response.setCharacterEncoding("utf-8");
+		response.setContentType("text/html; charset=utf-8");
+	
+		String fileName = upload.getOriginalFilename(); //첨부 파일 이름
+		byte[] bytes = upload.getBytes(); 
+		String path=session.getServletContext().getRealPath("/resources/upload/community");
+		OutputStream out = new FileOutputStream(new File(path + fileName));
+		out.write(bytes);
+		String callback = request.getParameter("CKEditorFuncNum");
+	
+		PrintWriter printWriter = response.getWriter();
+		String fileUrl = request.getContextPath() + "/images/" + fileName;
+		printWriter.println("<script>window.parent.CKEDITOR.tools.callFunction(" + callback + ",'" + fileUrl
+				+ "','이미지가 업로드되었습니다.')" + "</script>");
+		printWriter.flush();
 	}
 
 	@RequestMapping("/community/profile.do")
@@ -232,71 +215,135 @@ public class BoardController {
 // 
 //        return;
 //    }
-
-    @RequestMapping(value="/community/imageUpload.do", method = RequestMethod.POST)
-    public void imageUpload(HttpServletRequest request, HttpSession session,
-            HttpServletResponse response, MultipartHttpServletRequest multiFile
-            , @RequestParam MultipartFile upload) throws Exception{
-        // 랜덤 문자 생성
-        UUID uid = UUID.randomUUID();
-        
-        OutputStream out = null;
-        PrintWriter printWriter = null;
-        
-        //인코딩
-        response.setCharacterEncoding("utf-8");
-        response.setContentType("text/html;charset=utf-8");
-        
-        try{
-            
-            //파일 이름 가져오기
-            String fileName = upload.getOriginalFilename();
-            byte[] bytes = upload.getBytes();
-            
-            //이미지 경로 생성
-            String path = session.getServletContext().getRealPath("/resources/upload/community");// fileDir는 전역 변수라 그냥 이미지 경로 설정해주면 된다.
-            System.out.println();
-            String ckUploadPath = path + uid + "_" + fileName;
-            File folder = new File(path);
-            
-            //해당 디렉토리 확인
-            if(!folder.exists()){
-                try{
-                    folder.mkdirs(); // 폴더 생성
-                }catch(Exception e){
-                    e.getStackTrace();
-                }
-            }
-            
-            out = new FileOutputStream(new File(ckUploadPath));
-            out.write(bytes);
-            out.flush(); // outputStram에 저장된 데이터를 전송하고 초기화
-            
-            String callback = request.getParameter("CKEditorFuncNum");
-            printWriter = response.getWriter();
-            String fileUrl = "/mine/ckImgSubmit.do?uid=" + uid + "&fileName=" + fileName;  // 작성화면
-            
-        // 업로드시 메시지 출력
-          printWriter.println("{\"filename\" : \""+fileName+"\", \"uploaded\" : 1, \"url\":\""+fileUrl+"\"}");
-          printWriter.flush();
-            
-        }catch(IOException e){
-            e.printStackTrace();
-        } finally {
-          try {
-           if(out != null) { out.close(); }
-           if(printWriter != null) { printWriter.close(); }
-          } catch(IOException e) { e.printStackTrace(); }
-         }
-        
-        return;
-    }
+//    @RequestMapping(value="/mine/imageUpload.do", method = RequestMethod.POST)
+//    public void imageUpload(HttpServletRequest request,
+//            HttpServletResponse response, MultipartHttpServletRequest multiFile
+//            , @RequestParam MultipartFile upload) throws Exception{
+//        // 랜덤 문자 생성
+//        UUID uid = UUID.randomUUID();
+//        
+//        OutputStream out = null;
+//        PrintWriter printWriter = null;
+//        
+//        //인코딩
+//        response.setCharacterEncoding("utf-8");
+//        response.setContentType("text/html;charset=utf-8");
+//        
+//        try{
+//            
+//            //파일 이름 가져오기
+//            String fileName = upload.getOriginalFilename();
+//            byte[] bytes = upload.getBytes();
+//            
+//            //이미지 경로 생성
+//            String path = fileDir.getPath() + "ckImage/";// fileDir는 전역 변수라 그냥 이미지 경로 설정해주면 된다.
+//            String ckUploadPath = path + uid + "_" + fileName;
+//            File folder = new File(path);
+//            
+//            //해당 디렉토리 확인
+//            if(!folder.exists()){
+//                try{
+//                    folder.mkdirs(); // 폴더 생성
+//                }catch(Exception e){
+//                    e.getStackTrace();
+//                }
+//            }
+//            
+//            out = new FileOutputStream(new File(ckUploadPath));
+//            out.write(bytes);
+//            out.flush(); // outputStram에 저장된 데이터를 전송하고 초기화
+//            
+//            String callback = request.getParameter("CKEditorFuncNum");
+//            printWriter = response.getWriter();
+//            String fileUrl = "/mine/ckImgSubmit.do?uid=" + uid + "&fileName=" + fileName;  // 작성화면
+//            
+//        // 업로드시 메시지 출력
+//          printWriter.println("{\"filename\" : \""+fileName+"\", \"uploaded\" : 1, \"url\":\""+fileUrl+"\"}");
+//          printWriter.flush();
+//            
+//        }catch(IOException e){
+//            e.printStackTrace();
+//        } finally {
+//          try {
+//           if(out != null) { out.close(); }
+//           if(printWriter != null) { printWriter.close(); }
+//          } catch(IOException e) { e.printStackTrace(); }
+//         }
+//        
+//        return;
+//    }
+    
+    
+//    @RequestMapping(value="/community/imageUpload.do", method = RequestMethod.POST)
+//    public void imageUpload(HttpServletRequest request, HttpSession session,
+//            HttpServletResponse response, MultipartHttpServletRequest multiFile
+//            , @RequestParam MultipartFile upload) throws Exception{
+//        // 랜덤 문자 생성
+//        UUID uid = UUID.randomUUID();
+//        
+//        OutputStream out = null;
+//        PrintWriter printWriter = null;
+//        
+//        //인코딩
+//        response.setCharacterEncoding("utf-8");
+//        response.setContentType("text/html;charset=utf-8");
+//        
+//        try{
+//            
+//            //파일 이름 가져오기
+//            String fileName = upload.getOriginalFilename();
+//            byte[] bytes = upload.getBytes();
+//            
+//            //이미지 경로 생성
+//            String path = session.getServletContext().getRealPath("/resources/upload/community");// fileDir는 전역 변수라 그냥 이미지 경로 설정해주면 된다.
+//            System.out.println();
+//            String ckUploadPath = fileName;
+//            File folder = new File(path);
+//            
+//            //해당 디렉토리 확인
+//            if(!folder.exists()){
+//                try{
+//                    folder.mkdirs(); // 폴더 생성
+//                }catch(Exception e){
+//                    e.getStackTrace();
+//                }
+//            }
+//            
+//            out = new FileOutputStream(new File(ckUploadPath));
+//            out.write(bytes);
+//            out.flush(); // outputStram에 저장된 데이터를 전송하고 초기화
+//            
+//            String callback = request.getParameter("CKEditorFuncNum");
+//            printWriter = response.getWriter();
+//            String fileUrl = "/community/insertBoard.do?uid=" + uid + "&fileName=" + fileName;  // 작성화면
+//            
+//        // 업로드시 메시지 출력
+//          printWriter.println("{\"filename\" : \""+fileName+"\", \"uploaded\" : 1, \"url\":\""+fileUrl+"\"}");
+//          printWriter.flush();
+//            
+//        }catch(IOException e){
+//            e.printStackTrace();
+//        } finally {
+//          try {
+//           if(out != null) { out.close(); }
+//           if(printWriter != null) { printWriter.close(); }
+//          } catch(IOException e) { e.printStackTrace(); }
+//         }
+//        
+//        return;
+//    }
 
 	@RequestMapping("/community/bkbDetail.do")
 	public String bkbDetail(Model m,int threadKey) {
 		
 		List<Map> list = service.selectBkbArticles(threadKey);
 		m.addAttribute("list",list);
+		return "community/bkbDetail";
+	}
+	
+	@RequestMapping("/community/insertArticle.do")
+	public String insertArticle(Model m, int threadKey, String content, int memberKey) {
+		
 		return "community/bkbDetail";
 	}
 

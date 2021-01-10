@@ -4,6 +4,7 @@
     <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
     <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
      <c:set var="path" value="${pageContext.request.contextPath }"/>
+     <c:set var="member" value="${signedInMember}"/> 
       <link rel="stylesheet" href="${path }/resources/css/community/community.css"/>
  <script src="https://kit.fontawesome.com/0185489875.js" crossorigin="anonymous"></script>
  <link rel="stylesheet" href="http://lab.lepture.com/editor/editor.css" />
@@ -26,7 +27,7 @@
 	                <a href="">노하우</a>
 	            </div>
 	            <div class="community-bottom-right">
-	            	<%-- <form action="${path }/community/communityList.do" method="post"> --%>
+	            	<p>총 <c:out value="${totalData }"/>건의 게시물이 있습니다.</p>
 		                <table class="board_list">
 		                    <thead>
 		                        <tr>
@@ -47,11 +48,12 @@
 			                    				<a href="${path }/community/bkbDetail.do?threadKey=${b.THREAD_KEY}"><c:out value="${b.THREAD_TITLE}"/></a>
 			                    		</td>
 			                    		<td class="tit" style="padding-left:5.5%">
+			                    		<c:set var="writer" value="${signedInMember}"/> 
 			                    				<c:out value="${b.WRITER_KEY}"/>
 			                    			</a>
 			                    		</td>
 			                    		<td class="tit" style="padding-left:5.5%">
-			                    				<c:out value="${b.READ_COUNT}"/>
+			                    				<c:out value="${b.ACTOR_KEY}"/>
 			                    		</td>
 			                    		<td class="tit" style="padding-left:5.5%">
 			                    				<c:out value="${b.READ_COUNT}"/>
@@ -65,7 +67,7 @@
 	                	<div class="community-bottom-right-button">
 	                    <img src="${path }/resources/images/profile/search.png" alt="" width="20px">
 	                    
-	                    <input type="button" class="write" value="글쓰기">
+	                    <button type="button" class="btn" onclick="location.href='${path}/community/write.do'">글쓰기</button>
 	                	</div>
 				        <div class="pageBar">
 						${pageBar }
@@ -75,7 +77,7 @@
 	        </div>
     </section>
     <script>
-    $(".write").click(e => {
+     $(".write").click(e => {
     	location.href = "${path}/community/write.do";
     })
 	var editor = new Editor({

@@ -87,18 +87,16 @@
 						<li class="depth-1">
 							<a href="${path }/product/productList.do">일반 구매</a>
 							<ul class="list-depth-2">
-								<li><a href="#"><i class="icon-meat"></i>정육</a></li>
 								<li><a href="#"><i class="icon-fish"></i>수산물</a></li>
-								<li><a href="#"><i class="icon-vegetable"></i>과일·채소</a></li>
+								<li><a href="#"><i class="icon-meat"></i>정육</a></li>
 								<li><a href="#"><i class="icon-bread"></i>베이커리</a></li>
-								<li><a href="#"><i class="icon-metal"></i>철강</a></li>
+								<li><a href="#"><i class="icon-vegetable"></i>과일·채소</a></li>
 								<li><a href="#"><i class="icon-electronic"></i>전자기기</a></li>
-								<li><a href="#"><i class="icon-pet"></i>애견</a></li>
 								<li><a href="#"><i class="icon-etc"></i>ETC</a></li>
 							</ul>
 						</li>
 					</ul>
-					<a href="${path }/community/communityList.do" class="link-forum"><i class="icon-forum"></i><span><small>도매인</small><br>지식포럼</span></a>
+					<a href="${path }/community/community.do" class="link-forum"><i class="icon-forum"></i><span><small>도매인</small><br>지식포럼</span></a>
 				</div>
 			</nav>
 			<button class="button-close">닫기</button>
@@ -133,7 +131,7 @@
 					</a>
 				</div>
 				<div>
-					<a href="${path }/community/communitylist.do">
+					<a href="${path }/community/community.do">
 						<div>
 							<img src="${path }/resources/images/profile/talk.png" alt="" />
 						</div>
@@ -178,6 +176,11 @@
 	<div class="menu-floating">
 		<ul>
 			<li>
+				<button class="btn-top">
+					top
+				</button>
+			</li>
+			<li>
 				<button class="btn-alarm">
 					<img src="${path }/resources/images/common/header/icon-alarm.png" alt="알람">
 				</button>
@@ -191,6 +194,6 @@
 	</div>
 
 	<div class="g-signin2 displayNone" data-onsuccess=""></div>
-	<script src="${path }/resources/js/common/headerScript.js"></script>
+	<%-- <script src="${path }/resources/js/common/headerScript.js"></script> --%>
 <script src="${path }/resources/js/common/headerScript1.js"></script>
 </body>
