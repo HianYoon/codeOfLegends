@@ -161,6 +161,18 @@ public class ProductDaoImpl implements ProductDao {
 		// TODO Auto-generated method stub
 		return session.selectList("product.selectBusinessOne",memberKey);
 	}
+	//index 페이지 
+	@Override
+	public List<Map> selecProductListAll(SqlSession session) {
+		// TODO Auto-generated method stub
+		return session.selectList("product.selecProductListAll");
+	}
+
+	@Override
+	public int seselectArticleNo(SqlSession session, int articleNo) {
+		// TODO Auto-generated method stub
+		return session.selectOne("product.seselectArticleNo",articleNo);
+	}
 	
 	
 	

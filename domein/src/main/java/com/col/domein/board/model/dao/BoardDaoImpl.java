@@ -35,9 +35,9 @@ public class BoardDaoImpl implements BoardDao{
 	 */
 
 	@Override
-	public int write(SqlSession session, Board board) {
+	public int insertBoard(SqlSession session, Board board) {
 		// TODO Auto-generated method stub
-		return session.insert("board.write",board);
+		return session.insert("board.insertBoard",board);
 	}
 
 	@Override
@@ -61,6 +61,12 @@ public class BoardDaoImpl implements BoardDao{
 	public List<Attachment> selectAttach(SqlSession session, int threadKey) {
 		// TODO Auto-generated method stub
 		return session.selectList("board.selectAttach",threadKey);
+	}
+
+	@Override
+	public int insertArticle(SqlSession session, Map map) {
+		// TODO Auto-generated method stub
+		return session.insert("board.insertArticle",map);
 	}
 	
 	/*

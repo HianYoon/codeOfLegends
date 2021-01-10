@@ -62,5 +62,9 @@ public interface ProductDao {
 	List<Map> searchArticle(SqlSession session, String keyword, String searchOption);
 	//memberKey
 	List<Map> selectBusinessOne(SqlSession session, int memberKey);
+	//index 페이지 
+	List<Map> selecProductListAll(SqlSession session);
+	//articleNo
+	int seselectArticleNo(SqlSession session, int articleNo);
 
 }

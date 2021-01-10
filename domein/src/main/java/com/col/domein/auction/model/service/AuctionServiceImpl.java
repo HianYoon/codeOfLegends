@@ -165,6 +165,23 @@ public class AuctionServiceImpl implements AuctionService {
 		// TODO Auto-generated method stub
 		return dao.selectJoinList(session,bidKey);
 	}
+	@Override
+	public int listAlldelete(int articleNo, int writerKey) {
+		// TODO Auto-generated method stub
+		return dao.listAlldelete(session,articleNo,writerKey);
+	}
+	
+	//auctionJoinList등록되잇지는지
+	@Override
+	public int checkAuctionBid(int articleNo, int writerKey) {
+		// TODO Auto-generated method stub
+		return dao.checkAuctionBid(session,articleNo,writerKey);
+	}
+	@Override
+	public List<Map> selectAuctionListAll() {
+		// TODO Auto-generated method stub
+		return dao.selectAuctionListAll(session);
+	}
 
 	
 }

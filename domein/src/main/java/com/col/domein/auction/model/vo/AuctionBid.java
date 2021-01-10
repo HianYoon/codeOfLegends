@@ -8,23 +8,25 @@ import lombok.Builder;
 
 @Builder
 @Component
-public class AuctionBid {
+public class AuctionBid implements Comparable<AuctionBid>{
 	
 	private int bidKey;
 	private int articleNo;
 	private int writerKey;
 	private int bidStatusNo;
+	private String statusDesc;
 	private Date writerDate;
 	public AuctionBid() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	public AuctionBid(int bidKey, int articleNo, int writerKey, int bidStatusNo, Date writerDate) {
+	public AuctionBid(int bidKey, int articleNo, int writerKey, int bidStatusNo, String statusDesc, Date writerDate) {
 		super();
 		this.bidKey = bidKey;
 		this.articleNo = articleNo;
 		this.writerKey = writerKey;
 		this.bidStatusNo = bidStatusNo;
+		this.statusDesc = statusDesc;
 		this.writerDate = writerDate;
 	}
 	public int getBidKey() {
@@ -51,11 +53,22 @@ public class AuctionBid {
 	public void setBidStatusNo(int bidStatusNo) {
 		this.bidStatusNo = bidStatusNo;
 	}
+	public String getStatusDesc() {
+		return statusDesc;
+	}
+	public void setStatusDesc(String statusDesc) {
+		this.statusDesc = statusDesc;
+	}
 	public Date getWriterDate() {
 		return writerDate;
 	}
 	public void setWriterDate(Date writerDate) {
 		this.writerDate = writerDate;
+	}
+	@Override
+	public String toString() {
+		return "AuctionBid [bidKey=" + bidKey + ", articleNo=" + articleNo + ", writerKey=" + writerKey
+				+ ", bidStatusNo=" + bidStatusNo + ", statusDesc=" + statusDesc + ", writerDate=" + writerDate + "]";
 	}
 	@Override
 	public int hashCode() {
@@ -64,6 +77,7 @@ public class AuctionBid {
 		result = prime * result + articleNo;
 		result = prime * result + bidKey;
 		result = prime * result + bidStatusNo;
+		result = prime * result + ((statusDesc == null) ? 0 : statusDesc.hashCode());
 		result = prime * result + ((writerDate == null) ? 0 : writerDate.hashCode());
 		result = prime * result + writerKey;
 		return result;
@@ -83,6 +97,11 @@ public class AuctionBid {
 			return false;
 		if (bidStatusNo != other.bidStatusNo)
 			return false;
+		if (statusDesc == null) {
+			if (other.statusDesc != null)
+				return false;
+		} else if (!statusDesc.equals(other.statusDesc))
+			return false;
 		if (writerDate == null) {
 			if (other.writerDate != null)
 				return false;
@@ -92,10 +111,11 @@ public class AuctionBid {
 			return false;
 		return true;
 	}
+	
 	@Override
-	public String toString() {
-		return "AuctionBid [bidKey=" + bidKey + ", articleNo=" + articleNo + ", writerKey=" + writerKey
-				+ ", bidStatusNo=" + bidStatusNo + ", writerDate=" + writerDate + "]";
+	public int compareTo(AuctionBid o) {
+		// TODO Auto-generated method stub
+		return this.bidKey - o.getBidKey();
 	}
 	
 	

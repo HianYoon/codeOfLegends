@@ -5,7 +5,7 @@ import java.sql.Date;
 import org.springframework.stereotype.Component;
 
 @Component
-public class DirectAds {
+public class DirectAds implements Comparable<DirectAds>{
 	
 	private int adsKey;
 	private int applicantKey;
@@ -25,6 +25,13 @@ public class DirectAds {
 	
 	public DirectAds() {
 		// TODO Auto-generated constructor stub
+	}
+
+
+	@Override
+	public int compareTo(DirectAds o) {
+		// TODO Auto-generated method stub
+		return this.adsKey - o.getAdsKey();
 	}
 
 

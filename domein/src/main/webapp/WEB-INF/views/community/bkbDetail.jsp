@@ -12,6 +12,7 @@
 		<div class="container">
 			<div class="wrap-inner">
 			<c:forEach items="${list }" var="l" varStatus="status">
+			<c:if test="${l.ARTICLE_STATUS_NO == 1 }">
 				<div class="article">
 					<c:if test="${status.first }">
 						<div class="wrap-title">
@@ -38,8 +39,8 @@
 							</div>
 							<div class="box-text-main">
 								<p class="box-text-main-text">
-									<c:out value="${l.ARTICLE_CONTENT }"/>
-									<img src="./images/profile/toy.png" alt="">
+									<c:out value="${l.ARTICLE_CONTENT }"/><BR>
+									<img src="${path }/resources/upload/boardKnowBattle/${l.RENAMED_FILE_NAME}" alt="">
 								</p>
 								<div class="box-button">
 									<button class="btn-like">
@@ -65,7 +66,23 @@
 						</div>
 					</div>
 				</div>
+				</c:if>
 				</c:forEach>
+				<div class="comment-write">
+					<form action="${path }/community/insertArticle.do" enctype="multipart/form-data" method="post">
+						<div class="comment-write-inner">
+							<div class="comment-write-content">
+								<textarea name="content"></textarea>
+							</div>
+							<div class="comment-write-footer">
+								<input type="file" name="image">
+								<input type="hidden" name="memberKey" value="${signedInMember.memberKey }">
+								<input type="hidden" name="threadKey" value="${list.get(0).THREAD_KEY }">
+								<button class="btn-type-1" type="submit">댓글 등록</button>
+							</div>
+						</div>
+					</form>
+				</div>
 				<%-- <div class="article">
 					<div class="wrap-contents">
 						<div class="box-img">

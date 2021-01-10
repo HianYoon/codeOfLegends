@@ -24,6 +24,7 @@ import com.col.domein.auction.model.vo.BidContent;
 import com.col.domein.auction.model.vo.BoardAttachementFile;
 import com.col.domein.auction.model.vo.BoardAttachementImage;
 import com.col.domein.auction.model.vo.BoardAuction;
+import com.col.domein.business.model.vo.Business;
 import com.col.domein.common.pageBar.PageBarFactory;
 
 @Controller
@@ -149,10 +150,13 @@ public class AuctionController {
 	//옥션 join list 수정 등록
 	@RequestMapping("/auction/auctionJoinUpdateEnllo.do")
 	@ResponseBody
-	public int JoinListUpdate (BidContent bid) {
+	public List<Map> JoinListUpdate (BidContent bid,int articleNo,int writerKey) {
 		System.out.println("수정from bid:"+bid);
+		int bidKey=bid.getBidKey();
 		int result=service.auctionJoinUpdate(bid);
-		return result;
+			List <Map> list=service.selectJoinList(bidKey);
+			List<Map> map=service.selectBidContent(articleNo,writerKey);
+		return map;
 	}
 	//옥션 my페이지
 	@RequestMapping("/auction/auction.do")
@@ -163,6 +167,7 @@ public class AuctionController {
 	@RequestMapping("/auction/auctionView.do")
 	public ModelAndView auctionView(ModelAndView mv, int articleNo,int writerKey) {
 		System.out.println("writerKey"+writerKey);
+		List<Map>  business=service.selectBusinessKey(writerKey);
 		List<Map> list=service.selectAuctionView(articleNo);
 		List<Map> company=service.selectJoinCompany(articleNo);//
 		int count=service.selectAuctionJoinCount(articleNo);//참여업체수 
@@ -171,6 +176,7 @@ public class AuctionController {
 		mv.addObject("list",list);
 		mv.addObject("count",count);
 		mv.addObject("company",company);
+		mv.addObject("business",business);
 		mv.setViewName("auction/auctionView");
 		
 		return mv;
@@ -201,5 +207,22 @@ public class AuctionController {
 		
 		return mv;
 	}
+	//취소시 데이터다지우고 옥션 뷰화면으로 
+	@RequestMapping("/auction/listAlldelete.do")
+	public ModelAndView listAlldelete(ModelAndView mv,int articleNo,int writerKey) {
+		
+		System.out.println(""+articleNo+""+writerKey);
+		int check=service.checkAuctionBid(articleNo,writerKey);
+		System.out.println(""+check);
+		if(check == 1 ) {
+			
+			int result=service.listAlldelete(articleNo,writerKey);
+			mv.setViewName("/auction/auctionView.do");
+		}else {
+			mv.setViewName("/auction/auctionView.do");
+		}
+		return mv;
+	}
+	
 
 }

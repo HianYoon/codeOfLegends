@@ -75,11 +75,14 @@ public class ProductController {
 		System.out.println(""+bp);
 		
 		int result=service.insertBoardSContent(bp);
+		int articleNo=bp.getArticleNo();
+		System.out.println(articleNo);
+		int articleNum=service.selectArticleNo(articleNo);
+		mv.addObject("articleNo",articleNum);
 		
 		mv.addObject("msg",result>0?"입력성공":"입력실패");
 		mv.addObject("boardContent",bp);
-		mv.addObject("loc","/product/into.do");
-		mv.setViewName("common/msg");
+		mv.setViewName("product/productEnllo");
 		return mv;
 		
 	}

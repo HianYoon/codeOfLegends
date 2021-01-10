@@ -75,6 +75,9 @@ img {
 .page-forum .article .box-text {
 	flex: 1;
 }
+.page-forum .article .box-text .box-text-main-text img{
+	max-width:550px;
+}
 /* ARTICLE - text area - top */
 .page-forum .article .box-text-top {
 	display: flex;
@@ -164,6 +167,9 @@ img {
 	}
 	.page-forum .article .box-text {
 		width: calc(100% - 62px);
+	}
+	.page-forum .article .box-text .box-text-main-text img{
+		max-width:100%;
 	}
 	.page-forum .article .box-text-top {
 		display: block;

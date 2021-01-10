@@ -30,5 +30,6 @@ public class SessionDestroyedListener implements ApplicationListener<SessionDest
 			int loginSource = (int) session.getAttribute("loginSource");
 			ms.logoutMember(m, loginSource);
 		}
+		System.out.println(m.getMemberKey()+" 삭제됨");
 	}
 }

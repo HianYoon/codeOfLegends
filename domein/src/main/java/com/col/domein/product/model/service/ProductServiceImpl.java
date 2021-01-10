@@ -192,6 +192,18 @@ public class ProductServiceImpl implements ProductService {
 	}
 	//아티클넘버가져오기
 
+	@Override
+	public List<Map> selecProductListAll() {
+		// TODO Auto-generated method stub
+		return dao.selecProductListAll(session);
+	}
+
+	@Override
+	public int selectArticleNo(int articleNo) {
+		// TODO Auto-generated method stub
+		return dao.seselectArticleNo(session,articleNo);
+	}
+
 	
 	
 	

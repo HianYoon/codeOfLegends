@@ -2,27 +2,29 @@ package com.col.domein.board.model.vo;
 
 import org.springframework.stereotype.Component;
 
+import lombok.Builder;
 
 @Component
+@Builder
 public class Attachment {
 	
 	private int fileKey;
 	private int imageKey;
 	private int articleNo;
-	private String originalFileName;
-	private String renamedFileName;
+	private String originalFilename;
+	private String renamedFilename;
 
 	public Attachment() {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Attachment(int fileKey, int imageKey, int articleNo, String originalFileName, String renamedFileName) {
+	public Attachment(int fileKey, int imageKey, int articleNo, String originalFilename, String renamedFilename) {
 		super();
 		this.fileKey = fileKey;
 		this.imageKey = imageKey;
 		this.articleNo = articleNo;
-		this.originalFileName = originalFileName;
-		this.renamedFileName = renamedFileName;
+		this.originalFilename = originalFilename;
+		this.renamedFilename = renamedFilename;
 	}
 
 	public int getFileKey() {
@@ -49,27 +51,26 @@ public class Attachment {
 		this.articleNo = articleNo;
 	}
 
-	public String getOriginalFileName() {
-		return originalFileName;
+	public String getOriginalFilename() {
+		return originalFilename;
 	}
 
-	public void setOriginalFileName(String originalFileName) {
-		this.originalFileName = originalFileName;
+	public void setOriginalFilename(String originalFilename) {
+		this.originalFilename = originalFilename;
 	}
 
-	public String getRenamedFileName() {
-		return renamedFileName;
+	public String getRenamedFilename() {
+		return renamedFilename;
 	}
 
-	public void setRenamedFileName(String renamedFileName) {
-		this.renamedFileName = renamedFileName;
+	public void setRenamedFilename(String renamedFilename) {
+		this.renamedFilename = renamedFilename;
 	}
 
-	
 	@Override
 	public String toString() {
-		return "Attachment [fileKey=" + fileKey + ", imageKey=" + imageKey + ", articleNo=" + articleNo
-				+ ", originalFileName=" + originalFileName + ", renamedFileName=" + renamedFileName + "]";
+		return "Attachement [fileKey=" + fileKey + ", imageKey=" + imageKey + ", articleNo=" + articleNo
+				+ ", originalFilename=" + originalFilename + ", renamedFilename=" + renamedFilename + "]";
 	}
 
 	@Override
@@ -79,8 +80,8 @@ public class Attachment {
 		result = prime * result + articleNo;
 		result = prime * result + fileKey;
 		result = prime * result + imageKey;
-		result = prime * result + ((originalFileName == null) ? 0 : originalFileName.hashCode());
-		result = prime * result + ((renamedFileName == null) ? 0 : renamedFileName.hashCode());
+		result = prime * result + ((originalFilename == null) ? 0 : originalFilename.hashCode());
+		result = prime * result + ((renamedFilename == null) ? 0 : renamedFilename.hashCode());
 		return result;
 	}
 
@@ -99,25 +100,21 @@ public class Attachment {
 			return false;
 		if (imageKey != other.imageKey)
 			return false;
-		if (originalFileName == null) {
-			if (other.originalFileName != null)
+		if (originalFilename == null) {
+			if (other.originalFilename != null)
 				return false;
-		} else if (!originalFileName.equals(other.originalFileName))
+		} else if (!originalFilename.equals(other.originalFilename))
 			return false;
-		if (renamedFileName == null) {
-			if (other.renamedFileName != null)
+		if (renamedFilename == null) {
+			if (other.renamedFilename != null)
 				return false;
-		} else if (!renamedFileName.equals(other.renamedFileName))
+		} else if (!renamedFilename.equals(other.renamedFilename))
 			return false;
 		return true;
 	}
-
-	public static Object builder() {
+	public Object originFilename(String originalName) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 	
-	
 }
-
-
