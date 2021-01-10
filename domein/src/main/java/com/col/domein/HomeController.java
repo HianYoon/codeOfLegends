@@ -85,4 +85,10 @@ public class HomeController {
 		}
 		return "common/error";
 	}
+	
+	@RequestMapping("/address/jusoPopup.do")
+	public String jusoPopup() {
+		return "address/jusoPopup";
+	}
+
 }
