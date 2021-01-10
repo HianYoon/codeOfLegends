@@ -108,10 +108,10 @@ public class AdminAdsController {
 			@RequestParam(value="cPage",defaultValue="1") int cPage,
 			@RequestParam(value="numPerPage",defaultValue="10") int numPerpage) {		
 		
-		int totalCount=service.selectCountAll();
+		int totalCount=service.selectBannerCountAll();
 		
 		//게시판 모두 불러오기
-		List<BannerAds> board=service.selectAll(cPage,numPerpage);
+		List<BannerAds> board=service.selectBannerBoardAll(cPage,numPerpage);
 		SimpleDateFormat sdf=new SimpleDateFormat("yyyy.MM.dd");
 		JSONArray boardContent=new JSONArray();
 		for(BannerAds b:board) {
@@ -137,7 +137,7 @@ public class AdminAdsController {
 	}
 	
 	
-	//배너광고 요청게시판에서 -> 글 상세보기
+	//배너광고 요청게시판에서 -> 글 상세보기(slideBannerRequestView 화면)
 	@RequestMapping("/admin/admin_ads/adminBannerView.do")
 	public ModelAndView viewBannerRequest(ModelAndView mv, int adsKey) {		
 		mv.addObject("picked",service.selectBannerWhole(adsKey));
@@ -145,6 +145,7 @@ public class AdminAdsController {
 		return mv;
 	}
 	
+	//배너광고 요청글 상세보기 후 승인/반려 처리(slideBannerRequestView 화면)
 	@RequestMapping("/admin/admin_ads/adminBannerDecision.do")
 	public void adminBannerDeciseion(HttpServletResponse response,
 			@RequestParam(value="decision",defaultValue="0") int decision,
@@ -173,8 +174,33 @@ public class AdminAdsController {
 	
 	
 	//directAdsRequestBoard로 화면 전환(추천게시글 요청 검토)
-	@RequestMapping("/admin/admin_ads/adminDirectView.do")
-	public ModelAndView viewAdminDirectBoard(ModelAndView mv) {
+	@RequestMapping("/admin/admin_ads/adminDirectBoard.do")
+	public ModelAndView viewAdminDirectBoard(ModelAndView mv,
+			@RequestParam(value="cPage",defaultValue="1") int cPage,
+			@RequestParam(value="numPerPage",defaultValue="10") int numPerpage) {		
+		
+		int totalCount=service.selectDirectCountAll();
+		
+		//게시판 모두 불러오기
+		List<BannerAds> board=service.selectDirectBoardAll(cPage,numPerpage);
+		SimpleDateFormat sdf=new SimpleDateFormat("yyyy.MM.dd");
+		JSONArray boardContent=new JSONArray();
+		for(BannerAds b:board) {
+			JSONObject jo=new JSONObject();
+			jo.put("adsKey",b.getAdsKey());
+			jo.put("statusDesc",b.getStatusDesc());
+			jo.put("adsTitle",b.getAdsTitle());
+			String applyDate=sdf.format(b.getApplyDate());
+			jo.put("applyDate",applyDate);
+			jo.put("nickName",b.getNickName());
+			boardContent.add(jo);
+		}		
+		mv.addObject("boardContent",boardContent);
+		
+		mv.addObject("pageBar",PageBarFactory.getPageBar(totalCount, cPage, numPerpage, "adminDirectBoard.do"));
+		
+		//검토대기 중인 요청수
+		mv.addObject("pending", service.selectDirectPending());
 		mv.setViewName("/admin/admin_ads/directAdsRequestBoard");
 		return mv;
 	}

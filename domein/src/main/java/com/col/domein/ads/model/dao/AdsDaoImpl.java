@@ -71,10 +71,12 @@ public class AdsDaoImpl implements AdsDao {
 
 	@Override
 	public List selectBannerAccept(SqlSession session, String today) {		
-//			System.out.println("dao: "+session.selectList("bannerAds.selectBannerAccept",today));
 		return session.selectList("bannerAds.selectBannerAccept",today);		
 	}
 
+	
+///////////////////////////////////////////////////////////////////////////////////////////////////////////	
+	
 	@Override
 	public List selectDirectAccept(SqlSession session) {
 		List<Integer> accept=new ArrayList();
@@ -108,22 +110,9 @@ public class AdsDaoImpl implements AdsDao {
 		}		
 	}
 
-	@Override
-	public int selectBannerPending(SqlSession session) {				
-		return session.selectOne("bannerAds.selectBannerPending");		
-	}
 
-	@Override
-	public List selectDirectPending(SqlSession session) {
-		List<Integer> pending=new ArrayList();
-		pending.add(0);
-		if(session.selectList("directAds.selectDirectPending")==null) {
-			return pending;
-		}else {
-			return session.selectList("directAds.selectDirectPending");			
-		}
-	}
-
+////////////////////////////////////////////////////////////////////////////////////////////////////////	
+	
 	@Override
 	public List selectAccept(SqlSession session) {
 		List<Integer> accept=new ArrayList();
@@ -169,13 +158,18 @@ public class AdsDaoImpl implements AdsDao {
 	}
 
 	@Override
-	public List selectAll(SqlSession session, int cPage, int numPerpage) {
-		return session.selectList("bannerAds.selectAll",null,new RowBounds((cPage-1)*numPerpage, numPerpage));
+	public List selectBannerBoardAll(SqlSession session, int cPage, int numPerpage) {
+		return session.selectList("bannerAds.selectBannerBoardAll",null,new RowBounds((cPage-1)*numPerpage, numPerpage));
 	}
 
 	@Override
-	public int selectCountAll(SqlSession session) {
+	public int selectBannerCountAll(SqlSession session) {
 		return session.selectOne("bannerAds.selectCountAll");
+	}
+	
+	@Override
+	public int selectBannerPending(SqlSession session) {				
+		return session.selectOne("bannerAds.selectBannerPending");		
 	}
 
 	@Override
@@ -193,8 +187,25 @@ public class AdsDaoImpl implements AdsDao {
 		return session.update("bannerAds.updateDeny",adsKey);
 	}
 	
+	/////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	//[관리자] directAds 추천게시글 요청게시판
 	
+	@Override
+	public List selectDirectBoardAll(SqlSession session, int cPage, int numPerpage) {
+		return session.selectList("directAds.selectDirectBoardAll",null,new RowBounds((cPage-1)*numPerpage, numPerpage));
+	}
+
+	@Override
+	public int selectDirectCountAll(SqlSession session) {
+		return session.selectOne("directAds.selectDirectCountAll");
+	}
 	
+	@Override
+	public int selectDirectPending(SqlSession session) {		
+		return session.selectOne("directAds.selectDirectPending");					
+	}
+	
+	/////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	
 	
 	

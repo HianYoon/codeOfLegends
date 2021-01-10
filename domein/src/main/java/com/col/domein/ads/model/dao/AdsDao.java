@@ -42,7 +42,7 @@ public interface AdsDao {
 	
 	int selectBannerPending(SqlSession session);
 	
-	List selectDirectPending(SqlSession session);
+	int selectDirectPending(SqlSession session);
 	
 	List selectAccept(SqlSession session);
 	
@@ -54,14 +54,18 @@ public interface AdsDao {
 	
 	List selectBannerTotalAccept(SqlSession session);
 	
-	List selectAll(SqlSession session,int cPage,int numPerPage);
+	List selectBannerBoardAll(SqlSession session,int cPage,int numPerpage);
 	
-	int selectCountAll(SqlSession session);
+	int selectBannerCountAll(SqlSession session);
 	
 	BannerAds selectBannerWhole(SqlSession session, int adsKey);
 	
 	int updateAccept(SqlSession session, int adsKey);
 	
 	int updateDeny(SqlSession session, int adsKey);
+	
+	List selectDirectBoardAll(SqlSession session,int cPage,int numPerpage);
+	
+	int selectDirectCountAll(SqlSession session);
 	
 }

@@ -36,6 +36,9 @@
 .div_intro>ul{
     padding-left:8px;
 }
+#ads_title{
+    width:70%;
+}
 .div_myArticle>p{
     padding-top:10px;
     margin-bottom:10px;
@@ -70,6 +73,9 @@
     width:90%;
     min-width: 240px;
     overflow:hidden;      
+}
+.div_description>textarea{
+    width:84%;
 }
 .div_period>input[type=text]{
     width:18%;

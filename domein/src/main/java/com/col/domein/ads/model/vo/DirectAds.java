@@ -16,6 +16,10 @@ public class DirectAds {
 	private int adsStatusNo;
 	private int articleNo;
 	private int adsPrice;
+	private String adsTitle;
+	private String adsDescription;
+	private String statusDesc;
+	private String nickName;
 	
 	
 	public DirectAds() {
@@ -24,7 +28,8 @@ public class DirectAds {
 
 
 	public DirectAds(int adsKey, int applicantKey, Date startDate, Date endDate, Date applyDate, String adsMemo,
-			int adsStatusNo, int articleNo, int adsPrice) {
+			int adsStatusNo, int articleNo, int adsPrice, String adsTitle, String adsDescription, String statusDesc,
+			String nickName) {
 		super();
 		this.adsKey = adsKey;
 		this.applicantKey = applicantKey;
@@ -35,6 +40,10 @@ public class DirectAds {
 		this.adsStatusNo = adsStatusNo;
 		this.articleNo = articleNo;
 		this.adsPrice = adsPrice;
+		this.adsTitle = adsTitle;
+		this.adsDescription = adsDescription;
+		this.statusDesc = statusDesc;
+		this.nickName = nickName;
 	}
 
 
@@ -128,13 +137,58 @@ public class DirectAds {
 	}
 
 
+	public String getAdsTitle() {
+		return adsTitle;
+	}
+
+
+	public void setAdsTitle(String adsTitle) {
+		this.adsTitle = adsTitle;
+	}
+
+
+	public String getAdsDescription() {
+		return adsDescription;
+	}
+
+
+	public void setAdsDescription(String adsDescription) {
+		this.adsDescription = adsDescription;
+	}
+
+
+	public String getStatusDesc() {
+		return statusDesc;
+	}
+
+
+	public void setStatusDesc(String statusDesc) {
+		this.statusDesc = statusDesc;
+	}
+
+
+	public String getNickName() {
+		return nickName;
+	}
+
+
+	public void setNickName(String nickName) {
+		this.nickName = nickName;
+	}
+
+
 	@Override
 	public String toString() {
 		return "DirectAds [adsKey=" + adsKey + ", applicantKey=" + applicantKey + ", startDate=" + startDate
 				+ ", endDate=" + endDate + ", applyDate=" + applyDate + ", adsMemo=" + adsMemo + ", adsStatusNo="
-				+ adsStatusNo + ", articleNo=" + articleNo + ", adsPrice=" + adsPrice + "]";
+				+ adsStatusNo + ", articleNo=" + articleNo + ", adsPrice=" + adsPrice + ", adsTitle=" + adsTitle
+				+ ", adsDescription=" + adsDescription + ", statusDesc=" + statusDesc + ", nickName=" + nickName + "]";
 	}
 
+
+	
+
+	
 
 		
 

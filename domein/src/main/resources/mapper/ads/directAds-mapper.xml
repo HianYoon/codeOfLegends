@@ -1,6 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="directAds">
+	<resultMap type="directAds" id="directAdsMap">
+		<id column="ADS_KEY" property="adsKey"/>
+		<result column="APPLICANT_KEY" property="applicantKey"/>		
+		<result column="START_DATE" property="startDate"/>
+		<result column="END_DATE" property="endDate"/>
+		<result column="APPLY_DATE" property="applyDate"/>		
+		<result column="ADS_DESCRIPTION" property="adsDescription"/>
+		<result column="ADS_MEMO" property="adsMemo"/>
+		<result column="ADS_STATUS_NO" property="adsStatusNo"/>
+		<result column="ADS_TITLE" property="adsTitle"/>
+		<result column="ADS_PRICE" property="adsPrice"/>				
+		<result column="STATUS_DESC" property="statusDesc"/>				
+		<result column="NICKNAME" property="nickName"/>				
+	</resultMap>
 
 	<!-- adsController(회원신청 용) -->
 
@@ -47,8 +61,24 @@
 		SELECT COUNT(ADS_STATUS_NO) FROM DIRECT_SALES_ADS WHERE ADS_STATUS_NO=6 AND APPLY_DATE BETWEEN '210101' AND '211231' GROUP BY SUBSTR(APPLY_DATE,4,2)
 	</select>
 	
+		
+	<!-- ///////////////////////////////////////////////////////////////////////////////////////////////////////////// -->
+	
+	<!-- DirectAds관리자 게시판 총 광고 요청수(count) -->
+	<select id="selectDirectCountAll" resultType="_int">
+		SELECT COUNT(*) FROM DIRECT_SALES_ADS
+	</select>
+	
+	<!-- DirectAds 관리자 게시판 data -->
+	<select id="selectDirectBoardAll" resultMap="directAdsMap">
+		SELECT ADS_KEY, STATUS_DESC, ADS_TITLE, APPLY_DATE, NICKNAME FROM DIRECT_SALES_ADS 
+		LEFT JOIN ADS_STATUS ON DIRECT_SALES_ADS.ADS_STATUS_NO=ADS_STATUS.ADS_STATUS_NO 
+		LEFT JOIN MEMBER ON DIRECT_SALES_ADS.APPLICANT_KEY=MEMBER.MEMBER_KEY
+	</select>
+	
+	<!-- DirectAds 관리자 게시판 검토대기중인 요청수(count) -->
 	<select id="selectDirectPending" resultType="int">
-		SELECT COUNT(ADS_STATUS_NO) FROM DIRECT_SALES_ADS WHERE ADS_STATUS_NO=0 AND APPLY_DATE BETWEEN '210101' AND '211231' GROUP BY SUBSTR(APPLY_DATE,4,2)
+		SELECT COUNT(ADS_STATUS_NO) FROM DIRECT_SALES_ADS WHERE ADS_STATUS_NO=0
 	</select>
 	
 </mapper>

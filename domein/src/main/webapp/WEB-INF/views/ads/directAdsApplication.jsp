@@ -50,9 +50,15 @@
                         <li>일반적인 게시글 형태로 지원</li>
                     </ul>
                 </div>
-
-                <div class="div_myArticle">
+                
+                <!--////////////////////////////////////////////////////////////붙여온 곳///////////////////////////////////////////////////////  -->
+                <div class="div_title">
                 	<input type="hidden" name="applicantKey" value="${signedInMember.memberKey }"/>
+                    <label for="adsTitle"><span><u>제목</u></span></label>&nbsp;&nbsp;<input type="text" name="adsTitle" id="adsTitle" required>
+                </div>
+				<!-- /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// -->
+				
+                <div class="div_myArticle">                	
                     <p><u>내가 쓴 게시글</u></p>                    
                        <table class="table_myArticle">
                            <thead>
@@ -100,6 +106,13 @@
                    </div>
                    </c:if>
                </div>
+               
+               <!--////////////////////////////////////////////////////////////붙여온 곳///////////////////////////////////////////////////////  -->
+               <div class="div_description">
+                    <span><u>요청메시지</u></span><br>
+                    <textarea name="adsDescription" rows="12" cols="150" style="resize:none" placeholder="내용을 입력해주세요" required></textarea>
+                </div>
+                <!-- /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// -->
 
                <div class="div_period">
                    <p><u>기간 및 가격</u></p>
@@ -111,8 +124,8 @@
                 <br><br>
 				
                 <div class="div_submit">
-                    <input type="submit" class=".btn.btn--primary" value="결제화면으로 이동">&nbsp;
-                    <input type="reset" class=".btn.btn--primary2" value="취소">
+                    <input type="submit" class="btn btn--primary" value="결제화면으로 이동">&nbsp;
+                    <input type="reset" class="btn btn--primary2" value="취소">
                     <br><br><br><br>
                 </div>
 
