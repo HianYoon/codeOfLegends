@@ -176,6 +176,11 @@
 	<div class="menu-floating">
 		<ul>
 			<li>
+				<button class="btn-top">
+					top
+				</button>
+			</li>
+			<li>
 				<button class="btn-alarm">
 					<img src="${path }/resources/images/common/header/icon-alarm.png" alt="알람">
 				</button>
