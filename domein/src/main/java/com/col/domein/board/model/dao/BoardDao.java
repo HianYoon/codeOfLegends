@@ -28,4 +28,6 @@ public interface BoardDao {
 
 	List<Attachment> selectAttach(SqlSession session, int threadKey);
 	
+	int insertArticle(SqlSession session,Map map);
+	
 }

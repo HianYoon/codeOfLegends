@@ -52,4 +52,18 @@
 		SELECT BA.*,BKB.THREAD_TITLE,M.NICKNAME,M.PROFILE_URL,M.MEMBER_KEY FROM BKB_ARTICLE BA LEFT JOIN BOARD_KNOW_BATTLE BKB ON BA.THREAD_KEY = BKB.THREAD_KEY LEFT JOIN MEMBER M ON BA.WRITER_KEY = M.MEMBER_KEY WHERE BA.THREAD_KEY = #{threadKey} ORDER BY ARTICLE_NO
 	</select>
 	
+	<insert id="insertArticle" parameterType="map">
+		INSERT INTO BKB_ARTICLE VALUES(
+			SEQ_ARTICLE_NO.NEXTVAL,
+			${threadKey},
+			'${content}',
+			${memberKey},
+			SYSDATE,
+			SYSDATE,
+			1,
+			NULL,
+			'${originalName}',
+			'${reName}'
+		)
+	</insert>
 </mapper>
