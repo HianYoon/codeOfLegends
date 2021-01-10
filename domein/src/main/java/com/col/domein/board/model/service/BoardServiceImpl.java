@@ -68,5 +68,11 @@ public class BoardServiceImpl implements BoardService{
 		// TODO Auto-generated method stub
 		return dao.selectAttach(session,threadKey);
 	}
+
+	@Override
+	public int insertArticle(Map map) {
+		// TODO Auto-generated method stub
+		return dao.insertArticle(session,map);
+	}
 	
 }

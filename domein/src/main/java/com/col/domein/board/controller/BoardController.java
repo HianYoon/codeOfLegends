@@ -5,10 +5,11 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.io.PrintWriter;
+import java.text.SimpleDateFormat;
+import java.util.HashMap;
 //github.com/HianYoon/codeOfLegends.git
 import java.util.List;
 import java.util.Map;
-import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -18,10 +19,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.col.domein.board.model.service.BoardService;
@@ -342,9 +341,38 @@ public class BoardController {
 	}
 	
 	@RequestMapping("/community/insertArticle.do")
-	public String insertArticle(Model m, int threadKey, String content, int memberKey) {
+	public String insertArticle(HttpSession session,Model m, int threadKey, String content, int memberKey,@RequestParam(value="image", required=false)MultipartFile image) {
+		String path = session.getServletContext().getRealPath("/resources/upload/boardKnowBattle");
+		File dir = new File(path);
+		String originalName = "";
+		String reName = "";
+		if(!dir.exists()) dir.mkdirs();
 		
-		return "community/bkbDetail";
+		if(!image.isEmpty()) {
+			originalName = image.getOriginalFilename();
+			String ext = originalName.substring(originalName.lastIndexOf(",")+1);
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd_HHmmssSSS");
+			int rndValue = (int)Math.random()*10000;
+			reName = sdf.format(System.currentTimeMillis())+"_"+rndValue+"."+ext;
+			try {
+				image.transferTo(new File(path+"/"+reName));
+			}catch(IOException e) {
+				e.printStackTrace();
+			}
+			
+		}
+		Map map = new HashMap();
+		map.put("threadKey",threadKey);
+		map.put("content",content);
+		map.put("memberKey",memberKey);
+		map.put("originalName",originalName);
+		map.put("reName",reName);
+		int result = service.insertArticle(map);
+//		List<Map> list = service.selectBkbArticles(threadKey);
+//		m.addAttribute("list",list);
+		m.addAttribute("msg", result>0?"댓글이 등록되었습니다.":"댓글등록에 실패하였습니다.");
+		m.addAttribute("loc","/community/bkbDetail.do?threadKey="+threadKey);
+		return "common/msg";
 	}
 
 }

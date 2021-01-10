@@ -8,60 +8,41 @@ import lombok.Builder;
 
 @Builder
 @Component
-public class DirectSaleOrderHistory {
+public class DirectSaleOrderHistory implements Comparable<DirectSaleOrderHistory>{
 	
 	private int orderNo;
 	private int productNo;
 	private int amount;
 	private int orderStatusNo;
+	private String statusDesc;
 	private Date eventDate;
+	
+	
 	public DirectSaleOrderHistory() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	public DirectSaleOrderHistory(int orderNo, int productNo, int amount, int orderStatusNo, Date eventDate) {
+	
+
+	public DirectSaleOrderHistory(int orderNo, int productNo, int amount, int orderStatusNo, String statusDesc,
+			Date eventDate) {
 		super();
 		this.orderNo = orderNo;
 		this.productNo = productNo;
 		this.amount = amount;
 		this.orderStatusNo = orderStatusNo;
+		this.statusDesc = statusDesc;
 		this.eventDate = eventDate;
 	}
-	public int getOrderNo() {
-		return orderNo;
-	}
-	public void setOrderNo(int orderNo) {
-		this.orderNo = orderNo;
-	}
-	public int getProductNo() {
-		return productNo;
-	}
-	public void setProductNo(int productNo) {
-		this.productNo = productNo;
-	}
-	public int getAmount() {
-		return amount;
-	}
-	public void setAmount(int amount) {
-		this.amount = amount;
-	}
-	public int getOrderStatusNo() {
-		return orderStatusNo;
-	}
-	public void setOrderStatusNo(int orderStatusNo) {
-		this.orderStatusNo = orderStatusNo;
-	}
-	public Date getEventDate() {
-		return eventDate;
-	}
-	public void setEventDate(Date eventDate) {
-		this.eventDate = eventDate;
-	}
+
+
 	@Override
 	public String toString() {
 		return "DirectSaleOrderHistory [orderNo=" + orderNo + ", productNo=" + productNo + ", amount=" + amount
-				+ ", orderStatusNo=" + orderStatusNo + ", eventDate=" + eventDate + "]";
+				+ ", orderStatusNo=" + orderStatusNo + ", statusDesc=" + statusDesc + ", eventDate=" + eventDate + "]";
 	}
+
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -71,8 +52,11 @@ public class DirectSaleOrderHistory {
 		result = prime * result + orderNo;
 		result = prime * result + orderStatusNo;
 		result = prime * result + productNo;
+		result = prime * result + ((statusDesc == null) ? 0 : statusDesc.hashCode());
 		return result;
 	}
+
+
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -95,9 +79,81 @@ public class DirectSaleOrderHistory {
 			return false;
 		if (productNo != other.productNo)
 			return false;
+		if (statusDesc == null) {
+			if (other.statusDesc != null)
+				return false;
+		} else if (!statusDesc.equals(other.statusDesc))
+			return false;
 		return true;
 	}
-	
-	
 
+
+	public int getOrderNo() {
+		return orderNo;
+	}
+
+
+	public void setOrderNo(int orderNo) {
+		this.orderNo = orderNo;
+	}
+
+
+	public int getProductNo() {
+		return productNo;
+	}
+
+
+	public void setProductNo(int productNo) {
+		this.productNo = productNo;
+	}
+
+
+	public int getAmount() {
+		return amount;
+	}
+
+
+	public void setAmount(int amount) {
+		this.amount = amount;
+	}
+
+
+	public int getOrderStatusNo() {
+		return orderStatusNo;
+	}
+
+
+	public void setOrderStatusNo(int orderStatusNo) {
+		this.orderStatusNo = orderStatusNo;
+	}
+
+
+	public String getStatusDesc() {
+		return statusDesc;
+	}
+
+
+	public void setStatusDesc(String statusDesc) {
+		this.statusDesc = statusDesc;
+	}
+
+
+	public Date getEventDate() {
+		return eventDate;
+	}
+
+
+	public void setEventDate(Date eventDate) {
+		this.eventDate = eventDate;
+	}
+
+
+	@Override
+	public int compareTo(DirectSaleOrderHistory o) {
+		// TODO Auto-generated method stub
+		if(this.orderNo != o.getOrderNo()) return this.orderNo - o.getOrderNo();
+		else if(this.productNo != o.getProductNo()) return this.productNo - o.getProductNo();
+		return this.eventDate.compareTo(o.getEventDate());
+	}
+	
 }

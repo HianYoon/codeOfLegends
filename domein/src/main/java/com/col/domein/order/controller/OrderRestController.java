@@ -33,7 +33,7 @@ public class OrderRestController {
 	@PostMapping("/authenticate")
 	public int authenticateOrder(HttpSession session, String imp_uid, String merchant_uid, String receiverTel,
 			@RequestParam(defaultValue = "0") String discount, @RequestParam(defaultValue = "") String receiverComment,
-			String totalPrice) {
+			String totalPrice, String orderTargetNo) {
 		Member m = (Member) session.getAttribute("signedInMember");
 
 		int orderKey = -1;
@@ -84,7 +84,7 @@ public class OrderRestController {
 			order.setReceiverName(payment.getBuyerName());
 			order.setReceiverPostcode("" + payment.getBuyerPostcode());
 			order.setReceiverAddr(payment.getBuyerAddr());
-			
+			order.setOrderTargetNo(Integer.parseInt(orderTargetNo));
 			orderKey = os.insertOrder(order);
 
 		} else {

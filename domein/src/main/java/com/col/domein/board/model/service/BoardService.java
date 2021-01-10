@@ -18,5 +18,6 @@ public interface BoardService {
 	int insertBoard(Board board);
 //	int insertBoard(Board board);
 	List<Attachment> selectAttach(int threadKey);
+	int insertArticle(Map map);
 
 }

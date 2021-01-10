@@ -62,6 +62,12 @@ public class BoardDaoImpl implements BoardDao{
 		// TODO Auto-generated method stub
 		return session.selectList("board.selectAttach",threadKey);
 	}
+
+	@Override
+	public int insertArticle(SqlSession session, Map map) {
+		// TODO Auto-generated method stub
+		return session.insert("board.insertArticle",map);
+	}
 	
 	/*
 	 * @Override public int insertBoard(SqlSession session, BoardKnowBattle board) {
