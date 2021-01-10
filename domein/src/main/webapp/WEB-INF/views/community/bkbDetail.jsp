@@ -68,13 +68,19 @@
 				</div>
 				</c:if>
 				</c:forEach>
-				<div class="reply-enroll-form">
+				<div class="comment-write">
 					<form action="${path }/community/insertArticle.do" enctype="multipart/form-data" method="post">
-						<textarea name="content"></textarea>
-						<input type="file" name="image">
-						<input type="hidden" name="memberKey" value="${signedInMember.memberKey }">
-						<input type="hidden" name="threadKey" value="${list.get(0).THREAD_KEY }">
-						<button type="submit">댓글 등록</button>
+						<div class="comment-write-inner">
+							<div class="comment-write-content">
+								<textarea name="content"></textarea>
+							</div>
+							<div class="comment-write-footer">
+								<input type="file" name="image">
+								<input type="hidden" name="memberKey" value="${signedInMember.memberKey }">
+								<input type="hidden" name="threadKey" value="${list.get(0).THREAD_KEY }">
+								<button class="btn-type-1" type="submit">댓글 등록</button>
+							</div>
+						</div>
 					</form>
 				</div>
 				<%-- <div class="article">
