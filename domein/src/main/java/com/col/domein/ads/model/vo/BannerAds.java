@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 @Component
-public class BannerAds {
+public class BannerAds implements Comparable<BannerAds>{
 
 	private int adsKey;
 	private int applicantKey;
@@ -32,6 +32,15 @@ public class BannerAds {
 	public BannerAds() {
 		// TODO Auto-generated constructor stub
 	}
+	
+	
+
+	@Override
+	public int compareTo(BannerAds o) {
+		// TODO Auto-generated method stub
+		return this.adsKey-o.getAdsKey();
+	}
+
 
 
 	public BannerAds(int adsKey, int applicantKey, String adsOriginalFileName, String adsRenamedFileName,

@@ -19,23 +19,32 @@
 		<result column="RECEIVER_COMMENT" property="receiverComment" />
 		<result column="DISCOUNT" property="discount" />
 		<result column="TOTAL_PRICE" property="totalPrice" />
-		<association property="status_desc"
+		<result column="ORDER_TARGET_NO" property="orderTargetNo"/>
+		<association property="statusDesc"
 			column="ORDER_STATUS_NO" javaType="String"
 			select="order.selectOrderStatusDesc"></association>
+		<association property="targetDesc"
+			column="ORDER_TARGET_NO" javaType="String"
+			select="order.selectOrderTargetDesc"></association>
 	</resultMap>
 
 	<select id="selectOrderStatusDesc" resultType="string">
 		SELECT STATUS_DESC
 		FROM ORDER_STATUS WHERE ORDER_STATUS_NO = #{orderStatusNo}
 	</select>
-
+	<select id="selectOrderTargetDesc" resultType="string">
+		SELECT TARGET_DESC FROM ORDER_TARGET WHERE ORDER_TARGET_NO = #{orderTargetNo}
+	</select>
+	
+	
 	<select id="getCurrentOrderNoSequence" resultType="_int">
-		SELECT SEQ_ORDER_NO.NEXTVAL FROM DUAL
+		SELECT
+		SEQ_ORDER_NO.NEXTVAL FROM DUAL
 	</select>
 
 	<insert id="insertOrder" parameterType="order">
 		INSERT INTO
-		ORDERS(ORDER_NO,BUYER_KEY,PAYMENT_METHOD,APPLY_NUM,MERCHANT_UID,BUYER_TEL,RECEIVER_NAME,RECEIVER_TEL,RECEIVER_POSTCODE,RECEIVER_ADDR,RECEIVER_COMMENT,DISCOUNT,TOTAL_PRICE)
-		VALUES(#{orderNo},#{buyerKey},#{paymentMethod},#{applyNum},#{merchantUid},#{buyerTel},#{receiverName},#{receiverTel},#{receiverPostcode},#{receiverAddr},#{receiverComment},#{discount},#{totalPrice})
+		ORDERS(ORDER_NO,BUYER_KEY,PAYMENT_METHOD,APPLY_NUM,MERCHANT_UID,BUYER_TEL,RECEIVER_NAME,RECEIVER_TEL,RECEIVER_POSTCODE,RECEIVER_ADDR,RECEIVER_COMMENT,DISCOUNT,TOTAL_PRICE,ORDER_TARGET_NO)
+		VALUES(#{orderNo},#{buyerKey},#{paymentMethod},#{applyNum},#{merchantUid},#{buyerTel},#{receiverName},#{receiverTel},#{receiverPostcode},#{receiverAddr},#{receiverComment},#{discount},#{totalPrice},#{orderTargetNo})
 	</insert>
 </mapper>

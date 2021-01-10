@@ -104,7 +104,9 @@ location.href = '${path}/order/mustLogin.do';
 		        		"receiverTel" : $("#receiverTel").val(),
 		        		"discount" : $("#discount").val(),
 		        		"receiverComment" : $("#receiverComment").val(),
-		        		"totalPrice" : sumPrice.val() - discount.val()
+		        		"totalPrice" : sumPrice.val() - discount.val(),
+		        		/* 1: auction, 2: direct_sale 3:banner_ads 4:auction_ads 5:direct_sale_ads*/
+		        		"orderTargetNo" : 1
 		        	},
 		        	success: (data)=>{
 		        		/* 데이터는 orderNo입니다. JSON 파싱 필요없이 바로 넘버로서 사용 가능 */
