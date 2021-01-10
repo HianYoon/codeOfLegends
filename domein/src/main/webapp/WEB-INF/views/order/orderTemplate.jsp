@@ -51,7 +51,6 @@ location.href = '${path}/order/mustLogin.do';
 </section>
 
 <script>
-	const today = new Date();
 	
 	const sumPrice = $("#sumPrice");
 	const discount = $("#discount");
@@ -84,7 +83,7 @@ location.href = '${path}/order/mustLogin.do';
 		IMP.request_pay({ // param
 		    pg: "html5_inicis",
 		    pay_method: "card",
-		    merchant_uid: '${signedInMember.memberKey}_'+today.getMilliseconds(),
+		    merchant_uid: '${signedInMember.memberKey}_'+(new Date() - new Date(0)),
 		    name: "상품명을 불러오세요 요기에",
 		    amount: sumPrice.val() - discount.val(),
 		    buyer_email: $("#email").val(),
