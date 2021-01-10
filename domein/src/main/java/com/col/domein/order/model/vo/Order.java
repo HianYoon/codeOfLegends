@@ -1,8 +1,13 @@
 package com.col.domein.order.model.vo;
 
 import java.sql.Date;
+import java.util.TreeSet;
 
 import org.springframework.stereotype.Component;
+
+import com.col.domein.ads.model.vo.BannerAds;
+import com.col.domein.ads.model.vo.DirectAds;
+import com.col.domein.auction.model.vo.AuctionBid;
 
 
 
@@ -26,7 +31,10 @@ public class Order implements Comparable<Order>{
 	private String receiverComment;
 	private int discount;
 	private int totalPrice;
-	
+	private TreeSet<DirectSaleOrderHistory> dsoHistories;
+	private TreeSet<AuctionBid> abHistories;
+	private TreeSet<DirectAds> daHistories;
+	private TreeSet<BannerAds> baHistories;
 	
 
 
