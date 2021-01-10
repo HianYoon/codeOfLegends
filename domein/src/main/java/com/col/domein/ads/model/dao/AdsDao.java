@@ -76,4 +76,6 @@ public interface AdsDao {
 	
 	int updateDirectDeny(SqlSession session,int adsKey);
 	
+	int insertOrderNo(SqlSession session,int orderNo);
+	
 }

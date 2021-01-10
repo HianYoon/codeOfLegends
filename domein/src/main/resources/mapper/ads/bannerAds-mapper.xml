@@ -27,6 +27,10 @@
 			#{urlLink},#{adsDescription},DEFAULT,DEFAULT,#{adsTitle},#{adsPrice})
 	</insert>
 	
+	<insert id="insertOrderNo" parameterType="int">
+		INSERT INTO ADS_ORDER_HISTORY VALUES(#{orderNo},1,DEFAULT,SYSDATE)
+	</insert>
+	
 	<select id="selectBannerHoldCount" parameterType="int" resultType="int">
 		SELECT COUNT(ADS_KEY) FROM BANNER_ADS_APPLICATION WHERE 
 		APPLICANT_KEY=#{applicantKey} AND ADS_STATUS_NO=0

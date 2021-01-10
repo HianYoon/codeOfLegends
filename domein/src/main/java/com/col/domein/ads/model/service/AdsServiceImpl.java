@@ -186,6 +186,11 @@ public class AdsServiceImpl implements AdsService {
 		return dao.updateDirectDeny(session,adsKey);
 	}
 
+	@Override
+	public int insertOrderNo(int orderNo) {
+		return dao.insertOrderNo(session,orderNo);
+	}
+
 	
 	
 	

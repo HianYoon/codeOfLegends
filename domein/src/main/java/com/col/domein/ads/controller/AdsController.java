@@ -98,9 +98,34 @@ public class AdsController {
 		bannerAds.setStartDate(startDate);
 		bannerAds.setEndDate(endDate);		
 		
+		int targetNo=3;
+		String msg="[도매인]슬라이드 배너 광고";
+		
+		mv.addObject("targetNo", targetNo);
+		mv.addObject("msg", msg);
+		mv.addObject("adsRequest",bannerAds);
+		mv.setViewName("/ads/adsPayment");
+		return mv;
+		
+//		int result=service.bannerApply(bannerAds);
+//		System.out.println("bannerAds성공여부: "+result);
+//		mv.addObject("msg",result>0?"입력성공":"입력실패");
+//		mv.addObject("loc","/ads/adsMainApply.do");
+//		mv.setViewName("/common/msg");
+//		return mv;
+	}
+	
+	@RequestMapping("/ads/paymentEnd.do")
+	public ModelAndView bannerPaymentEnd(ModelAndView mv, BannerAds bannerAds, int orderNo) {
 		int result=service.bannerApply(bannerAds);
+		int result2=service.insertOrderNo(orderNo);
 		System.out.println("bannerAds성공여부: "+result);
-		mv.addObject("msg",result>0?"입력성공":"입력실패");
+		System.out.println("orderNo성공여부: "+result2);
+		if(result>0 && result2>0) {
+			mv.addObject("msg","결제가 완료되었습니다.");					
+		}else {
+			mv.addObject("msg","진행중 오류가 발생했습니다. \\n 다시 시도해주세요.");
+		}
 		mv.addObject("loc","/ads/adsMainApply.do");
 		mv.setViewName("/common/msg");
 		return mv;

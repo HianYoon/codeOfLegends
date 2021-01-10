@@ -74,4 +74,6 @@ public interface AdsService {
 	
 	int updateDirectDeny(int adsKey);
 	
+	int insertOrderNo(int orderNo);
+	
 }

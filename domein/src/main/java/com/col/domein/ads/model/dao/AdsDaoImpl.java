@@ -20,6 +20,11 @@ public class AdsDaoImpl implements AdsDao {
 	}	
 
 	@Override
+	public int insertOrderNo(SqlSession session, int orderNo) {
+		return session.insert("bannerAds.insertOrderNo",orderNo);
+	}
+
+	@Override
 	public int bannerHoldCount(SqlSession session,int applicantKey) {		
 		return session.selectOne("bannerAds.selectBannerHoldCount",applicantKey);
 	}
