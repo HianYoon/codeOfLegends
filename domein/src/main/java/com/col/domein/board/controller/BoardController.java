@@ -340,5 +340,11 @@ public class BoardController {
 		m.addAttribute("list",list);
 		return "community/bkbDetail";
 	}
+	
+	@RequestMapping("/community/insertArticle.do")
+	public String insertArticle(Model m, int threadKey, String content, int memberKey) {
+		
+		return "community/bkbDetail";
+	}
 
 }

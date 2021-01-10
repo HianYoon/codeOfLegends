@@ -66,6 +66,12 @@
 					</div>
 				</div>
 				</c:forEach>
+				<div class="reply-enroll-form">
+					<form action="${path }/community/insertArticle.do">
+						<textarea name="content"></textarea>
+						<button type="submit">댓글 등록</button>
+					</form>
+				</div>
 				<%-- <div class="article">
 					<div class="wrap-contents">
 						<div class="box-img">

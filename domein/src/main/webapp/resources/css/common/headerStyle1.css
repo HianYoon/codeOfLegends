@@ -141,29 +141,36 @@ header nav .list-depth-1 {
 }
 header nav .list-depth-1 .depth-1 {
   display: flex;
+  transition: left 0.3s;
 }
 header nav .list-depth-1 .depth-1 > a {
   width: 125px;
-  height: 50px;
+  height: 51px;
+  margin-top: -1px;
   text-align: center;
   line-height: 50px;
   border-left: 1px solid #ddd;
-}
-header nav .list-depth-1 .depth-1:nth-child(1) > a {
-  width: 135px;
-  border-bottom: 1px solid #ddd;
-}
-header nav .list-depth-1 .depth-1:nth-child(2) {
-  position: absolute;
-  top: 50px;
-  left: 10px;
+  border-top: 1px solid #ddd;
 }
 header nav .list-depth-1 .depth-1:nth-child(2) > a {
-  background-color: #f6f6f6;
+  margin-top: 50px;
+}
+header nav .list-depth-1 .depth-1.active > a {
+  width: 135px;
+  font-weight: bold;
   border-bottom: 1px solid #ddd;
+  border-left: 5px solid var(--main-yellow);
+}
+header nav .list-depth-1 .depth-1:not(.active) {
+  position: absolute;
+  top: 0;
+  left: 10px;
+}
+header nav .list-depth-1 .depth-1:not(.active) > a {
+  border: none;
   color: #666;  
 }
-header nav .list-depth-1 .depth-1:nth-child(2) .list-depth-2{
+header nav .list-depth-1 .depth-1:not(.active) .list-depth-2{
   display: none;
 }
 header nav .list-depth-2 {
