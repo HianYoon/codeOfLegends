@@ -53,7 +53,7 @@
 
                 <div class="div_title">
                 	<input type="hidden" name="applicantKey" value="${signedInMember.memberKey }"/>
-                    <label for="adsTitle"><span><u>제목</u></span></label>&nbsp;&nbsp;<input type="text" name="adsTitle" id="adsTitle" required>
+                    <label for="adsTitle"><span><u>제목</u></span></label>&nbsp;&nbsp;<input type="text" name="adsTitle" id="adsTitle" maxlength="42" required>
                 </div>
 
                 <div class="div_description">
@@ -79,8 +79,8 @@
                 <br>
                 <div class="div_period">
                     <p><u>기간 및 가격</u></p>
-                    개시일&nbsp;&nbsp;<input type="text" id="startDate" name="startDate" placeholder="개시일 선택" onchange="fn_triggerEnd(event)" required>&nbsp;&nbsp;                        
-                    종료일&nbsp;&nbsp;<input type="text" id="endDate" name="endDate" placeholder="종료일 선택" onchange="fn_triggerPrice(event)" disabled required><br>
+                    개시일&nbsp;&nbsp;<input type="text" id="startDate" name="startDate" placeholder="개시일 선택" onchange="fn_triggerEnd(event)" autocomplete="off" required>&nbsp;&nbsp;                        
+                    종료일&nbsp;&nbsp;<input type="text" id="endDate" name="endDate" placeholder="종료일 선택" onchange="fn_triggerPrice(event)" autocomplete="off" disabled required><br>
                     <!-- 기타 선택 시, return false로 체크 -->
                     결제금액&nbsp;&nbsp;<input type="text" id="totalPrice" value="0" name="adsPrice" readonly>&nbsp;원
                 </div>
@@ -116,7 +116,12 @@
             showMonthAfteryear:true,
             yearSuffix:'년',
             defaultDate: new Date(),
-            minDate:0                
+            minDate:0,
+            beforeShow: function(){
+            	setTimeout(function(){
+            		$('.ui-datepicker').css('z-index', 9999999999);
+            	}, 0);
+            }
         });              
     })
     /* DB에서 adsRate를 가져와 날짜 선택 시 계산하여 측정 */
@@ -148,7 +153,12 @@
 	        showMonthAfteryear:true,
 	        yearSuffix:'년',
 	        // defaultDate: new Date($("#startDate").val()),
-	        minDate: new Date($("#startDate").val())
+	        minDate: new Date($("#startDate").val()),
+	        beforeShow: function(){
+            	setTimeout(function(){
+            		$('.ui-datepicker').css('z-index', 9999999999);
+            	}, 0);
+            }
 	    });
 	}
     /* div눌러도 file Upload 실행 */

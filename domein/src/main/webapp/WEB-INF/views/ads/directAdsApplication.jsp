@@ -54,7 +54,7 @@
                 <!--////////////////////////////////////////////////////////////붙여온 곳///////////////////////////////////////////////////////  -->
                 <div class="div_title">
                 	<input type="hidden" name="applicantKey" value="${signedInMember.memberKey }"/>
-                    <label for="adsTitle"><span><u>제목</u></span></label>&nbsp;&nbsp;<input type="text" name="adsTitle" id="adsTitle" required>
+                    <label for="adsTitle"><span><u>제목</u></span></label>&nbsp;&nbsp;<input type="text" name="adsTitle" id="adsTitle" maxlength="42" required>
                 </div>
 				<!-- /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// -->
 				
@@ -72,9 +72,9 @@
                            <tbody>                    
 	                           <c:forEach items="${boardDirectSale }" var="bds" varStatus="vs">                       
 	                               <tr>
-	                                   <td><label for="${vs.count }"><input type="radio" id="${vs.count }" name="myArticle" value="${bds.articleNo }">&nbsp;다이렉트 판매</label></td>
-	                                   <td><label for="${vs.count }"><c:out value="${bds.title }"/></label></td>
-	                                   <td><label for="${vs.count }"><c:out value="${bds.writtenDate }"/></label></td>
+	                                   <td><label for="bds${vs.count }"><input type="radio" id="bds${vs.count }" name="articleNo" value="${bds.articleNo }" onclick="fn_viewAjax(event);" required/>&nbsp;&nbsp;다이렉트 판매</label></td>
+	                                   <td><label for="bds${vs.count }"><c:out value="${bds.title }"/></label></td>
+	                                   <td><label for="bds${vs.count }"><c:out value="${bds.modifiedDate }"/></label></td>
 	                               </tr>
 	                           </c:forEach>
                            </tbody>
@@ -97,12 +97,12 @@
                    <p><u>Preview(미리보기)</u></p>
                    <c:if test="${not empty boardDirectSale }">
                    <div class="div_ajax">
-						
+						<textarea name="saleContent" rows="10" cols="150" style="resize:none" placeholder="미리보기가 표시됩니다." readonly required></textarea>
                    </div>
                    </c:if>
                    <c:if test="${empty boardDirectSale }">
                    <div class="div_ajax">
-						<br><p style="text-align:center">결과가 없습니다.</p><br>
+						<textarea name="saleContent" rows="10" cols="150" style="resize:none" placeholder="미리보기가 표시됩니다." readonly required>해당 결과가 없습니다.</textarea>
                    </div>
                    </c:if>
                </div>
@@ -116,8 +116,8 @@
 
                <div class="div_period">
                    <p><u>기간 및 가격</u></p>
-                   개시일&nbsp;&nbsp;<input type="text" id="startDate" name="startDate" placeholder="개시일 선택" onchange="fn_triggerEnd(event)" required>&nbsp;&nbsp;                        
-                   종료일&nbsp;&nbsp;<input type="text" id="endDate" name="endDate" placeholder="종료일 선택" onchange="fn_triggerPrice(event)" disabled required><br>
+                   개시일&nbsp;&nbsp;<input type="text" id="startDate" name="startDate" placeholder="개시일 선택" onchange="fn_triggerEnd(event)" autocomplete="off" required>&nbsp;&nbsp;                        
+                   종료일&nbsp;&nbsp;<input type="text" id="endDate" name="endDate" placeholder="종료일 선택" onchange="fn_triggerPrice(event)" autocomplete="off" disabled required><br>
                    <!-- 기타 선택 시, return false로 체크 -->
                     결제금액&nbsp;&nbsp;<input type="text" id="totalPrice" value="0" name="adsPrice" readonly>&nbsp;원
                 </div>
@@ -135,7 +135,7 @@
 </section>
 <script>
 	$(function(){
-		$("input[name=myArticle]").click(e=>{
+		<%-- $("input[name=myArticle]").click(e=>{
 			$.ajax({
 				url:"<%=request.getContextPath()%>/product/productDetail",
 				/* articleNo 를 쏴주는 것 (articleNo 만으로 검색가능) */
@@ -151,7 +151,7 @@
 					console.log(error);
 				}
 			});
-		});
+		}); --%>
 		/* datepicker 개시일에 생성 */
         $("#startDate").datepicker({
             dateFormat: 'yy-mm-dd',
@@ -165,7 +165,12 @@
             showMonthAfteryear:true,
             yearSuffix:'년',
             defaultDate: new Date(),
-            minDate:0                
+            minDate:0,
+            beforeShow: function(){
+            	setTimeout(function(){
+            		$('.ui-datepicker').css('z-index', 9999999999);
+            	}, 0);
+            }
         }); 
 	})
 	/* DB에서 adsRate를 가져와 날짜 선택 시 계산하여 측정 */
@@ -197,9 +202,23 @@
 	        showMonthAfteryear:true,
 	        yearSuffix:'년',
 	        // defaultDate: new Date($("#startDate").val()),
-	        minDate: new Date($("#startDate").val())
+	        minDate: new Date($("#startDate").val()),
+	        beforeShow: function(){
+            	setTimeout(function(){
+            		$('.ui-datepicker').css('z-index', 9999999999);
+            	}, 0);
+            }
 	    });
-	}
+	};
+	function fn_viewAjax(e){		
+		$.ajax({
+			url:"${path}/ads/directAdsAjaxView.do",
+			data:{"articleNo":$(e.target).val()},
+			success:data=>{								
+				$(".div_ajax").children().html(data);
+			}
+		});
+	};
 </script>
 
 <jsp:include page="/WEB-INF/views/common/footer.jsp"/>

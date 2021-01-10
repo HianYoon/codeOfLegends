@@ -70,6 +70,11 @@ public class AdsDaoImpl implements AdsDao {
 	}
 
 	@Override
+	public String selectDirectSaleContent(SqlSession session, String articleNo) {
+		return session.selectOne("directAds.selectDirectSaleContent",articleNo);
+	}
+
+	@Override
 	public List selectBannerAccept(SqlSession session, String today) {		
 		return session.selectList("bannerAds.selectBannerAccept",today);		
 	}

@@ -15,12 +15,27 @@
 		<result column="STATUS_DESC" property="statusDesc"/>				
 		<result column="NICKNAME" property="nickName"/>				
 	</resultMap>
+	
+	<!-- ////////////////////////////////////////////////////////////////////////////////////////////////// -->
+	<!-- BOARD_DIRECT_SALE을 불러오기 위한 몸부림 -->
+	<resultMap type="com.col.domein.product.model.vo.BoardProductSaleContent" id="boardProductSaleContentMap">
+		<id column="ARTICLE_NO" property="articleNo"/>
+		<result column="TITLE" property="title"/>		
+		<result column="BUSINESS_KEY" property="businessKey"/>
+		<result column="WRITTEN_DATE" property="writtenDate"/>
+		<result column="MODIFIED_DATE" property="modifiedDate"/>		
+		<result column="SALE_CONTENT" property="saleContent"/>
+		<result column="ORDER_COUNT" property="orderCount"/>
+		<result column="SALE_STATUS_NO" property="saleStatusNo"/>					
+	</resultMap>
+	<!-- ////////////////////////////////////////////////////////////////////////////////////////////////// -->
 
+	
 	<!-- adsController(회원신청 용) -->
 
 	<insert id="insertDirectAds" parameterType="directAds">
 		INSERT INTO DIRECT_SALES_ADS VALUES(SEQ_ADS_KEY.NEXTVAL,#{applicantKey},
-			#{startDate},#{endDate},SYSDATE,DEFAULT,DEFAULT,#{articleNo},#{adsPrice})
+			#{startDate},#{endDate},SYSDATE,DEFAULT,DEFAULT,#{articleNo},#{adsPrice},#{adsTitle},#{adsDescription})
 	</insert>
 
 	<select id="selectDirectHoldCount" parameterType="int" resultType="int">
@@ -42,11 +57,16 @@
 		SELECT ADS_RATE FROM (SELECT * FROM ADS_RATING ORDER BY SET_DATE DESC) WHERE ROWNUM=1 AND ADS_TYPE=2
 	</select>
 	
-	<select id="selectBoardDirectSale" parameterType="com.col.domein.product.model.vo.BoardProductSaleContent" resultType="list">
-		SELECT * FROM BOARD_DIRECT_SALE WHERE BUSINESS_KEY IN
+	<select id="selectBoardDirectSale" parameterType="int" resultMap="boardProductSaleContentMap">
+		SELECT ARTICLE_NO, TITLE, BUSINESS_KEY, MODIFIED_DATE, SALE_CONTENT FROM BOARD_DIRECT_SALE WHERE BUSINESS_KEY IN 
 		<foreach collection="list" item="k" index="i" open="(" separator="," close=")">
 			#{k}
 		</foreach>
+	</select>
+	
+	<!-- ajax로 내가 쓴 게시글 불러오는 구문 (directAdsApplication) -->
+	<select id="selectDirectSaleContent" parameterType="string" resultType="string">
+		SELECT SALE_CONTENT FROM BOARD_DIRECT_SALE WHERE ARTICLE_NO=#{articleNo}
 	</select>
 	
 	<!-- ///////////////////////////////////////////////////////////////////////////////////////////////////////////// -->

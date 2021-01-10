@@ -19,6 +19,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.col.domein.ads.model.service.AdsService;
 import com.col.domein.ads.model.vo.BannerAds;
+import com.col.domein.ads.model.vo.DirectAds;
 import com.col.domein.common.pageBar.PageBarFactory;
 import com.col.domein.member.model.vo.Member;
 
@@ -182,10 +183,10 @@ public class AdminAdsController {
 		int totalCount=service.selectDirectCountAll();
 		
 		//게시판 모두 불러오기
-		List<BannerAds> board=service.selectDirectBoardAll(cPage,numPerpage);
+		List<DirectAds> board=service.selectDirectBoardAll(cPage,numPerpage);
 		SimpleDateFormat sdf=new SimpleDateFormat("yyyy.MM.dd");
 		JSONArray boardContent=new JSONArray();
-		for(BannerAds b:board) {
+		for(DirectAds b:board) {
 			JSONObject jo=new JSONObject();
 			jo.put("adsKey",b.getAdsKey());
 			jo.put("statusDesc",b.getStatusDesc());

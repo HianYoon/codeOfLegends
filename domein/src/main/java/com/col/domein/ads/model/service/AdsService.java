@@ -66,4 +66,6 @@ public interface AdsService {
 	
 	int selectDirectCountAll();
 	
+	String selectDirectSaleContent(String articleNo);
+	
 }

@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.TreeSet;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -146,6 +147,21 @@ public class AdsController {
 		mv.addObject("loc","/ads/adsMainApply.do");
 		mv.setViewName("/common/msg");
 		return mv;
+	}
+	
+	
+	@RequestMapping("/ads/directAdsAjaxView.do")
+	public void directAdsAjaxView(HttpServletResponse response,
+			@RequestParam(value="articleNo",defaultValue="0") String articleNo) throws IOException {
+		String msg=service.selectDirectSaleContent(articleNo);
+		if(msg!=null) {
+			response.setContentType("text/html;charset=utf-8");
+			response.getWriter().print(msg);			
+		}else {
+			msg="내용을 불러오던 도중 에러가 발생했습니다.";
+			response.setContentType("text/html;charset=utf-8");
+			response.getWriter().print("msg");
+		}
 	}
 	
 	

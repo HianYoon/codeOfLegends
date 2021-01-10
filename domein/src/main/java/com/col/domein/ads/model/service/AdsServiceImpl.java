@@ -166,6 +166,11 @@ public class AdsServiceImpl implements AdsService {
 		return dao.selectDirectCountAll(session);
 	}
 
+	@Override
+	public String selectDirectSaleContent(String articleNo) {
+		return dao.selectDirectSaleContent(session, articleNo);
+	}
+
 	
 	
 	

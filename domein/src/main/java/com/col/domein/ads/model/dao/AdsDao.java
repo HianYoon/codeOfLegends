@@ -68,4 +68,6 @@ public interface AdsDao {
 	
 	int selectDirectCountAll(SqlSession session);
 	
+	String selectDirectSaleContent(SqlSession session,String articleNo);
+	
 }
