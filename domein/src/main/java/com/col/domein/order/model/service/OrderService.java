@@ -31,10 +31,9 @@ public class OrderService {
 		if(!flag) return -1;
 		return orderNo;
 	}
-
-	public List<Map> selectCartProduct(TreeMap<String, Integer> map) {
+	public List<Map> selectCartProduct(int memberKey, int productNo) {
 		// TODO Auto-generated method stub
-		return od.selectCartProduct(session,map);
+		return od.selectCartProduct(session,memberKey,productNo);
 	}
 	
 }

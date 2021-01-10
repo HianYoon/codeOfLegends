@@ -173,7 +173,7 @@ public class CartController {
 			session.setAttribute("nomlist",nomlist);
 			mv.setViewName("cart/cart");
 		}else {
-				 
+			List<Map> cart=service.selectCartList(memberKey);
 				 mv.setViewName("cart/cart");
 		
 		}

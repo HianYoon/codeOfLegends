@@ -1,15 +1,12 @@
 package com.col.domein.order.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.TreeMap;
-
-import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -28,23 +25,31 @@ public class OrderController {
 		
 		return "order/orderTemplate";
 	}
-	@RequestMapping(value="/order/cartToorder.do", method=RequestMethod.POST)
-	public ModelAndView cartToOrder(ModelAndView mv,HttpSession session,int memberKey,
+	
+	
+	@RequestMapping(value="/cartToorder.do")
+	public ModelAndView cartToOrder(ModelAndView mv,int memberKey,
 			@RequestParam(value="chk[]") List<String> chArr)throws Exception {
 		
-		TreeMap<String,Integer> map=new TreeMap<String,Integer>();
 		System.out.println("memberKey"+memberKey);
-		int product= 0;
+		List<Map> list=new ArrayList<Map>();
+		System.out.println("chArr:"+chArr);
+		int productNo= 0;
+
+		System.out.println();
 		for(String i : chArr) {
-			int productNo=Integer.parseInt(i);
-			map.put("productNo",productNo);
-			map.put("memberKey",memberKey);
-			System.out.println("map:"+map);
-			List<Map>list=os.selectCartProduct(map);
-			System.out.println(""+list);
-			mv.addObject("list",list);
-			mv.setViewName("order/orderCart");
+
+				
+				productNo=Integer.parseInt(i);
+				
+				System.out.println("int:"+productNo);
+				list=os.selectCartProduct(memberKey,productNo);
+			//map.put("productNo",productNo);
+			//map.put("memberKey",memberKey);
 		}
+		System.out.println("List"+list);
+		mv.addObject("list",list);
+		mv.setViewName("order/orderCart");
 		return mv;
 		
 	}

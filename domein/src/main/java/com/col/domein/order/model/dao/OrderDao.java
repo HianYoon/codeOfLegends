@@ -20,8 +20,11 @@ public class OrderDao {
 		return session.insert("order.insertOrder", order) == 1;
 	}
 	//cart상품불러오기 
-	public List<Map> selectCartProduct(SqlSession session, TreeMap<String, Integer> map) {
+	public List<Map> selectCartProduct(SqlSession session, int memberKey, int productNo) {
 		// TODO Auto-generated method stub
-		return session.selectList("order,selectCartProduct",map);
+		TreeMap<String,Integer> map=new TreeMap<String,Integer>();
+		map.put("memberKey",memberKey);
+		map.put("productNo",productNo);
+		return session.selectList("order.selectCartProduct",map);
 	}
 }
