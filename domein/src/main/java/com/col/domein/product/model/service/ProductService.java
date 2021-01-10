@@ -61,5 +61,7 @@ public interface ProductService {
 	List<Map> selectBusinessOne(int memberKey);
 	//index 페이지 
 	List<Map> selecProductListAll();
+	//articleNo
+	int selectArticleNo(int articleNo);
 
 }	

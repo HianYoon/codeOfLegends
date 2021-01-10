@@ -45,23 +45,23 @@
                             
                             <div class="slideshow-container">
                 
-	                                <div class="mySlides fade">
-	                                    <div class="numbertext">1 / 5</div>
-	                                    	<img src="${path}/resources/upload/boardauction/file/${list.RENAMED_FILE_NAME}" class="slideImg"  style="width:100%;heigth:200px;">
-	                                    <div class="text">Caption Text</div>
+	                                <div class="">
+	                              <!--       <div class="numbertext">1 / 5</div> -->
+	                                    	<img src="${path}/resources/upload/boardauction/file/${list.RENAMED_FILE_NAME}" id="big-target"  style="width:300px;heigth:200px;">
+	                                <!--     <div class="text">Caption Text</div> -->
 	                                </div>
                                 
                                 
                             </div>
                             <br>
                             
-                            <div style="text-align:center">
+                         <!--    <div style="text-align:center">
                                 <span class="dot"></span> 
                                 <span class="dot"></span> 
                                 <span class="dot"></span> 
                                 <span class="dot"></span> 
                                 <span class="dot"></span> 
-                            </div>
+                            </div> -->
                             
                             <ul>
                                 
@@ -138,20 +138,23 @@
 		                                   <button type="button" class="btn btn-primary" id="Commentlist">목록</button>
                                 </div>
 								<div class="my-3 p-3 bg-white rounded shadow-sm=" style="padding-top:10px">
-		                             <form:form name="form" id="form" role="form" modelAttribute="replayVO" action="" method="post" >
+		                           <form name="form" id="form" role="form" modelAttribute="replayVO" enctype="multipart/form-data" action="" method="post" >
 										
-		                             <form:hidden path="bid" id="bid"/>
+		                           
 		                             <div class="row">
 		                             	<div class="col-sm-10">
-		                             		<textarea path="content" id="content" class="form-control" row="3" placeholder="댓글을 입력해주세요."></textarea>
+		                             		<textarea  id="content" name="CommentContent" class="form-control" row="3" placeholder="댓글을 입력해주세요."></textarea>
 		                             	</div>
 		                             	<div class="col-sm-2">
-		                             		<form:input path="reg_id" class="form-control" id="reg_id" placeholder="댓글 작성자"></form:input>
-		                             		<button type="button" class="btn btn-primary" id="btnReplaSave">저장</button>
+		                             		<input  class="form-control" name="writerKey" id="reg_id" value="${signedInMember.memberKey }" placeholder="댓글 작성자"/>
+		                             		<input  type="hidden" class="articleStatusNo" value="1" name="articleStatusNo"/>
+		                             		<input  type="hidden"  value="0" name="refArticle"/>
+		                             		<input type="file" name="upFile" id="upFile"/>
+		                             		<button type="button" class="btn btn-primary" id="btnReplaSave" >저장</button>
 		                             		
 		                             	</div>
 		                             </div>
-									</form:form>
+									</form >
 								</div>
 									<div class="my-3 p-3 bg-white rounded shadow-sm" style="padding-top: 10px">
 										<h6 class="border-bottom pb-2 mb-0">Reply list</h6>
@@ -177,16 +180,22 @@
 			$("#review-container").css("display","block");
 		});
 	})
+	//댓글등록하기 
+	 $(document).on("click","#btnReplaSave",function (){
 	
-	/* $(document).on(function showReplayList(){
-	
-		const url="${path}/restBoard/getReplyList",
-		const paramData={"bid":${boardContent.bid}};
+		const url="${path}/restBoard/getReplyList";
+		var form=$("#form")[0];
+		var fileform=new FormData(form);
+		$("#btnReplaSave").prop("disabled",true);
+		console.log(form);
+		
 		$.ajax({
 			type:"POST",
+			//enctype:"multipart/form-data",
 			url: url,
-			data:paramData,
-			dataType:'json',
+			data:fileform,
+			processData:false,
+			contentType:false,
 			success:function(result){
 				let htmls="";
 				if(result.length < 1){
@@ -194,12 +203,11 @@
 				}else{
 					$(result).each(function(){
 						htmls +='<div class="media text-muted pt-3" id="rid'+this.rid+'">';
-						htmls +='<svg class="bd-placeholder-img mr-2 rounded" width="32" height="32" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice"
-						focusable="false" role="img" aria-label="Placeholder:32x32">';
+						htmls +='<div class="bd-placeholder-img mr-2 rounded" width="32" height="32" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder:32x32">';
 						htmls +='<title>Placeholder</title>';
 						htmls +='<rect width="100%" height="100%" fill="#007bff"></rect>';
 						htmls +='<text x="50%" fill="#007bff" dy = ".3em">32x32</text>';
-						htmls +='</svg>';
+						htmls +='</div>';
 						htmls +='<p class="media-body pb-3 mb-0 small Ih-125 border-bottom horder-gray">';
 						htmls +='<span class="d-block">';
 						htmls +='<strong class="text-gray-dark">'+this.reg_id+'</strong>';
@@ -215,8 +223,8 @@
 				
 				}
 				$("#replayList").html(htmls);
-			};
+			}
 		});
-		}); */
+		}); 
 </script>
 <jsp:include page="/WEB-INF/views/common/footer.jsp"/>

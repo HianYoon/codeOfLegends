@@ -167,6 +167,12 @@ public class ProductDaoImpl implements ProductDao {
 		// TODO Auto-generated method stub
 		return session.selectList("product.selecProductListAll");
 	}
+
+	@Override
+	public int seselectArticleNo(SqlSession session, int articleNo) {
+		// TODO Auto-generated method stub
+		return session.selectOne("product.seselectArticleNo",articleNo);
+	}
 	
 	
 	
