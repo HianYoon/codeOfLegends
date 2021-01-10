@@ -27,5 +27,6 @@
 		<typeAlias type="com.col.domein.auction.model.vo.BoardAttachementFile" alias="boardAttachementFile"/>
 		<typeAlias type="com.col.domein.auction.model.vo.AuctionBid" alias="auctionBid"/>
 		<typeAlias type="com.col.domein.auction.model.vo.BidContent" alias="bidContent"/>
+		<typeAlias type="com.col.domein.auctionComment.model.vo.AuctionComment" alias="auctionComment"/>
 	</typeAliases>
 </configuration>

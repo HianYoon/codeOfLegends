@@ -24,6 +24,7 @@ import com.col.domein.auction.model.vo.BidContent;
 import com.col.domein.auction.model.vo.BoardAttachementFile;
 import com.col.domein.auction.model.vo.BoardAttachementImage;
 import com.col.domein.auction.model.vo.BoardAuction;
+import com.col.domein.business.model.vo.Business;
 import com.col.domein.common.pageBar.PageBarFactory;
 
 @Controller
@@ -166,6 +167,7 @@ public class AuctionController {
 	@RequestMapping("/auction/auctionView.do")
 	public ModelAndView auctionView(ModelAndView mv, int articleNo,int writerKey) {
 		System.out.println("writerKey"+writerKey);
+		List<Map>  business=service.selectBusinessKey(writerKey);
 		List<Map> list=service.selectAuctionView(articleNo);
 		List<Map> company=service.selectJoinCompany(articleNo);//
 		int count=service.selectAuctionJoinCount(articleNo);//참여업체수 
@@ -174,6 +176,7 @@ public class AuctionController {
 		mv.addObject("list",list);
 		mv.addObject("count",count);
 		mv.addObject("company",company);
+		mv.addObject("business",business);
 		mv.setViewName("auction/auctionView");
 		
 		return mv;

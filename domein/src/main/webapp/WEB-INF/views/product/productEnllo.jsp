@@ -109,8 +109,8 @@
                                 	
                                 </select>
                             <div class="product-textgroup">
-
-                                <input type="text" class="input--text" name="articleNo" placeholder="글번호" required>
+									<c:set value="${articleNo}" var="articleNo"/>
+                                <input type="text" class="input--text" name="articleNo" placeholder="글번호" value="${articleNo}" required>
                                 <input type="text" class="input--text" name="productStatusNo" placeholder="카테고리" required>
                                 <input type="text" class="input--text" name="productName" placeholder="상품명" required>
                                 <input type="text" class="input--text" name="origin" placeholder="원산지" required>
