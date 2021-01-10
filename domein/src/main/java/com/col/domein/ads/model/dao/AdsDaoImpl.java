@@ -209,6 +209,23 @@ public class AdsDaoImpl implements AdsDao {
 	public int selectDirectPending(SqlSession session) {		
 		return session.selectOne("directAds.selectDirectPending");					
 	}
+
+	@Override
+	public DirectAds selectDirectWhole(SqlSession session, int adsKey) {
+		return session.selectOne("directAds.selectDirectWhole",adsKey);
+	}
+
+	@Override
+	public int updateDirectAccept(SqlSession session, int adsKey) {
+		return session.update("directAds.updateDirectAccept",adsKey);
+	}
+
+	@Override
+	public int updateDirectDeny(SqlSession session, int adsKey) {
+		return session.update("directAds.updateDirectDeny",adsKey);
+	}
+	
+	
 	
 	/////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	

@@ -206,7 +206,40 @@ public class AdminAdsController {
 		return mv;
 	}
 	
+	//추천게시글 요청게시판에서 -> 글 상세보기(directAdsRequestView 화면)
+	@RequestMapping("/admin/admin_ads/adminDirectView.do")
+	public ModelAndView viewDirectRequest(ModelAndView mv, int adsKey) {		
+		mv.addObject("picked",service.selectDirectWhole(adsKey));
+		mv.setViewName("/admin/admin_ads/directAdsRequestView");
+		return mv;
+	}
 	
+	
+	@RequestMapping("/admin/admin_ads/adminDirectDecision.do")
+	public void adminDirectDeciseion(HttpServletResponse response,
+			@RequestParam(value="decision",defaultValue="0") int decision,
+			@RequestParam(value="adsKey",defaultValue="0") int adsKey) throws IOException {
+		String msg="";
+		if(decision==1) {
+			int result=service.updateDirectAccept(adsKey);
+			if(result>0) {
+				msg="승인처리 되었습니다.";
+			}else {
+				msg="처리도중 오류가 발생했습니다! \\n 다시 시도해주세요.";
+			}			
+			response.setContentType("text/html;charset=utf-8");
+			response.getWriter().print(msg);
+		}else {
+			int result=service.updateDirectDeny(adsKey);
+			if(result>0) {
+				msg="반려처리 되었습니다.";				
+			}else {
+				msg="처리도중 오류가 발생했습니다! \\n 다시 시도해주세요.";
+			}
+			response.setContentType("text/html;charset=utf-8");
+			response.getWriter().print(msg);
+		}
+	}
 	
 	
 }

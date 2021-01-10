@@ -27,37 +27,66 @@
                 <div class="div_requestTitle">
                     <table>
                         <tr>
-                            <td>{title}</td>
-                            <td>{writer}</td>
-                            <td>{date}</td>
+                            <td><c:out value="${picked.adsTitle }"/></td>
+                            <td><c:out value="${picked.nickName }"/></td>
+                            <td><c:out value="${picked.applyDate }"/></td>
                         </tr>
                     </table>
                 </div>
+                <br>
                 <div class="div_preview">
-                    {summon게시글}
+                	<p><u>Preview(미리보기)</u></p>
+                    <textarea name="saleContent" rows="10" cols="150" style="resize:none" placeholder="미리보기가 표시됩니다." readonly required><c:out value="${picked.saleContent }"/></textarea>
                 </div>
                 <br>
-                <div class="div_url">                        
-                    <label for="ads_url"><span><u>url:</u></span></label>&nbsp;&nbsp;<input type="text" name="ads_url" id="ads_url" value="" readonly>&nbsp;
-                    <input type="button" class="" value="게시글로 이동" onclick="fn_goto();">                      
+                
+                <!--////////////////////////////////////////////////////////////붙여온 곳///////////////////////////////////////////////////////  -->
+               <div class="div_description">
+                    <span><u>요청메시지</u></span><br>
+                    <textarea name="adsDescription" rows="12" cols="150" style="resize:none" placeholder="내용을 입력해주세요" readonly required><c:out value="${picked.adsDescription }"/></textarea>
                 </div>
+                <!-- /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// -->                
+                
                 <br>
                 <div class="div_period">
                     <p><u>기간 및 가격: </u></p>
-                    <input type="text" name="startDate" value="{startDate}" readonly> ~ <input type="text" name="endDate" value="{endDate}" readonly>
+                    <input type="text" name="startDate" value="${picked.startDate }" readonly> ~ <input type="text" name="endDate" value="${picked.endDate}" readonly>
                     <br>
-                    결제금액:&nbsp;&nbsp;<input type="text" value="0" name="ads_price" readonly>&nbsp;원
+                    결제금액:&nbsp;&nbsp;<input type="text" value="${picked.adsPrice }" name="ads_price" readonly>&nbsp;원
                 </div>
                 <br><br>
                 <div class="div_submit">
-                    <input type="submit" value="승인" onclick="fn_confirm();">&nbsp;
-                    <input type="button" value="반려" onclick="fn_deny();">
+                    <input type="submit" class="btn btn--primary" value="승인" onclick="fn_confirm();">&nbsp;
+                    <input type="button" class="btn btn--primary2" value="반려" onclick="fn_deny();">
                     <br><br><br><br>
                 </div>
             </form>
         </div>
 	</div>    
 </section>
+<script>
+	/* ajax로 승인 처리한 후에, alert남기고 page전환 */
+	function fn_confirm(){		
+		$.ajax({
+			url:"${path}/admin/admin_ads/adminDirectDecision.do",
+			data:{"decision":1,"adsKey":"${picked.adsKey}"},
+			success:data=>{
+				alert(data);
+				location.replace("${path}/admin/admin_ads/adminDirectBoard.do");
+			}
+		});
+	};
+	function fn_deny(){
+		$.ajax({
+			url:"${path}/admin/admin_ads/adminDirectDecision.do",
+			data:{"decision":0,"adsKey":"${picked.adsKey}"},
+			success:data=>{
+				alert(data);
+				location.replace("${path}/admin/admin_ads/adminDirectBoard.do");
+			}
+		});
+	};
+</script>
 
 <jsp:include page="/WEB-INF/views/common/footer.jsp"/>
 

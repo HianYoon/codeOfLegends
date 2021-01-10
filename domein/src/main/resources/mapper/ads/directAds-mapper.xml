@@ -14,6 +14,7 @@
 		<result column="ADS_PRICE" property="adsPrice"/>				
 		<result column="STATUS_DESC" property="statusDesc"/>				
 		<result column="NICKNAME" property="nickName"/>				
+		<result column="SALE_CONTENT" property="saleContent"/>				
 	</resultMap>
 	
 	<!-- ////////////////////////////////////////////////////////////////////////////////////////////////// -->
@@ -100,5 +101,20 @@
 	<select id="selectDirectPending" resultType="int">
 		SELECT COUNT(ADS_STATUS_NO) FROM DIRECT_SALES_ADS WHERE ADS_STATUS_NO=0
 	</select>
+	
+	<select id="selectDirectWhole" parameterType="int" resultMap="directAdsMap">
+		SELECT ADS_KEY, START_DATE, END_DATE, APPLY_DATE, ADS_DESCRIPTION, ADS_MEMO, ADS_TITLE, ADS_PRICE, NICKNAME, SALE_CONTENT 
+		FROM DIRECT_SALES_ADS LEFT JOIN MEMBER ON DIRECT_SALES_ADS.APPLICANT_KEY=MEMBER.MEMBER_KEY
+		LEFT JOIN BOARD_DIRECT_SALE USING (ARTICLE_NO)
+		WHERE ADS_KEY=#{adsKey} 
+	</select>
+	
+	<update id="updateDirectAccept" parameterType="int">
+		UPDATE DIRECT_SALES_ADS SET ADS_STATUS_NO=1 WHERE ADS_KEY=#{adsKey}
+	</update>
+	
+	<update id="updateDirectDeny" parameterType="int">
+		UPDATE DIRECT_SALES_ADS SET ADS_STATUS_NO=6 WHERE ADS_KEY=#{adsKey}
+	</update>
 	
 </mapper>

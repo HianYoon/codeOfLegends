@@ -70,4 +70,10 @@ public interface AdsDao {
 	
 	String selectDirectSaleContent(SqlSession session,String articleNo);
 	
+	DirectAds selectDirectWhole(SqlSession session,int adsKey);
+	
+	int updateDirectAccept(SqlSession session,int adsKey);
+	
+	int updateDirectDeny(SqlSession session,int adsKey);
+	
 }

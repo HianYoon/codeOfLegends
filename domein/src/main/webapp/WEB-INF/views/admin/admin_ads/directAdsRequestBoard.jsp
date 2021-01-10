@@ -62,7 +62,7 @@
                             </c:otherwise>
                         </c:choose>
                             <td>
-                            	<a href="${path }/admin/admin_ads/adminBannerView.do?adsKey=${bc.adsKey}">
+                            	<a href="${path }/admin/admin_ads/adminDirectView.do?adsKey=${bc.adsKey}">
                             	<c:out value="${bc.adsTitle }"/>
                             	</a>
                             </td>

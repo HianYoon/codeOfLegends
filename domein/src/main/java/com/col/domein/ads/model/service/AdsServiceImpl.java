@@ -171,6 +171,21 @@ public class AdsServiceImpl implements AdsService {
 		return dao.selectDirectSaleContent(session, articleNo);
 	}
 
+	@Override
+	public DirectAds selectDirectWhole(int adsKey) {
+		return dao.selectDirectWhole(session,adsKey);
+	}
+
+	@Override
+	public int updateDirectAccept(int adsKey) {
+		return dao.updateDirectAccept(session,adsKey);
+	}
+
+	@Override
+	public int updateDirectDeny(int adsKey) {
+		return dao.updateDirectDeny(session,adsKey);
+	}
+
 	
 	
 	

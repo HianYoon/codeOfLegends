@@ -68,4 +68,10 @@ public interface AdsService {
 	
 	String selectDirectSaleContent(String articleNo);
 	
+	DirectAds selectDirectWhole(int adsKey);
+	
+	int updateDirectAccept(int adsKey);
+	
+	int updateDirectDeny(int adsKey);
+	
 }
