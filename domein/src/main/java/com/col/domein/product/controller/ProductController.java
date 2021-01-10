@@ -75,16 +75,23 @@ public class ProductController {
 		System.out.println(""+bp);
 		
 		int result=service.insertBoardSContent(bp);
-		int articleNo=bp.getArticleNo();
-		System.out.println(articleNo);
-		int articleNum=service.selectArticleNo(articleNo);
-		mv.addObject("articleNo",articleNum);
+		if(result>0) {
+			
+			int articleNo=bp.getArticleNo();
+			System.out.println(articleNo);
+			int articleNum=service.selectArticleNo(articleNo);
+			mv.addObject("articleNo",articleNum);
+			mv.addObject("msg",result>0?"입력성공":"입력실패");
+			mv.addObject("boardContent",bp);
+			mv.setViewName("product/productEnllo");
+		}else {
+			mv.addObject("msg",result>0?"입력성공":"입력실패");
+			mv.addObject("boardContent",bp);
+			mv.setViewName("product/productEnllo");
+			
+		}
 		
-		mv.addObject("msg",result>0?"입력성공":"입력실패");
-		mv.addObject("boardContent",bp);
-		mv.setViewName("product/productEnllo");
 		return mv;
-		
 	}
 
 	//Product 등록

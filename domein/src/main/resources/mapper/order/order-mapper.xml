@@ -38,4 +38,9 @@
 		ORDERS(ORDER_NO,BUYER_KEY,PAYMENT_METHOD,APPLY_NUM,MERCHANT_UID,BUYER_TEL,RECEIVER_NAME,RECEIVER_TEL,RECEIVER_POSTCODE,RECEIVER_ADDR,RECEIVER_COMMENT,DISCOUNT,TOTAL_PRICE)
 		VALUES(#{orderNo},#{buyerKey},#{paymentMethod},#{applyNum},#{merchantUid},#{buyerTel},#{receiverName},#{receiverTel},#{receiverPostcode},#{receiverAddr},#{receiverComment},#{discount},#{totalPrice})
 	</insert>
+	
+	<select id="selectCartProduct" resultType="map">
+		select* from  BOARD_DIRECT_SALE bd inner join DIRECT_SALE_PRODUCT ds on bd.article_no=ds.article_no
+inner join CART c on ds.product_no=#{productNo} where c.member_key=#{memberKey}
+	</select>
 </mapper>

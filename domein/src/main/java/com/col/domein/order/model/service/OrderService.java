@@ -1,5 +1,9 @@
 package com.col.domein.order.model.service;
 
+import java.util.List;
+import java.util.Map;
+import java.util.TreeMap;
+
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -26,6 +30,11 @@ public class OrderService {
 		boolean flag = od.insertOrder(session, order);
 		if(!flag) return -1;
 		return orderNo;
+	}
+
+	public List<Map> selectCartProduct(TreeMap<String, Integer> map) {
+		// TODO Auto-generated method stub
+		return od.selectCartProduct(session,map);
 	}
 	
 }

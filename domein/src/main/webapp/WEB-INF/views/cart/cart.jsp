@@ -43,7 +43,7 @@
                   <c:otherwise>
                         	
                    <%--   <c:when test="${map.count != 0}"> --%>
-                      <form  id="orderForm" action="${path}/cart/goToOrder.do?memberKey=${signedInMember.memberKey}" method="POST">
+                      <form  id="orderForm" action="${path}/order/cartToorder.do?memberKey=${signedInMember.memberKey}" method="POST">
                         
                         <div class="cart-container">
                             <hr/>
@@ -450,7 +450,6 @@ function minusDown(e,poductNo){
 				//넣어주면 chk[]이름으로 controller에 넘어가 method에서 @RequestParam으로 받기만 해주면된다.
 				$("#chk").val(checkArr);
 				if(confirm("주문완료 하시겠습니까?")){
-					alert("주문감사합니다.");
 					$("#orderForm").submit();
 				}
 			})	
