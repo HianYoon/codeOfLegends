@@ -226,6 +226,8 @@
 				data:list,
 				success:function(data){
 					console.log(data);
+					if(data !=null){
+						
 					let output="";
 				//	output="<table class='table table-striped'>";
 		/* 			output="<thead>";
@@ -257,6 +259,9 @@
 					//output +="</tbody>";
 				//	output += "</table>";
 					$("#appendTo").html(output);
+					}else{
+						alert("리스트가 없습니다.");
+					}
 				}
 			})
 		})
@@ -303,7 +308,6 @@ $(document.body).on("click","#listUpdate",function(){
 		dataType:"json",
 		data:bidOne,
 		success:function(data){
-			alert("나오냐?");
 			let out="";
 			out="<form id='updateForm'>";
 			for(let i = 0 ; i<data.length;i++){

@@ -198,6 +198,12 @@ public class ProductServiceImpl implements ProductService {
 		return dao.selecProductListAll(session);
 	}
 
+	@Override
+	public int selectArticleNo(int articleNo) {
+		// TODO Auto-generated method stub
+		return dao.seselectArticleNo(session,articleNo);
+	}
+
 	
 	
 	

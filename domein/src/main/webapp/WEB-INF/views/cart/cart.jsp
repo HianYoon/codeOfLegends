@@ -37,13 +37,13 @@
                         <h2>장바구니</h2>
            <c:if test="${signedInMember != null}">             
               <c:choose>
-                  <c:when test="${map.count }== 0">
+                  <c:when test="${map.count == 0}">
                         		장바구니가 비어있습니다.
                      </c:when>
                   <c:otherwise>
                         	
-                      
-                      <form action="${path}/cart/orderToPay.do" method="POST">
+                   <%--   <c:when test="${map.count != 0}"> --%>
+                      <form  id="orderForm" action="${path}/cart/goToOrder.do?memberKey=${signedInMember.memberKey}" method="POST">
                         
                         <div class="cart-container">
                             <hr/>
@@ -53,7 +53,8 @@
                                 <div data-tr_value="$" class="product-cart">
                                 	<input type="hidden" value="${signedInMember.memberKey}" name="memberKey" id="memberKey"/>
                                 	<input type="hidden" value="${list.PRODUCT_NO}" name="productNo" id="productNo"/>
-                                    <input type="checkbox" name="cartCheck" value="${sumPriceAmount}" class="checkbox">
+                                	<input type="hidden" name="chk[]" id="chk" value=""/>
+                                    <input type="checkbox" name="cartCheck" value="${sumPriceAmount}" data-cartNum="${list.PRODUCT_NO}" class="checkbox">
                                   
 
                                      <a  href="${path }/product/productDetail.do?productNo=${list.PRODUCT_NO}" ></a><img src="${path }/resources/upload/product/${list.P_RENAMED_FILE_NAME}" alt="이미지"></a>
@@ -92,14 +93,12 @@
                                     <button type="button" id="checkbox"  class="btn btn-primary2">전체선택</button>
                                     <button type="button" id="" onclick="location.href='${path}/cart/cartIndex.do'" class="btn btn-primary2">쇼핑계속하기</button>
                                
-                                    <button type="button" id="orderToPay" onclick="location.href='${path}/memberLogin.do'" class="btn btn-primary2">결제하기</button>
+                                    <button type="submit" id="orderToPay" class="btn btn-primary2">결제하기</button>
                                  
-                                <c:if test="${signedInMember == null} " >
-                                    <button type="submit" id="orderToPay"  class="btn btn-primary2">결제하기</button>
-                                </c:if> 
                                 </div>
                             </div>
                         </form>
+                     <%--    </c:when>  --%>
                	</c:otherwise>
              </c:choose>
                  </div>
@@ -122,7 +121,7 @@
                                 <div data-tr_value="$" class="product-cart">
                                 	<input type="hidden" value="${signedInMember.memberKey}" name="memberKey" id="memberKey"/>
                                 	<input type="hidden" value="${nomlist.productNo}" name="productNo" id="productNo"/>
-                                    <input type="checkbox" name="cartCheck" value="${sumPriceAmount}" class="checkbox">
+                                    <input type="checkbox" id="chk" name="cartCheck" value="${sumPriceAmount}" class="checkbox" data-cartNum="${nomlist.productNo}">
                                   
 
                                      <a  href="${path }/product/productDetail.do?productNo=${nomlist.productNo}" ></a><img src="${path }/resources/upload/product/${nomlist.renamedFileName}" alt="이미지"></a>
@@ -226,7 +225,7 @@ function deleteBtn(event){
 		$("input[name=checkRow]:checked").each(function(){
 			let tr_value=$(this).val();
 			let tr=$("tr[data-tr_value='"+tr_value+"']");
-			tr.remove();
+			tr.parent().remove();
 		});
 	}else{
 		return false;
@@ -440,7 +439,21 @@ function minusDown(e,poductNo){
 					
 				}
 			});	
-				
+			$("#orderToPay").click(function(){
+				var checkArr=new Array();
+				//checked되어있는 row에 data-cartNum 속성값을 가져와 array에 넣어준다
+				$("input[class='checkbox']:checked").each(function(){
+					checkArr.push($(this).attr("data-cartNum"));
+					
+				});
+				//input hidden으로 되어있는 id가 chk에 배열을 넣어준다.
+				//넣어주면 chk[]이름으로 controller에 넘어가 method에서 @RequestParam으로 받기만 해주면된다.
+				$("#chk").val(checkArr);
+				if(confirm("주문완료 하시겠습니까?")){
+					alert("주문감사합니다.");
+					$("#orderForm").submit();
+				}
+			})	
 				
 </script>
 <jsp:include page="/WEB-INF/views/common/footer.jsp"/>
