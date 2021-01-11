@@ -23,11 +23,11 @@
 
 	<div class="section-content">
 
-		<div class="account-nav-list">
+<%-- 		<div class="account-nav-list">
 			<a href="${path }/member/myPage/account/changeProfilePic.do"> <i class="fas fa-camera-retro" id="account-user-icon"></i>
 				회원사진 수정
 			</a>
-		</div>
+		</div> --%>
 		<div class="account-nav-list">
 			<a href="${path }/member/myPage/account/accountInfo.do"> <i class="fas fa-user-circle" id="account-user-icon"></i>
 				회원정보 수정
