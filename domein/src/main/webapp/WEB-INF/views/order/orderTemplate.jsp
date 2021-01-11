@@ -39,7 +39,7 @@ location.href = '${path}/order/mustLogin.do';
 		<br>
 		<textarea rows="5" cols="60" id="receiverComment"></textarea>
 		<br>
-		<input type="number" id="discount"> 할인 금액
+		<input type="number" id="discount" readonly> 할인 금액
 		<br>
 		<input type="number" id="totalPrice" readonly> 총 계
 
@@ -48,6 +48,7 @@ location.href = '${path}/order/mustLogin.do';
 			onclick="requestPayButtonFunction(); return false;"
 			class="btn btn--primary">결제</button>
 	</form>
+	
 </section>
 
 <script>
@@ -55,14 +56,21 @@ location.href = '${path}/order/mustLogin.do';
 	const sumPrice = $("#sumPrice");
 	const discount = $("#discount");
 	const totalPrice = $("#totalPrice");
+	/* 2021/1/11 할인율 공식 추가 */
 	sumPrice.change(e=>{
-
-		totalPriceChanger();
-	})
-	discount.change(e=>{
+		<c:if test="${signedInMember.levelNo <10}">
+		
+		discount.val(parseInt((${signedInMember.levelNo} /100) * sumPrice.val()) );
+		</c:if>
+		<c:if test="${signedInMember.levelNo >= 10}">
+		
+		discount.val(parseInt((10 / 100) * sumPrice.val()));
+		</c:if>
+		
 		totalPriceChanger();
 	})
 	
+	/*/////////////////////////////////////////////////////// */
 	function totalPriceChanger(){
 		totalPrice.val(sumPrice.val() - discount.val());
 	}
