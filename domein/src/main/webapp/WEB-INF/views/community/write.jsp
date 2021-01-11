@@ -12,59 +12,93 @@
 	<jsp:param name="title" value=""/>
 </jsp:include>
 <section class="container">
-	<form action="${path }/community/write.do" class="form1" name="form1" method = "post" enctype="multipart/form-data">
+	<form name="form1" class="form1" method = "post" action="${path }/community/insertBoard.do" enctype="multipart/form-data">
 	<table width=100%>
 		<tr>
 			<td>제목</td>
-			<td><input type="text" name="title" id="title" placeholder="제목을 입력해주세요"></td>
+			<td><input type="text" name="threadTitle" id="threadTitle" placeholder="제목을 입력해주세요" required></td>
+		</tr>
+		<tr>
+			<td>파일</td>
+			<td>
+				<input type="file" name="upFile" id="upFile1">
+			</td>
 		</tr>
 		<tr>
 			<td>내용</td>
-			<td><textarea rows="5" cols="60" name="ckeditor" id="ckeditor" placeholder="내용을 입력해주세요"></textarea>
-			</td>
-		</tr>
-		<tr>
-			<td>이미지</td>
-			<td>
-				<input type="file" name="file1" id="file1">
+			<td><textarea rows="5" cols="60" name="articleContent" id="articleContent" placeholder="내용을 입력해주세요" required></textarea>
 			</td>
 		</tr>
 	</table>
-	    <div class="sbm">
-            <input type="button" class="btn" id="btnSave" value="확인" />
+	    <div class="sbm" style="padding-left:50%">
+            <input type="submit" class="btn" id="btnSave" value="저장" />
             <input type="button" class="btn" id="btnR" value="취소"/>
         </div>
     </form>
 </section>
     <script>
-    CKEDITOR.replace("ckeditor", {
-    	fileborwserUploadUrl : "${path}/imageUpload.do"
-    });
-    $(".btn").click(e => {
-    	location.href = "${path}/community/communityList.do";
-    })
-    $(document).on('click', 'btnSave', function(e){
-    	$("#form1").submit();
-    })
 /*     $(document).ready(function(){
+    	CKEDITOR.replace('articleContent', {
+    		filebrowserImageUploadUrl:'/image/upload',
+            width:'100%',
+            height:'400px',
+    	});
+    	
+    	CKEDITOR.on('dialogDefinition', function(e){
+    		var dialogName = e.data.name;
+    		var dialogDefinition = e.data.definition;
+    		
+    		switch(dialogName){
+    		case 'image':
+    			dialogDefinition.removeContents('info');
+    			dialogDefinition.removeContents('Link');
+    			dialogDefinition.removeContents('advanced');
+    			break;
+    		}
+    	})
+    }) */
+     $(function(){
+        
+        CKEDITOR.replace( 'articleContent', {//해당 이름으로 된 textarea에 에디터를 적용
+            width:'100%',
+            height:'400px',
+            filebrowserImageUploadUrl: "${path}/community/imageUpload.do" //여기 경로로 파일을 전달하여 업로드 시킨다.
+        });
+         
+        window.parent.CKEDITOR.tools.callFunction('${ckEditorFuncNum}', '${url}', '파일 전송 완료.');
+        
+        CKEDITOR.on('dialogDefinition', function( ev ){
+            var dialogName = ev.data.name;
+            var dialogDefinition = ev.data.definition;
+          
+            switch (dialogName) {
+                case 'image': //Image Properties dialog
+                    //dialogDefinition.removeContents('info');
+                    break;
+            }
+        });
+         
+    });
+/*      CKEDITOR.replace("ckeditor", {
+    	fileborwserUploadUrl : "${path}/community/imageUpload.do"
+    }); */
+    $("#btnR").click(e => {
+    	location.href = "${path}/community/community.do";
+    })
+/*     $(document).on('click', 'btnSave', function(e){
+    	$("#write").submit();
+    }) */
+/*      $(document).ready(function(){
     	$("#btnSave").click(function(){
-    		var title = $("#title").val();
-    		var ckeditor = $("#ckeditor").val();
-    		if(title == ""){
-    			alert("제목을 입력하세요");
-    			document.form1.title.focus();
-    			return;
-    		}
-    		if(ckeditor == ""){
-    			alert("내용을 입력하세요");
-    			document.form1.content.focus();
-    			return;
-    		}
+    		document.form1.action = "${path}/community/insertBoard.do";
     		document.form1.submit();
     	})
     }) */
-/*     $(document).on('click', #btnSave', function(e){
-    	$("#form").submit();
-    }); */
+    	$(function(){
+    		$('[name=upFile]').on("change",function(){
+    			var filename=$(this).prop('files')[0].name;
+    			$(this).next(".custom-file-label").html(filename);
+    		});
+    	})
     </script>
 <jsp:include page="/WEB-INF/views/common/footer.jsp"/>

@@ -1,6 +1,8 @@
  package com.col.domein.cart.controller;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
@@ -11,6 +13,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.ModelAndView;
@@ -18,6 +21,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.col.domein.cart.model.service.CartService;
 import com.col.domein.cart.model.vo.Cart;
 import com.col.domein.member.model.vo.Member;
+import com.col.domein.order.model.vo.Order;
 import com.col.domein.product.model.vo.ProductAll;
 
 @Controller
@@ -38,6 +42,32 @@ public class CartController {
 
 	
 	//구매하기 
+	/*
+	 * @RequestMapping("/cart/goToOrder.do") public String goTopay(HttpSession
+	 * session,Order order ,Cart cart,
+	 * 
+	 * @RequestParam(value="chk[]") List<String> chArr)throws Exception {
+	 * 
+	 * System.out.println("chArr:"+chArr); System.out.println("cart:"+cart);
+	 * System.out.println("order"+order); //주문번호 (orderNo)생성을 위한 로직 Calendar
+	 * cal=Calendar.getInstance(); int year=cal.get(Calendar.YEAR); Integer
+	 * ym=(Integer.parseInt(year+ new
+	 * DecimalFormat("00").format(cal.get(Calendar.MONTH)+1))); Integer
+	 * ymd=(Integer.parseInt(ym+ new
+	 * DecimalFormat("00").format(cal.get(Calendar.DATE)))); int subNum=0;
+	 * 
+	 * for(int i=1;i<=6;i++) { subNum+=(int)(Math.random()+10); } int
+	 * orderNo=ymd+subNum;//ex20210110232322;
+	 * order.setBuyerKey(cart.getMemberKey()); order.setOrderNo(orderNo);
+	 * //service.orderInfo(order); TreeMap<Integer,Integer> map=new
+	 * TreeMap<Integer,Integer>(); int productNo=0; for( String i: chArr) {
+	 * productNo=Integer.parseInt(i);//주문상품번호 담기 //map.push(productNo);
+	 * System.out.println("productNo"+productNo);
+	 * //service.orderInfoDetails(orderNo,productNo);
+	 * //service.cartDelete(productNo);//체크되어 들어온 cart번호로 cart table 상품 삭제 } return
+	 * "index"; }
+	 */
+	//장바구니담기
 	@RequestMapping("/cart/orderToPay.do")
 	public ModelAndView orderToPay(ModelAndView mv , Cart c,ProductAll p) {
 		
@@ -143,8 +173,8 @@ public class CartController {
 			session.setAttribute("nomlist",nomlist);
 			mv.setViewName("cart/cart");
 		}else {
-				 
-				 mv.setViewName("index");
+			List<Map> cart=service.selectCartList(memberKey);
+				 mv.setViewName("cart/cart");
 		
 		}
 		return mv;
@@ -176,16 +206,4 @@ public class CartController {
 		return "index";
 	}
 
-	//상품 수량 업데이트
-	@RequestMapping("/cart/addToAmount")
-	public String addToAmount(int productNo, int amount,int memberKey) {
-		
-		 int result=service.addToAmount(amount,productNo,memberKey);
-		return "redirect:/cart/list.do";
-	}
-	@RequestMapping("/cart/minusToAmount")
-	public String downToAmount(int productNo, int amount, int memberKey) {
-		int result=service.downToAmount(productNo,amount,memberKey);
-		return "redirect:/cart/list.do";
-	}
 }

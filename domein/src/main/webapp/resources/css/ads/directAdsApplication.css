@@ -5,15 +5,20 @@
 .tab_menu{
     width:18%;
     min-width: 240px;    
-    background-color: #ffca28;
+    /* background-color: #ffca28; */
     font-size:18px;
+    border-right:1px #ddd solid;
+    padding-left:15px;
 }
-/* .tab_menu h2{
-    margin-left:-15px;
-} */
+.tab_menu h2{
+    margin-bottom:12px;
+}
 #container{
     width:55%;    
     margin-left:20px;
+}
+#container>form>h2{
+	margin:7px;
 }
 #container hr{
     margin-left:-20px;
@@ -25,13 +30,18 @@
     border: 1px rgb(54, 54, 54) solid;
     color: rgb(88, 83, 83); 
     font-size:14px;   
-    width:84%;
+    width:90%;
+    /* text-align:center; */
 }
 .div_intro>ul{
-    padding-right:5px;
+    padding-left:8px;
+}
+#ads_title{
+    width:90%;
 }
 .div_myArticle>p{
     padding-top:10px;
+    margin-bottom:10px;
 }
 .table_myArticle{
     border: 1px black solid;
@@ -46,7 +56,7 @@
     width:36%;
 }
 .table_myArticle>thead th:last-child{
-    width:5%;
+    width:10%;
 }
 .table_myArticle th{
     border-bottom: 1px black solid;
@@ -55,16 +65,22 @@
 .div_preview{
     position:relative;
 }
+.div_preview>p{
+	margin-bottom:10px;
+}
 .div_ajax{
     border:1px rgb(119, 119, 119) solid;    
     width:90%;
     min-width: 240px;
     overflow:hidden;      
 }
+.div_description>textarea{
+    width:90%;
+}
 .div_period>input[type=text]{
     width:18%;
     text-align: right;
-    margin-top:10px;
+    /* margin-top:10px; */     
 }
 .div_submit{
     margin-left:33%;

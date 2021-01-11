@@ -2,7 +2,7 @@
 /*---COMMON STYLE---*/
 header * {
   box-sizing: border-box;
-}
+} 
 header [class*='icon-'] {
   background-repeat: no-repeat;
   background-position: center;
@@ -141,29 +141,40 @@ header nav .list-depth-1 {
 }
 header nav .list-depth-1 .depth-1 {
   display: flex;
+  transition: left 0.3s;
 }
 header nav .list-depth-1 .depth-1 > a {
   width: 125px;
-  height: 50px;
+  height: 51px;
+  margin-top: -1px;
   text-align: center;
   line-height: 50px;
   border-left: 1px solid #ddd;
-}
-header nav .list-depth-1 .depth-1:nth-child(1) > a {
-  width: 135px;
-  border-bottom: 1px solid #ddd;
+  border-top: 1px solid #ddd;
 }
 header nav .list-depth-1 .depth-1:nth-child(2) {
-  position: absolute;
-  top: 50px;
-  left: 10px;
-}
-header nav .list-depth-1 .depth-1:nth-child(2) > a {
-  background-color: #f6f6f6;
-  border-bottom: 1px solid #ddd;
-  color: #666;  
+  height: 50px;
+  margin-top: 50px;
 }
 header nav .list-depth-1 .depth-1:nth-child(2) .list-depth-2{
+  margin-top: -50px;
+}
+header nav .list-depth-1 .depth-1.active > a {
+  width: 135px;
+  font-weight: bold;
+  border-bottom: 1px solid #ddd;
+  border-left: 5px solid var(--main-yellow);
+}
+header nav .list-depth-1 .depth-1:not(.active) {
+  position: absolute;
+  top: 0;
+  left: 10px;
+}
+header nav .list-depth-1 .depth-1:not(.active) > a {
+  border: none;
+  color: #666;  
+}
+header nav .list-depth-1 .depth-1:not(.active) .list-depth-2{
   display: none;
 }
 header nav .list-depth-2 {
@@ -240,7 +251,38 @@ header .button-close{
 .menu-floating > ul > li button img{
   width: 100%;
 }
-
+.menu-floating .btn-top {
+  border-radius: 15px;
+  border: none;
+  padding-top: 31px;
+  background-color: var(--main-yellow);
+  text-indent: -999em;
+}
+.menu-floating .btn-top:before {
+  display: block;
+  position: absolute;
+  top: 20px;
+  left: 50%;
+  width: 12px;
+  height: 12px;
+  margin-left: -7px;
+  border: 2px solid #000;
+  border-left: none;
+  border-bottom: none;
+  transform: rotate(-45deg);
+  content: '';
+}
+.menu-floating .btn-top:after {
+  display: block;
+  position: absolute;
+  top: 20px;
+  left: 50%;
+  margin-left: -1px;
+  width: 2px;
+  height: 20px;
+  background-color: #000;
+  content: '';
+}
 .mobile {
 	display: none;
 }

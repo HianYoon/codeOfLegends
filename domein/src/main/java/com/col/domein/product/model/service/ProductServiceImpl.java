@@ -7,6 +7,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.col.domein.business.model.vo.Business;
 import com.col.domein.common.crteria.SearchCriteria;
 import com.col.domein.product.model.dao.ProductDao;
 import com.col.domein.product.model.vo.Attachement;
@@ -183,7 +184,26 @@ public class ProductServiceImpl implements ProductService {
 		// TODO Auto-generated method stub
 		return dao.searchArticle(session, keyword, searchOption);
 	}
-	
+	//businesskey검색
+	@Override
+	public List<Map> selectBusinessOne(int memberKey) {
+		// TODO Auto-generated method stub
+		return dao.selectBusinessOne(session,memberKey);
+	}
+	//아티클넘버가져오기
+
+	@Override
+	public List<Map> selecProductListAll() {
+		// TODO Auto-generated method stub
+		return dao.selecProductListAll(session);
+	}
+
+	@Override
+	public int selectArticleNo(int articleNo) {
+		// TODO Auto-generated method stub
+		return dao.seselectArticleNo(session,articleNo);
+	}
+
 	
 	
 	

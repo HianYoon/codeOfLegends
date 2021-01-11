@@ -12,6 +12,9 @@
 			default,
 			'1'	
 			)
+			<selectKey order="AFTER" resultType="_int" keyProperty="articleNo">
+				SELECT SEQ_article_No.CURRVAL FROM DUAL
+			</selectKey>
 		</insert>
 		
 		<insert parameterType="product" id="insertProduct">
@@ -138,6 +141,15 @@
 			</otherwise>
 		</choose>
 	</select>
+		<!-- businessKey -->
+		<select id="selectBusinessOne" resultType="_int">
+			select * from BUSINESS where MEMBER_KEY=#{signedInMember.memberKey}
+		</select>
+		<select id="selecProductListAll" resultType="map">
+			select * from BOARD_DIRECT_SALE b inner join DIRECT_SALE_PRODUCT d on b.article_no=d.article_no inner join BDS_ATTACHED_IMAGE a on d.product_no=a.product_no
+		</select>
 		
-		
+		<select id="seselectArticleNo" resultType="_int">
+			select article_No from BOARD_DIRECT_SALE where article_No=#{articleNo}
+		</select>
 </mapper>

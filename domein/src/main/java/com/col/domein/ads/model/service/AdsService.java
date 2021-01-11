@@ -30,16 +30,50 @@ public interface AdsService {
 	
 	int directAdsApply(DirectAds directAds);
 	
-	int selectBannerAccept();
+	List selectBannerAccept(String today);
 	
-	int selectDirectAccept();
+	List selectDirectAccept();
 	
-	int selectBannerDeny();
+	List selectBannerDeny();
 	
-	int selectDirectDeny();
+	List selectDirectDeny();
 	
 	int selectBannerPending();
 	
 	int selectDirectPending();
+	
+	List selectAccept();
+	
+	List selectDeny();
+	
+	List selectPending();
+	
+	int selectAdsCountByDay(String day);
+	
+	List selectBannerTotalAccept();
+	
+	List selectBannerBoardAll(int cPage,int numPerpage);
+	
+	int selectBannerCountAll();
+	
+	BannerAds selectBannerWhole(int adsKey);
+	
+	int updateAccept(int adsKey);
+	
+	int updateDeny(int adsKey);
+	
+	List selectDirectBoardAll(int cPage,int numPerpage);
+	
+	int selectDirectCountAll();
+	
+	String selectDirectSaleContent(String articleNo);
+	
+	DirectAds selectDirectWhole(int adsKey);
+	
+	int updateDirectAccept(int adsKey);
+	
+	int updateDirectDeny(int adsKey);
+	
+	int insertOrderNo(int orderNo);
 	
 }

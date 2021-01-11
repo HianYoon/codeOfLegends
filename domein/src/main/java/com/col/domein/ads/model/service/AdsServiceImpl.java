@@ -1,5 +1,6 @@
 package com.col.domein.ads.model.service;
 
+import java.sql.Date;
 import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
@@ -76,22 +77,22 @@ public class AdsServiceImpl implements AdsService {
 	}
 
 	@Override
-	public int selectBannerAccept() {
-		return dao.selectBannerAccept(session);
+	public List selectBannerAccept(String today) {
+		return dao.selectBannerAccept(session, today);
 	}
 
 	@Override
-	public int selectDirectAccept() {
+	public List selectDirectAccept() {
 		return dao.selectDirectAccept(session);
 	}
 
 	@Override
-	public int selectBannerDeny() {
+	public List selectBannerDeny() {
 		return dao.selectBannerDeny(session);
 	}
 
 	@Override
-	public int selectDirectDeny() {
+	public List selectDirectDeny() {
 		return dao.selectDirectDeny(session);
 	}
 
@@ -103,6 +104,91 @@ public class AdsServiceImpl implements AdsService {
 	@Override
 	public int selectDirectPending() {
 		return dao.selectDirectPending(session);
+	}
+
+	@Override
+	public List selectAccept() {		
+		return dao.selectAccept(session);
+	}
+
+	@Override
+	public List selectDeny() {
+		return dao.selectDeny(session);
+	}
+
+	@Override
+	public List selectPending() {
+		return dao.selectPending(session);
+	}
+
+	@Override
+	public int selectAdsCountByDay(String day) {
+		return dao.selectAdsCountByDay(session,day);
+	}
+
+	@Override
+	public List selectBannerTotalAccept() {
+		return dao.selectBannerTotalAccept(session);
+	}
+
+	@Override
+	public List selectBannerBoardAll(int cPage,int numPerpage) {
+		return dao.selectBannerBoardAll(session,cPage,numPerpage);
+	}
+
+	@Override
+	public int selectBannerCountAll() {
+		return dao.selectBannerCountAll(session);
+	}
+
+	@Override
+	public BannerAds selectBannerWhole(int adsKey) {
+		return dao.selectBannerWhole(session,adsKey);
+	}
+
+	@Override
+	public int updateAccept(int adsKey) {
+		return dao.updateAccept(session,adsKey);
+	}
+
+	@Override
+	public int updateDeny(int adsKey) {
+		return dao.updateDeny(session,adsKey);
+	}
+
+	@Override
+	public List selectDirectBoardAll(int cPage, int numPerpage) {
+		return dao.selectDirectBoardAll(session,cPage,numPerpage);
+	}
+
+	@Override
+	public int selectDirectCountAll() {
+		return dao.selectDirectCountAll(session);
+	}
+
+	@Override
+	public String selectDirectSaleContent(String articleNo) {
+		return dao.selectDirectSaleContent(session, articleNo);
+	}
+
+	@Override
+	public DirectAds selectDirectWhole(int adsKey) {
+		return dao.selectDirectWhole(session,adsKey);
+	}
+
+	@Override
+	public int updateDirectAccept(int adsKey) {
+		return dao.updateDirectAccept(session,adsKey);
+	}
+
+	@Override
+	public int updateDirectDeny(int adsKey) {
+		return dao.updateDirectDeny(session,adsKey);
+	}
+
+	@Override
+	public int insertOrderNo(int orderNo) {
+		return dao.insertOrderNo(session,orderNo);
 	}
 
 	

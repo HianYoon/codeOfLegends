@@ -15,32 +15,8 @@
 </jsp:include>
 
 
+
 <section id="content">
-	<script>
-    $(document).ready(function(){
-        //로드될때
-        $(".tab_content").hide();//모든탭을 숨겨~~
-        $('ul.tabs li:last').addClass("active").show();//액티브된 처음탭보여줘
-        $('.tab_content:last').show();//show first tab content
-
-        //On Click Event
-        $("ul.tabs li").click(function(){
-            $('ul.tabs li').removeClass('active');//Remove any 'active' class
-            $(this).addClass('active').attr('color','blue');//셀렉트된탭을 active해라
-            $('.tab_content').hide();//Hide all tab content
-            //e.preventDefault();//a태그로 전환시 이벤트는 남게해주는..
-
-            var activeTab=$(this).find('a').attr('href');
-            $(activeTab).fadeIn();//Fade in the active ID content
-            return false;
-        });
-        //my상품조회
-        var Mylist=document.querySelector(".myListSearch");
-        Mylist.onclick=function(e){
-      	  location.href="${path}/product/SelectMyList.do?businessKey=1";
-        }
-
-</script>
 
    <div id="octionPage">
 
@@ -63,7 +39,8 @@
              
              <div id="tab3" class="tab_content">
                  <!--Content-->
-                  <button type="button"class="myListSearch">내상품조회</button>
+                  <button type="button" class="myListSearch">내상품조회</button>
+               
                 
                  <table class="table">
                     <tr>
@@ -76,7 +53,7 @@
                         <th scope="col">삭제</th>
                     </tr>
                     <c:forEach items="${product}" var="p">
-					
+					 <input type="hidden" id="businessNo" name="businessKey" value="${p.BUSINESS_KEY }">
                         <tr>
                             <td><c:out value="${p.ARTICLE_NO }"/></td>
  		                    <td><c:out value="${p.TITLE }"/></td>
@@ -89,7 +66,7 @@
                             </td>
                             <td>
                                 <button type="button" class="btn btn-primary2"
-                                 onclick="location.href='${path}/product/productDelete.do?articleNo=${p.ARTICLE_NO }';">삭제</button>
+                                 onclick="location.href='${path}/product/productDelete.do?articleNo=${p.ARTICLE_NO}';">삭제</button>
                             </td>
                         </tr>
                         
@@ -103,5 +80,32 @@
         </div>
      </div>
 </section>
+<script type="text/javascript">
+    $(document).ready(function(){
+        //로드될때
+        $(".tab_content").hide();//모든탭을 숨겨~~
+        $('ul.tabs li:last').addClass("active").show();//액티브된 처음탭보여줘
+        $('.tab_content:last').show();//show first tab content
 
+        //On Click Event
+        $("ul.tabs li").click(function(){
+            $('ul.tabs li').removeClass('active');//Remove any 'active' class
+            $(this).addClass('active').attr('color','blue');//셀렉트된탭을 active해라
+            $('.tab_content').hide();//Hide all tab content
+            //e.preventDefault();//a태그로 전환시 이벤트는 남게해주는..
+
+            var activeTab=$(this).find('a').attr('href');
+            $(activeTab).fadeIn();//Fade in the active ID content
+            return false;
+        });
+    });
+        //my상품조회
+        $(document).ready(function(){
+	      $(".myListSearch").click(function(){
+	    	  console.log($("#businessNo").val());
+	      	  location.href="${path}/product/SelectMyList.do?businessKey=1";
+	    	  });
+	   
+        	});
+</script>
 <jsp:include page="/WEB-INF/views/common/footer.jsp"/>

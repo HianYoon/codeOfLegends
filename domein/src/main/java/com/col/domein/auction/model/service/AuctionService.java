@@ -3,6 +3,8 @@ package com.col.domein.auction.model.service;
 import java.util.List;
 import java.util.Map;
 
+import com.col.domein.auction.model.vo.AuctionBid;
+import com.col.domein.auction.model.vo.BidContent;
 import com.col.domein.auction.model.vo.BoardAttachementFile;
 import com.col.domein.auction.model.vo.BoardAttachementImage;
 import com.col.domein.auction.model.vo.BoardAuction;
@@ -14,7 +16,43 @@ public interface AuctionService {
 	//등록
 	int inertEnllo(BoardAuction auc, List<BoardAttachementImage> imgs, List<BoardAttachementFile> files);
 	//auction List
-	List<Map> selectAuctionList(BoardAuction ba);
+	List<Map> selectAuctionList(int cPage, int numPerpage);
+	//옥션 수 
+	int selectCount();
+	//auction view페이지
+	List<Map> selectAuctionView(int articleNo);
+	//비동기식 댓글
+	List<BoardAuction> getReplyList(int bid);
+	//조회수 증가 
+	void plusReadCount(int articleNo);
+	//bid 증가 
+	int updateAuctionBid(int articleNo, int writerKey, int bidStatusNo);
+	//insert bid
+	int insertAuctionBid(int articleNo, int writerKey, int bidStatusNo);
+	//checklike
+	List<Map> checkLike(int articleNo, int writerKey);
+	//옥션 정보 불러오기 
+	List<Map> selectAuctionOne(int articleNo);
+	//옥션 joinEnlloList
+	int insertJoinAuctionList(AuctionBid bid, BidContent bc);
+	//join 목록 불러오기 
+	List<Map> selectBidContent(int articleNo, int writerKey);
+	//joinList목록  지우기
+	int auctionJoinListdelete(int bidKey);
+	//업체 갯수 정보 불러오기 
+	int selectAuctionJoinCount(int articleNo);
+	//참여업체 정보
+	List<Map> selectJoinCompany(int writerKey);
+	//joinList수정
+	int auctionJoinUpdate(BidContent bid);
+	//joinlist수정된 목록가져오기
+	List<Map> selectJoinList(int bidKey);
+	//옥션 join취소시 등록 데이터 삭제 
+	int listAlldelete(int articleNo, int writerKey);
+	// joinlist등록이 되잇는지 없는지 확인
+	int checkAuctionBid(int articleNo, int writerKey);
+	//메인 페이지 auctionlist 불러오기 
+	List<Map> selectAuctionListAll();
 
 
 }

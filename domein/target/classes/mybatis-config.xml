@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd" >
 <configuration>
+	<settings>
+		<setting name="cacheEnabled" value="false" />
+        <setting name="jdbcTypeForNull" value="NULL" />
+	</settings>
 	<typeAliases>
 		<typeAlias type="com.col.domein.product.model.vo.Product" alias="product"/>
 		<typeAlias type="com.col.domein.product.model.vo.Attachement" alias="attachement"/>
@@ -19,10 +23,16 @@
 		<typeAlias type="com.col.domein.ads.model.vo.DirectAds" alias="directAds"/>
 		<typeAlias type="com.col.domein.board.model.vo.BoardKnowBattle" alias="boardKnowBattle"/>
 		<typeAlias type="com.col.domein.board.model.vo.Attachment" alias="attachment"/>
+		<typeAlias type="com.col.domein.board.model.vo.Board" alias="board"/>
 		<typeAlias type="com.col.domein.productcomment.model.vo.BDSreview" alias="bdsReview"/>
 		<typeAlias type="com.col.domein.productcomment.model.vo.BDSreviewLike" alias="reviewLike"/>
 		<typeAlias type="com.col.domein.auction.model.vo.BoardAuction" alias="boardAuction"/>
 		<typeAlias type="com.col.domein.auction.model.vo.BoardAttachementImage" alias="boardAttachementImage"/>
 		<typeAlias type="com.col.domein.auction.model.vo.BoardAttachementFile" alias="boardAttachementFile"/>
+		<typeAlias type="com.col.domein.auction.model.vo.AuctionBid" alias="auctionBid"/>
+		<typeAlias type="com.col.domein.auction.model.vo.BidContent" alias="bidContent"/>
+		<typeAlias type="com.col.domein.auctionComment.model.vo.AuctionComment" alias="auctionComment"/>
+		<typeAlias type="com.col.domein.order.model.vo.Order" alias="order"/>
 	</typeAliases>
+
 </configuration>

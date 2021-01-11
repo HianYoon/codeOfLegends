@@ -19,7 +19,7 @@
 </script>
 
 <!-- css파일 소환 -->
-<link rel="stylesheet" href="${path }/resources/css/ads/adsMainApply.css" />
+<link rel="stylesheet" href="${path }/resources/css/ads/adsMainApply.css?after" />
 
 <section id="content">
 	<div id="wholeback">
@@ -30,19 +30,19 @@
 	        </ul>
 	    </div>
 	    <div id="container">
-	        <h2>광고신청 페이지</h2>
-	        <hr>
+	        <!-- <h2>광고신청 페이지</h2>
+	        <hr> -->
 	        <div class="div_info">
 	            <h3><u>알림메시지</u></h3>
 	            <br>
 	            <p>
 	                <c:out value="<b>${signedInMember.nickname}</b>" escapeXml="false"/> 님, 안녕하세요!<br>
-	                현재 검토 대기중인 광고 요청이 총 <c:out value="${bannerHoldCount }"/> 건 있습니다.
+	                현재 검토 대기중인 광고 요청이 배너(<b style="color:red">${bannerHoldCount }</b>) 건 / 판매(<b style="color:red">${directHoldCount}</b>) 건 있습니다.
 	            </p>
 	        </div>
 	        <hr>
 	        <div class="div_stat">
-	            <h3><c:out value="<${signedInMember.nickname}>" /> 님의 광고신청 진행현황(대기 / 승인 / 반려 / 총 합계)</h3>	            
+	            <h3><c:out value="<${signedInMember.nickname}>" /> 님의 광고신청 진행현황(승인 / 반려 / 대기중 / 총 합계)</h3>	            
 	            <br>
 	            <div id="div_gChart"></div>                    
 	        </div>
@@ -67,8 +67,8 @@
 	
 	    function drawChart() {
 	      var data = google.visualization.arrayToDataTable([
-	        ['월 별', '대기중', '승인', '반려','총 합계'],
-	        ['진행현황', hold, accept, reject, total]        
+	        ['월 별', '승인', '반려', '대기중','총 합계'],
+	        ['진행현황', accept, reject, hold, total]        
 	      ]);
 	
 	      var options = {

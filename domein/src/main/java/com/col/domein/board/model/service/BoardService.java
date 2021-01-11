@@ -7,7 +7,6 @@ import org.springframework.stereotype.Service;
 
 import com.col.domein.board.model.vo.Attachment;
 import com.col.domein.board.model.vo.Board;
-import com.col.domein.product.model.vo.Attachement;
 
 @Service
 public interface BoardService {
@@ -15,7 +14,10 @@ public interface BoardService {
 	List<Map> selectBoardList(int cPage, int numPerpage);
 	List<Map> selectBkbArticles(int threadKey);
 	int selectCount();
-	Board selectBoardOne(int articleNo);
-	int insertBoard(Board board,List<Attachment> files);
+	Board selectBoardOne(int threadKey);
+	int insertBoard(Board board);
+//	int insertBoard(Board board);
+	List<Attachment> selectAttach(int threadKey);
+	int insertArticle(Map map);
 
 }

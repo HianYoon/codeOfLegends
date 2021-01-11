@@ -6,12 +6,14 @@
     width:18%;
     min-width: 240px;    
     height:100vh;
-    background-color: #ffca28;
+    /* background-color: #ffca28; */
     font-size:18px;
+    border-right:1px #ddd solid;
+    padding-left:15px;
 }
-/* .tab_menu h2{
-    margin-left:-15px;
-} */
+.tab_menu h2{
+    margin-bottom:12px;
+}
 #container{
     width:55%;    
     margin-left:20px;
@@ -20,5 +22,18 @@
     margin-left:-20px;
 }
 .div_info{
+	margin-top:10px;
     padding-bottom: 20px;
 }
+.div_stat{
+	margin-top:10px;
+}
+.div_stat>h3{
+	text-decoration:underline;
+	margin-bottom:8px;
+}
+
+@media (max-width:768px){
+    	.tab_menu{
+    		display:none;
+    	}

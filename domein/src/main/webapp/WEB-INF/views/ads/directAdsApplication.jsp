@@ -18,8 +18,15 @@
 	%>
 </script>
 
+<!-- jQuery UI CSS파일  -->
+<link rel="stylesheet" href="http://code.jquery.com/ui/1.8.18/themes/base/jquery-ui.css" type="text/css" />  
+<!-- jQuery 기본 js파일 -->
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>  
+<!-- jQuery UI 라이브러리 js파일 -->
+<script src="http://code.jquery.com/ui/1.8.18/jquery-ui.min.js"></script> 
+
 <!-- css파일 소환 -->
-<link rel="stylesheet" href="${path }/resources/css/ads/directAdsApplication.css" />
+<link rel="stylesheet" href="${path }/resources/css/ads/directAdsApplication.css?after" />
 
 <section id="content">
     <div id="wholeback">
@@ -43,9 +50,15 @@
                         <li>일반적인 게시글 형태로 지원</li>
                     </ul>
                 </div>
-
-                <div class="div_myArticle">
+                
+                <!--////////////////////////////////////////////////////////////붙여온 곳///////////////////////////////////////////////////////  -->
+                <div class="div_title">
                 	<input type="hidden" name="applicantKey" value="${signedInMember.memberKey }"/>
+                    <label for="adsTitle"><span><u>제목</u></span></label>&nbsp;&nbsp;<input type="text" name="adsTitle" id="adsTitle" maxlength="42" required>
+                </div>
+				<!-- /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// -->
+				
+                <div class="div_myArticle">                	
                     <p><u>내가 쓴 게시글</u></p>                    
                        <table class="table_myArticle">
                            <thead>
@@ -55,21 +68,21 @@
                                    <th>날짜</th>
                                </tr>
                            </thead>                              
-                           <c:if test="${boardDirectSale not empty }">   
+                           <c:if test="${not empty boardDirectSale }">   
                            <tbody>                    
 	                           <c:forEach items="${boardDirectSale }" var="bds" varStatus="vs">                       
 	                               <tr>
-	                                   <td><label for="${vs.count }"><input type="radio" id="${vs.count }" name="myArticle" value="${bds.articleNo }">&nbsp;다이렉트 판매</label></td>
-	                                   <td><label for="${vs.count }"><c:out value="${bds.title }"/></label></td>
-	                                   <td><label for="${vs.count }"><c:out value="${bds.writtenDate }"/></label></td>
+	                                   <td><label for="bds${vs.count }"><input type="radio" id="bds${vs.count }" name="articleNo" value="${bds.articleNo }" onclick="fn_viewAjax(event);" required/>&nbsp;&nbsp;다이렉트 판매</label></td>
+	                                   <td><label for="bds${vs.count }"><c:out value="${bds.title }"/></label></td>
+	                                   <td><label for="bds${vs.count }"><c:out value="${bds.modifiedDate }"/></label></td>
 	                               </tr>
 	                           </c:forEach>
                            </tbody>
                            </c:if>
-                           <c:if test="${boardDirectSale empty }">
+                           <c:if test="${empty boardDirectSale }">
                            <tbody>
                            		<tr>
-                           			<td colspan="3"><h3>등록된 게시글이 없습니다.</h3></td>
+                           			<td colspan="3" style="color:red; text-align:center"><br><h3>등록된 게시글이 없습니다.</h3><br></td>
                            		</tr>
                            </tbody>
                            </c:if>
@@ -82,23 +95,37 @@
 
                <div class="div_preview">
                    <p><u>Preview(미리보기)</u></p>
+                   <c:if test="${not empty boardDirectSale }">
                    <div class="div_ajax">
-	
+						<textarea name="saleContent" rows="10" cols="150" style="resize:none" placeholder="미리보기가 표시됩니다." readonly required></textarea>
                    </div>
+                   </c:if>
+                   <c:if test="${empty boardDirectSale }">
+                   <div class="div_ajax">
+						<textarea name="saleContent" rows="10" cols="150" style="resize:none" placeholder="미리보기가 표시됩니다." readonly required>해당 결과가 없습니다.</textarea>
+                   </div>
+                   </c:if>
                </div>
+               
+               <!--////////////////////////////////////////////////////////////붙여온 곳///////////////////////////////////////////////////////  -->
+               <div class="div_description">
+                    <span><u>요청메시지</u></span><br>
+                    <textarea name="adsDescription" rows="12" cols="150" style="resize:none" placeholder="내용을 입력해주세요" required></textarea>
+                </div>
+                <!-- /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// -->
 
                <div class="div_period">
                    <p><u>기간 및 가격</u></p>
-                   개시일&nbsp;&nbsp;<input type="text" id="startDate" name="startDate" placeholder="개시일 선택" onchange="fn_triggerEnd(event)" required>&nbsp;&nbsp;                        
-                   종료일&nbsp;&nbsp;<input type="text" id="endDate" name="endDate" placeholder="종료일 선택" onchange="fn_triggerPrice(event)" disabled required><br>
+                   개시일&nbsp;&nbsp;<input type="text" id="startDate" name="startDate" placeholder="개시일 선택" onchange="fn_triggerEnd(event)" autocomplete="off" required>&nbsp;&nbsp;                        
+                   종료일&nbsp;&nbsp;<input type="text" id="endDate" name="endDate" placeholder="종료일 선택" onchange="fn_triggerPrice(event)" autocomplete="off" disabled required><br>
                    <!-- 기타 선택 시, return false로 체크 -->
                     결제금액&nbsp;&nbsp;<input type="text" id="totalPrice" value="0" name="adsPrice" readonly>&nbsp;원
                 </div>
                 <br><br>
 				
                 <div class="div_submit">
-                    <input type="submit" class=".btn.btn--primary" value="결제화면으로 이동">&nbsp;
-                    <input type="reset" class=".btn.btn--primary2" value="취소">
+                    <input type="submit" class="btn btn--primary" value="결제화면으로 이동">&nbsp;
+                    <input type="reset" class="btn btn--primary2" value="취소">
                     <br><br><br><br>
                 </div>
 
@@ -108,7 +135,7 @@
 </section>
 <script>
 	$(function(){
-		$("input[name=myArticle]").click(e=>{
+		<%-- $("input[name=myArticle]").click(e=>{
 			$.ajax({
 				url:"<%=request.getContextPath()%>/product/productDetail",
 				/* articleNo 를 쏴주는 것 (articleNo 만으로 검색가능) */
@@ -124,7 +151,27 @@
 					console.log(error);
 				}
 			});
-		});
+		}); --%>
+		/* datepicker 개시일에 생성 */
+        $("#startDate").datepicker({
+            dateFormat: 'yy-mm-dd',
+            prevText:'이전 달',
+            nextText:'다음 달',
+            currentText:'오늘',
+            monthNames:['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'],
+            monthNamesShort:['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'],
+            dayNames:['일','월','화','수','목','금','토'],
+            dayNamesShort:['일','월','화','수','목','금','토'],
+            showMonthAfteryear:true,
+            yearSuffix:'년',
+            defaultDate: new Date(),
+            minDate:0,
+            beforeShow: function(){
+            	setTimeout(function(){
+            		$('.ui-datepicker').css('z-index', 9999999999);
+            	}, 0);
+            }
+        }); 
 	})
 	/* DB에서 adsRate를 가져와 날짜 선택 시 계산하여 측정 */
 	function fn_triggerPrice(e){    	
@@ -155,9 +202,23 @@
 	        showMonthAfteryear:true,
 	        yearSuffix:'년',
 	        // defaultDate: new Date($("#startDate").val()),
-	        minDate: new Date($("#startDate").val())
+	        minDate: new Date($("#startDate").val()),
+	        beforeShow: function(){
+            	setTimeout(function(){
+            		$('.ui-datepicker').css('z-index', 9999999999);
+            	}, 0);
+            }
 	    });
-	}
+	};
+	function fn_viewAjax(e){		
+		$.ajax({
+			url:"${path}/ads/directAdsAjaxView.do",
+			data:{"articleNo":$(e.target).val()},
+			success:data=>{								
+				$(".div_ajax").children().html(data);
+			}
+		});
+	};
 </script>
 
 <jsp:include page="/WEB-INF/views/common/footer.jsp"/>

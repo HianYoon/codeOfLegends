@@ -1,5 +1,13 @@
 @charset "UTF-8";
 
+.addview{
+	width:auto;
+	height:40px;
+}
+h3.auctionAdd {
+    width: auto;
+    text-align: end;
+}
   <!-- --------------auction register  ---------------- -->
 .oction--register--img {
     width: 900px;
@@ -48,7 +56,7 @@ textarea#AuctionContent {
     width: 80%;
     height: 100px;
 }
-@media(max-width:700px){
+@media(max-width:768px){
     div#tab2{
         width:700px;
         height: auto;
@@ -85,7 +93,14 @@ textarea#AuctionContent {
 }
 
   <!-- ------- auction join 참여form-------- -->
-  
+
+.joinImg img{
+    width: 400px;
+    height: 250px;
+    border: 1px solid red;  
+	
+}
+
   
   .slideshow-container{
     display: none;
@@ -144,20 +159,29 @@ textarea#AuctionContent {
     border:1px solid red;
     box-sizing: border-box;
 }
+div#log {
+    display: flex;
+    justify-content: center;
+    align-items: baseline;
+    width: 100%;
+    height: auto;
+}
 
 /* Oction-joinform참여 */
 
 .join-container{
     display:flex;
-    margin-bottom: 15px;
+    margin: 15px 0px;
   
 }
-.input-joingroup input{
-    width: 190px;
+.input-joingroup input {
+    position: relative;
+    width: 40%;
     height: 40px;
     margin-left: 5px;
     margin-bottom: 10px;
- border-bottom: 1px solid #333;
+    border-bottom: 1px solid #333;
+    margin-left: 50px;
 }
 .input-container{
     width: 800px;
@@ -169,11 +193,13 @@ textarea#AuctionContent {
     text-align: center;
 
 }
-.joinformBtn{
-    display:flex;
+
+.joinformBtn {
+    display: flex;
+    justify-content: center;
     margin-bottom: 10px;
 }
-@media(max-width: 700px){
+@media(max-width: 768px){
   
     div#tab3{
         width:700px;
@@ -282,6 +308,10 @@ textarea#AuctionContent {
     font-weight: 500;
 
 }
+textarea#content {
+    width: 100%;
+    border-block-style: none;
+}
 .OctionBuyerBar{
     width:1000px;
     height: 40px;
@@ -319,15 +349,18 @@ textarea#AuctionContent {
     margin: 20px 0;
 
 }
-.choice-conpany-container ul{
+.choice-conpany-container ul {
     display: flex;
-    width: auto;
-    height:30px;
-    padding: 15px;
+    width: 100%;
+    height: 130px;
     justify-content: space-around;
-    
-    background: orange;
+   background:url('/domein/resources/images/auction/auction.jpg')no-repeat 0 0;;
     border-radius: 5px;
+    margin: 20px;
+    background-position: center;
+}
+.choice-conpany-container ul:hover{
+	filter: grayscale(1);
 }
 .modal-btn {
     display: flex;
@@ -416,7 +449,7 @@ textarea:focus{
     box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.85), 0 0 3px 3px rgba(0, 0, 0, 0.25);
     display: none;
 }
-@media(max-width:700px){
+@media(max-width:768px){
   
     .Oction-text-items {
         display: none !important;
@@ -483,7 +516,8 @@ textarea:focus{
     }
 }
  <!-- -------------- auction list  ---------------- -->
-    
+ 
+
   /* octionList CSS */
 .oction--header{
     display:flex;
@@ -546,6 +580,10 @@ textarea:focus{
     /* 이미지가 padding때문에 커지지않게하기위해서 */
     box-sizing: border-box;
 }
+img#big-target {
+    width: 200px;
+    height: 150px;
+}
 .oction-dateBox{
     display: grid;
     grid-template-columns: auto auto;
@@ -581,21 +619,35 @@ textarea:focus{
 
 .oction-img-group{
     display: block;
-    width: 150px;
+    width: 200px;
     height: 150px;
     margin-bottom: 5px;
     font-size: 15px;
     font-weight: 400;
-    border: 1px solid red;
     box-sizing: border-box;
     
+}
+.oction-img-group #big-target {
+    width: 200px;
+    height: 150px;
 }
 .grid-text-group li{
    padding:none;
 }
+#update{
+    width: 120px !important;
+    height: 34px;
+    padding: 0 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    box-sizing: border-box;
+    outline: none;
+    box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.075);
+    font-size: 16px;
+    background-color: rgba(255,255,204,0.5);
+}
 
-
-@media (max-width:700px){
+@media (max-width:768px){
 
     .oction--header {
         display: contents !important;
@@ -622,7 +674,6 @@ textarea:focus{
             margin-bottom: 5px;
             font-size: 15px;
             font-weight: 400;
-            border: 1px solid red;
             box-sizing: border-box;
         }
         .grid2-container {

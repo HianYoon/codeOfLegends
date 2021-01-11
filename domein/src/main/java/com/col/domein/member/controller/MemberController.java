@@ -793,6 +793,13 @@ public class MemberController {
 		loadMemberAgain(session);
 		return "redirect: " + request.getContextPath() + "/member/myPage/account.do";
 	}
+	
+	@RequestMapping("/myPage/account/changeProfilePic.do")
+	public String changeProfilePic() {
+		return "member/myPage/account/changeProfilePic";
+	}
+	
+	
 /////////////////////////////////////////////////////////
 //	아이디 비밀번호 찾기
 	@RequestMapping("/idPwFind.do")
@@ -815,7 +822,29 @@ public class MemberController {
 	
 	@RequestMapping("/emailPwChangeEnd.do")
 	public String emailPwChangeEnd(HttpServletRequest request, String memberKey, String confirmationKey, String password) {
+		int mKey = -1;
+		try {
+			mKey = Integer.parseInt(memberKey);
+		} catch (Exception e) {
+			return new ErrorUriMaker(request, "", "", "").getErrorUri();
+		}
+		int result = ms.pwFindVerify(mKey, confirmationKey, request);
 		
-		return "";
+		if(result != 1) return new ErrorUriMaker(request, "", "", "").getErrorUri();
+		
+		Member m = new Member();
+		m.setMemberKey(mKey);
+		m.setPassword(pwEncoder.encode(password));
+		
+		boolean flag = ms.updateMemberPassword(m);
+		if(!flag) return new ErrorUriMaker(request, "", "", "").getErrorUri();
+		
+		return "redirect: "+request.getContextPath()+"/member/successfullyChanged.do";
 	}
+	
+	@RequestMapping("/successfullyChanged.do")
+	public String successfullyChanged() {
+		return "member/emailPwChangeEnd";
+	}
+	
 }

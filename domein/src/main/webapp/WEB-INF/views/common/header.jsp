@@ -17,9 +17,26 @@
 <link rel="stylesheet" href="${path }/resources/css/sharedStyle.css" />
 <link rel="stylesheet" href="${path }/resources/css/common/headerStyle1.css" />
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+<link rel="apple-touch-icon" sizes="57x57" href="${path }/resources/favicon/apple-icon-57x57.png">
+<link rel="apple-touch-icon" sizes="60x60" href="${path }/resources/favicon/apple-icon-60x60.png">
+<link rel="apple-touch-icon" sizes="72x72" href="${path }/resources/favicon/apple-icon-72x72.png">
+<link rel="apple-touch-icon" sizes="76x76" href="${path }/resources/favicon/apple-icon-76x76.png">
+<link rel="apple-touch-icon" sizes="114x114" href="${path }/resources/favicon/apple-icon-114x114.png">
+<link rel="apple-touch-icon" sizes="120x120" href="${path }/resources/favicon/apple-icon-120x120.png">
+<link rel="apple-touch-icon" sizes="144x144" href="${path }/resources/favicon/apple-icon-144x144.png">
+<link rel="apple-touch-icon" sizes="152x152" href="${path }/resources/favicon/apple-icon-152x152.png">
+<link rel="apple-touch-icon" sizes="180x180" href="${path }/resources/favicon/apple-icon-180x180.png">
+<link rel="icon" type="image/png" sizes="192x192"  href="${path }/resources/favicon/android-icon-192x192.png">
+<link rel="icon" type="image/png" sizes="32x32" href="${path }/resources/favicon/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="96x96" href="${path }/resources/favicon/favicon-96x96.png">
+<link rel="icon" type="image/png" sizes="16x16" href="${path }/resources/favicon/favicon-16x16.png">
+<link rel="manifest" href="${path }/resources/favicon/manifest.json">
+<meta name="msapplication-TileColor" content="#ffffff">
+<meta name="msapplication-TileImage" content="${path }/resources/favicon/ms-icon-144x144.png">
+<meta name="theme-color" content="#ffffff">
 <meta name="google-signin-client_id"
 	content="1048798785374-akhqjnf6p4g1fdo3mkf2pudg9ffh5ger.apps.googleusercontent.com">
-<title><%=request.getParameter("title")%></title>
+<title>도매인 - 도소매 거래를 하는 사람들</title>
 <script>
 	const path = "${path}";
 </script>
@@ -55,7 +72,7 @@
 				<div class="inner">
 					<ul class="list-depth-1">
 						<li class="depth-1">
-							<a href="#">도매 경매</a>
+							<a href="${path}/auction/auctionList.do">도매 경매</a>
 							<ul class="list-depth-2">
 								<li><a href="#"><i class="icon-meat"></i>정육</a></li>
 								<li><a href="#"><i class="icon-fish"></i>수산물</a></li>
@@ -70,18 +87,16 @@
 						<li class="depth-1">
 							<a href="${path }/product/productList.do">일반 구매</a>
 							<ul class="list-depth-2">
-								<li><a href="#"><i class="icon-meat"></i>정육</a></li>
 								<li><a href="#"><i class="icon-fish"></i>수산물</a></li>
-								<li><a href="#"><i class="icon-vegetable"></i>과일·채소</a></li>
+								<li><a href="#"><i class="icon-meat"></i>정육</a></li>
 								<li><a href="#"><i class="icon-bread"></i>베이커리</a></li>
-								<li><a href="#"><i class="icon-metal"></i>철강</a></li>
+								<li><a href="#"><i class="icon-vegetable"></i>과일·채소</a></li>
 								<li><a href="#"><i class="icon-electronic"></i>전자기기</a></li>
-								<li><a href="#"><i class="icon-pet"></i>애견</a></li>
 								<li><a href="#"><i class="icon-etc"></i>ETC</a></li>
 							</ul>
 						</li>
 					</ul>
-					<a href="${path }/community/communityList.do" class="link-forum"><i class="icon-forum"></i><span><small>도매인</small><br>지식포럼</span></a>
+					<a href="${path }/community/community.do" class="link-forum"><i class="icon-forum"></i><span><small>도매인</small><br>지식포럼</span></a>
 				</div>
 			</nav>
 			<button class="button-close">닫기</button>
@@ -96,7 +111,7 @@
 				<div class="mobile-logo-cont">
 					<img src="${path }/resources/images/logo/signature.png" alt="" />
 
-				</div>
+				</div> 
 			</a>
 		</div>
 		<div class="mobile">
@@ -116,7 +131,7 @@
 					</a>
 				</div>
 				<div>
-					<a href="${path }/community/communitylist.do">
+					<a href="${path }/community/community.do">
 						<div>
 							<img src="${path }/resources/images/profile/talk.png" alt="" />
 						</div>
@@ -161,6 +176,11 @@
 	<div class="menu-floating">
 		<ul>
 			<li>
+				<button class="btn-top">
+					top
+				</button>
+			</li>
+			<li>
 				<button class="btn-alarm">
 					<img src="${path }/resources/images/common/header/icon-alarm.png" alt="알람">
 				</button>
@@ -174,6 +194,6 @@
 	</div>
 
 	<div class="g-signin2 displayNone" data-onsuccess=""></div>
-	<script src="${path }/resources/js/common/headerScript.js"></script>
+	<%-- <script src="${path }/resources/js/common/headerScript.js"></script> --%>
 <script src="${path }/resources/js/common/headerScript1.js"></script>
 </body>

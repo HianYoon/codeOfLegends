@@ -35,15 +35,18 @@
             return false;
         });
         //상품등록
-        $('#productQuantity').change(function(){
-            test(this);
-        });
-        function test(){
-            var val=$('#productQuantity').val();
-            $('#remaningQuantity').val(val);
-            alert($('#remaningQuantity').val());
-        }
-
+        
+        $(document).ready(function(){
+	        $('#productQuantity').change(function(){
+	            test(this);
+	        });
+	        function test(){
+	            var val=$('#productQuantity').val();
+	            $('#remaningQuantity').val(val);
+	            alert($('#remaningQuantity').val());
+	        };
+        	});
+    });
  
 
 </script>
@@ -54,9 +57,8 @@
             <!--탭 메뉴 영역 -->
             <ul class="tabs">
                 <li><a href="#tab1">판매등록</a></li>
-                <li><a href="#tab2">Action 참여</a></li>
                 <li><a href="#tab3">my상품List</a></li>
-                <li><a href="#tab4">상품List</a></li>
+               
             </ul>
         
         </div>
@@ -85,8 +87,9 @@
                                     <option value="7">제과</option>
                                     <option value="8">기타</option>
                                 </select>
-                               
-                                <input type="text" class="input--text" name="businessKey" placeholder="사업자번호"  required>
+                               <c:set value="${business}" var="business"/>
+                               	 <input type="text" class="input--text" name="businessKey" placeholder="사업자번호" value="${business}" required>
+                            
                                 <input type="text" class="input--text" name="title" placeholder="제목"  required>
 								 <textarea name="saleContent" id="" cols="30" rows="10" class="input-text"placeholder="내용설명">내용설명:
                        			 </textarea>
@@ -106,8 +109,8 @@
                                 	
                                 </select>
                             <div class="product-textgroup">
-
-                                <input type="text" class="input--text" name="articleNo" placeholder="글번호" required>
+									<c:set value="${articleNo}" var="articleNo"/>
+                                <input type="text" class="input--text" name="articleNo" placeholder="글번호" value="${articleNo}" required>
                                 <input type="text" class="input--text" name="productStatusNo" placeholder="카테고리" required>
                                 <input type="text" class="input--text" name="productName" placeholder="상품명" required>
                                 <input type="text" class="input--text" name="origin" placeholder="원산지" required>

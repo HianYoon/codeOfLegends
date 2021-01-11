@@ -32,16 +32,50 @@ public interface AdsDao {
 	
 	int directAdsApply(SqlSession session, DirectAds directAds);
 	
-	int selectBannerAccept(SqlSession session);
+	List selectBannerAccept(SqlSession session, String today);
 	
-	int selectDirectAccept(SqlSession session);
+	List selectDirectAccept(SqlSession session);
 	
-	int selectBannerDeny(SqlSession session);
+	List selectBannerDeny(SqlSession session);
 	
-	int selectDirectDeny(SqlSession session);
+	List selectDirectDeny(SqlSession session);
 	
 	int selectBannerPending(SqlSession session);
 	
 	int selectDirectPending(SqlSession session);
+	
+	List selectAccept(SqlSession session);
+	
+	List selectDeny(SqlSession session);
+	
+	List selectPending(SqlSession session);
+	
+	int selectAdsCountByDay(SqlSession session,String day);
+	
+	List selectBannerTotalAccept(SqlSession session);
+	
+	List selectBannerBoardAll(SqlSession session,int cPage,int numPerpage);
+	
+	int selectBannerCountAll(SqlSession session);
+	
+	BannerAds selectBannerWhole(SqlSession session, int adsKey);
+	
+	int updateAccept(SqlSession session, int adsKey);
+	
+	int updateDeny(SqlSession session, int adsKey);
+	
+	List selectDirectBoardAll(SqlSession session,int cPage,int numPerpage);
+	
+	int selectDirectCountAll(SqlSession session);
+	
+	String selectDirectSaleContent(SqlSession session,String articleNo);
+	
+	DirectAds selectDirectWhole(SqlSession session,int adsKey);
+	
+	int updateDirectAccept(SqlSession session,int adsKey);
+	
+	int updateDirectDeny(SqlSession session,int adsKey);
+	
+	int insertOrderNo(SqlSession session,int orderNo);
 	
 }

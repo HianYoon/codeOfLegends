@@ -25,7 +25,7 @@
 <!-- jQuery UI 라이브러리 js파일 -->
 <script src="http://code.jquery.com/ui/1.8.18/jquery-ui.min.js"></script> 
 
-<link rel="stylesheet" href="${path }/resources/css/ads/bannerApplication.css" />
+<link rel="stylesheet" href="${path }/resources/css/ads/bannerApplication.css?after" />
 
 <section id="content">
     <div id="wholeback">
@@ -53,7 +53,7 @@
 
                 <div class="div_title">
                 	<input type="hidden" name="applicantKey" value="${signedInMember.memberKey }"/>
-                    <label for="adsTitle"><span><u>제목</u></span></label>&nbsp;&nbsp;<input type="text" name="adsTitle" id="adsTitle" required>
+                    <label for="adsTitle"><span><u>제목</u></span></label>&nbsp;&nbsp;<input type="text" name="adsTitle" id="adsTitle" maxlength="42" required>
                 </div>
 
                 <div class="div_description">
@@ -68,26 +68,26 @@
                         <p>미리보기가 표시됩니다.</p>
                         <!-- <img src="C:\Users\Sungbin\Desktop\images\img_preview.png" alt="미리보기가 표시됩니다." id="preImage" width="100%" height="100%"><br> -->
                     </div>
-                    <input type="file" class=".btn.btn--primary" name="upFile" accept="image/*" onchange="fn_readImage(event);" required>
+                    <input type="file" class=".btn.btn--primary" id="upload" name="upFile" accept="image/*" onchange="fn_readImage(event);" required>
                     <input type="button" class=".btn.btn--primary2" name="deleteFile" value="삭제" onclick="fn_deleteFile();">                
                 </div>
                 <br>
                 <div class="div_url">
                     <span id="msg_url"></span><br>
-                    <label for="urlLink"><span><u>url</u></span></label>&nbsp;&nbsp;<input type="text" name="urlLink" id="urlLink" placeholder="이미지 클릭 시, 이동할 주소입력" required>                      
+                    <label for="urlLink"><span><u>url</u></span></label>&nbsp;&nbsp;<input type="text" name="urlLink" id="urlLink" value="http://" required>                      
                 </div>
                 <br>
                 <div class="div_period">
                     <p><u>기간 및 가격</u></p>
-                    개시일&nbsp;&nbsp;<input type="text" id="startDate" name="startDate" placeholder="개시일 선택" onchange="fn_triggerEnd(event)" required>&nbsp;&nbsp;                        
-                    종료일&nbsp;&nbsp;<input type="text" id="endDate" name="endDate" placeholder="종료일 선택" onchange="fn_triggerPrice(event)" disabled required><br>
+                    개시일&nbsp;&nbsp;<input type="text" id="startDate" name="startDate" placeholder="개시일 선택" onchange="fn_triggerEnd(event)" autocomplete="off" required>&nbsp;&nbsp;                        
+                    종료일&nbsp;&nbsp;<input type="text" id="endDate" name="endDate" placeholder="종료일 선택" onchange="fn_triggerPrice(event)" autocomplete="off" disabled required><br>
                     <!-- 기타 선택 시, return false로 체크 -->
                     결제금액&nbsp;&nbsp;<input type="text" id="totalPrice" value="0" name="adsPrice" readonly>&nbsp;원
                 </div>
                 <br><br>
                 <div class="div_submit">
-                    <input type="submit" class=".btn.btn--primary" value="결제화면으로 이동">&nbsp;
-                    <input type="reset" class=".btn.btn--primary2" value="취소">
+                    <input type="submit" class="btn btn--primary" value="결제화면으로 이동">&nbsp;
+                    <input type="reset" class="btn btn--primary2" value="취소">
                     <br><br><br><br>
                 </div>
             </form>
@@ -98,7 +98,7 @@
     $(function(){
 		/* url위 안내메시지 출력 */
         $("#urlLink").focus(e=>{
-            $("#msg_url").html("[이미지 클릭 시, 이동할 주소를 입력해주세요. 요청주소가 없을 시, -입력]").css("color","green");
+            $("#msg_url").html("[이미지 클릭 시, 이동할 주소를 입력해주세요(\"http://\" 포함). 요청주소가 없을 시, -입력]").css("color","red");
         });
         $("#urlLink").blur(e=>{
             $("#msg_url").html("");
@@ -116,7 +116,12 @@
             showMonthAfteryear:true,
             yearSuffix:'년',
             defaultDate: new Date(),
-            minDate:0                
+            minDate:0,
+            beforeShow: function(){
+            	setTimeout(function(){
+            		$('.ui-datepicker').css('z-index', 9999999999);
+            	}, 0);
+            }
         });              
     })
     /* DB에서 adsRate를 가져와 날짜 선택 시 계산하여 측정 */
@@ -148,7 +153,12 @@
 	        showMonthAfteryear:true,
 	        yearSuffix:'년',
 	        // defaultDate: new Date($("#startDate").val()),
-	        minDate: new Date($("#startDate").val())
+	        minDate: new Date($("#startDate").val()),
+	        beforeShow: function(){
+            	setTimeout(function(){
+            		$('.ui-datepicker').css('z-index', 9999999999);
+            	}, 0);
+            }
 	    });
 	}
     /* div눌러도 file Upload 실행 */

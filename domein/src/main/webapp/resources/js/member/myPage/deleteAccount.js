@@ -4,5 +4,5 @@
 	})
 	
 	$("#remainAccount").click(e=>{
-		location.href = path + "/member/myPage/account";
+		location.href = path + "/member/myPage/account.do";
 	})

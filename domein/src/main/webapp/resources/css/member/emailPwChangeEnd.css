@@ -1,0 +1,9 @@
+#context{
+	display: flex;
+	justify-content: space-around;
+	align-items: center;
+	flex-direction: column;
+}
+#context>*{
+	margin: 60px;
+}

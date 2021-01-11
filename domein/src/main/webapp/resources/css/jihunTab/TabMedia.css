@@ -1,12 +1,16 @@
 @charset "UTF-8";
-
+h2.auction--h2 {
+    text-align: center;
+    font-size: 35px;
+    filter: drop-shadow(2px 4px 6px black);
+}
  /* 전체 html display  flex*/
- #octionPage{
-    display:flex;
+#octionPage {
+    display: flex;
     width: 1200px;
+    justify-content: center;
     height: auto;
-    gap:50px;
-   
+    gap: 50px;
 }
 
 div#wrapper {
@@ -148,7 +152,7 @@ div#octionPage .direct-Product-container textarea {
     margin: 20px;
 }
 .oction--grid--container {
-    width: 100%;
+    width: 200px;
     height: auto;
     box-sizing: border-box;
 }

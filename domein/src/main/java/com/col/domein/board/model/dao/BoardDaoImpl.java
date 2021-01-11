@@ -9,23 +9,19 @@ import org.springframework.stereotype.Repository;
 
 import com.col.domein.board.model.vo.Attachment;
 import com.col.domein.board.model.vo.Board;
-import com.col.domein.board.model.vo.BoardKnowBattle;
 
 
 @Repository
 public class BoardDaoImpl implements BoardDao{
 
-	/*
-	 * @Override public List<Map> selectBoardList(SqlSession session, int cPage, int
-	 * numPerpage) { // TODO Auto-generated method stub return
-	 * session.selectList("community.selectBoardList",null, new
-	 * RowBounds((cPage-1)*numPerpage,numPerpage)); // return
-	 * session.selectList("board.selectBoardList",null, // new
-	 * RowBounds((cPage-1)*numPerpage,numPerpage)); // return
-	 * session.selectList("board.selectBoardList", null, // new RowBounds(((cPage -
-	 * 1) * numPerpage), numPerpage)); return
-	 * session.selectList("board.selectBoardList"); }
-	 */
+	@Override
+	public List<Map> selectBoardList(SqlSession session, int cPage, int numPerpage) {
+		// TODO Auto-generated method stub
+//		return session.selectList("board.selectBoardList",null,
+//				new RowBounds((cPage-1)*numPerpage,numPerpage));
+		return session.selectList("board.selectBoardList");
+		
+	}
 
 	@Override
 	public int selectCount(SqlSession session) {
@@ -57,19 +53,21 @@ public class BoardDaoImpl implements BoardDao{
 	}
 
 	@Override
-	public List<Map> selectBoardList(SqlSession session, int cpage, int numPerpage) {
+	public Board selectBoardOne(SqlSession session, int threadKey) {
 		// TODO Auto-generated method stub
-		return session.selectList("board.selectBoardList");
-		/*
-		 * return session.selectList("board.selectBoardList",null, new
-		 * RowBounds((cPage-1)*numPerpage,numPerpage));
-		 */
+		return session.selectOne("board.selectBoardOne",threadKey);
 	}
 
 	@Override
-	public BoardKnowBattle selectBoardOne(SqlSession session, int boardNo) {
+	public List<Attachment> selectAttach(SqlSession session, int threadKey) {
 		// TODO Auto-generated method stub
-		return null;
+		return session.selectList("board.selectAttach",threadKey);
+	}
+
+	@Override
+	public int insertArticle(SqlSession session, Map map) {
+		// TODO Auto-generated method stub
+		return session.insert("board.insertArticle",map);
 	}
 	
 	/*

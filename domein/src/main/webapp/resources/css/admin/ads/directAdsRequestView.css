@@ -1,0 +1,61 @@
+#wholeback{
+    display:flex;
+    flex-flow:row wrap;
+}
+.tab_menu{
+    width:18%;
+    min-width: 240px;    
+    /* background-color: #ffca28; */
+    font-size:18px;    
+    border:1px #ddd solid;
+    padding-left:15px;
+}
+.tab_menu h2{
+    margin-bottom:12px;
+}
+#container{
+    width:55%;    
+    margin-left:20px;
+}
+#container>form>h2{
+	margin:7px;
+}
+#container hr{
+    margin-left:-20px;
+}
+.div_requestTitle{
+    background-color: rgb(197, 189, 189);
+    height:36px;
+    margin-bottom: 5px;
+    position: relative;
+}
+.div_requestTitle td:first-child{
+    position:absolute;
+    left:2%;
+}
+.div_requestTitle td:nth-child(2){
+    position:absolute;
+    left:66%;
+}
+.div_requestTitle td:last-child{
+    position:absolute;
+    left:84%;
+}
+.div_preview{
+    position:relative;
+}
+.div_preview>p{
+	margin-bottom:10px;
+}
+.div_preview>textarea{
+	width:100%;
+}
+.div_description>textarea{
+    width:100%;
+}
+.div_submit{
+    margin-left:45%;
+}
+input[name="ads_price"]{
+    margin-top:10px;
+} 

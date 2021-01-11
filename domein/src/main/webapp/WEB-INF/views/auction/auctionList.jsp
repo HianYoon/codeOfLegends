@@ -4,6 +4,7 @@
     <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
     <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
      <c:set var="path" value="${pageContext.request.contextPath }"/>
+     <c:set var="business" value="${signedInMember.businesses }"/>
     
 <link rel="stylesheet"
 	href="${path }/resources/css/auction/auction.css" />
@@ -36,16 +37,6 @@
 
  <div id="octionPage">
 
-        <div id="wrapper">    
-            <!--탭 메뉴 영역 -->
-            <ul class="tabs">
-                <li><a href="#tab1">입찰목록</a></li>
-                <li><a href="#tab2">입찰등록</a></li>
-                <li><a href="#tab3">입찰참여</a></li>
-                <li><a href="#tab5">myOction<br>(판매자)</a></li>
-               
-            </ul>
-        </div>
         <div class="tab-container-group">
 
        
@@ -57,7 +48,7 @@
                         <!--Content-->
                             <div class="oction--header">
                                 <div class="oction-searchbox">
-                                    <input type="search" class="input--text oction--input"/>
+                        
                                 </div>
                                 <ul>
                                     <li>인기순</li>
@@ -65,74 +56,33 @@
                                     <li>마감순</li>
                                     <li>조회순</li>
                                 </ul>
-                                <ul class="grid">
-                                    <li>
-                                        <a href="#grid1">
-                                            <img src="" alt="List">
-
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="#grid2">
-                                            <img src="" alt="Grid">
-
-                                          </a>
-                                     </li>
-                                </ul>
+                             
                             </div>
-                        
-                        <div id="grid1" class="oction-list-container">
-
-                            <div class="oction_img">
-                                <img src="#" alt="이미지" id="oction-img">
-                                
-                            </div> 
-                            <div class="oction_textlist">
-                                <a href="">
-                                    
-                                    <ul class="oction-list">
-                                        <li><span>제목:</span>  
-                                        </li>
-                                        <li><span>상호명:</span></li>
-                                        <li class="oction-dateBox"><span class="Oction-date">등록일:</span><span class="Oction-date">마감일:</span></li>
-                                        
-                                    </ul>
-                                </a>
-                            </div>
-                            <div class="btn-oction-box">
-                                        <p>조회수</p>
-                                     <button class="btn">수정</button>    
-                                     <button class="btn btn--primary">삭제</button>    
-                                     <button class="btn btn--primary">참여</button>    
-                                                
-                            </div>
-                              
-                        </div>
-                        
+               
                         <!-- grid정렬 -->
+                       
                             <div id="grid2" class="oction-list-container">
                                 <!-- grid-content -->
                                 <div class="grid2-container">
-
+									<c:forEach items="${auction}" var="auction">
                                     <!-- 절제선 -->
                                     <div class="oction--grid--container">
                        
-                                        <div class="oction-img-group">
-                                            <img id="big-target" src="" alt="이미지" data-zoom="3"/>
-                                            
-                                        </div>
+                                        <a href="${path }/auction/auctionView.do?articleNo=${auction.ARTICLE_NO}&writerKey=${auction.WRITER_KEY}"class="oction-img-group">
+                                            <img id="big-target" src="${path }/resources/upload/boardauction/file/${auction.RENAMED_FILE_NAME}" alt="이미지" data-zoom="3"/>
+                                            <input type="hidden" id="articleNo" name="articleNo" value="${auction.ARTICLE_NO}"/>
+                                            <input type="hidden" id="memberKey" name="memberKey" value="${signedInMember.memberKey}"/>
+                                        </a>
                                         <div>
             
                                             <ul class="grid-text-group" style="padding:0">
-                                                <li>제목</li>
-                                                <li>상호명</li>
-                                                <li><span>등록일</span><span>마감일</span></li>
-                                                <li>조회수
+                                                <li>제목:<c:out value="${auction.TITLE }"/></li>
+                                                <li><span>상호명:<c:out value="${auction.BUSINESS_NAME }"/></li>
+                                                 <li class="oction-dateBox"><span class="Oction-date">시작일:<fmt:formatDate value="${auction.START_DATE}" pattern="yyyy-MM-dd HH:mm"/></span><span class="Oction-date">마감일:<fmt:formatDate value="${auction.END_DATE}" pattern="yyyy-MM-dd HH:mm"/></span></li>
+                                                <li>조회수: <c:out value="${auction.READ_COUNT}"/>
                                                 </li>
                                                   <li>
-                                                         <span><a href=""><img src="" alt="찜" style="width: 15px;height:15px;"></a></span>
-                                                         <span><a href=""><img src="" alt="like"></a></span>
-                            
+                                                    <span><div><img  src="${path }/resources/images/profile/jjim.png" alt="찜" style="width: 15px;height:15px;"></div></span>
                                                </li>
                                                 
                                             </ul>
@@ -141,14 +91,46 @@
                                             
                                     
                                  </div>
-                              
+                               </c:forEach>
                                     <!-- 절제선 -->
                                 </div>
+                                <div id="pageBar">${pageBar }</div>
                             </div>
+                    
                 </div>
             </div>
 
 	</div>
 </div>
 </section>
+<script src="${path }/resources/js/auction/auctionList.js" defer></script>
+<script>
+		const writer=$("#writerKey").val();
+		console.log("없니?"+writer);
+$(document.body).on('click',"#auctionlike",function(){
+		const articleNo=$("#articleNo").val();
+		const writerKey=$("#memberKey").val();
+		var form={
+				aricleNo:articleNo,
+				writerKey:writerKey
+		}
+		
+	$.ajax({
+		url:"${path}/auction/bid.do",
+		type:"POST",
+		data:JSON.stringify(form),
+		contentType:"application/json; charset=utf-8;",
+		dataType:"json",
+		success:function(data){
+			$('#auctionlike').css("color","red");
+		},
+		error:function(){
+			alert("stringify err");
+		}
+		
+		
+	});
+	});
+
+</script>
 <jsp:include page="/WEB-INF/views/common/footer.jsp"/>

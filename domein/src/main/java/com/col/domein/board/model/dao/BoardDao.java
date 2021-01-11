@@ -8,7 +8,6 @@ import org.springframework.stereotype.Service;
 
 import com.col.domein.board.model.vo.Attachment;
 import com.col.domein.board.model.vo.Board;
-import com.col.domein.board.model.vo.BoardKnowBattle;
 
 @Service
 public interface BoardDao {
@@ -25,6 +24,10 @@ public interface BoardDao {
 
 	List<Map> selectBkbArticles(SqlSession session,int threadKey);
 
-	BoardKnowBattle selectBoardOne(SqlSession session,int boardNo);
+	Board selectBoardOne(SqlSession session,int threadKey);
+
+	List<Attachment> selectAttach(SqlSession session, int threadKey);
+	
+	int insertArticle(SqlSession session,Map map);
 	
 }
