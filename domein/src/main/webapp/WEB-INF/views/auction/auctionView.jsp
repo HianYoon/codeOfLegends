@@ -11,6 +11,22 @@
 <jsp:include page="/WEB-INF/views/common/header.jsp">
 	<jsp:param name="title" value=""/>
 </jsp:include>
+<style>
+.choice-conpany-container ul {
+    display: flex;
+    width: 100%;
+    height: 130px;
+    justify-content: space-around;
+   background:url('/domein/resources/images/auction/auction.jpg')no-repeat 0 0;;
+    border-radius: 5px;
+    margin: 20px;
+    background-position: center;
+    background-color: red;
+}
+.choice-conpany-container ul:hover{
+	filter: grayscale(1);
+}
+</style>
 <script>
     $(document).ready(function(){
         //로드될때
@@ -79,38 +95,25 @@
                                 
                             </div>
                         </div>
-                        <div class="OctionBuyerBar">
-                             <ul>
-                         
-                             <c:if test="${signedInMember !=null && list.BUSINESS_KEY !=null}">
-                      
-                                 <li><a href="${path }/auction/joinEnllo.do?articleNo=${list.ARTICLE_NO}">Auction</a></li>
-                    		</c:if>
-                                 <li><a href="#review-container"  id="QnA">Q & A</a></li>
-                                 <li>조회수:<c:out value="${list.READ_COUNT}"/></li>
-                                 <c:set value="${count}" var="count"/>
-                                 <li>참여수:<c:out value="${count}"/></li>
-                             </ul>
-                        </div>
-					</c:forEach>
-
+                        
                         <div class="choice-company-container">
-                            <form action="">
-                                <div class="choice-conpany-container">
-                                    <c:forEach items="${company}" var="company">
-                                    <ul>
-                                        <li>
-                                            <input type="radio" name="chocieCompany" value="${compony.WRITER_KEY }" />
-                                            
-                                        </li>
-                                        <li><input type="hidden" name="writerKey" value="${compony.WRITER_KEY }"/></li>
-                                      
-                                        
-                                    </ul>
+                        <div class="choice----box">
+                            <form name="forfor" >
+                                    <c:forEach items="${business}" var="business">
+		                                <div class="choice-conpany-container">
+		                                    <ul id="choiceCompony">
+		                                        <li>
+		                                            <input type="radio" name="chocieCompany" value="${business.WRITER_KEY }" />
+		                                            
+		                                        </li>
+		                                        <li><input type="text" name="writerKey" value="${business.WRITER_KEY }"/></li>
+		                                      
+		                                        
+		                                    </ul>
+		                                </div>
                                     </c:forEach>
-                                </div>
-
-                                
+							</form>	
+                          </div>      
                                 <!-- 모달스크립트 -->
                                 <div class="modal-btn">
                                     
@@ -126,11 +129,23 @@
                                         </div>
                                     </div>
                                 </div>
-                               
-                               
-                              
-                            </form>
-                             <div id="review-container" class="review-container" style="display:none;">
+                        <div class="OctionBuyerBar">
+                             <ul>
+                         
+                             <c:if test="${signedInMember !=null && list.BUSINESS_KEY !=null}">
+                      
+                                 <li><a href="${path }/auction/joinEnllo.do?articleNo=${list.ARTICLE_NO}">Auction</a></li>
+                    		</c:if>
+                                 <li><a href="#review-container"  id="QnA">Q & A</a></li>
+                                 <li>조회수:<c:out value="${list.READ_COUNT}"/></li>
+                                 <c:set value="${count}" var="count"/>
+                                 <li>참여수:<c:out value="${count}"/></li>
+                             </ul>
+                        </div>
+
+
+
+                             <div id="review-container" class="review-container" style="/* display:none */;">
                                 <div style="margin-top: 20px" >
                               
 		                                   <button type="button" class="btn btn-primary" id="CommentUpdate">수정</button>
@@ -138,17 +153,20 @@
 		                                   <button type="button" class="btn btn-primary" id="Commentlist">목록</button>
                                 </div>
 								<div class="my-3 p-3 bg-white rounded shadow-sm=" style="padding-top:10px">
-		                           <form name="form" id="form" role="form" modelAttribute="replayVO" enctype="multipart/form-data" action="" method="post" >
+		                           <form name="form" id="form" role="form" modelAttribute="replayVO" >
 										
 		                           
 		                             <div class="row">
 		                             	<div class="col-sm-10">
-		                             		<textarea  id="content" name="CommentContent" class="form-control" row="3" placeholder="댓글을 입력해주세요."></textarea>
+		                             		<textarea  id="content" name="commentContent" class="form-control" row="3" placeholder="댓글을 입력해주세요."></textarea>
 		                             	</div>
 		                             	<div class="col-sm-2">
+		                             	
 		                             		<input  class="form-control" name="writerKey" id="reg_id" value="${signedInMember.memberKey }" placeholder="댓글 작성자"/>
 		                             		<input  type="hidden" class="articleStatusNo" value="1" name="articleStatusNo"/>
-		                             		<input  type="hidden"  value="0" name="refArticle"/>
+		                             			<input  type="text"  name="refArticle" value="${list.ARTICLE_NO}"/>
+		                             		</c:forEach>	
+		                             		<input  type="hidden"  value="1" name="refComment"/>
 		                             		<input type="file" name="upFile" id="upFile"/>
 		                             		<button type="button" class="btn btn-primary" id="btnReplaSave" >저장</button>
 		                             		
@@ -191,7 +209,7 @@
 		
 		$.ajax({
 			type:"POST",
-			//enctype:"multipart/form-data",
+			enctype:"multipart/form-data",
 			url: url,
 			data:fileform,
 			processData:false,

@@ -176,20 +176,6 @@
 				//listReply2();
 				console.log(result);
 				let output="";
-				/* output="<table class='table table-striped'";
-				output="<thead>";
-				output="<tr>";
-				output="<th>번호</th>";
-				output="<th>상품명</th>";
-				output="<th>원산지</th>";
-				output="<th>등급</th>";
-				output="<th>양/갯수</th>";
-				output="<th>단위</th>";
-				output="<th>가격</th>";
-				output="</tr>";
-				output="</thead>"; */
-				//arrayList로 출력할시에는 for in문이 아닌 for문으로 해야한다.
-				//불러올시에는 bd컬럼명하고 똑같아야한다.
 				for(let i =0;i <result.length; i++){
 					output += "<tr>";
 					
@@ -204,8 +190,6 @@
 					output +="<td><input type='button' class='btn btn-Primary2' id='listdelete' value='삭제' >";
 					output +="</tr>";	
 				}
-			/* 	output +="</tbody>";
-				output += "</table>"; */
 				$("#appendTo").html(output);
 			}
 		});
@@ -229,21 +213,6 @@
 					if(data !=null){
 						
 					let output="";
-				//	output="<table class='table table-striped'>";
-		/* 			output="<thead>";
-					output="<tr>";
-					output="<th>번호</th>";
-					output="<th>상품명</th>";
-					output="<th>원산지</th>";
-					output="<th>등급</th>";
-					output="<th>양/갯수</th>";
-					output="<th>단위</th>";
-					output="<th>가격</th>";
-					output="</tr>";
-					output="</thead>"; */
-					//output="<tbody>";
-					//arrayList로 출력할시에는 for in문이 아닌 for문으로 해야한다.
-					//불러올시에는 bd컬럼명하고 똑같아야한다.
 					for(let i =0;i <data.length; i++){
 						output += "<tr id='updateList'>";
 						output +="<td id='SbidKey'>"+data[i].BID_KEY+"</td>";
@@ -256,8 +225,6 @@
 						output +="<td><input type='button' class='btn btn-Primary2' id='listUpdate' value='수정'><input type='button' class='btn btn-Primary2' id='listdelete' value='삭제' ></td>";
 						output +="</tr>";
 					}
-					//output +="</tbody>";
-				//	output += "</table>";
 					$("#appendTo").html(output);
 					}else{
 						alert("리스트가 없습니다.");
