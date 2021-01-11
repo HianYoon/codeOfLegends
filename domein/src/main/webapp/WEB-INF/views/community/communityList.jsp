@@ -19,7 +19,7 @@
 	        <p></p>
         	</div>
 	        <div class="community-title">
-	            <p>지식배틀</p>
+	            <p>지식포럼</p>
 	        </div>
 	        <div class="community-bottom">
 	            <div class="community-bottom-left">
@@ -39,18 +39,20 @@
 		                            <th>날짜</th>
 		                        </tr>
 		                    </thead>
-	 	                    <c:forEach items="${list }" var="b">
+	 	                    <c:forEach items="${list }" var="b" varStatus="status">
+	 	                    <c:set var="m" value="${signedInMember }"/>
 		                    	<tr>
  			                    		<td class="tit" style="padding-left:4.5%">
 			                    				<c:out value="${b.THREAD_KEY}"/>
 			                    		</td>
 			                    		<td class="tit" style="padding-left:5.5%">
-			                    				<a href="${path }/community/bkbDetail.do?threadKey=${b.THREAD_KEY}"><c:out value="${b.THREAD_TITLE}"/></a>
+			                    				<a href="${path }/community/bkbDetail.do?threadKey=${b.THREAD_KEY}"><c:out value="${b.THREAD_TITLE} ()"/></a>
 			                    		</td>
-			                    		<td class="tit" style="padding-left:5.5%">
-			                    		<c:set var="writer" value="${signedInMember}"/> 
-			                    				<c:out value="${b.WRITER_KEY}"/>
-			                    			</a>
+			                    		
+			                    		<td class="tit" style="padding-left:4.8%">
+ 			                    				<c:if test="${b.WRITER_KEY == m.memberKey }">
+			                    				<c:out value="${m.nickname }"/>
+			                    				</c:if>
 			                    		</td>
 			                    		<td class="tit" style="padding-left:5.5%">
 			                    				<c:out value="${b.ACTOR_KEY}"/>
@@ -58,7 +60,7 @@
 			                    		<td class="tit" style="padding-left:5.5%">
 			                    				<c:out value="${b.READ_COUNT}"/>
 			                    		</td>
-			                    		<td class="tit" style="padding-left:12%">
+			                    		<td class="tit" style="padding-left:10%">
 			                    				<c:out value="${b.WRITTEN_DATE}"/>
 			                    		</td>
 		                    	</tr>
