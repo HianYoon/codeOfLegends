@@ -39,7 +39,7 @@
 							</div>
 							<div class="box-text-main">
 								<p class="box-text-main-text">
-									<c:out value="${l.ARTICLE_CONTENT }"/><BR>
+									<c:out value="${l.ARTICLE_CONTENT }" escapeXml="false"/><BR>
 									<img src="${path }/resources/upload/boardKnowBattle/${l.RENAMED_FILE_NAME}" alt="">
 								</p>
 								<div class="box-button">

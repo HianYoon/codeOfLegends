@@ -14,6 +14,7 @@
 <section class="container">
 	<form name="form1" class="form1" method = "post" action="${path }/community/insertBoard.do" enctype="multipart/form-data">
 	<table width=100%>
+		<input type="hidden" value="${signedInMember.memberKey }" name="memberKey">
 		<tr>
 			<td>제목</td>
 			<td><input type="text" name="threadTitle" id="threadTitle" placeholder="제목을 입력해주세요" required></td>
@@ -21,12 +22,12 @@
 		<tr>
 			<td>파일</td>
 			<td>
-				<input type="file" name="upFile" id="upFile1">
+				<input type="file" name="image" id="upFile1">
 			</td>
 		</tr>
 		<tr>
 			<td>내용</td>
-			<td><textarea rows="5" cols="60" name="articleContent" id="articleContent" placeholder="내용을 입력해주세요" required></textarea>
+			<td><textarea rows="5" cols="60" name="content" id="articleContent" placeholder="내용을 입력해주세요" required></textarea>
 			</td>
 		</tr>
 	</table>

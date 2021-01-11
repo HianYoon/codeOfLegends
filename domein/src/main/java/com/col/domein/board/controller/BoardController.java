@@ -56,9 +56,39 @@ public class BoardController {
 		return "community/write";
 	}
 	@RequestMapping("/community/insertBoard.do")
-	public ModelAndView insertBoard(Board board, ModelAndView mv) {
+	public ModelAndView insertBoard(HttpSession session,Board board, ModelAndView mv,@RequestParam(value="image", required=false)MultipartFile image,String threadTitle,int memberKey,String content) {
+		String path = session.getServletContext().getRealPath("/resources/upload/boardKnowBattle");
+		File dir = new File(path);
+		if(!dir.exists()) dir.mkdirs();
+		String originalName = "";
+		String reName = "";
 		
-		int result=service.insertBoard(board);
+		//등록 눌렀을때 해야할 것: 파일업로드->쓰레드 등록->아티클 등록
+		if(!image.isEmpty()) {
+			originalName = image.getOriginalFilename();
+			String ext = originalName.substring(originalName.lastIndexOf(",")+1);
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd_HHmmssSSS");
+			int rndValue = (int)Math.random()*10000;
+			reName = sdf.format(System.currentTimeMillis())+"_"+rndValue+"."+ext;
+			try {
+				image.transferTo(new File(path+"/"+reName));
+			}catch(IOException e) {
+				e.printStackTrace();
+			}
+			
+		}
+		Map map = new HashMap();
+		//아티클
+		map.put("originalName",originalName);
+		map.put("reName",reName);
+		map.put("content",content);
+		//---
+		//쓰레드
+		map.put("threadTitle",threadTitle);
+		//---
+		map.put("memberKey",memberKey);
+		
+		int result=service.insertBoard(map);
 		mv.addObject("msg", result>0?"입력성공":"입력실패");
 		mv.addObject("loc", "/community/community.do");
 		mv.setViewName("common/msg");

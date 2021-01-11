@@ -18,7 +18,7 @@ public interface BoardDao {
 	
 	/* Board selectBoardOne(SqlSession session,int boardNo); */
 	
-	int insertBoard(SqlSession session, Board board);
+	int insertBoard(SqlSession session, Map map);
 
 	int insertAttachment(SqlSession session, Attachment a);
 
