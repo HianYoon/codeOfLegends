@@ -72,10 +72,10 @@
 					<form action="${path }/community/insertArticle.do" enctype="multipart/form-data" method="post">
 						<div class="comment-write-inner">
 							<div class="comment-write-content">
-								<textarea name="content"></textarea>
+								<textarea name="content" placeholder="주제와 무관한 댓글, 타인의 권리를 침해하거나 명예를 훼손하는 게시물은 별도의 통보 없이 제재를 받을 수 있습니다."></textarea>
 							</div>
 							<div class="comment-write-footer">
-								<input type="file" name="image">
+								<input type='file' id="imageCheck" name='image' accept='image/jpeg,image/gif,image/png' onchange='chk_file_type(this)'>
 								<input type="hidden" name="memberKey" value="${signedInMember.memberKey }">
 								<input type="hidden" name="threadKey" value="${list.get(0).THREAD_KEY }">
 								<button class="btn-type-1" type="submit">댓글 등록</button>
@@ -117,6 +117,11 @@
 			</div>
 		</div>
 	</section>
+	<style>
+	.comment-write-content{margin-top: 30px;}
+	.comment-write-content textarea{width:940px; height:150px;}
+	.comment-write-footer{align}
+	</style>
 	<script>
 		function timeForToday(value){
 			const today = new Date();
@@ -148,7 +153,39 @@
 		console.log(timeForToday(writtenDate));
 		document.getElementById('writeDateBefore').innerText = timeForToday(writtenDate);
 		document.getElementById('lastestWriteDate').innerText = timeForToday(lastestWrittenDate);
-		
 		/* 1995-12-17T03:24:00 */
+		function chk_file_type(obj) {
+
+	var file_kind = obj.value.lastIndexOf('.');
+
+	var file_name = obj.value.substring(file_kind+1,obj.length);
+
+	var file_type = file_name.toLowerCase();
+
+	var check_file_type=new Array();
+
+	check_file_type=['jpg','gif','png','jpeg','bmp','tif'];
+
+
+
+	if(check_file_type.indexOf(file_type)==-1) {
+
+		alert('이미지 파일만 업로드 가능합니다.');
+
+		var parent_Obj=obj.parentNode;
+
+		var node=parent_Obj.replaceChild(obj.cloneNode(true),obj);
+
+
+
+		document.getElementById("imageCheck").value = "";    //초기화를 위한 추가 코드
+
+		document.getElementById("imageCheck").select();        //초기화를 위한 추가 코드
+
+		document.selection.clear();                                                //일부 브라우저 미지원
+
+		return false;
+	}
+}
 	</script>
 <jsp:include page="/WEB-INF/views/common/footer.jsp"/>
