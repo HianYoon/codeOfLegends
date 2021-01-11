@@ -72,7 +72,7 @@
 					<form action="${path }/community/insertArticle.do" enctype="multipart/form-data" method="post">
 						<div class="comment-write-inner">
 							<div class="comment-write-content">
-								<textarea name="content"></textarea>
+								<textarea name="content" placeholder="주제와 무관한 댓글, 타인의 권리를 침해하거나 명예를 훼손하는 게시물은 별도의 통보 없이 제재를 받을 수 있습니다."></textarea>
 							</div>
 							<div class="comment-write-footer">
 								<input type='file' id="imageCheck" name='image' accept='image/jpeg,image/gif,image/png' onchange='chk_file_type(this)'>
@@ -117,6 +117,11 @@
 			</div>
 		</div>
 	</section>
+	<style>
+	.comment-write-content{margin-top: 30px;}
+	.comment-write-content textarea{width:940px; height:150px;}
+	.comment-write-footer{align}
+	</style>
 	<script>
 		function timeForToday(value){
 			const today = new Date();
