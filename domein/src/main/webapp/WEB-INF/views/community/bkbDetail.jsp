@@ -75,7 +75,7 @@
 								<textarea name="content"></textarea>
 							</div>
 							<div class="comment-write-footer">
-								<input type="file" name="image">
+								<input type='file' id="imageCheck" name='image' accept='image/jpeg,image/gif,image/png' onchange='chk_file_type(this)'>
 								<input type="hidden" name="memberKey" value="${signedInMember.memberKey }">
 								<input type="hidden" name="threadKey" value="${list.get(0).THREAD_KEY }">
 								<button class="btn-type-1" type="submit">댓글 등록</button>
@@ -148,7 +148,39 @@
 		console.log(timeForToday(writtenDate));
 		document.getElementById('writeDateBefore').innerText = timeForToday(writtenDate);
 		document.getElementById('lastestWriteDate').innerText = timeForToday(lastestWrittenDate);
-		
 		/* 1995-12-17T03:24:00 */
+		function chk_file_type(obj) {
+
+	var file_kind = obj.value.lastIndexOf('.');
+
+	var file_name = obj.value.substring(file_kind+1,obj.length);
+
+	var file_type = file_name.toLowerCase();
+
+	var check_file_type=new Array();
+
+	check_file_type=['jpg','gif','png','jpeg','bmp','tif'];
+
+
+
+	if(check_file_type.indexOf(file_type)==-1) {
+
+		alert('이미지 파일만 업로드 가능합니다.');
+
+		var parent_Obj=obj.parentNode;
+
+		var node=parent_Obj.replaceChild(obj.cloneNode(true),obj);
+
+
+
+		document.getElementById("imageCheck").value = "";    //초기화를 위한 추가 코드
+
+		document.getElementById("imageCheck").select();        //초기화를 위한 추가 코드
+
+		document.selection.clear();                                                //일부 브라우저 미지원
+
+		return false;
+	}
+}
 	</script>
 <jsp:include page="/WEB-INF/views/common/footer.jsp"/>
