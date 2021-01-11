@@ -42,16 +42,16 @@
     left:84%;
 }
 .div_preview{
+    position:relative;
+}
+.div_preview>p{
+	margin-bottom:10px;
+}
+.div_preview>textarea{
+	width:100%;
+}
+.div_description>textarea{
     width:100%;
-    min-width: 580px;    
-    height:60vh;        
-    border:1px rgb(119, 119, 119) solid;
-    text-align: center;     
-    margin-top:36px;
-    margin-bottom:10px;    
-}   
-#ads_url{
-    width:40%;
 }
 .div_submit{
     margin-left:45%;

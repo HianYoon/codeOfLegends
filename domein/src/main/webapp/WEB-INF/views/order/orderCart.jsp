@@ -57,7 +57,7 @@ location.href = '${path}/order/mustLogin.do';
 		<br>
 		<textarea rows="5" cols="60" id="receiverComment"></textarea>
 		<br>
-		<input type="number" id="discount" readonly> 할인 금액
+		<input type="number" id="discount"> 할인 금액
 		<br>
 		<input type="number" id="totalPrice" readonly> 총 계
 
@@ -66,7 +66,6 @@ location.href = '${path}/order/mustLogin.do';
 			onclick="requestPayButtonFunction(); return false;"
 			class="btn btn--primary">결제</button>
 	</form>
-	
 </section>
 
 <script>
@@ -74,21 +73,14 @@ location.href = '${path}/order/mustLogin.do';
 	const sumPrice = $("#sumPrice");
 	const discount = $("#discount");
 	const totalPrice = $("#totalPrice");
-	/* 2021/1/11 할인율 공식 추가 */
 	sumPrice.change(e=>{
-		<c:if test="${signedInMember.levelNo <10}">
-		
-		discount.val(parseInt((${signedInMember.levelNo} /100) * sumPrice.val()) );
-		</c:if>
-		<c:if test="${signedInMember.levelNo >= 10}">
-		
-		discount.val(parseInt((10 / 100) * sumPrice.val()));
-		</c:if>
-		
+
+		totalPriceChanger();
+	})
+	discount.change(e=>{
 		totalPriceChanger();
 	})
 	
-	/*/////////////////////////////////////////////////////// */
 	function totalPriceChanger(){
 		totalPrice.val(sumPrice.val() - discount.val());
 	}
@@ -130,15 +122,10 @@ location.href = '${path}/order/mustLogin.do';
 		        		"receiverTel" : $("#receiverTel").val(),
 		        		"discount" : $("#discount").val(),
 		        		"receiverComment" : $("#receiverComment").val(),
-		        		"totalPrice" : sumPrice.val() - discount.val(),
-		        		/* 1: auction, 2: direct_sale 3:banner_ads 4:auction_ads 5:direct_sale_ads*/
-		        		"orderTargetNo" : 1
+		        		"totalPrice" : sumPrice.val() - discount.val()
 		        	},
 		        	success: (data)=>{
-		        		/* 데이터는 orderNo입니다. JSON 파싱 필요없이 바로 넘버로서 사용 가능 */
-		        		/* orderNo를 이용해서, 각자 필요한 order_history로 집어넣으세요. location.href 추천 */
-		        		
-		        		
+		        		console.log(data);
 		        		}
 		        	})
 		    } else {

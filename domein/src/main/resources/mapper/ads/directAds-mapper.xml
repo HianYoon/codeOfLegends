@@ -1,12 +1,42 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="directAds">
+	<resultMap type="directAds" id="directAdsMap">
+		<id column="ADS_KEY" property="adsKey"/>
+		<result column="APPLICANT_KEY" property="applicantKey"/>		
+		<result column="START_DATE" property="startDate"/>
+		<result column="END_DATE" property="endDate"/>
+		<result column="APPLY_DATE" property="applyDate"/>		
+		<result column="ADS_DESCRIPTION" property="adsDescription"/>
+		<result column="ADS_MEMO" property="adsMemo"/>
+		<result column="ADS_STATUS_NO" property="adsStatusNo"/>
+		<result column="ADS_TITLE" property="adsTitle"/>
+		<result column="ADS_PRICE" property="adsPrice"/>				
+		<result column="STATUS_DESC" property="statusDesc"/>				
+		<result column="NICKNAME" property="nickName"/>				
+		<result column="SALE_CONTENT" property="saleContent"/>				
+	</resultMap>
+	
+	<!-- ////////////////////////////////////////////////////////////////////////////////////////////////// -->
+	<!-- BOARD_DIRECT_SALE을 불러오기 위한 몸부림 -->
+	<resultMap type="com.col.domein.product.model.vo.BoardProductSaleContent" id="boardProductSaleContentMap">
+		<id column="ARTICLE_NO" property="articleNo"/>
+		<result column="TITLE" property="title"/>		
+		<result column="BUSINESS_KEY" property="businessKey"/>
+		<result column="WRITTEN_DATE" property="writtenDate"/>
+		<result column="MODIFIED_DATE" property="modifiedDate"/>		
+		<result column="SALE_CONTENT" property="saleContent"/>
+		<result column="ORDER_COUNT" property="orderCount"/>
+		<result column="SALE_STATUS_NO" property="saleStatusNo"/>					
+	</resultMap>
+	<!-- ////////////////////////////////////////////////////////////////////////////////////////////////// -->
 
+	
 	<!-- adsController(회원신청 용) -->
 
 	<insert id="insertDirectAds" parameterType="directAds">
 		INSERT INTO DIRECT_SALES_ADS VALUES(SEQ_ADS_KEY.NEXTVAL,#{applicantKey},
-			#{startDate},#{endDate},SYSDATE,DEFAULT,DEFAULT,#{articleNo},#{adsPrice})
+			#{startDate},#{endDate},SYSDATE,DEFAULT,DEFAULT,#{articleNo},#{adsPrice},#{adsTitle},#{adsDescription})
 	</insert>
 
 	<select id="selectDirectHoldCount" parameterType="int" resultType="int">
@@ -28,11 +58,16 @@
 		SELECT ADS_RATE FROM (SELECT * FROM ADS_RATING ORDER BY SET_DATE DESC) WHERE ROWNUM=1 AND ADS_TYPE=2
 	</select>
 	
-	<select id="selectBoardDirectSale" parameterType="com.col.domein.product.model.vo.BoardProductSaleContent" resultType="list">
-		SELECT * FROM BOARD_DIRECT_SALE WHERE BUSINESS_KEY IN
+	<select id="selectBoardDirectSale" parameterType="int" resultMap="boardProductSaleContentMap">
+		SELECT ARTICLE_NO, TITLE, BUSINESS_KEY, MODIFIED_DATE, SALE_CONTENT FROM BOARD_DIRECT_SALE WHERE BUSINESS_KEY IN 
 		<foreach collection="list" item="k" index="i" open="(" separator="," close=")">
 			#{k}
 		</foreach>
+	</select>
+	
+	<!-- ajax로 내가 쓴 게시글 불러오는 구문 (directAdsApplication) -->
+	<select id="selectDirectSaleContent" parameterType="string" resultType="string">
+		SELECT SALE_CONTENT FROM BOARD_DIRECT_SALE WHERE ARTICLE_NO=#{articleNo}
 	</select>
 	
 	<!-- ///////////////////////////////////////////////////////////////////////////////////////////////////////////// -->
@@ -47,8 +82,39 @@
 		SELECT COUNT(ADS_STATUS_NO) FROM DIRECT_SALES_ADS WHERE ADS_STATUS_NO=6 AND APPLY_DATE BETWEEN '210101' AND '211231' GROUP BY SUBSTR(APPLY_DATE,4,2)
 	</select>
 	
-	<select id="selectDirectPending" resultType="int">
-		SELECT COUNT(ADS_STATUS_NO) FROM DIRECT_SALES_ADS WHERE ADS_STATUS_NO=0 AND APPLY_DATE BETWEEN '210101' AND '211231' GROUP BY SUBSTR(APPLY_DATE,4,2)
+		
+	<!-- ///////////////////////////////////////////////////////////////////////////////////////////////////////////// -->
+	
+	<!-- DirectAds관리자 게시판 총 광고 요청수(count) -->
+	<select id="selectDirectCountAll" resultType="_int">
+		SELECT COUNT(*) FROM DIRECT_SALES_ADS
 	</select>
+	
+	<!-- DirectAds 관리자 게시판 data -->
+	<select id="selectDirectBoardAll" resultMap="directAdsMap">
+		SELECT ADS_KEY, STATUS_DESC, ADS_TITLE, APPLY_DATE, NICKNAME FROM DIRECT_SALES_ADS 
+		LEFT JOIN ADS_STATUS ON DIRECT_SALES_ADS.ADS_STATUS_NO=ADS_STATUS.ADS_STATUS_NO 
+		LEFT JOIN MEMBER ON DIRECT_SALES_ADS.APPLICANT_KEY=MEMBER.MEMBER_KEY
+	</select>
+	
+	<!-- DirectAds 관리자 게시판 검토대기중인 요청수(count) -->
+	<select id="selectDirectPending" resultType="int">
+		SELECT COUNT(ADS_STATUS_NO) FROM DIRECT_SALES_ADS WHERE ADS_STATUS_NO=0
+	</select>
+	
+	<select id="selectDirectWhole" parameterType="int" resultMap="directAdsMap">
+		SELECT ADS_KEY, START_DATE, END_DATE, APPLY_DATE, ADS_DESCRIPTION, ADS_MEMO, ADS_TITLE, ADS_PRICE, NICKNAME, SALE_CONTENT 
+		FROM DIRECT_SALES_ADS LEFT JOIN MEMBER ON DIRECT_SALES_ADS.APPLICANT_KEY=MEMBER.MEMBER_KEY
+		LEFT JOIN BOARD_DIRECT_SALE USING (ARTICLE_NO)
+		WHERE ADS_KEY=#{adsKey} 
+	</select>
+	
+	<update id="updateDirectAccept" parameterType="int">
+		UPDATE DIRECT_SALES_ADS SET ADS_STATUS_NO=1 WHERE ADS_KEY=#{adsKey}
+	</update>
+	
+	<update id="updateDirectDeny" parameterType="int">
+		UPDATE DIRECT_SALES_ADS SET ADS_STATUS_NO=6 WHERE ADS_KEY=#{adsKey}
+	</update>
 	
 </mapper>

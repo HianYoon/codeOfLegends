@@ -37,7 +37,7 @@
 	            <br>
 	            <p>
 	                <c:out value="<b>${signedInMember.nickname}</b>" escapeXml="false"/> 님, 안녕하세요!<br>
-	                현재 검토 대기중인 광고 요청이 총 <b style="color:red"><c:out value="${bannerHoldCount }"/></b> 건 있습니다.
+	                현재 검토 대기중인 광고 요청이 배너(<b style="color:red">${bannerHoldCount }</b>) 건 / 판매(<b style="color:red">${directHoldCount}</b>) 건 있습니다.
 	            </p>
 	        </div>
 	        <hr>

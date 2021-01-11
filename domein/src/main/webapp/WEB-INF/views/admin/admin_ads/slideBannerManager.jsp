@@ -79,7 +79,8 @@
 	            </div>
 	        </form>
 	        <hr>
-	        <h4><u>현재 승인된 광고</u></h4>
+	        <h4 class="currentView"><u>현재 승인된 광고</u></h4>	        
+	        <p>마우스를 가져다대시면 크게 확대됩니다.</p>
 	        <br>
 	        <!-- 이미지 호버 시 크게 확대되서 div_preview에 출력 -->	      
             <div class="div_preview">            	
@@ -91,7 +92,7 @@
 		            </c:forEach>
 	            </div>
             </div>
-            <br><br><br>
+            <br><br><br><br><br><br>
         </div>
     </div>
 </section>
