@@ -2,6 +2,9 @@ package com.col.domein.auction.model.vo;
 
 import org.springframework.stereotype.Component;
 
+import lombok.AllArgsConstructor;
+
+
 import lombok.Builder;
 @Builder
 @Component
@@ -86,8 +89,5 @@ public class BoardAttachementFile {
 		return "BoardAttachementFile [fileKey=" + fileKey + ", articleNo=" + articleNo + ", originalFileName="
 				+ originalFileName + ", renamedFileName=" + renamedFileName + "]";
 	}
-	
-	
-	 
 
 }

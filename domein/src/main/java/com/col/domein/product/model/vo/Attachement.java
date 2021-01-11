@@ -2,12 +2,17 @@ package com.col.domein.product.model.vo;
 
 import org.springframework.stereotype.Component;
 
+import lombok.AllArgsConstructor;
 import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 
-@Builder
+@Data
 @Component
-
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class Attachement implements Comparable<Attachement> {
 	
 	private int productNo;//상품 넘버
