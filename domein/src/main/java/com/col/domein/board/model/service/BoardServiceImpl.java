@@ -46,10 +46,18 @@ public class BoardServiceImpl implements BoardService{
 //	}
 
 	@Override
-	public int insertBoard(Board board) {
+	public int insertBoard(Map map) {
 		// TODO Auto-generated method stub
 		/* return dao.insertBoard(session, board); */
-		return dao.insertBoard(session,  board);
+		int result = dao.insertBoard(session,  map);
+		
+		System.out.println(map.get("memberKey")+" "+ map.get("threadTitle"));
+		System.out.println(map.get("threadKey"));
+		if(result == 1) {
+			dao.insertArticle(session, map);
+		}
+		
+		return result;
 	}
 	@Override
 	public Board selectBoardOne(int threadKey) {
