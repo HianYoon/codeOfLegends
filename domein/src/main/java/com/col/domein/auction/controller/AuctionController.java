@@ -24,6 +24,8 @@ import com.col.domein.auction.model.vo.BidContent;
 import com.col.domein.auction.model.vo.BoardAttachementFile;
 import com.col.domein.auction.model.vo.BoardAttachementImage;
 import com.col.domein.auction.model.vo.BoardAuction;
+import com.col.domein.auctionComment.model.service.AuctionCommentService;
+import com.col.domein.auctionComment.model.vo.AuctionComment;
 import com.col.domein.business.model.vo.Business;
 import com.col.domein.common.pageBar.PageBarFactory;
 
@@ -31,6 +33,8 @@ import com.col.domein.common.pageBar.PageBarFactory;
 public class AuctionController {
 	@Autowired
 	private AuctionService service;
+	@Autowired
+	private AuctionCommentService ACservice;
 	//옥션등록
 	@RequestMapping("/auction/auctionEnllo.do")
 	public ModelAndView auctionEnllo(ModelAndView mv, int memberKey) {
@@ -173,6 +177,10 @@ public class AuctionController {
 		int count=service.selectAuctionJoinCount(articleNo);//참여업체수 
 		//조회수 +1
 		service.plusReadCount(articleNo);
+		
+		List<Map> Aclist=ACservice.selectAuctionComment(articleNo);
+		
+		mv.addObject("Aclist",Aclist);
 		mv.addObject("list",list);
 		mv.addObject("count",count);
 		mv.addObject("company",company);

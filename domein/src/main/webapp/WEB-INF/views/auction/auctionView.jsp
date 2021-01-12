@@ -171,9 +171,9 @@
 		                             	
 		                             		<input  class="form-control" name="writerKey" id="reg_id" value="${signedInMember.memberKey }" placeholder="댓글 작성자"/>
 		                             		<input  type="hidden" class="articleStatusNo" value="1" name="articleStatusNo"/>
-		                             			<input  type="text"  name="refArticle" value="${list.ARTICLE_NO}"/>
+		                             			<input  type="text" id="refArticle" name="refArticle" value="${list.ARTICLE_NO}"/>
 		                             		</c:forEach>	
-		                             		<input  type="hidden"  value="1" name="refComment"/>
+		                             		<!-- <input  type="hidden"  value="1" name="refComment"/> -->
 		                             		<input type="file" name="upFile" id="upFile"/>
 		                             		<button type="button" class="btn btn-primary" id="btnReplaSave" >저장</button>
 		                             		
@@ -181,11 +181,11 @@
 		                             </div>
 									</form >
 								</div>
+							</div>
 									<div class="my-3 p-3 bg-white rounded shadow-sm" style="padding-top: 10px">
 										<h6 class="border-bottom pb-2 mb-0">Reply list</h6>
 										<div id="replyList"></div>
 									</div> 
-							</div>
 
             </div>
         </div>
@@ -205,6 +205,33 @@
 			$("#review-container").css("display","block");
 		});
 	})
+	$("#Commentlist").click(function(){
+		commentList();//댓글 목록 불러오기 
+	});
+	//댓글 목록 불러오기 
+	const refNo=$("#refArticle").val();
+	let refArticle = Number(refNo);
+	function commentList(){
+		$.ajax({
+			url:"${path}/auction/commentList",
+			type:'get',
+			data:{'refArticle':refArticle},
+			success: function(result){
+				var htmls='';
+				for(let i=0;i < result.length;i++){
+					htmls += '<div class="commentArea" style="border-bottom:1px solid darkgray; margin-bottom: 15px;">';
+					htmls += '<div class="commentInfo'+result[i].AUCTION_COMMENT_NO+'"><input type="hidden" id="cNo" value="'+result[i].AUCTION_COMMENT_NO+'"/>'+'댓글번호 : '+result[i].AUCTION_COMMENT_NO+' / 작성자 : '+result[i].WRITER_KEY;
+					htmls += '<img src"${path}/resources/upload/auction/file/'+result[i].RENAMED_FILE_NAME+'" style="width:20px;heigth:20px"/>';
+					htmls += '<input type="button" onclick="commentUpdate('+result[i].AUCTION_COMMENT_NO+',\''+result[i].WRITER_KEY+'\');"> 수정 </input>';
+					htmls += '<input type="button" onclick="commentDelete('+result[i].AUCTION_COMMENT_NO+');"> 삭제 </input> </div>';
+					htmls += '<div class="commentContent'+result[i].AUCTION_COMMENT_NO+'"> <p class="AcContent">'+result[i].COMMENT_CONTENT+'</p>';
+					htmls += '</div></div>';
+			}
+			$("#replyList").html(htmls);
+			}
+			
+		});
+	}
 	//댓글등록하기 
 	 $(document).on("click","#btnReplaSave",function (){
 	
@@ -213,7 +240,7 @@
 		var fileform=new FormData(form);
 		$("#btnReplaSave").prop("disabled",true);
 		console.log(form);
-		
+		commentList();
 		$.ajax({
 			type:"POST",
 			enctype:"multipart/form-data",
@@ -226,30 +253,56 @@
 				if(result.length < 1){
 					htmls.push("등록된 댓글이 없습니다.");
 				}else{
-					$(result).each(function(){
-						htmls +='<div class="media text-muted pt-3" id="rid'+this.rid+'">';
-						htmls +='<div class="bd-placeholder-img mr-2 rounded" width="32" height="32" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder:32x32">';
-						htmls +='<title>Placeholder</title>';
-						htmls +='<rect width="100%" height="100%" fill="#007bff"></rect>';
-						htmls +='<text x="50%" fill="#007bff" dy = ".3em">32x32</text>';
-						htmls +='</div>';
-						htmls +='<p class="media-body pb-3 mb-0 small Ih-125 border-bottom horder-gray">';
-						htmls +='<span class="d-block">';
-						htmls +='<strong class="text-gray-dark">'+this.reg_id+'</strong>';
-						htmls +='<span style="padding-left: 7px; font-size:9pt">';
-						htmls +='<a href="javascript:void(0)" onclick="fn-editReply('+this.rid+',\''+this.reg_id+'\',\''+this.content+'\')" style="padding-right:5px">수정</a>';
-						htmls +='<a href="javascript:void(0)" onclick="fn_deleteReplay('+this.rid+')">삭제</a>';
-						htmls +='</span>';
-						htmls +='</span>';
-						htmls +='</p>';
-						htmls +='</div>';
-						
-					});
-				
+					for(let i=0;i < result.length;i++){
+						htmls += '<div class="commentArea" style="border-bottom:1px solid darkgray; margin-bottom: 15px;">';
+						htmls += '<div class="commentInfo'+result[i].AUCTION_COMMENT_NO+'"><input type="hidden" id="cNo" value="'+result[i].AUCTION_COMMENT_NO+'"/>'+'댓글번호 : '+result[i].AUCTION_COMMENT_NO+' / 작성자 : '+result[i].WRITER_KEY;
+						htmls += '<img src"${path}/resources/upload/auction/file/'+result[i].RENAMED_FILE_NAME+'" style="width:20px;heigth:20px"/>';
+						htmls += '<input type="button" onclick="commentUpdate('+result[i].AUCTION_COMMENT_NO+',\''+result[i].WRITER_KEY+'\' value="'+result[i].AUCTION_COMMENT_NO+'수정");"> </input>';
+						htmls += '<input type="button" onclick="commentDelete('+result[i].AUCTION_COMMENT_NO+');" value="'+result[i].AUCTION_COMMENT_NO+'삭제"></input> </div>';
+						htmls += '<div class="commentContent'+result[i].AUCTION_COMMENT_NO+'"> <p class="AcContent">'+result[i].COMMENT_CONTENT+'</p>';
+						htmls += '</div></div>';
 				}
-				$("#replayList").html(htmls);
+				$("#replyList").html(htmls);
+			}
+		}
+		});
+	 });
+	//댓글 수정 input폼으로 변경
+	function commentUpdate(articleNo,content){
+	console.log("내용:"+content);
+	console.log("article"+articleNo);
+	
+		var b= "";
+		b += '<div class="input-group">';
+		b += '<input type="text" class="form-control" name="commentContent'+articleNo+'" value="'+content+'"/>';
+		b += '<span class="input-group-btn"><button class="btn btn-default" type="button" onclick="commentUpdateProc('+content+');">수정</button></span>';
+		b += '</div>';
+		$(".commentContent"+articleNo).html(b);
+	} 
+	
+	//댓글 수정
+	function commentUpdateProc(articleNo){
+		console.log("수정"+articleNo);
+		var updateContent=$('[name=commentContent'+articleNo+']').val();
+		$.ajax({
+			url:"${path}/auctionComment/update.do",
+			data:{'commentContent': updateContent,'refArticle':articleNo},
+			success: function(data){
+				if(data == 1 ) commentList(articleNo);// 댓글 수정후 목록
+			}
+		})
+	}
+	function commentDelete(articleNo){
+		const auctionCommentNo="auctionCommentNo="+articleNo;
+		console.log(articleNo);
+		$.ajax({
+			url:'${path}/auctionComment/delete.do',
+			data:auctionCommentNo,
+			type:'post',
+			success: function(data){
+				if(data == 1) commentList(articleNo);//댓글 삭제후 목록 출력
 			}
 		});
-		}); 
+	}
 </script>
 <jsp:include page="/WEB-INF/views/common/footer.jsp"/>
