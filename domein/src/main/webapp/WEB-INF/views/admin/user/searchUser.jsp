@@ -43,9 +43,9 @@
 				</form>
 			</div>
 			<div class="wrap-result">
-				<div class="wrap-title">
+				<%-- <div class="wrap-title">
 					<h2 class="page-title">총 회원수: ${totalData }명</h2>
-				</div>
+				</div> --%>
 				<div class="wrap-contents">
 					<div class="wrap-inner">
 						<ul class="lists-result">
