@@ -369,7 +369,7 @@ textarea#content {
     border-radius: 5px;
     margin: 20px;
     background-position: center;
-    background-color: blue;
+    background-color: white;
     margin: 10px 0;
 }
 .choice----box ul:hover{
@@ -377,6 +377,12 @@ textarea#content {
 }
 .choice----box:hover {
     filter: invert(1);
+}
+p.joinComponyCount {
+    font-size: 35px;
+    text-align: center;
+    margin: 20px;
+    width: 100%;
 }
 .modal-btn {
     display: flex;

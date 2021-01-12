@@ -380,7 +380,7 @@ function minusDown(e,poductNo){
     
     allCheckInBox.onclick=function(){
     	const inputs=cartContainer.querySelectorAll("input[type='checkbox']");
-    	alert("진짜냐");
+    	alert("체크되었습니다.");
     		if($("input:checkbox[name=cartCheck]").is(":checked") ==false){
     			$("input[type='checkbox']").prop("checked",true);
     			console.log("1");

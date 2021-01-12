@@ -95,8 +95,11 @@
                                 
                             </div>
                         </div>
+                                 <c:set value="${count}" var="count"/>
                         
                         <div class="choice-company-container">
+                       <c:if  test="${count != 0 }">
+                        <p class="joinComponyCount">< 참여한 업체  ></p>
                         <div class="choice----box">
                             <form name="forfor" >
                                     <c:forEach items="${business}" var="business">
@@ -114,6 +117,11 @@
                                     </c:forEach>
 							</form>	
                           </div>      
+                       </c:if>
+                       <c:if test="${count == 0 }">
+                       
+                       		<p class="joinComponyCount">< 참여한 업체가 없습니다. ></p>
+                       </c:if>
                                 <!-- 모달스크립트 -->
                                 <div class="modal-btn">
                                     
@@ -138,7 +146,6 @@
                     		</c:if>
                                  <li><a href="#review-container"  id="QnA">Q & A</a></li>
                                  <li>조회수:<c:out value="${list.READ_COUNT}"/></li>
-                                 <c:set value="${count}" var="count"/>
                                  <li>참여수:<c:out value="${count}"/></li>
                              </ul>
                         </div>
