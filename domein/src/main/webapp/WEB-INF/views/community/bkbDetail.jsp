@@ -45,8 +45,8 @@
 								</p>
 								<div class="box-button">
 									<button class="btn-like">
-										<span class="number-like">0</span>
-										<img src="${path }/resources/images/profile/jjim.png" alt="">
+										<%-- <span class="number-like">0</span>
+										<img src="${path }/resources/images/profile/jjim.png" alt=""> 미구현부분--%>
 									</button>
 								</div>
 							</div>
@@ -61,8 +61,8 @@
 											<div><dt>마지막 댓글</dt><dd>없음</dd></div>
 										</c:if>
 										<div><dt>댓글</dt><dd><c:out value="${list.size()-1 }"/></dd></div>
-										<div><dt>조회수</dt><dd>19</dd></div>
-										<div><dt>좋아요</dt><dd>3</dd></div>
+										<div><dt>조회수</dt><dd>0</dd></div>
+										<div><dt>좋아요</dt><dd>0</dd></div>
 									</dl>				
 								</div>
 							</c:if>

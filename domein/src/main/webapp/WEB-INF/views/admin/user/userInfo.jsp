@@ -53,7 +53,7 @@
 								</div>
 							</dl>
 						</div>
-						<form action="">
+						<!-- <form action="">
 							<div class="box-form">
 								<div class="wrap-data">
 									<select name="" id="">
@@ -69,7 +69,7 @@
 								</div>
 								<input type="submit" class="button-type-1"  value="제재">
 							</div>
-						</form>
+						</form> -->
 					</div>
 				</div>
 			</div>
