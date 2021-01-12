@@ -1,0 +1,42 @@
+#wholeback{
+    display:flex;
+    flex-flow:row wrap;    
+}
+.tab_menu{
+    width:18%;
+    min-width: 240px;        
+    /* background-color: #ffca28; */
+    font-size:18px;
+    border:1px #ddd solid;
+    padding-left:15px;
+}
+.tab_menu h2{
+    margin-bottom:12px;
+}
+#container{
+    width:55%;    
+    margin-left:20px;
+}
+#container>h2{
+	margin:7px;
+}
+#container hr{
+    margin-left:-20px;
+}
+.div_graphs{
+    display:flex;
+    flex-flow: row wrap;
+}
+.div_graphs div{    
+    margin-bottom:20px;
+}
+#div_auction{
+    border:1px black solid;
+    margin-right:10px;    
+}
+#div_directSales{    
+    border:1px black solid;
+}
+#div_member{
+    border:1px black solid;
+}

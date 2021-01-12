@@ -29,10 +29,17 @@
 <section id="content">
 	<div id="wholeback">
 	    <div class="tab_menu">
-	        <ul><h2>[관리자] 광고관리</h2>
+	        <ul><h2>[관리자 페이지]</h2>
+	        	<h3>광고관리</h3>
 	            <li><a href="${path }/admin/admin_ads/adminBannerManage.do"><h5>슬라이드 배너 관리</h5></a></li>
 	            <li><a href="${path }/admin/admin_ads/adminBannerBoard.do"><h5>슬라이드 배너 요청 검토</h5></a></li>
 	            <li><a href="${path }/admin/admin_ads/adminDirectBoard.do"><h5>추천 게시글 요청 검토</h5></a></li>
+	        </ul>
+	        <br>
+	        <ul><h3><a href="${path }/admin/analysis.do">통계(입찰/ 판매/ 회원관련)</a></h3>
+	        	<!-- <li><a href=""><h5>입찰 통계</h5></a></li>
+	        	<li><a href=""><h5>판매 통계</h5></a></li>
+	        	<li><a href=""><h5>회원관련 통계</h5></a></li>	 -->        	        
 	        </ul>
 	    </div>
 	    <div id="container">

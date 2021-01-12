@@ -214,7 +214,7 @@ public class AdminAdsController {
 		return mv;
 	}
 	
-	
+	//관리자 다이렉트 광고 승인/반려 (ajax통신)
 	@RequestMapping("/admin/admin_ads/adminDirectDecision.do")
 	public void adminDirectDeciseion(HttpServletResponse response,
 			@RequestParam(value="decision",defaultValue="0") int decision,
@@ -239,6 +239,13 @@ public class AdminAdsController {
 			response.setContentType("text/html;charset=utf-8");
 			response.getWriter().print(msg);
 		}
+	}
+	
+	
+	@RequestMapping("/admin/analysis.do")
+	public ModelAndView viewAnalysis(ModelAndView mv) {
+		mv.setViewName("/admin/admin_analysis/analysisMain");
+		return mv;
 	}
 	
 	

@@ -33,6 +33,7 @@
 		<typeAlias type="com.col.domein.auction.model.vo.BidContent" alias="bidContent"/>
 		<typeAlias type="com.col.domein.auctionComment.model.vo.AuctionComment" alias="auctionComment"/>
 		<typeAlias type="com.col.domein.order.model.vo.Order" alias="order"/>
+		<typeAlias type="com.col.domein.chatting.model.vo.Chat" alias="chat"/>
 	</typeAliases>
 
 </configuration>

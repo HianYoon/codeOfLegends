@@ -176,17 +176,13 @@
             alert("이미지파일의 형식만 업로드 할 수 있습니다.\n(지원하는 확장자형식: jpg/jpeg/png/gif)");
             return fn_deleteFile();
         }
-        reader.onload=function(e){     
-            // let img=$("<img>").attr({src:"e.target.result",name:"preImage",width:"580",height:"200"});           
+        reader.onload=function(e){                          
             let img=document.createElement("img");
             img.setAttribute("src",e.target.result);
             img.setAttribute("width","100%");
-            img.setAttribute("height","100%"); 
-            // img.setAttribute("object-fit","contain");                
+            img.setAttribute("height","100%");                          
             $("#div_preImage").children().css("display","none");
-            $("#div_preImage").append(img);
-            // $("#preImage").attr("src",e.target.result);                
-            // // $("#div_preImage").append("#preImage");
+            $("#div_preImage").append(img);           
         }
         reader.readAsDataURL(e.target.files[0]);
     }

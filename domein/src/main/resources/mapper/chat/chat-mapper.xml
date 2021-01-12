@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="chat">
+	<resultMap type="chat" id="chatMap">
+		<id column="CHATROOM_KEY" property="chatroomKey"/>
+		<result column="WRITER_KEY" property="writerKey"/>	
+		<result column="MSG_CONTENT" property="msgContent"/>	
+		<result column="MSG_TIME" property="msgTime"/>	
+		<result column="ADS_ORIGINAL_FILE_NAME" property="adsOriginalFileName"/>	
+		<result column="ADS_RENAMED_FILE_NAME" property="adsRenamedFileName"/>	
+		<result column="MSG_STATUS_NO" property="msgStatusNo"/>	
+		<result column="MSG_TYPE_NO" property="msgTypeNo"/>	
+		<result column="RECEIVER_KEY" property="receiverKey"/>	
+		<result column="NICKNAME" property="nickName"/>	
+	</resultMap>	
+	
+	<insert id="insertChat" parameterType="chat">
+		INSERT INTO CHAT_MSG VALUES(SEQ_CHATROOM_KEY.NEXTVAL,#{writerKey},#{msgContent},SYSDATE," "," ",DEFAULT,DEFAULT,#{receiverKey})
+	</insert>
+	
+	<select id="selectChatroom" parameterType="int" resultType="list">
+		SELECT CHATROOM_KEY, NICKNAME FROM CHAT_MSG JOIN MEMBER ON CHAT_MSG.RECEIVER_KEY=MEMBER.MEMBER_KEY
+		WHERE WRITER_KEY=#{memberKey}
+	</select>
+	
+	<select id="selectAll" parameterType="int" resultMap="chatMap">
+		SELECT * FROM CHAT_MSG WHERE CHATROOM_KEY=#{chatroomKey}		
+	</select>
+	
+	<select id="searchUser" parameterType="string" resultType="string">
+		SELECT NICKNAME FROM MEMBER WHERE NICKNAME LIKE '%'||#{key}||'%'
+	</select>
+	
+</mapper>

@@ -115,6 +115,8 @@ public class AdsController {
 //		return mv;
 	}
 	
+	
+	//슬라이드 배너 결제
 	@RequestMapping("/ads/paymentEnd.do")
 	public ModelAndView bannerPaymentEnd(ModelAndView mv, BannerAds bannerAds, int orderNo) {
 		int result=service.bannerApply(bannerAds);
@@ -161,7 +163,7 @@ public class AdsController {
 		}
 	}
 	
-	
+	//다이렉트 광고 등록완료
 	@RequestMapping("/ads/directAdsApplicationEnd.do")
 	public ModelAndView directAdsApplyEnd(DirectAds directAds, Date startDate, Date endDate, ModelAndView mv) {
 		directAds.setStartDate(startDate);
@@ -174,7 +176,7 @@ public class AdsController {
 		return mv;
 	}
 	
-	
+	//다이렉트 광고 내용(saleContent) ajax통신
 	@RequestMapping("/ads/directAdsAjaxView.do")
 	public void directAdsAjaxView(HttpServletResponse response,
 			@RequestParam(value="articleNo",defaultValue="0") String articleNo) throws IOException {
@@ -188,6 +190,8 @@ public class AdsController {
 			response.getWriter().print("msg");
 		}
 	}
+	
+	
 	
 	
 }

@@ -186,7 +186,7 @@
 				</button>
 			</li>
 			<li>
-				<button class="btn-message">
+				<button class="btn-message" onclick="location.href='${path}/chat/chatroom.do'">
 					<img src="${path }/resources/images/common/header/icon-message.png" alt="메세지">
 				</button>
 			</li>

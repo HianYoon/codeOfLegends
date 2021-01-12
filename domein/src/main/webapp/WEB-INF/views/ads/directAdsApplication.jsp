@@ -134,24 +134,7 @@
     </div>
 </section>
 <script>
-	$(function(){
-		<%-- $("input[name=myArticle]").click(e=>{
-			$.ajax({
-				url:"<%=request.getContextPath()%>/product/productDetail",
-				/* articleNo 를 쏴주는 것 (articleNo 만으로 검색가능) */
-				data:{"boardDirectSale":<%=request.getAttribute("boardDirectSale") %>},//서버에 전달할 데이터 자바스크립트 객체형식으로 보냄{key:value...}
-				type:"get",
-				dataType:"html",
-				success:data=>{
-					$(".div_ajax").html(data);                        					
-				},
-				error:(request,status,error)=>{
-					console.log(request);
-					console.log(status);
-					console.log(error);
-				}
-			});
-		}); --%>
+	$(function(){		
 		/* datepicker 개시일에 생성 */
         $("#startDate").datepicker({
             dateFormat: 'yy-mm-dd',
