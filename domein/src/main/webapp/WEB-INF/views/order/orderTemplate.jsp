@@ -10,7 +10,18 @@
 	<jsp:param name="title" value=" " />
 </jsp:include>
 <section id="context">
-
+<Style>
+section#context {
+    display: flex;
+    justify-content: center;
+    align-items: baseline;
+}
+form {
+    display: grid;
+    justify-content: center;
+    align-items: baseline;
+}
+</Style>
 	<script>
 /* 로그인 안했으면 내쫓기 */
 <c:if test="${signedInMember == null}">
@@ -21,6 +32,13 @@ location.href = '${path}/order/mustLogin.do';
 	<!-- 아임포트 라이브러리 -->
 	<script type="text/javascript"
 		src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
+		<div class="product--container">
+			<img src="${path }/resources/upload/product/${product}" />
+			<input type="text" name="productName" value="${product}"/>
+			<input type="text" name="amount" value="${product}"/>
+			<input type="text" name="price" value="${product}"/>
+			
+		</div>
 	<button onclick="goPopup();" class="btn btn--primary">주소 찾기</button>
 	<form action="${path }">
 		<input type="tel" id="buyerTel">구매자 전화번호
@@ -39,7 +57,7 @@ location.href = '${path}/order/mustLogin.do';
 		<br>
 		<textarea rows="5" cols="60" id="receiverComment"></textarea>
 		<br>
-		<input type="number" id="discount"> 할인 금액
+		<input type="number" id="discount" readonly> 할인 금액
 		<br>
 		<input type="number" id="totalPrice" readonly> 총 계
 
@@ -48,6 +66,7 @@ location.href = '${path}/order/mustLogin.do';
 			onclick="requestPayButtonFunction(); return false;"
 			class="btn btn--primary">결제</button>
 	</form>
+	
 </section>
 
 <script>
@@ -55,14 +74,21 @@ location.href = '${path}/order/mustLogin.do';
 	const sumPrice = $("#sumPrice");
 	const discount = $("#discount");
 	const totalPrice = $("#totalPrice");
+	/* 2021/1/11 할인율 공식 추가 */
 	sumPrice.change(e=>{
-
-		totalPriceChanger();
-	})
-	discount.change(e=>{
+		<c:if test="${signedInMember.levelNo <10}">
+		
+		discount.val(parseInt((${signedInMember.levelNo} /100) * sumPrice.val()) );
+		</c:if>
+		<c:if test="${signedInMember.levelNo >= 10}">
+		
+		discount.val(parseInt((10 / 100) * sumPrice.val()));
+		</c:if>
+		
 		totalPriceChanger();
 	})
 	
+	/*/////////////////////////////////////////////////////// */
 	function totalPriceChanger(){
 		totalPrice.val(sumPrice.val() - discount.val());
 	}

@@ -152,8 +152,12 @@ header nav .list-depth-1 .depth-1 > a {
   border-left: 1px solid #ddd;
   border-top: 1px solid #ddd;
 }
-header nav .list-depth-1 .depth-1:nth-child(2) > a {
+header nav .list-depth-1 .depth-1:nth-child(2) {
+  height: 50px;
   margin-top: 50px;
+}
+header nav .list-depth-1 .depth-1:nth-child(2) .list-depth-2{
+  margin-top: -50px;
 }
 header nav .list-depth-1 .depth-1.active > a {
   width: 135px;

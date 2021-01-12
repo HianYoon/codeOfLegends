@@ -3,9 +3,18 @@
 <mapper namespace="auctionComment">
 	
 	<insert id="acComment" parameterType="auctionComment">
-		insert into AUCTION_COMMENT value(SEQ_COMMENT_NO.nextval,#{commentContent},#{writerKey},SYSDATE,SYSDATE,#{articleStatusNo},#{refArticle},#{originalFileName},#{renamedFileName})
+		INSERT INTO AUCTION_COMMENT VALUES(SEQ_AUCTION_COMMENT_NO.NEXTVAL,
+		#{commentContent},
+		#{writerKey},
+		SYSDATE,
+		SYSDATE,
+		#{articleStatusNo},
+		#{refArticle},
+		#{refComment},
+		#{originalFileName},
+		#{renamedFileName})
 		<selectKey order="AFTER" resultType="_int" keyProperty="refArticle">
-			select SEQ_COMMENT_NO.CURRVAL FROM DUAL
+			select SEQ_AUCTION_COMMENT_NO.CURRVAL FROM DUAL
 		
 		</selectKey>
 	</insert>

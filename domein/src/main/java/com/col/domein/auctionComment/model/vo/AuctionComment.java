@@ -2,25 +2,31 @@ package com.col.domein.auctionComment.model.vo;
 
 import java.sql.Date;
 
+import org.springframework.stereotype.Component;
+
+import lombok.Builder;
+@Builder
+@Component
 public class AuctionComment {
-	private int commentNo;
+	private int auctionCommentNo;
 	private String commentContent;
 	private int writerKey;
 	private Date writerDate;
 	private Date modifiedDate;
 	private int articleStatusNo;
 	private int refArticle;
-	private String refComment;
+	private int refComment;
 	private String originalFileName;
 	private String renamedFileName;
 	public AuctionComment() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	public AuctionComment(int commentNo, String commentContent, int writerKey, Date writerDate, Date modifiedDate,
-			int articleStatusNo, int refArticle, String refComment, String originalFileName, String renamedFileName) {
+	public AuctionComment(int auctionCommentNo, String commentContent, int writerKey, Date writerDate,
+			Date modifiedDate, int articleStatusNo, int refArticle, int refComment, String originalFileName,
+			String renamedFileName) {
 		super();
-		this.commentNo = commentNo;
+		this.auctionCommentNo = auctionCommentNo;
 		this.commentContent = commentContent;
 		this.writerKey = writerKey;
 		this.writerDate = writerDate;
@@ -31,11 +37,11 @@ public class AuctionComment {
 		this.originalFileName = originalFileName;
 		this.renamedFileName = renamedFileName;
 	}
-	public int getCommentNo() {
-		return commentNo;
+	public int getAuctionCommentNo() {
+		return auctionCommentNo;
 	}
-	public void setCommentNo(int commentNo) {
-		this.commentNo = commentNo;
+	public void setAuctionCommentNo(int auctionCommentNo) {
+		this.auctionCommentNo = auctionCommentNo;
 	}
 	public String getCommentContent() {
 		return commentContent;
@@ -73,10 +79,10 @@ public class AuctionComment {
 	public void setRefArticle(int refArticle) {
 		this.refArticle = refArticle;
 	}
-	public String getRefComment() {
+	public int getRefComment() {
 		return refComment;
 	}
-	public void setRefComment(String refComment) {
+	public void setRefComment(int refComment) {
 		this.refComment = refComment;
 	}
 	public String getOriginalFileName() {
@@ -96,12 +102,12 @@ public class AuctionComment {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + articleStatusNo;
+		result = prime * result + auctionCommentNo;
 		result = prime * result + ((commentContent == null) ? 0 : commentContent.hashCode());
-		result = prime * result + commentNo;
 		result = prime * result + ((modifiedDate == null) ? 0 : modifiedDate.hashCode());
 		result = prime * result + ((originalFileName == null) ? 0 : originalFileName.hashCode());
 		result = prime * result + refArticle;
-		result = prime * result + ((refComment == null) ? 0 : refComment.hashCode());
+		result = prime * result + refComment;
 		result = prime * result + ((renamedFileName == null) ? 0 : renamedFileName.hashCode());
 		result = prime * result + ((writerDate == null) ? 0 : writerDate.hashCode());
 		result = prime * result + writerKey;
@@ -118,12 +124,12 @@ public class AuctionComment {
 		AuctionComment other = (AuctionComment) obj;
 		if (articleStatusNo != other.articleStatusNo)
 			return false;
+		if (auctionCommentNo != other.auctionCommentNo)
+			return false;
 		if (commentContent == null) {
 			if (other.commentContent != null)
 				return false;
 		} else if (!commentContent.equals(other.commentContent))
-			return false;
-		if (commentNo != other.commentNo)
 			return false;
 		if (modifiedDate == null) {
 			if (other.modifiedDate != null)
@@ -137,10 +143,7 @@ public class AuctionComment {
 			return false;
 		if (refArticle != other.refArticle)
 			return false;
-		if (refComment == null) {
-			if (other.refComment != null)
-				return false;
-		} else if (!refComment.equals(other.refComment))
+		if (refComment != other.refComment)
 			return false;
 		if (renamedFileName == null) {
 			if (other.renamedFileName != null)
@@ -158,10 +161,11 @@ public class AuctionComment {
 	}
 	@Override
 	public String toString() {
-		return "AuctionComment [commentNo=" + commentNo + ", commentContent=" + commentContent + ", writerKey="
-				+ writerKey + ", writerDate=" + writerDate + ", modifiedDate=" + modifiedDate + ", articleStatusNo="
-				+ articleStatusNo + ", refArticle=" + refArticle + ", refComment=" + refComment + ", originalFileName="
-				+ originalFileName + ", renamedFileName=" + renamedFileName + "]";
+		return "AuctionComment [auctionCommentNo=" + auctionCommentNo + ", commentContent=" + commentContent
+				+ ", writerKey=" + writerKey + ", writerDate=" + writerDate + ", modifiedDate=" + modifiedDate
+				+ ", articleStatusNo=" + articleStatusNo + ", refArticle=" + refArticle + ", refComment=" + refComment
+				+ ", originalFileName=" + originalFileName + ", renamedFileName=" + renamedFileName + "]";
 	}
+	
 	
 }
