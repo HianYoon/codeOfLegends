@@ -174,15 +174,16 @@ public class AuctionController {
 		List<Map>  business=service.selectBusinessKey(writerKey);
 		List<Map> list=service.selectAuctionView(articleNo);
 		List<Map> company=service.selectJoinCompany(articleNo);//
+		int ComentCount =ACservice.selectCommentCount(articleNo);//댓글 갯수확인
+		System.out.println(" 댓글수:"+ComentCount);
 		int count=service.selectAuctionJoinCount(articleNo);//참여업체수 
 		//조회수 +1
 		service.plusReadCount(articleNo);
 		
-		List<Map> Aclist=ACservice.selectAuctionComment(articleNo);
 		
-		mv.addObject("Aclist",Aclist);
 		mv.addObject("list",list);
-		mv.addObject("count",count);
+		mv.addObject("count",count);//참여업체수 
+		mv.addObject("ComentCount",ComentCount);//댓글수
 		mv.addObject("company",company);
 		mv.addObject("business",business);
 		mv.setViewName("auction/auctionView");

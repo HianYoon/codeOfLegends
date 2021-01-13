@@ -2,11 +2,13 @@ package com.col.domein.auctionComment.model.dao;
 
 import java.util.List;
 import java.util.Map;
+import java.util.TreeMap;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
 import com.col.domein.auctionComment.model.vo.AuctionComment;
+import com.col.domein.auctionComment.model.vo.AuctionCommentLike;
 
 @Repository
 public class AuctionCommentDaoImpl implements AuctionCommentDao {
@@ -36,6 +38,18 @@ public class AuctionCommentDaoImpl implements AuctionCommentDao {
 	public int commentDelete(SqlSession session, int auctionCommentNo) {
 		// TODO Auto-generated method stub
 		return session.delete("auctionComment.commentDelete",auctionCommentNo);
+	}
+
+	@Override
+	public int selectCommentCount(SqlSession session, int articleNo) {
+		// TODO Auto-generated method stub
+		return session.selectOne("auctionComment.selectCommentCount",articleNo);
+	}
+	//좋아요
+	@Override
+	public int insertLike(SqlSession session,AuctionCommentLike like) {
+		// TODO Auto-generated method stub
+		return session.insert("auctionComment.insertLike",like);
 	}
 
 

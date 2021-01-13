@@ -31,4 +31,12 @@
 	<delete id="commentDelete" parameterType="_int">
 		delete from AUCTION_COMMENT where AUCTION_COMMENT_NO=#{refArticle}
 	</delete>
+	
+	<select id="selectCommentCount" resultType="_int">
+			select count(*) from AUCTION_COMMENT where REF_ARTICLE=#{articleNo}
+	</select>
+	
+	<insert id="insertLike" parameterType="auctionCommentLike">
+		insert into AUCTION_COMMENT_LIKE values(#{commentNo},#{actorKey},SYSDATE)
+	</insert>
 </mapper>

@@ -5,12 +5,14 @@
     <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
      <c:set var="path" value="${pageContext.request.contextPath }"/>
     
-<link rel="stylesheet" href="${path }/resources/css/auction/auction.css" />
-  <link rel="stylesheet" href="${path }/resources/css/jihunTab/TabMedia.css"/>
   
 <jsp:include page="/WEB-INF/views/common/header.jsp">
 	<jsp:param name="title" value=""/>
 </jsp:include>
+<link rel="stylesheet" href="${path }/resources/css/auction/auction.css" />
+  <link rel="stylesheet" href="${path }/resources/css/jihunTab/TabMedia.css"/>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.0.0/animate.min.css" />
+
 <style>
 .choice-conpany-container ul {
     display: flex;
@@ -26,6 +28,11 @@
 .choice-conpany-container ul:hover{
 	filter: grayscale(1);
 }
+/*like toggleClass 색깔  */
+.highlight{
+	color: black;
+}
+	
 </style>
 <script>
     $(document).ready(function(){
@@ -139,24 +146,25 @@
                                 </div>
                         <div class="OctionBuyerBar">
                              <ul>
-                         
+                         <c:set value="${ComentCount}" var="ComentCount"/>
                              <c:if test="${signedInMember !=null && list.BUSINESS_KEY !=null}">
                       
                                  <li><a href="${path }/auction/joinEnllo.do?articleNo=${list.ARTICLE_NO}">Auction</a></li>
                     		</c:if>
-                                 <li><a href="#review-container"  id="QnA">Q & A</a></li>
+                                 <li><a href="#review-container"  id="QnA">Q & A<span>(<c:out value="${ComentCount}"/>)</span></a></li>
                                  <li>조회수:<c:out value="${list.READ_COUNT}"/></li>
                                  <li>참여수:<c:out value="${count}"/></li>
                              </ul>
                         </div>
 
 
-
+					
                              <div id="review-container" class="review-container" style="/* display:none */;">
                                 <div style="margin-top: 20px" >
-                              
+                           
 		                                   <button type="button" class="btn btn-primary" id="CommentUpdate">수정</button>
 		                                   <button type="button" class="btn btn-primary" id="Commentdelete">삭제</button>
+		                     
 		                                   <button type="button" class="btn btn-primary" id="Commentlist">목록</button>
                                 </div>
 								<div class="my-3 p-3 bg-white rounded shadow-sm=" style="padding-top:10px">
@@ -169,7 +177,7 @@
 		                             	</div>
 		                             	<div class="col-sm-2">
 		                             	
-		                             		<input  class="form-control" name="writerKey" id="reg_id" value="${signedInMember.memberKey }" placeholder="댓글 작성자"/>
+		                             		<input  class="form-control" name="writerKey" id="reg_id" value="${signedInMember.memberKey}" placeholder="댓글 작성자"/>
 		                             		<input  type="hidden" class="articleStatusNo" value="1" name="articleStatusNo"/>
 		                             			<input  type="text" id="refArticle" name="refArticle" value="${list.ARTICLE_NO}"/>
 		                             		</c:forEach>	
@@ -180,6 +188,7 @@
 		                             	</div>
 		                             </div>
 									</form >
+									
 								</div>
 							</div>
 									<div class="my-3 p-3 bg-white rounded shadow-sm" style="padding-top: 10px">
@@ -224,6 +233,7 @@
 					htmls += '<img src"${path}/resources/upload/auction/file/'+result[i].RENAMED_FILE_NAME+'" style="width:20px;heigth:20px"/>';
 					htmls += '<input type="button" onclick="commentUpdate('+result[i].AUCTION_COMMENT_NO+',\''+result[i].WRITER_KEY+'\');"> 수정 </input>';
 					htmls += '<input type="button" onclick="commentDelete('+result[i].AUCTION_COMMENT_NO+');"> 삭제 </input> </div>';
+					htmls += '<a onclick="likeClick('+result[i].AUCTION_COMMENT_NO+');" data-v="'+result[i].AUCTION_COMMENT_NO+'" ><img  class="img class="animate__animated animate__bounce" id="imgLike" src="${path}/resources/images/auction/like.png" style="width:25px;height:25px;"/></a>';
 					htmls += '<div class="commentContent'+result[i].AUCTION_COMMENT_NO+'"> <p class="AcContent">'+result[i].COMMENT_CONTENT+'</p>';
 					htmls += '</div></div>';
 			}
@@ -258,7 +268,8 @@
 						htmls += '<div class="commentInfo'+result[i].AUCTION_COMMENT_NO+'"><input type="hidden" id="cNo" value="'+result[i].AUCTION_COMMENT_NO+'"/>'+'댓글번호 : '+result[i].AUCTION_COMMENT_NO+' / 작성자 : '+result[i].WRITER_KEY;
 						htmls += '<img src"${path}/resources/upload/auction/file/'+result[i].RENAMED_FILE_NAME+'" style="width:20px;heigth:20px"/>';
 						htmls += '<input type="button" onclick="commentUpdate('+result[i].AUCTION_COMMENT_NO+',\''+result[i].WRITER_KEY+'\' value="'+result[i].AUCTION_COMMENT_NO+'수정");"> </input>';
-						htmls += '<input type="button" onclick="commentDelete('+result[i].AUCTION_COMMENT_NO+');" value="'+result[i].AUCTION_COMMENT_NO+'삭제"></input> </div>';
+						htmls += '<input type="button" onclick="commentDelete('+result[i].AUCTION_COMMENT_NO+');" value="'+result[i].AUCTION_COMMENT_NO+'삭제"></input>';
+						htmls += '<input type="button" onclick="commentAdd('+result[i].AUCTION_COMMENT_NO+');" value="'+result[i].AUCTION_COMMENT_NO+'답글쓰기"></input> </div>';
 						htmls += '<div class="commentContent'+result[i].AUCTION_COMMENT_NO+'"> <p class="AcContent">'+result[i].COMMENT_CONTENT+'</p>';
 						htmls += '</div></div>';
 				}
@@ -284,6 +295,7 @@
 	function commentUpdateProc(articleNo){
 		console.log("수정"+articleNo);
 		var updateContent=$('[name=commentContent'+articleNo+']').val();
+		console.log(""+updateContent);
 		$.ajax({
 			url:"${path}/auctionComment/update.do",
 			data:{'commentContent': updateContent,'refArticle':articleNo},
@@ -292,6 +304,7 @@
 			}
 		})
 	}
+	//댓글 삭제
 	function commentDelete(articleNo){
 		const auctionCommentNo="auctionCommentNo="+articleNo;
 		console.log(articleNo);
@@ -300,7 +313,31 @@
 			data:auctionCommentNo,
 			type:'post',
 			success: function(data){
+				alert("삭제되었습니다.");
 				if(data == 1) commentList(articleNo);//댓글 삭제후 목록 출력
+			}
+		});
+	}
+	//좋아요 클릭 
+	function likeClick(articleNo){
+		alert("like");
+		$("#imgLike").toggleClass("highlight red");
+		console.log("like"+articleNo);
+		 let writer=$("#reg_id").val();
+		 console.log("writer"+writer);
+		 let actorKey=Number(writer);
+		$.ajax({
+			url:"${path}/auctionComment/like.do",
+			data:{"commentNo":articleNo,"actorKey":actorKey},
+			type:'post',
+			success: function(data){
+				alert("좋아요!");
+				if(data == 1 ){
+					$("#imgLike").toggleClass("highlight red");
+				}else{
+					return;
+				}
+				
 			}
 		});
 	}

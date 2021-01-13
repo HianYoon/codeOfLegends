@@ -20,6 +20,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.col.domein.auctionComment.model.service.AuctionCommentService;
 import com.col.domein.auctionComment.model.vo.AuctionComment;
+import com.col.domein.auctionComment.model.vo.AuctionCommentLike;
 
 @Controller
 public class AuctionCommentController {
@@ -72,12 +73,22 @@ public class AuctionCommentController {
 		int result=service.commentUpdate(refArticle);
 		return result;
 	}
-	
+	//댓글 삭제
 	@RequestMapping("/auctionComment/delete.do")
 	@ResponseBody
 	public int commentDelete(@RequestParam int auctionCommentNo ){
 		
 		int result=service.commentDelete(auctionCommentNo);
+		return result;
+	}
+	//좋아요
+	@RequestMapping("/auctionComment/like.do")
+	@ResponseBody
+	public int insertLike(AuctionCommentLike like){
+		System.out.println(""+like);
+	
+		int result=service.insertLike(like);
+	
 		return result;
 	}
 }

@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.col.domein.auctionComment.model.dao.AuctionCommentDao;
 import com.col.domein.auctionComment.model.vo.AuctionComment;
+import com.col.domein.auctionComment.model.vo.AuctionCommentLike;
 
 @Service
 public class AuctionCommentServiceImpl implements AuctionCommentService {
@@ -42,5 +43,19 @@ public class AuctionCommentServiceImpl implements AuctionCommentService {
 	public int commentDelete(int auctionCommentNo) {
 		// TODO Auto-generated method stub
 		return dao.commentDelete(session,auctionCommentNo);
+	}
+
+	@Override
+	public int selectCommentCount(int articleNo) {
+		// TODO Auto-generated method stub
+		return dao.selectCommentCount(session,articleNo);
+	}
+
+
+
+	@Override
+	public int insertLike(AuctionCommentLike like) {
+		// TODO Auto-generated method stub
+		return dao.insertLike(session, like);
 	}
 }
