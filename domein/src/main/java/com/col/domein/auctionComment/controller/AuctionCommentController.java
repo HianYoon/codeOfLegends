@@ -86,8 +86,12 @@ public class AuctionCommentController {
 	@ResponseBody
 	public int insertLike(AuctionCommentLike like){
 		System.out.println(""+like);
-	
-		int result=service.insertLike(like);
+		int result=0;
+		int check=service.checkLike(like);
+		if(check!=0) {
+			
+			 result=service.insertLike(like);
+		}
 	
 		return result;
 	}

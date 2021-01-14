@@ -58,4 +58,10 @@ public class AuctionCommentServiceImpl implements AuctionCommentService {
 		// TODO Auto-generated method stub
 		return dao.insertLike(session, like);
 	}
+	//좋아요 햇는지 안햇는지 체크 
+	@Override
+	public int checkLike(AuctionCommentLike like) {
+		// TODO Auto-generated method stub
+		return dao.checkLike(session,like);
+	}
 }

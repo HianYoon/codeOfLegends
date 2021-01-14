@@ -19,5 +19,7 @@ public interface AuctionCommentService {
 	int selectCommentCount(int articleNo);
 	//좋아요 
 	int insertLike(AuctionCommentLike like);
+	//체크
+	int checkLike(AuctionCommentLike like);
 
 }

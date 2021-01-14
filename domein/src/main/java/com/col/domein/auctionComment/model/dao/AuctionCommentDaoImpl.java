@@ -52,6 +52,12 @@ public class AuctionCommentDaoImpl implements AuctionCommentDao {
 		return session.insert("auctionComment.insertLike",like);
 	}
 
+	@Override
+	public int checkLike(SqlSession session, AuctionCommentLike like) {
+		// TODO Auto-generated method stub
+		return session.selectOne("auctionComment.checkLike",like);
+	}
+
 
 
 	

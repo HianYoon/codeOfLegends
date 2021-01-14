@@ -39,4 +39,8 @@
 	<insert id="insertLike" parameterType="auctionCommentLike">
 		insert into AUCTION_COMMENT_LIKE values(#{commentNo},#{actorKey},SYSDATE)
 	</insert>
+	<select id="checkLike" resultType="auctionCommentLike">
+		select * from AUCTION_COMMENT_LIKE where COMMENT_NO=#{commentNo} and ACTOR_KEY=#{actorKey}
+	</select>
+
 </mapper>

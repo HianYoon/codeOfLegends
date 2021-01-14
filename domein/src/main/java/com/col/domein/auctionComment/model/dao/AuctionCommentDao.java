@@ -22,5 +22,7 @@ public interface AuctionCommentDao {
 	int selectCommentCount(SqlSession session, int articleNo);
 	//좋아요
 	int insertLike(SqlSession session, AuctionCommentLike like);
+	//체크
+	int checkLike(SqlSession session, AuctionCommentLike like);
 
 }

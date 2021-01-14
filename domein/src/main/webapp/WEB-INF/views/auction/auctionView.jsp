@@ -54,7 +54,7 @@
     });
 
 </script>
-<section id="content">
+<section id="content" onload="showClock()">
 
  <div id="octionPage">
 
@@ -93,6 +93,7 @@
                                 <li>시작일:<fmt:formatDate value="${list.START_DATE}" pattern="yyyy-MM-dd HH:mm"/>
                                 <span class="Oction-date">마감일:<fmt:formatDate value="${list.END_DATE}" pattern="yyyy-MM-dd HH:mm"/></span>
                                 </li>
+                                <li >마감시한:<span id="clock"></span></li>
                                 <li><h4>요구사항</h4></li>
                                 <li>
                                     
@@ -161,10 +162,10 @@
 					
                              <div id="review-container" class="review-container" style="/* display:none */;">
                                 <div style="margin-top: 20px" >
-                           
+                           				<c:if test="${signedInMember != null}">
 		                                   <button type="button" class="btn btn-primary" id="CommentUpdate">수정</button>
 		                                   <button type="button" class="btn btn-primary" id="Commentdelete">삭제</button>
-		                     
+		                     			</c:if>
 		                                   <button type="button" class="btn btn-primary" id="Commentlist">목록</button>
                                 </div>
 								<div class="my-3 p-3 bg-white rounded shadow-sm=" style="padding-top:10px">
@@ -177,9 +178,9 @@
 		                             	</div>
 		                             	<div class="col-sm-2">
 		                             	
-		                             		<input  class="form-control" name="writerKey" id="reg_id" value="${signedInMember.memberKey}" placeholder="댓글 작성자"/>
+		                             		<input type="hidden" class="form-control" name="writerKey" id="reg_id" value="${signedInMember.memberKey}" placeholder="댓글 작성자"/>
 		                             		<input  type="hidden" class="articleStatusNo" value="1" name="articleStatusNo"/>
-		                             			<input  type="text" id="refArticle" name="refArticle" value="${list.ARTICLE_NO}"/>
+		                             			<input  type="hidden" id="refArticle" name="refArticle" value="${list.ARTICLE_NO}"/>
 		                             		</c:forEach>	
 		                             		<!-- <input  type="hidden"  value="1" name="refComment"/> -->
 		                             		<input type="file" name="upFile" id="upFile"/>
@@ -319,6 +320,7 @@
 		});
 	}
 	//좋아요 클릭 
+<c:if test="${signedInMember != null}">
 	function likeClick(articleNo){
 		alert("like");
 		$("#imgLike").toggleClass("highlight red");
@@ -333,13 +335,38 @@
 			success: function(data){
 				alert("좋아요!");
 				if(data == 1 ){
-					$("#imgLike").toggleClass("highlight red");
+					$("#imgLike").toggleClass("highlight");
 				}else{
+					alert("이미 클릭하셧습니다.");
 					return;
 				}
 				
 			}
 		});
 	}
+</c:if>
+<c:if test="${signedInMember == null}">
+function likeClick(articleNo){
+	alert("로그인이 필요합니다.");
+}
+</c:if>
+// 실시간 출력 
+function showClock(){
+	var currentDate=new Date();
+	var Clock=document.getElementById("clock");
+	var apm=currentDate.getHours();
+	if(apm < 12){
+		apm="오전";
+	}
+	else {
+		apm="오후";
+	}
+	var msg="현재시간:"+apm+(currentDate.getHours()-12)+"시";
+	msg += currentDate.getMinutes()+"분";
+	msg += currentDate.getSeconds()+"초";
+	
+	divClock.innerText=msg;
+	setTimeout(clock,1000);
+}
 </script>
 <jsp:include page="/WEB-INF/views/common/footer.jsp"/>
