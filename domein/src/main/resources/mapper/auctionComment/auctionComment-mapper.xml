@@ -10,7 +10,7 @@
 		SYSDATE,
 		#{articleStatusNo},
 		#{refArticle},
-		#{refComment},
+		null,
 		#{originalFileName},
 		#{renamedFileName})
 		<selectKey order="AFTER" resultType="_int" keyProperty="refArticle">
@@ -19,4 +19,28 @@
 		</selectKey>
 	</insert>
 	
+	<select id="selectAuctionComment" resultType="map">
+	select * from AUCTION_COMMENT  where REF_ARTICLE=#{refArticle} order by WRITTEN_DATE desc
+		
+	</select>
+	
+	<update id="commentUpdate" parameterType="_int">
+		update AUCTION_COMMENT COMMENT_CONTENT=#{commentContent} where AUCTION_COMMENT_NO=#{refArticle}
+		
+	</update>
+	<delete id="commentDelete" parameterType="_int">
+		delete from AUCTION_COMMENT where AUCTION_COMMENT_NO=#{refArticle}
+	</delete>
+	
+	<select id="selectCommentCount" resultType="_int">
+			select count(*) from AUCTION_COMMENT where REF_ARTICLE=#{articleNo}
+	</select>
+	
+	<insert id="insertLike" parameterType="auctionCommentLike">
+		insert into AUCTION_COMMENT_LIKE values(#{commentNo},#{actorKey},SYSDATE)
+	</insert>
+	<select id="checkLike" resultType="auctionCommentLike">
+		select * from AUCTION_COMMENT_LIKE where COMMENT_NO=#{commentNo} and ACTOR_KEY=#{actorKey}
+	</select>
+
 </mapper>

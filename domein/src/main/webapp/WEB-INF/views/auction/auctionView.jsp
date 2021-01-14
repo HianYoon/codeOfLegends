@@ -5,12 +5,14 @@
     <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
      <c:set var="path" value="${pageContext.request.contextPath }"/>
     
-<link rel="stylesheet" href="${path }/resources/css/auction/auction.css" />
-  <link rel="stylesheet" href="${path }/resources/css/jihunTab/TabMedia.css"/>
   
 <jsp:include page="/WEB-INF/views/common/header.jsp">
 	<jsp:param name="title" value=""/>
 </jsp:include>
+<link rel="stylesheet" href="${path }/resources/css/auction/auction.css" />
+  <link rel="stylesheet" href="${path }/resources/css/jihunTab/TabMedia.css"/>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.0.0/animate.min.css" />
+
 <style>
 .choice-conpany-container ul {
     display: flex;
@@ -26,6 +28,11 @@
 .choice-conpany-container ul:hover{
 	filter: grayscale(1);
 }
+/*like toggleClass 색깔  */
+.highlight{
+	color: black;
+}
+	
 </style>
 <script>
     $(document).ready(function(){
@@ -47,7 +54,7 @@
     });
 
 </script>
-<section id="content">
+<section id="content" onload="showClock()">
 
  <div id="octionPage">
 
@@ -86,6 +93,7 @@
                                 <li>시작일:<fmt:formatDate value="${list.START_DATE}" pattern="yyyy-MM-dd HH:mm"/>
                                 <span class="Oction-date">마감일:<fmt:formatDate value="${list.END_DATE}" pattern="yyyy-MM-dd HH:mm"/></span>
                                 </li>
+                                <li >마감시한:<span id="clock"></span></li>
                                 <li><h4>요구사항</h4></li>
                                 <li>
                                     
@@ -95,8 +103,11 @@
                                 
                             </div>
                         </div>
+                                 <c:set value="${count}" var="count"/>
                         
                         <div class="choice-company-container">
+                       <c:if  test="${count != 0 }">
+                        <p class="joinComponyCount">< 참여한 업체  ></p>
                         <div class="choice----box">
                             <form name="forfor" >
                                     <c:forEach items="${business}" var="business">
@@ -114,6 +125,11 @@
                                     </c:forEach>
 							</form>	
                           </div>      
+                       </c:if>
+                       <c:if test="${count == 0 }">
+                       
+                       		<p class="joinComponyCount">< 참여한 업체가 없습니다. ></p>
+                       </c:if>
                                 <!-- 모달스크립트 -->
                                 <div class="modal-btn">
                                     
@@ -131,25 +147,25 @@
                                 </div>
                         <div class="OctionBuyerBar">
                              <ul>
-                         
+                         <c:set value="${ComentCount}" var="ComentCount"/>
                              <c:if test="${signedInMember !=null && list.BUSINESS_KEY !=null}">
                       
                                  <li><a href="${path }/auction/joinEnllo.do?articleNo=${list.ARTICLE_NO}">Auction</a></li>
                     		</c:if>
-                                 <li><a href="#review-container"  id="QnA">Q & A</a></li>
+                                 <li><a href="#review-container"  id="QnA">Q & A<span>(<c:out value="${ComentCount}"/>)</span></a></li>
                                  <li>조회수:<c:out value="${list.READ_COUNT}"/></li>
-                                 <c:set value="${count}" var="count"/>
                                  <li>참여수:<c:out value="${count}"/></li>
                              </ul>
                         </div>
 
 
-
+					
                              <div id="review-container" class="review-container" style="/* display:none */;">
                                 <div style="margin-top: 20px" >
-                              
+                           				<c:if test="${signedInMember != null}">
 		                                   <button type="button" class="btn btn-primary" id="CommentUpdate">수정</button>
 		                                   <button type="button" class="btn btn-primary" id="Commentdelete">삭제</button>
+		                     			</c:if>
 		                                   <button type="button" class="btn btn-primary" id="Commentlist">목록</button>
                                 </div>
 								<div class="my-3 p-3 bg-white rounded shadow-sm=" style="padding-top:10px">
@@ -162,23 +178,24 @@
 		                             	</div>
 		                             	<div class="col-sm-2">
 		                             	
-		                             		<input  class="form-control" name="writerKey" id="reg_id" value="${signedInMember.memberKey }" placeholder="댓글 작성자"/>
+		                             		<input type="hidden" class="form-control" name="writerKey" id="reg_id" value="${signedInMember.memberKey}" placeholder="댓글 작성자"/>
 		                             		<input  type="hidden" class="articleStatusNo" value="1" name="articleStatusNo"/>
-		                             			<input  type="text"  name="refArticle" value="${list.ARTICLE_NO}"/>
+		                             			<input  type="hidden" id="refArticle" name="refArticle" value="${list.ARTICLE_NO}"/>
 		                             		</c:forEach>	
-		                             		<input  type="hidden"  value="1" name="refComment"/>
+		                             		<!-- <input  type="hidden"  value="1" name="refComment"/> -->
 		                             		<input type="file" name="upFile" id="upFile"/>
 		                             		<button type="button" class="btn btn-primary" id="btnReplaSave" >저장</button>
 		                             		
 		                             	</div>
 		                             </div>
 									</form >
+									
 								</div>
+							</div>
 									<div class="my-3 p-3 bg-white rounded shadow-sm" style="padding-top: 10px">
 										<h6 class="border-bottom pb-2 mb-0">Reply list</h6>
 										<div id="replyList"></div>
 									</div> 
-							</div>
 
             </div>
         </div>
@@ -198,6 +215,34 @@
 			$("#review-container").css("display","block");
 		});
 	})
+	$("#Commentlist").click(function(){
+		commentList();//댓글 목록 불러오기 
+	});
+	//댓글 목록 불러오기 
+	const refNo=$("#refArticle").val();
+	let refArticle = Number(refNo);
+	function commentList(){
+		$.ajax({
+			url:"${path}/auction/commentList",
+			type:'get',
+			data:{'refArticle':refArticle},
+			success: function(result){
+				var htmls='';
+				for(let i=0;i < result.length;i++){
+					htmls += '<div class="commentArea" style="border-bottom:1px solid darkgray; margin-bottom: 15px;">';
+					htmls += '<div class="commentInfo'+result[i].AUCTION_COMMENT_NO+'"><input type="hidden" id="cNo" value="'+result[i].AUCTION_COMMENT_NO+'"/>'+'댓글번호 : '+result[i].AUCTION_COMMENT_NO+' / 작성자 : '+result[i].WRITER_KEY;
+					htmls += '<img src"${path}/resources/upload/auction/file/'+result[i].RENAMED_FILE_NAME+'" style="width:20px;heigth:20px"/>';
+					htmls += '<input type="button" onclick="commentUpdate('+result[i].AUCTION_COMMENT_NO+',\''+result[i].WRITER_KEY+'\');"> 수정 </input>';
+					htmls += '<input type="button" onclick="commentDelete('+result[i].AUCTION_COMMENT_NO+');"> 삭제 </input> </div>';
+					htmls += '<a onclick="likeClick('+result[i].AUCTION_COMMENT_NO+');" data-v="'+result[i].AUCTION_COMMENT_NO+'" ><img  class="img class="animate__animated animate__bounce" id="imgLike" src="${path}/resources/images/auction/like.png" style="width:25px;height:25px;"/></a>';
+					htmls += '<div class="commentContent'+result[i].AUCTION_COMMENT_NO+'"> <p class="AcContent">'+result[i].COMMENT_CONTENT+'</p>';
+					htmls += '</div></div>';
+			}
+			$("#replyList").html(htmls);
+			}
+			
+		});
+	}
 	//댓글등록하기 
 	 $(document).on("click","#btnReplaSave",function (){
 	
@@ -206,7 +251,7 @@
 		var fileform=new FormData(form);
 		$("#btnReplaSave").prop("disabled",true);
 		console.log(form);
-		
+		commentList();
 		$.ajax({
 			type:"POST",
 			enctype:"multipart/form-data",
@@ -219,30 +264,109 @@
 				if(result.length < 1){
 					htmls.push("등록된 댓글이 없습니다.");
 				}else{
-					$(result).each(function(){
-						htmls +='<div class="media text-muted pt-3" id="rid'+this.rid+'">';
-						htmls +='<div class="bd-placeholder-img mr-2 rounded" width="32" height="32" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder:32x32">';
-						htmls +='<title>Placeholder</title>';
-						htmls +='<rect width="100%" height="100%" fill="#007bff"></rect>';
-						htmls +='<text x="50%" fill="#007bff" dy = ".3em">32x32</text>';
-						htmls +='</div>';
-						htmls +='<p class="media-body pb-3 mb-0 small Ih-125 border-bottom horder-gray">';
-						htmls +='<span class="d-block">';
-						htmls +='<strong class="text-gray-dark">'+this.reg_id+'</strong>';
-						htmls +='<span style="padding-left: 7px; font-size:9pt">';
-						htmls +='<a href="javascript:void(0)" onclick="fn-editReply('+this.rid+',\''+this.reg_id+'\',\''+this.content+'\')" style="padding-right:5px">수정</a>';
-						htmls +='<a href="javascript:void(0)" onclick="fn_deleteReplay('+this.rid+')">삭제</a>';
-						htmls +='</span>';
-						htmls +='</span>';
-						htmls +='</p>';
-						htmls +='</div>';
-						
-					});
-				
+					for(let i=0;i < result.length;i++){
+						htmls += '<div class="commentArea" style="border-bottom:1px solid darkgray; margin-bottom: 15px;">';
+						htmls += '<div class="commentInfo'+result[i].AUCTION_COMMENT_NO+'"><input type="hidden" id="cNo" value="'+result[i].AUCTION_COMMENT_NO+'"/>'+'댓글번호 : '+result[i].AUCTION_COMMENT_NO+' / 작성자 : '+result[i].WRITER_KEY;
+						htmls += '<img src"${path}/resources/upload/auction/file/'+result[i].RENAMED_FILE_NAME+'" style="width:20px;heigth:20px"/>';
+						htmls += '<input type="button" onclick="commentUpdate('+result[i].AUCTION_COMMENT_NO+',\''+result[i].WRITER_KEY+'\' value="'+result[i].AUCTION_COMMENT_NO+'수정");"> </input>';
+						htmls += '<input type="button" onclick="commentDelete('+result[i].AUCTION_COMMENT_NO+');" value="'+result[i].AUCTION_COMMENT_NO+'삭제"></input>';
+						htmls += '<input type="button" onclick="commentAdd('+result[i].AUCTION_COMMENT_NO+');" value="'+result[i].AUCTION_COMMENT_NO+'답글쓰기"></input> </div>';
+						htmls += '<div class="commentContent'+result[i].AUCTION_COMMENT_NO+'"> <p class="AcContent">'+result[i].COMMENT_CONTENT+'</p>';
+						htmls += '</div></div>';
 				}
-				$("#replayList").html(htmls);
+				$("#replyList").html(htmls);
+			}
+		}
+		});
+	 });
+	//댓글 수정 input폼으로 변경
+	function commentUpdate(articleNo,content){
+	console.log("내용:"+content);
+	console.log("article"+articleNo);
+	
+		var b= "";
+		b += '<div class="input-group">';
+		b += '<input type="text" class="form-control" name="commentContent'+articleNo+'" value="'+content+'"/>';
+		b += '<span class="input-group-btn"><button class="btn btn-default" type="button" onclick="commentUpdateProc('+content+');">수정</button></span>';
+		b += '</div>';
+		$(".commentContent"+articleNo).html(b);
+	} 
+	
+	//댓글 수정
+	function commentUpdateProc(articleNo){
+		console.log("수정"+articleNo);
+		var updateContent=$('[name=commentContent'+articleNo+']').val();
+		console.log(""+updateContent);
+		$.ajax({
+			url:"${path}/auctionComment/update.do",
+			data:{'commentContent': updateContent,'refArticle':articleNo},
+			success: function(data){
+				if(data == 1 ) commentList(articleNo);// 댓글 수정후 목록
+			}
+		})
+	}
+	//댓글 삭제
+	function commentDelete(articleNo){
+		const auctionCommentNo="auctionCommentNo="+articleNo;
+		console.log(articleNo);
+		$.ajax({
+			url:'${path}/auctionComment/delete.do',
+			data:auctionCommentNo,
+			type:'post',
+			success: function(data){
+				alert("삭제되었습니다.");
+				if(data == 1) commentList(articleNo);//댓글 삭제후 목록 출력
 			}
 		});
-		}); 
+	}
+	//좋아요 클릭 
+<c:if test="${signedInMember != null}">
+	function likeClick(articleNo){
+		alert("like");
+		$("#imgLike").toggleClass("highlight red");
+		console.log("like"+articleNo);
+		 let writer=$("#reg_id").val();
+		 console.log("writer"+writer);
+		 let actorKey=Number(writer);
+		$.ajax({
+			url:"${path}/auctionComment/like.do",
+			data:{"commentNo":articleNo,"actorKey":actorKey},
+			type:'post',
+			success: function(data){
+				alert("좋아요!");
+				if(data == 1 ){
+					$("#imgLike").toggleClass("highlight");
+				}else{
+					alert("이미 클릭하셧습니다.");
+					return;
+				}
+				
+			}
+		});
+	}
+</c:if>
+<c:if test="${signedInMember == null}">
+function likeClick(articleNo){
+	alert("로그인이 필요합니다.");
+}
+</c:if>
+// 실시간 출력 
+function showClock(){
+	var currentDate=new Date();
+	var Clock=document.getElementById("clock");
+	var apm=currentDate.getHours();
+	if(apm < 12){
+		apm="오전";
+	}
+	else {
+		apm="오후";
+	}
+	var msg="현재시간:"+apm+(currentDate.getHours()-12)+"시";
+	msg += currentDate.getMinutes()+"분";
+	msg += currentDate.getSeconds()+"초";
+	
+	divClock.innerText=msg;
+	setTimeout(clock,1000);
+}
 </script>
 <jsp:include page="/WEB-INF/views/common/footer.jsp"/>

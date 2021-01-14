@@ -1,11 +1,15 @@
 package com.col.domein.auctionComment.model.service;
 
+import java.util.List;
+import java.util.Map;
+
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.col.domein.auctionComment.model.dao.AuctionCommentDao;
 import com.col.domein.auctionComment.model.vo.AuctionComment;
+import com.col.domein.auctionComment.model.vo.AuctionCommentLike;
 
 @Service
 public class AuctionCommentServiceImpl implements AuctionCommentService {
@@ -21,5 +25,43 @@ public class AuctionCommentServiceImpl implements AuctionCommentService {
 	public int acComment(AuctionComment ac) {
 		// TODO Auto-generated method stub
 		return dao.acComment(session,ac);
+	}
+
+	@Override
+	public List<Map> selectAuctionComment(int refAticle) {
+		// TODO Auto-generated method stub
+		return dao.selectAuctionComment(session, refAticle);
+	}
+	//댓글 수정
+	@Override
+	public int commentUpdate(int refArticle) {
+		// TODO Auto-generated method stub
+		return dao.commentUpdate(session,refArticle);
+	}
+
+	@Override
+	public int commentDelete(int auctionCommentNo) {
+		// TODO Auto-generated method stub
+		return dao.commentDelete(session,auctionCommentNo);
+	}
+
+	@Override
+	public int selectCommentCount(int articleNo) {
+		// TODO Auto-generated method stub
+		return dao.selectCommentCount(session,articleNo);
+	}
+
+
+
+	@Override
+	public int insertLike(AuctionCommentLike like) {
+		// TODO Auto-generated method stub
+		return dao.insertLike(session, like);
+	}
+	//좋아요 햇는지 안햇는지 체크 
+	@Override
+	public int checkLike(AuctionCommentLike like) {
+		// TODO Auto-generated method stub
+		return dao.checkLike(session,like);
 	}
 }

@@ -8,10 +8,16 @@
 <link rel="stylesheet"
 	href="${path }/resources/css/auction/auction.css" />
   <link rel="stylesheet" href="${path }/resources/css/jihunTab/TabMedia.css"/>
+
   
 <jsp:include page="/WEB-INF/views/common/header.jsp">
 	<jsp:param name="title" value=""/>
 </jsp:include>
+<link rel="stylesheet" href="http://code.jquery.com/ui/1.8.18/themes/base/jquery-ui.css" type="text/css" />  
+<!-- jQuery 기본 js파일 -->
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>  
+<!-- jQuery UI 라이브러리 js파일 -->
+<script src="http://code.jquery.com/ui/1.8.18/jquery-ui.min.js"></script> 
 <script>
     $(document).ready(function(){
         //로드될때
@@ -75,8 +81,8 @@
                        
                         <div class="register-date-group">
                             <h4>입찰날짜</h4>
-                            시작일:  <input type="date" class="input--text" name="startDate" placeholder="시작일" id="startDate" required>
-                            마감일:  <input type="date" class="input--text" name="endDate" placeholder="마감일" id="endDate" required>
+                            시작일:  <input type="text" class="input--text" name="startDate" placeholder="시작일" id="startDate" onchange="fn_triggerEnd(event)" autocomplete="off" required/>
+                            마감일:  <input type="text" class="input--text" name="endDate" placeholder="마감일" id="endDate"  autocomplete="off" disabled required>
                         </div>
                         
                   
@@ -107,7 +113,55 @@
   
 
 </section>
-<script type="text/javascript">
+<script>
+$(function(){		
+		/* datepicker 개시일에 생성 */
+        $("#startDate").datepicker({
+            dateFormat: 'yy-mm-dd',
+            prevText:'이전 달',
+            nextText:'다음 달',
+            currentText:'오늘',
+            monthNames:['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'],
+            monthNamesShort:['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'],
+            dayNames:['일','월','화','수','목','금','토'],
+            dayNamesShort:['일','월','화','수','목','금','토'],
+            showMonthAfteryear:true,
+            yearSuffix:'년',
+            defaultDate: new Date(),
+            minDate:0,
+            beforeShow: function(){
+            	setTimeout(function(){
+            		$('.ui-datepicker').css('z-index', 9999999999);
+            	}, 0);
+            }
+        }); 
+	})
+/* 게시일 값이 onchange될시 destroy후 종료일 datepicker생성 */
+	function fn_triggerEnd(e){
+	    $(e.target).next().attr('disabled',false);
+	    $(e.target).next().datepicker("destroy");
+	    $(e.target).next().datepicker({
+	        dateFormat: 'yy-mm-dd',
+	        prevText:'이전 달',
+	        nextText:'다음 달',
+	        currentText:'오늘',
+	        monthNames:['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'],
+	        monthNamesShort:['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'],
+	        dayNames:['일','월','화','수','목','금','토'],
+	        dayNamesShort:['일','월','화','수','목','금','토'],
+	        showMonthAfteryear:true,
+	        yearSuffix:'년',
+	        // defaultDate: new Date($("#startDate").val()),
+	        minDate: new Date($("#startDate").val()),
+	        beforeShow: function(){
+            	setTimeout(function(){
+            		$('.ui-datepicker').css('z-index', 9999999999);
+            	}, 0);
+            }
+	    });
+	};
+
+/* db에서 as */
 $(document).ready(function(){
 	$("#EnlloBtn").click(function(){
 		alert("등록되었습니다.");
