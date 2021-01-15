@@ -35,6 +35,7 @@
 	
 </style>
 <script>
+
     $(document).ready(function(){
         //로드될때
         $(".tab_content").hide();//모든탭을 숨겨~~
@@ -54,7 +55,7 @@
     });
 
 </script>
-<section id="content" onload="showClock()">
+<section id="content">
 
  <div id="octionPage">
 
@@ -91,9 +92,9 @@
                                 <li><span>제목:<c:out value="${list.TITLE}"/></span></li>
                                 <li><span>사업자:<c:out value="${list.BUSINESS_NAME}"/></span></li>
                                 <li>시작일:<fmt:formatDate value="${list.START_DATE}" pattern="yyyy-MM-dd HH:mm"/>
-                                <span class="Oction-date">마감일:<fmt:formatDate value="${list.END_DATE}" pattern="yyyy-MM-dd HH:mm"/></span>
+                                <span class="Oction-date">마감일:<span id="endDate"><fmt:formatDate value="${list.END_DATE}" pattern="yyyy-MM-dd HH:mm:ss"/></span></span>
                                 </li>
-                                <li >마감시한:<span id="clock"></span></li>
+                                <li ><span id="clock"></span></li>
                                 <li><h4>요구사항</h4></li>
                                 <li>
                                     
@@ -350,23 +351,46 @@ function likeClick(articleNo){
 	alert("로그인이 필요합니다.");
 }
 </c:if>
-// 실시간 출력 
-function showClock(){
-	var currentDate=new Date();
-	var Clock=document.getElementById("clock");
-	var apm=currentDate.getHours();
-	if(apm < 12){
-		apm="오전";
-	}
-	else {
-		apm="오후";
-	}
-	var msg="현재시간:"+apm+(currentDate.getHours()-12)+"시";
-	msg += currentDate.getMinutes()+"분";
-	msg += currentDate.getSeconds()+"초";
-	
-	divClock.innerText=msg;
-	setTimeout(clock,1000);
-}
+
+var date; 
+
+$(document).ready(function () { 
+    startDate(); 
+}); 
+
+function startDate() { 
+    date = setInterval(function () { 
+        var dateString = "마감기한: "; 
+        var endDay=document.querySelector("#endDate").innerText;
+        //var endDat=parseInt(endDay);
+		console.log(endDay);
+        var newDate = new Date(); 
+        var endDate= new Date(endDay);
+        
+
+        //String.slice(-2) : 문자열을 뒤에서 2자리만 출력한다. (문자열 자르기) 
+        dateString += newDate.getFullYear() + "-"; 
+        dateString += ("0" + (newDate.getMonth() + 1)).slice(-2) + "-"; //월은 0부터 시작하므로 +1을 해줘야 한다. 
+        dateString += ("0" + newDate.getDate()).slice(-2) + " "; 
+        dateString += ("0" + newDate.getHours()).slice(-2) + ":"; 
+        dateString += ("0" + newDate.getMinutes()).slice(-2) + ":"; 
+        dateString += ("0" + newDate.getSeconds()).slice(-2);
+        //document.write(dateString); 문서에 바로 그릴 수 있다.
+        var currentDate=endDate-newDate;//현재날짜에서 마감날짜를 뺀다.간격
+        var endTime=24*60*60*1000;//하루초 86400000
+        var day=(parseInt(currentDate/endTime)+"일");
+        var hour=(Math.floor((currentDate%(1000*60*60*24))/(1000*60*60))+"시");
+        var minute=(Math.floor((currentDate%(1000*60*60))/(1000*60))+"분");
+        var second=(Math.floor((currentDate%(1000*60))/1000)+"초");
+        console.log(""+day+""+hour+""+minute+""+second);
+        var endOfTime=(day+hour+minute+second);
+        $("#clock").text("마감시한:   "+endOfTime); 
+        
+    }, 1000); 
+} 
+
+function stopDate() { 
+    clearInterval(date); 
+} 
 </script>
 <jsp:include page="/WEB-INF/views/common/footer.jsp"/>
