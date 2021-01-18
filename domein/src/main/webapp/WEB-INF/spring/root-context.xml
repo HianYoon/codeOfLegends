@@ -73,7 +73,40 @@
 			</props>
 		</property>
 	</bean>
-	
+<!-- 	
+	<bean class="org.springframework.mail.javamail.JavaMailSenderImpl"
+	p:host="smtp.naver.com"
+	p:port="465"
+	p:username="wlgns_82"
+	p:password="">
+	<property name="javaMailProperties">
+		<props>
+			<prop key="mail.smtp.startls.enable">true</prop>
+			<prop key="mail.smtp.auth">true</prop>
+			<prop key="mail.smtps.ssl.checkserveridentity">true</prop>
+			<prop key="mail.smtps.ssl.trust">*</prop>
+			<prop key="mail.debug">true</prop>
+			<prop key="mail.smtp.socketFactory.class">javax.net.ssl.SSLSocketFactory</prop>
+		</props>
+	</property>
+	</bean>
+	Daum mail
+	<bean class="org.springframework.mail.javamail.JavaMailSenderImpl"
+	p:host="smtp.daum.net"
+	p:port="465"
+	p:username="@hanmai.net"
+	p:password="">
+	<property name="javaMailProperties">
+		<props>
+			<prop key="mail.smtp.startls.enable">true</prop>
+			<prop key="mail.smtp.auth">true</prop>
+			<prop key="mail.smtps.ssl.checkserveridentity">true</prop>
+			<prop key="mail.smtps.ssl.trust">*</prop>
+			<prop key="mail.debug">true</prop>
+			<prop key="mail.smtp.socketFactory.class">javax.net.ssl.SSLSocketFactory</prop>
+		</props>
+	</property>
+	</bean> -->
 	<bean id="memberService" class="com.col.domein.member.model.service.MemberService"></bean>
 
 </beans>

@@ -8,6 +8,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,9 +28,8 @@ import com.col.domein.auction.model.vo.BoardAttachementFile;
 import com.col.domein.auction.model.vo.BoardAttachementImage;
 import com.col.domein.auction.model.vo.BoardAuction;
 import com.col.domein.auctionComment.model.service.AuctionCommentService;
-import com.col.domein.auctionComment.model.vo.AuctionComment;
-import com.col.domein.business.model.vo.Business;
 import com.col.domein.common.pageBar.PageBarFactory;
+import com.col.domein.member.model.vo.Member;
 
 @Controller
 public class AuctionController {
@@ -98,8 +100,6 @@ public class AuctionController {
 					.imgRenamedFileName(rename).build();
 			imgs.add(bImg);
 			
-		}else {
-			mv.setViewName("");
 		}
 		auc.setStartDate(startDate);
 		auc.setEndDate(endDate);
@@ -169,7 +169,7 @@ public class AuctionController {
 	}
 	//옥션 view페이지
 	@RequestMapping("/auction/auctionView.do")
-	public ModelAndView auctionView(ModelAndView mv, int articleNo,int writerKey) {
+	public ModelAndView auctionView(HttpServletResponse response,HttpServletRequest request,ModelAndView mv, int articleNo,int writerKey) {
 		System.out.println("writerKey"+writerKey);
 		List<Map>  business=service.selectBusinessKey(writerKey);
 		List<Map> list=service.selectAuctionView(articleNo);
@@ -177,8 +177,35 @@ public class AuctionController {
 		int ComentCount =ACservice.selectCommentCount(articleNo);//댓글 갯수확인
 		System.out.println(" 댓글수:"+ComentCount);
 		int count=service.selectAuctionJoinCount(articleNo);//참여업체수 
-		//조회수 +1
-		service.plusReadCount(articleNo);
+		
+		
+		Cookie[] cookies=request.getCookies();
+		Cookie viewCookie=null;//비교하기위한 새로운 쿠키
+		//쿠키가 잇을경우
+		if(cookies != null && cookies.length > 0) {
+			for(int i=0; i<cookies.length;i++) {
+				//Cookie의 name이 cookie+ reviewNo와 일치하는 쿠키를 viewCookie에 넣어줌
+				if(cookies[i].getName().equals("cookie"+articleNo)) {
+					System.out.println("처음생성한 쿠키가 들어옴");
+					viewCookie=cookies[i];
+				}
+			}
+		}
+		if(viewCookie == null) {
+			System.out.println("cookie없음");
+			Cookie newCookie=new Cookie("cookie"+articleNo,"|"+articleNo+"|");
+			response.addCookie(newCookie);//쿠키추가
+			//조회수 +1
+			int result=service.plusReadCount(articleNo);
+			if(result>0) {
+				System.out.println("조회수증가");
+			}else {
+				System.out.println("조회수증가안함");
+			}
+		}else {
+			String value=viewCookie.getValue();
+			System.out.println("cookie값"+value);
+		}
 		
 		
 		mv.addObject("list",list);
@@ -232,6 +259,12 @@ public class AuctionController {
 		}
 		return mv;
 	}
+	@RequestMapping("/mail/mailsenderAll")
+	public ModelAndView mailsenderAll(int articleNo,ModelAndView mv) {
+		System.out.println(articleNo);
+	List<Member> m=	service.checkPeaple(articleNo);
+		
+		return mv;
+	}
 	
-
 }

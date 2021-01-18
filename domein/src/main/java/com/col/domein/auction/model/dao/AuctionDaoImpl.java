@@ -13,6 +13,7 @@ import com.col.domein.auction.model.vo.BidContent;
 import com.col.domein.auction.model.vo.BoardAttachementFile;
 import com.col.domein.auction.model.vo.BoardAttachementImage;
 import com.col.domein.auction.model.vo.BoardAuction;
+import com.col.domein.member.model.vo.Member;
 @Repository
 public class AuctionDaoImpl implements AuctionDao {
 
@@ -66,9 +67,9 @@ public class AuctionDaoImpl implements AuctionDao {
 	}
 	// 조회수 증가 
 	@Override
-	public void  plusReadCount(SqlSession session, int articleNo) {
+	public int  plusReadCount(SqlSession session, int articleNo) {
 		// TODO Auto-generated method stub
-		session.update("boardAuction.plusReadCount",articleNo);
+		return session.update("boardAuction.plusReadCount",articleNo);
 	}
 	//bid
 	@Override
@@ -176,5 +177,10 @@ public class AuctionDaoImpl implements AuctionDao {
 	public List<Map> selectAuctionListAll(SqlSession session) {
 		// TODO Auto-generated method stub
 		return session.selectList("boardAuction.selectAuctionListAll");
+	}
+	@Override
+	public List<Member> checkPeaple(SqlSession session, int articleNo) {
+		// TODO Auto-generated method stub
+		return session.selectList("boardAuction.checkPeaple",articleNo);
 	}
 }

@@ -115,4 +115,11 @@
 		<select id="selectAuctionListAll" resultType="map">
 			select * from board_auction b inner join BA_ATTACHED_IMAGE a on b.article_no=a.article_no inner join BUSINESS bs on b.writer_key=bs.business_key 
 		</select>
+		
+		<select id="checkPeaple" resultType="member">
+				select ba.article_no,ba.writer_key,ba.title,m.email,m.nickname from BOARD_AUCTION ba inner join AUCTION_BID ab  on ba.article_no=ab.article_no 
+		inner join business b on ab.writer_key=b.business_key 
+		inner join member m on b.member_key=m.member_key 
+		where ba.article_no= #{articleNo}
+		</select>
 </mapper>

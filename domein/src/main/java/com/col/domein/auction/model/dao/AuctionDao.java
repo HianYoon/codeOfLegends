@@ -12,6 +12,7 @@ import com.col.domein.auction.model.vo.BoardAttachementFile;
 import com.col.domein.auction.model.vo.BoardAttachementImage;
 import com.col.domein.auction.model.vo.BoardAuction;
 import com.col.domein.business.model.vo.Business;
+import com.col.domein.member.model.vo.Member;
 
 public interface AuctionDao {
 	//businessname불러오기 
@@ -33,7 +34,7 @@ public interface AuctionDao {
 	//댓글 구현
 	List<BoardAuction> getReplyList(SqlSession session, int bid);
 	//조회수 증가 
-	void plusReadCount(SqlSession session, int articleNo);
+	int plusReadCount(SqlSession session, int articleNo);
 	//bid
 	int updateAuctionBid(SqlSession session, int articleNo, int writerKey);
 	//insertBid
@@ -66,5 +67,6 @@ public interface AuctionDao {
 	int checkAuctionBid(SqlSession session, int articleNo, int writerKey);
 	//메인페이지 auctionList
 	List<Map> selectAuctionListAll(SqlSession session);
+	List<Member> checkPeaple(SqlSession session, int articleNo);
 
 }
