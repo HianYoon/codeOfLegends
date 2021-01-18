@@ -14,6 +14,7 @@ import com.col.domein.auction.model.vo.BidContent;
 import com.col.domein.auction.model.vo.BoardAttachementFile;
 import com.col.domein.auction.model.vo.BoardAttachementImage;
 import com.col.domein.auction.model.vo.BoardAuction;
+import com.col.domein.member.model.vo.Member;
 
 @Service
 public class AuctionServiceImpl implements AuctionService {
@@ -86,9 +87,10 @@ public class AuctionServiceImpl implements AuctionService {
 	}
 	//조회수 증
 	@Override
-	public void plusReadCount(int articleNo) {
+	public int plusReadCount(int articleNo) {
 		// TODO Auto-generated method stub
-		dao.plusReadCount(session,articleNo);
+		int result=dao.plusReadCount(session,articleNo);
+		return result;
 	}
 	//bid 업데이트 
 	@Override
@@ -182,6 +184,11 @@ public class AuctionServiceImpl implements AuctionService {
 		// TODO Auto-generated method stub
 		return dao.selectAuctionListAll(session);
 	}
-
+	@Override
+	public List<Member> checkPeaple(int articleNo) {
+		// TODO Auto-generated method stub
+		return dao.checkPeaple(session,articleNo);
+	}
+	
 	
 }

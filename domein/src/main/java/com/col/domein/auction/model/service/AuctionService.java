@@ -9,6 +9,7 @@ import com.col.domein.auction.model.vo.BoardAttachementFile;
 import com.col.domein.auction.model.vo.BoardAttachementImage;
 import com.col.domein.auction.model.vo.BoardAuction;
 import com.col.domein.business.model.vo.Business;
+import com.col.domein.member.model.vo.Member;
 
 public interface AuctionService {
 	//등록페이지사업자 정보불러오기
@@ -24,7 +25,7 @@ public interface AuctionService {
 	//비동기식 댓글
 	List<BoardAuction> getReplyList(int bid);
 	//조회수 증가 
-	void plusReadCount(int articleNo);
+	int plusReadCount(int articleNo);
 	//bid 증가 
 	int updateAuctionBid(int articleNo, int writerKey, int bidStatusNo);
 	//insert bid
@@ -53,6 +54,7 @@ public interface AuctionService {
 	int checkAuctionBid(int articleNo, int writerKey);
 	//메인 페이지 auctionlist 불러오기 
 	List<Map> selectAuctionListAll();
+	List<Member> checkPeaple(int articleNo);
 
 
 }

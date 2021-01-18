@@ -148,7 +148,6 @@
 </section>
 <script type="text/javascript">
 
-	
 	//listReply2();//json리턴방식
 	$("#addList").click(function(){
 		let articleNo=$("#articleNo").val();
@@ -164,6 +163,38 @@
 		const bid="articleNo="+articleNo+"&writerKey="+writerKey+"&bidStatusNo="+bidStatusNo+
 		"&productName="+productName+"&productQuality="+productQuality+"&productOrigin="+productOrigin+"&Quantity="+Quantity+
 		"&measureUnit="+measureUnit+"&price="+price;
+		
+		if($("#productName").val()==""){
+			alert("품명을 써주세요 ");
+			$("#productName").focus();
+			return false;
+		}
+		if($("#productQuality").val()==""){
+			alert("등급을 써주세요 ");
+			$("#productQuality").focus();
+			return false;
+		}
+		if($("#productOrigin").val()=="") {
+			alert("원산지을 써주세요 ");
+			$("#productOrigin").focus();
+			return false;
+		}
+		if($("#Quantity").val()=="" &&$("#Quantity").val()!=Number ){
+			alert("갯수을 써주세요 ");
+			$("#Quantity").focus();
+			return false;
+		}
+		if($("#measureUnit").val()==""){
+			alert("단위가 필요합니다.");
+			$("#measureUnit").focus();
+			return false;
+		}
+		if($("#price").val()=="") {
+			alert("가격을 써주세요 ");
+			$("#price").focus();
+			return false;
+		}
+		
 		
 		$.ajax({
 			type:"get",

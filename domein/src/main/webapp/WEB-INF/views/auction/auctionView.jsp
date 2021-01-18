@@ -35,6 +35,7 @@
 	
 </style>
 <script>
+
     $(document).ready(function(){
         //로드될때
         $(".tab_content").hide();//모든탭을 숨겨~~
@@ -54,7 +55,7 @@
     });
 
 </script>
-<section id="content" onload="showClock()">
+<section id="content">
 
  <div id="octionPage">
 
@@ -91,9 +92,9 @@
                                 <li><span>제목:<c:out value="${list.TITLE}"/></span></li>
                                 <li><span>사업자:<c:out value="${list.BUSINESS_NAME}"/></span></li>
                                 <li>시작일:<fmt:formatDate value="${list.START_DATE}" pattern="yyyy-MM-dd HH:mm"/>
-                                <span class="Oction-date">마감일:<fmt:formatDate value="${list.END_DATE}" pattern="yyyy-MM-dd HH:mm"/></span>
+                                <span class="Oction-date">마감일:<span id="endDate"><fmt:formatDate value="${list.END_DATE}" pattern="yyyy-MM-dd HH:mm:ss"/></span></span>
                                 </li>
-                                <li >마감시한:<span id="clock"></span></li>
+                                <li ><span id="clock"></span></li>
                                 <li><h4>요구사항</h4></li>
                                 <li>
                                     
@@ -203,8 +204,11 @@
 	</div>
 </div>
 </section>
+<c:set value="${list }" var="list"/>
 <script type="text/javascript" src="http://code.jquery.com/jquery-1.11.3.js" defer></script>
 <script type="text/javascript">
+const refNo=$("#refArticle").val();
+let refArticle = Number(refNo);
 	$(document).ready(function(){
 		$("#QnA").click(function(){
 			
@@ -219,8 +223,8 @@
 		commentList();//댓글 목록 불러오기 
 	});
 	//댓글 목록 불러오기 
-	const refNo=$("#refArticle").val();
-	let refArticle = Number(refNo);
+	/* const refNo=$("#refArticle").val();
+	let refArticle = Number(refNo); */
 	function commentList(){
 		$.ajax({
 			url:"${path}/auction/commentList",
@@ -232,8 +236,8 @@
 					htmls += '<div class="commentArea" style="border-bottom:1px solid darkgray; margin-bottom: 15px;">';
 					htmls += '<div class="commentInfo'+result[i].AUCTION_COMMENT_NO+'"><input type="hidden" id="cNo" value="'+result[i].AUCTION_COMMENT_NO+'"/>'+'댓글번호 : '+result[i].AUCTION_COMMENT_NO+' / 작성자 : '+result[i].WRITER_KEY;
 					htmls += '<img src"${path}/resources/upload/auction/file/'+result[i].RENAMED_FILE_NAME+'" style="width:20px;heigth:20px"/>';
-					htmls += '<input type="button" onclick="commentUpdate('+result[i].AUCTION_COMMENT_NO+',\''+result[i].WRITER_KEY+'\');"> 수정 </input>';
-					htmls += '<input type="button" onclick="commentDelete('+result[i].AUCTION_COMMENT_NO+');"> 삭제 </input> </div>';
+					htmls += '<input type="button" onclick="commentUpdate('+result[i].AUCTION_COMMENT_NO+',\''+result[i].WRITER_KEY+'\');" value="수정"> </input>';
+					htmls += '<input type="button" onclick="commentDelete('+result[i].AUCTION_COMMENT_NO+');" value="삭제"/> </div>';
 					htmls += '<a onclick="likeClick('+result[i].AUCTION_COMMENT_NO+');" data-v="'+result[i].AUCTION_COMMENT_NO+'" ><img  class="img class="animate__animated animate__bounce" id="imgLike" src="${path}/resources/images/auction/like.png" style="width:25px;height:25px;"/></a>';
 					htmls += '<div class="commentContent'+result[i].AUCTION_COMMENT_NO+'"> <p class="AcContent">'+result[i].COMMENT_CONTENT+'</p>';
 					htmls += '</div></div>';
@@ -268,9 +272,9 @@
 						htmls += '<div class="commentArea" style="border-bottom:1px solid darkgray; margin-bottom: 15px;">';
 						htmls += '<div class="commentInfo'+result[i].AUCTION_COMMENT_NO+'"><input type="hidden" id="cNo" value="'+result[i].AUCTION_COMMENT_NO+'"/>'+'댓글번호 : '+result[i].AUCTION_COMMENT_NO+' / 작성자 : '+result[i].WRITER_KEY;
 						htmls += '<img src"${path}/resources/upload/auction/file/'+result[i].RENAMED_FILE_NAME+'" style="width:20px;heigth:20px"/>';
-						htmls += '<input type="button" onclick="commentUpdate('+result[i].AUCTION_COMMENT_NO+',\''+result[i].WRITER_KEY+'\' value="'+result[i].AUCTION_COMMENT_NO+'수정");"> </input>';
-						htmls += '<input type="button" onclick="commentDelete('+result[i].AUCTION_COMMENT_NO+');" value="'+result[i].AUCTION_COMMENT_NO+'삭제"></input>';
-						htmls += '<input type="button" onclick="commentAdd('+result[i].AUCTION_COMMENT_NO+');" value="'+result[i].AUCTION_COMMENT_NO+'답글쓰기"></input> </div>';
+						htmls += '<input type="button" onclick="commentUpdate('+result[i].AUCTION_COMMENT_NO+',\''+result[i].WRITER_KEY+'\' value="'+result[i].AUCTION_COMMENT_NO+'");">수정 </input>';
+						htmls += '<input type="button" onclick="commentDelete('+result[i].AUCTION_COMMENT_NO+');" value="'+result[i].AUCTION_COMMENT_NO+'">삭제</input>';
+						htmls += '<input type="button" onclick="commentAdd('+result[i].AUCTION_COMMENT_NO+');" value="'+result[i].AUCTION_COMMENT_NO+'">답글쓰기</input> </div>';
 						htmls += '<div class="commentContent'+result[i].AUCTION_COMMENT_NO+'"> <p class="AcContent">'+result[i].COMMENT_CONTENT+'</p>';
 						htmls += '</div></div>';
 				}
@@ -279,6 +283,11 @@
 		}
 		});
 	 });
+<c:if test="{signedInMember == null}">
+$(document).on("click","#btnReplaSave",function (){
+	alert("로그인이 필요합니다");
+});
+
 	//댓글 수정 input폼으로 변경
 	function commentUpdate(articleNo,content){
 	console.log("내용:"+content);
@@ -291,7 +300,7 @@
 		b += '</div>';
 		$(".commentContent"+articleNo).html(b);
 	} 
-	
+</c:if>	
 	//댓글 수정
 	function commentUpdateProc(articleNo){
 		console.log("수정"+articleNo);
@@ -350,23 +359,55 @@ function likeClick(articleNo){
 	alert("로그인이 필요합니다.");
 }
 </c:if>
-// 실시간 출력 
-function showClock(){
-	var currentDate=new Date();
-	var Clock=document.getElementById("clock");
-	var apm=currentDate.getHours();
-	if(apm < 12){
-		apm="오전";
-	}
-	else {
-		apm="오후";
-	}
-	var msg="현재시간:"+apm+(currentDate.getHours()-12)+"시";
-	msg += currentDate.getMinutes()+"분";
-	msg += currentDate.getSeconds()+"초";
-	
-	divClock.innerText=msg;
-	setTimeout(clock,1000);
-}
+
+var date; 
+
+$(document).ready(function () { 
+    startDate(); 
+}); 
+
+function startDate() { 
+    date = setInterval(function () { 
+        var dateString = "마감기한: "; 
+        var endDay=document.querySelector("#endDate").innerText;
+        //var endDat=parseInt(endDay);
+		console.log(endDay);
+        var newDate = new Date(); 
+        var endDate= new Date(endDay);
+        
+
+        //String.slice(-2) : 문자열을 뒤에서 2자리만 출력한다. (문자열 자르기) 
+        dateString += newDate.getFullYear() + "-"; 
+        dateString += ("0" + (newDate.getMonth() + 1)).slice(-2) + "-"; //월은 0부터 시작하므로 +1을 해줘야 한다. 
+        dateString += ("0" + newDate.getDate()).slice(-2) + " "; 
+        dateString += ("0" + newDate.getHours()).slice(-2) + ":"; 
+        dateString += ("0" + newDate.getMinutes()).slice(-2) + ":"; 
+        dateString += ("0" + newDate.getSeconds()).slice(-2);
+        //document.write(dateString); 문서에 바로 그릴 수 있다.
+        var currentDate=endDate-newDate;//현재날짜에서 마감날짜를 뺀다.간격
+        console.log(currentDate);
+        var endTime=24*60*60*1000;//하루초 86400000
+        
+        var day=(parseInt(currentDate/endTime)+"일");
+        var hour=(Math.floor((currentDate%(1000*60*60*24))/(1000*60*60))+"시");
+        var minute=(Math.floor((currentDate%(1000*60*60))/(1000*60))+"분");
+        var second=(Math.floor((currentDate%(1000*60))/1000)+"초");
+      //  console.log(""+day+""+hour+""+minute+""+second);
+        var endOfTime=(day+hour+minute+second);
+        	if(currentDate > 0){
+		        $("#clock").text("마감시한:   "+endOfTime); 
+        	}else {
+        		stopDate();
+        		$("#clock").text("마감시한:종료되었습니다.");
+        		location.href="${path}/mail/mailsenderAll?articleNo=";
+        	}
+    
+        
+    }, 1000); 
+} 
+
+function stopDate() { 
+    clearInterval(date); 
+} 
 </script>
 <jsp:include page="/WEB-INF/views/common/footer.jsp"/>
