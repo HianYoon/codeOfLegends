@@ -7,7 +7,15 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Properties;
 
+import javax.mail.Message;
+import javax.mail.MessagingException;
+import javax.mail.Session;
+import javax.mail.Transport;
+import javax.mail.internet.AddressException;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -15,6 +23,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -260,11 +269,14 @@ public class AuctionController {
 		return mv;
 	}
 	@RequestMapping("/mail/mailsenderAll")
-	public ModelAndView mailsenderAll(int articleNo,ModelAndView mv) {
+	public ModelAndView mailsenderAll(int articleNo,ModelAndView mv,HttpServletRequest request,ModelMap map) 
+	throws AddressException,MessagingException{
 		System.out.println(articleNo);
-	List<Member> m=	service.checkPeaple(articleNo);
 		
-		return mv;
+	boolean m=	service.checkPeaple(articleNo);
+	mv.addObject("msg",m);
+	mv.setViewName("/auction/auctionView.do");
+	return mv;
 	}
 	
 }

@@ -399,7 +399,7 @@ function startDate() {
         	}else {
         		stopDate();
         		$("#clock").text("마감시한:종료되었습니다.");
-        		location.href="${path}/mail/mailsenderAll?articleNo=";
+        		location.href="${path}/mail/mailsenderAll?articleNo="+refArticle+"";
         	}
     
         

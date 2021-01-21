@@ -179,7 +179,7 @@ public class AuctionDaoImpl implements AuctionDao {
 		return session.selectList("boardAuction.selectAuctionListAll");
 	}
 	@Override
-	public List<Member> checkPeaple(SqlSession session, int articleNo) {
+	public List<String> checkPeaple(SqlSession session, int articleNo) {
 		// TODO Auto-generated method stub
 		return session.selectList("boardAuction.checkPeaple",articleNo);
 	}
