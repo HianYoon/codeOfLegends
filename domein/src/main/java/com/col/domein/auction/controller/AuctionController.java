@@ -269,14 +269,14 @@ public class AuctionController {
 		return mv;
 	}
 	@RequestMapping("/mail/mailsenderAll")
-	public ModelAndView mailsenderAll(int articleNo,ModelAndView mv,HttpServletRequest request,ModelMap map) 
+	public String mailsenderAll(int articleNo) 
 	throws AddressException,MessagingException{
 		System.out.println(articleNo);
 		
 	boolean m=	service.checkPeaple(articleNo);
-	mv.addObject("msg",m);
-	mv.setViewName("/auction/auctionView.do");
-	return mv;
+	
+	
+	return "redirect:/auction/auctionList.do";
 	}
 	
 }
