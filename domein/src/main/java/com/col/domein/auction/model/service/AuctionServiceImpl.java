@@ -202,13 +202,13 @@ public class AuctionServiceImpl implements AuctionService {
 			 //메일 보내기
 			 
 			 MimeMessage mail = mailSender.createMimeMessage();
-			 String mailContent = "<h1>[이메일 인증]</h1><br><p> auction종료메일입니다.</p>"
+			 String mailContent = "<h1>[Auction 종료 이메일]</h1><br><p> auction종료메일입니다.</p>"
 			                     + "<a href='http://localhost:9090/domein/auction/auctionView.do target='_blenk'>Auction종료</a>";
 
 			 try {
 			     for( String m: member) {
 			    	 
-			    	 mail.setSubject("회원가입 이메일 인증 ", "utf-8");
+			    	 mail.setSubject("Auction종료 이메일 ", "utf-8");
 			    	 mail.setText(mailContent, "utf-8", "html");
 			    	 
 			    	 mail.addRecipient(Message.RecipientType.TO, new InternetAddress(m));
