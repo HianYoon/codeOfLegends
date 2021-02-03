@@ -225,4 +225,16 @@ public class AuctionServiceImpl implements AuctionService {
 	
 	
 	}
+
+	@Override
+	public BoardAuction choicedOnAuction(int articleNo) {
+		// TODO Auto-generated method stub
+		BoardAuction result=dao.choicedOnAuction(session,articleNo);
+		return result ;
+	}
+	@Override
+	public BidContent choicedOnBidContent(int writerKey) {
+		// TODO Auto-generated method stub
+		return dao.choicedOnBidContent(session,writerKey);
+	}
 }

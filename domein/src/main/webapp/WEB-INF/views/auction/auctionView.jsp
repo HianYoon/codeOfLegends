@@ -134,7 +134,7 @@
                                 <!-- 모달스크립트 -->
                                 <div class="modal-btn">
                                     
-                                    <button id="modalOpen" class="btn btn--primary2">선택</button>
+                                    <button id="notifySendBtn" class="btn btn--primary2">선택</button>
                                 </div>
                                 <div class="modal-wrapper1" style="display: none;">
                                     <div class="modal1">
@@ -193,6 +193,7 @@
 									
 								</div>
 							</div>
+								<div id="msgStack"></div>
 									<div class="my-3 p-3 bg-white rounded shadow-sm" style="padding-top: 10px">
 										<h6 class="border-bottom pb-2 mb-0">Reply list</h6>
 										<div id="replyList"></div>
@@ -205,7 +206,9 @@
 </div>
 </section>
 <c:set value="${list }" var="list"/>
-<script type="text/javascript" src="http://code.jquery.com/jquery-1.11.3.js" defer></script>
+<script type="text/javascript" src="/resources/js/sockjs-0.3.4.min.js"></script>
+<script type="text/javascript" src="/resources/js/stomp.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sockjs-client@1/dist/sockjs.min.js"></script>
 <script type="text/javascript">
 const refNo=$("#refArticle").val();
 let refArticle = Number(refNo);
@@ -399,7 +402,15 @@ function startDate() {
         	}else {
         		stopDate();
         		$("#clock").text("마감시한:종료되었습니다.");
-        		location.href="${path}/mail/mailsenderAll?articleNo="+refArticle+"";
+        		$.ajax({
+        			url:'${path}/mail/mailsenderAll',
+        			data:{"articleNo":refArticle},
+        			type:'get',
+        			success:function(data){
+        				alert("옥션이 종료되었습니다.");
+        		
+        			}
+        		});
         	}
     
         
@@ -409,5 +420,60 @@ function startDate() {
 function stopDate() { 
     clearInterval(date); 
 } 
-</script>
+
+//connect() 종료되고 알림이 가도록 설정
+	//알림 설정
+// 전역변수 설정
+let socket  = null;
+$(document).ready(function(){
+  //웹소켓 연결
+    sock = new SockJS('<c:url value="/echo"/>');
+    socket = sock;
+
+    // 데이터를 전달 받았을때 
+    sock.onmessage = onMessage; // toast 생성
+});
+
+// toast생성 및 추가
+function onMessage(evt){
+    var data = evt.data;
+    // toast
+    let toast = "<div class='toast' role='alert' aria-live='assertive' aria-atomic='true'>";
+    toast += "<div class='toast-header'><i class='fas fa-bell mr-2'></i><strong class='mr-auto'>알림</strong>";
+    toast += "<small class='text-muted'>just now</small><button type='button' class='ml-2 mb-1 close' data-dismiss='toast' aria-label='Close'>";
+    toast += "<span aria-hidden='true'>&times;</span></button>";
+    toast += "</div> <div class='toast-body'>" + data + "</div></div>";
+    $("#msgStack").append(toast);   // msgStack div에 생성한 toast 추가
+    $(".toast").toast({"animation": true, "autohide": false});
+    $('.toast').toast('show');
+};	
+
+//메시지전송영역
+// notifySend
+$('#notifySendBtn').click(function(e,refNo){
+    let modal = $('.modal-content').has(e.target);
+    let type = '70';
+    let target = modal.find('.modal-body input').val();
+    let content = modal.find('.modal-body textarea').val();
+    let bidKey= $('input[name=writerKey]:checked').val();
+    // 전송한 정보를 db에 저장	
+    $.ajax({
+        type: 'post',
+        url: '${path}/member/saveNotify.do',
+        dataType: 'text',
+        data: {
+        	bidKey:bidKey,
+        	articleNo:refNo,
+            type: type,
+            url: url
+        },
+        success: function(){    // db전송 성공시 실시간 알림 전송
+            // 소켓에 전달되는 메시지
+            // 위에 기술한 EchoHandler에서 ,(comma)를 이용하여 분리시킨다.
+            socket.send("관리자,"+target+","+content);	
+        }
+    });
+    modal.find('.modal-body textarea').val('');	// textarea 초기화
+});
+</script>	
 <jsp:include page="/WEB-INF/views/common/footer.jsp"/>

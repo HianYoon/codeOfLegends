@@ -68,5 +68,8 @@ public interface AuctionDao {
 	//메인페이지 auctionList
 	List<Map> selectAuctionListAll(SqlSession session);
 	List<String> checkPeaple(SqlSession session, int articleNo);
+	//옥션 선택
+	BoardAuction choicedOnAuction(SqlSession session, int articleNo);
+	BidContent choicedOnBidContent(SqlSession session, int writerKey);
 
 }

@@ -2,6 +2,7 @@ package com.col.domein.auction.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.security.Principal;
 import java.sql.Date;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -22,6 +23,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.messaging.handler.annotation.MessageMapping;
+import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -32,6 +35,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.col.domein.auction.model.service.AuctionService;
 import com.col.domein.auction.model.vo.AuctionBid;
+import com.col.domein.auction.model.vo.AuctionOrderHistory;
 import com.col.domein.auction.model.vo.BidContent;
 import com.col.domein.auction.model.vo.BoardAttachementFile;
 import com.col.domein.auction.model.vo.BoardAttachementImage;
@@ -278,5 +282,23 @@ public class AuctionController {
 	
 	return "redirect:/auction/auctionList.do";
 	}
+	//websoket알림
+	@MessageMapping("/echo")
+	@SendTo("/subscribe/notice")
+	public String sendEcho(String message,Principal principal)throws Exception{
+		return message;
+	}
 	
+	@RequestMapping("/member/saveNotify.do")
+	@ResponseBody
+	public ModelAndView choicedOnAuction(ModelAndView mv,BidContent bid,BoardAuction auction,AuctionOrderHistory history,int writerKey,int articleNo ) {
+	
+		auction = service.choicedOnAuction(articleNo);
+		bid=service.choicedOnBidContent(writerKey);
+		mv.addObject("BidContent",bid);
+		mv.addObject("BoardAuction",auction);
+
+		return  mv;
+		
+	}
 }

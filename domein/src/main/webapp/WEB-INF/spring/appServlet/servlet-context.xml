@@ -4,10 +4,11 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xmlns:beans="http://www.springframework.org/schema/beans"
 	xmlns:context="http://www.springframework.org/schema/context"
+	  xmlns:websocket="http://www.springframework.org/schema/websocket"
 	xsi:schemaLocation="http://www.springframework.org/schema/mvc https://www.springframework.org/schema/mvc/spring-mvc.xsd
 		http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd
-		http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd">
-
+		http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd
+		http://www.springframework.org/schema/websocket http://www.springframework.org/schema/websocket/spring-websocket.xsd">
 	<!-- DispatcherServlet Context: defines this servlet's request-processing 
 		infrastructure -->
 
@@ -53,4 +54,19 @@
 			</beans:list>
 		</beans:property>
 	</beans:bean>
+	<!--     <websocket:message-broker application-destination-prefix="/app">
+        <websocket:stomp-endpoint path="/portfolio">
+            <websocket:sockjs/>
+        </websocket:stomp-endpoint>
+        <websocket:simple-broker prefix="/topic, /queue"/>
+    </websocket:message-broker> -->
+	
+<beans:bean id="echoHandler" class="com.col.domein.socket.EchoHandler" />
+<websocket:handlers>
+    <websocket:mapping handler="echoHandler" path="/echo" />
+    <websocket:handshake-interceptors>
+        <beans:bean class="org.springframework.web.socket.server.support.HttpSessionHandshakeInterceptor" />
+    </websocket:handshake-interceptors>	
+    <websocket:sockjs />
+</websocket:handlers>
 </beans:beans>
