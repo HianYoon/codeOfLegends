@@ -54,7 +54,10 @@ public interface AuctionService {
 	int checkAuctionBid(int articleNo, int writerKey);
 	//메인 페이지 auctionlist 불러오기 
 	List<Map> selectAuctionListAll();
-	List<Member> checkPeaple(int articleNo);
+	boolean checkPeaple(int articleNo);
+	//옥션 선택
+	BoardAuction choicedOnAuction(int articleNo);
+	BidContent choicedOnBidContent(int writerKey);
 
 
 }

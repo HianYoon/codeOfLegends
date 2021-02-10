@@ -151,7 +151,11 @@
 			<artifactId>json-lib-ext-spring</artifactId>
 			<version>1.0.2</version>
 		</dependency>
-
+		<dependency>
+	        <groupId>com.fasterxml.jackson.core</groupId>
+	        <artifactId>jackson-databind</artifactId>
+	        <version>${jackson.version}</version>
+	    </dependency>
 
 		<!-- lombok라이브러리 -->
 		<!-- https://mvnrepository.com/artifact/org.projectlombok/lombok -->
@@ -271,6 +275,18 @@
 			<version>1.1</version>
 			<scope>provided</scope>
 		</dependency>
+		<!--웹소켓알림  -->
+		<dependency>
+		    <groupId>org.springframework</groupId>
+		    <artifactId>spring-websocket</artifactId>
+		    <version>${org.springframework-version}</version>
+		</dependency>
+		
+			<dependency>
+			    <groupId>org.springframework</groupId>
+			    <artifactId>spring-messaging</artifactId>
+			    <version>${org.springframework-version}</version>
+			</dependency>
 
 
 		<!-- Test -->

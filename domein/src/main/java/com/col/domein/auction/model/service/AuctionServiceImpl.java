@@ -2,10 +2,15 @@ package com.col.domein.auction.model.service;
 
 import java.util.List;
 import java.util.Map;
-import java.util.TreeMap;
+
+import javax.mail.Message;
+import javax.mail.MessagingException;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 
 import com.col.domein.auction.model.dao.AuctionDao;
@@ -23,6 +28,8 @@ public class AuctionServiceImpl implements AuctionService {
 	private AuctionDao dao;
 	@Autowired
 	private SqlSession session;
+	@Autowired
+	private JavaMailSender mailSender;
 	//등록페이지 사업자정보불러오기
 	@Override
 	public List<Map> selectBusinessKey(int memberKey) {
@@ -185,10 +192,49 @@ public class AuctionServiceImpl implements AuctionService {
 		return dao.selectAuctionListAll(session);
 	}
 	@Override
-	public List<Member> checkPeaple(int articleNo) {
+	public boolean checkPeaple(int articleNo) {
 		// TODO Auto-generated method stub
-		return dao.checkPeaple(session,articleNo);
+		boolean flag=false;//상태값을 false로하는것은 true이면 이메일이보낸것이고 아니면 실패;
+		 List<String> member=	dao.checkPeaple(session,articleNo);
+		 System.out.println(""+member);
+		
+		 if(member != null) {
+			 //메일 보내기
+			 
+			 MimeMessage mail = mailSender.createMimeMessage();
+			 String mailContent = "<h1>[Auction 종료 이메일]</h1><br><p> auction종료메일입니다.</p>"
+			                     + "<a href='http://localhost:9090/domein/auction/auctionView.do target='_blenk'>Auction종료</a>";
+
+			 try {
+			     for( String m: member) {
+			    	 
+			    	 mail.setSubject("Auction종료 이메일 ", "utf-8");
+			    	 mail.setText(mailContent, "utf-8", "html");
+			    	 
+			    	 mail.addRecipient(Message.RecipientType.TO, new InternetAddress(m));
+			    	 mailSender.send(mail);
+			    	 flag=true;
+			     }
+			 } catch (MessagingException e) {
+			     e.printStackTrace();
+			     return false;
+			 }
+
 	}
+		return flag;
 	
 	
+	}
+
+	@Override
+	public BoardAuction choicedOnAuction(int articleNo) {
+		// TODO Auto-generated method stub
+		BoardAuction result=dao.choicedOnAuction(session,articleNo);
+		return result ;
+	}
+	@Override
+	public BidContent choicedOnBidContent(int writerKey) {
+		// TODO Auto-generated method stub
+		return dao.choicedOnBidContent(session,writerKey);
+	}
 }

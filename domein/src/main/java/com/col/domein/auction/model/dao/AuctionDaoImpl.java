@@ -179,8 +179,18 @@ public class AuctionDaoImpl implements AuctionDao {
 		return session.selectList("boardAuction.selectAuctionListAll");
 	}
 	@Override
-	public List<Member> checkPeaple(SqlSession session, int articleNo) {
+	public List<String> checkPeaple(SqlSession session, int articleNo) {
 		// TODO Auto-generated method stub
 		return session.selectList("boardAuction.checkPeaple",articleNo);
 	}
+	@Override
+	public BoardAuction choicedOnAuction(SqlSession session, int articleNo) {
+		return session.selectOne("boardAuction.choicedOnAuction",articleNo);
+	}
+	@Override
+	public BidContent choicedOnBidContent(SqlSession session, int writerKey) {
+		// TODO Auto-generated method stub
+		return session.selectOne("boardAuction.choicedOnBidContent",writerKey);
+	}
+
 }
