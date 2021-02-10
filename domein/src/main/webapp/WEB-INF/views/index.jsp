@@ -49,8 +49,7 @@
 
 <section id="content">
 <div>
-	<pre>
-	<a href="${path }/admin/userList.do">ss</a>
+	<%-- <pre>
 	
 	<!-- ////////////////////////////////////////slick 광고 /////////////////////////////////////////////////////-->
 	<div class="div_slickContainer">        
@@ -63,7 +62,7 @@
     
     <!-- ////////////////////////////////////////slick 광고 /////////////////////////////////////////////////////-->
 
-	</pre>
+	</pre> --%>
 </div>
 <h2 class="auction--h2">A U C T I O N</h2>
 		<div id="grid2" class="oction-list-container">
@@ -130,6 +129,7 @@
                      </c:forEach>  
                     </div>    
                 </div>  
+                <a href="${path }/admin/userList.do">유저리스트 테스트</a>
 </section>
 <script>
     $(function(){
